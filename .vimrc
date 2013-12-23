@@ -1,7 +1,9 @@
 " vim_startingは、vimの起動時のみ真になる
 if has('vim_starting')
-   set nocompatible               " Be iMproved
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
+	set nocompatible               " Be iMproved
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
+	set runtimepath+=~/.vim/
+	runtime! userautoload/*.vim
 endif
 
 " neobundleの初期化
@@ -9,8 +11,21 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 " Recommended to install
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+" :NeoBundleInstall
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_mingw32.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
 NeoBundle 'vim-scripts/YankRing.vim'
+NeoBundle 'vim-scripts/tComment'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'goldfeld/vim-seek'
 
 
 " ----------------------------------------
@@ -118,87 +133,17 @@ endfunction
 map ,c :Compile<CR>
 
 
-" -------------------------
-" unite.vim
-" -------------------------
-" 入力モードで開始する
-" let g:unite_enable_start_insert=1
-" バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-" ファイル一覧
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" 常用セット
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-" 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-
-" ファイル一覧時の動作
-" qで終了
-" Enterで現在のウィンドウに開く
-" sでウィンドウを横に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> s unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> s unite#do_action('split')
-" vでウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> v unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> v unite#do_action('vsplit')
-" tでウィンドウをタブで開く
-au FileType unite nnoremap <silent> <buffer> <expr> t unite#do_action('tabopen')
-au FileType unite inoremap <silent> <buffer> <expr> t unite#do_action('tabopen')
-
-" -------------------------
-" YankRing.vim
-" pでペーストした後に、Ctrl+p, Ctrl+nでそれ以前にヤンクした履歴をペーストできる
-" -------------------------
-let g:yankring_max_history = 10    " 記録する履歴の件数を10件に制限する
-let g:yankring_window_height = 13  " 履歴全件を見通せるようにウィンドウの高さを調整
-
-" -------------------------
-" EasyMotion.vim
-" Ctrl+m[移動コマンド]で移動可能先をハイライトしてアルファベットで移動先を指定できる
-" -------------------------
-let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-let g:EasyMotion_leader_key = "<C-m>"
-let g:EasyMotion_grouping = 1   " 1ストローク選択を優先する
-
-" -------------------------
-" tComment
-" Alt+/ でコメントアウト
-" -------------------------
-map <silent> <A-/> :TComment<CR>
-
-
-" -------------------------
-" その他
-" -------------------------
-" -------------------------
-" :Scouter でVimmerの戦闘力を計測
-" -------------------------
-function! Scouter(file, ...)
-  let pat = '^\s*$\|^\s*"'
-  let lines = readfile(a:file)
-  if !a:0 || !a:1
-    let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
-  endif
-  return len(filter(lines,'v:val !~ pat'))
-endfunction
-command! -bar -bang -nargs=? -complete=file Scouter
-\        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
-command! -bar -bang -nargs=? -complete=file GScouter
-\        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
 
 
 
 
- filetype plugin indent on     " Required!
- "
- " Brief help
- " :NeoBundleList          - list configured bundles
- " :NeoBundleInstall(!)    - install(update) bundles
- " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+filetype plugin indent on     " Required!
+"
+" Brief help
+" :NeoBundleList          - list configured bundles
+" :NeoBundleInstall(!)    - install(update) bundles
+" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 
- " Installation check.
- NeoBundleCheck
+" Installation check.
+NeoBundleCheck
+
