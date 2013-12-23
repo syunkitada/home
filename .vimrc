@@ -1,16 +1,16 @@
+" vim_startingは、vimの起動時のみ真になる
 if has('vim_starting')
    set nocompatible               " Be iMproved
    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+" neobundleの初期化
 call neobundle#rc(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Recommended to install
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'vim-scripts/YankRing.vim'
 
 
 " ----------------------------------------

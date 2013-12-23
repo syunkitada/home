@@ -1,3 +1,8 @@
+source ~/.git-completion.bash
+source ~/.git-prompt.sh
+
+GIT_PS1_SHOWDIRTYSTATE=true
+
 # -------------------------------------------------------------
 # environment
 
@@ -10,6 +15,7 @@ export TZ=Asia/Tokyo
 
 # history
 # ignoreboth: ignore space and dups
+export HISTIGNORE="ls*:history*"
 export HISTCONTROL="ignoreboth"
 export HISTFILESIZE="4096"
 export HISTSIZE="4096"
@@ -19,10 +25,11 @@ export HISTSIZE="4096"
 # terminal
 
 # prompt
-export PS1="\[${_PromptColor}\]
-\[\e[0;37m\](\t)\[\e[00m\] [\u@\[\e[1;31m\]\H\[\e[00m\]:\w | Retv:\$? Jobs:\j]
-# \[\e[0m\]"
+PS1='
+\[\e[0;37m\](\t)\[\e[00m\] [\u@\[\e[1;31m\]\H\[\e[00m\]:\w \[\e[1;31m\]$(__git_ps1 "(%s)")\[\e[00m\] | Retv:${?} Jobs:\j]
+# '
 
+export PS1=$PS1
 
 # -------------------------------------------------------------
 # complete
@@ -45,5 +52,4 @@ alias ls='ls -hF --color=always --show-control-chars'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
-
 
