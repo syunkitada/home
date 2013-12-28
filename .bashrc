@@ -6,8 +6,15 @@ GIT_PS1_SHOWDIRTYSTATE=true
 # -------------------------------------------------------------
 # environment
 
+# for gnupack on windows
 if [ `uname -o` = "Cygwin" ]; then
-    export GIT_SSH=${HOMEPATH}\\Desktop\\gnupack\\putty-gdi-20130306\\plink.exe
+	plink="/home/Desktop/gnupack/putty-gdi-20130306/plink"
+	plink_exe=${plink/\/home/$HOMEPATH}.exe
+	plink_exe=${plink_exe//\//\\}
+    alias plink="${plink} -ssh -A -l `whoami`"
+
+    export GIT_SSH=$plink_exe
+	git config --global core.editor vim-nox
 fi
 
 # time zone
