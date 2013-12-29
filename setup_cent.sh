@@ -35,4 +35,3 @@ ln -s $git_prompt $ln_git_prompt
 ln -s $git_completion $ln_git_completion
 
 git clone https://github.com/Shougo/neobundle.vim.git $bundle
-

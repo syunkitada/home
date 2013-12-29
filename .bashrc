@@ -3,18 +3,21 @@ source ~/.git-prompt.sh
 
 GIT_PS1_SHOWDIRTYSTATE=true
 
+export LANG='ja_JP.UTF-8'
+export LC_ALL='ja_JP.UTF-8'
+export LC_MESSAGES='ja_JP.UTF-8'
+
 # -------------------------------------------------------------
 # environment
 
 # for gnupack on windows
 if [ `uname -o` = "Cygwin" ]; then
-	plink="/home/Desktop/gnupack/putty-gdi-20130306/plink"
+	plink="/home/Desktop/cygwin64/putty/plink"
 	plink_exe=${plink/\/home/$HOMEPATH}.exe
 	plink_exe=${plink_exe//\//\\}
     alias plink="${plink} -ssh -A -l `whoami`"
 
     export GIT_SSH=$plink_exe
-	git config --global core.editor vim-nox
 fi
 
 # time zone

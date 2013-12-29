@@ -7,7 +7,7 @@ home
 
 for Cent OS
 
-    $ setup_cent.sh
+    $ ./setup_cent.sh
     
     # ついでに、git clone https://github.com/Shougo/neobundle.vim.git も行います
 
@@ -17,5 +17,5 @@ for Windows
     
     # setup_win.batでは、neobundleのgit cloneは行いません
     # 別途、homeディレクトリで以下を行う必要がある
-    git clone https://github.com/Shougo/neobundle.vim.git .vim/bundle/neobundle.vim/
+    $ ./setup_win_clone_neobundle.sh
 

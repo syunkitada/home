@@ -1,5 +1,4 @@
-: set で変数を定義
-: ここで、本来のbashrcなどのパスを定義しておく
+: set variables of rc files.
 
 set home=%CD%\
 set bashrc=%home%.bashrc
@@ -11,7 +10,7 @@ set vimfiles=%home%.vim
 set git_prompt=%home%.git-prompt.sh
 set git_completion=%home%.git-completion.bash
 
-set ln_bashrc=%HOMEPATH%\.bashrc
+set ln_bashrc=%HOMEPATH%\.bash_profile
 set ln_vimrc=%HOMEPATH%\.vimrc
 set ln_vrapperrc=%HOMEPATH%\.vrapperrc
 set ln_gvimrc=%HOMEPATH%\.gvimrc
@@ -20,7 +19,7 @@ set ln_vimfiles=%HOMEPATH%\vimfiles
 set ln_git_prompt=%HOMEPATH%\.git-prompt.sh
 set ln_git_completion=%HOMEPATH%\.git-completion.bash
 
-: cls で、以前の実行結果を表示から消す
+: cls is clean display
 cls
 
 del %ln_bashrc%
@@ -41,13 +40,11 @@ mklink %ln_vrapperrc% %vrapperrc%
 mklink %ln_git_prompt% %git_prompt%
 mklink %ln_git_completion% %git_completion%
 
-: @echo off で、以下実行コマンドを表示させない
+
+: @echo off is what don't output command.
 @echo off
 
-: 改行
 echo.
 echo press any key to end.
-
-: 実行を止める（なにかキーを押すと再開し、終了する）
 pause > nul
 
