@@ -40,29 +40,33 @@ bash, vimなど。
 
 ### sshの鍵作成
     $ ssh-keygen -t rsa -b 5096 -C "hoge@piyo.com"
-    公開鍵(.ssh/id_rsa.pub)をgit_hubや、sshで利用するサーバのホームに置いておく
     
-    秘密鍵からputtyのpagent用の秘密鍵(id_rsa.ppk)を作成しておく
-    また、以下のようなショートカットを作成しておくと便利
-    pagent.exe C:\Users\<username>\.ssh\id_rsa.ppk
-
-    git-hubに公開鍵を登録して、接続テストしてみる
+作成した公開鍵(.ssh/id_rsa.pub)は、git_hubや、sshで利用するサーバのホームに置いておく。
+    
+git-hubに公開鍵を登録したら、接続テストしてみる。
+    
     $ ssh -T git@github.com
     
-    gitでsshを利用する場合、環境変数GIT_SSHにputtyのplink.exeのパスをセットしておくとエージェント認証できる
-    .bashrcに書いておこう
+gitでsshを利用する場合、環境変数GIT_SSHにputtyのplink.exeのパスをセットしておくとエージェント認証できる。  
+（.bashrcに書いておこう）
+
     $ export GIT_SSH=plinkパス
+
+エージェント認証用に、秘密鍵からputtyのpagent用の秘密鍵(id_rsa.ppk)を作成しておく。  
+また、以下のようなショートカットを作成しておくと便利です。
+
+    pagent.exe C:\Users\<username>\.ssh\id_rsa.ppk
+
     
 ### 設定ファイルの配置
     $ git clone git@github.com:syunkitada/home.git
     $ cd home
     $ ./setup_win_clone_neobundle.sh
     
-    エクスプローラからsetup_win.bat を管理者権限で実行
-    （setup_win.batは、各種設定ファイルのシンボリックリンクをユーザディレクトリに配置する）
+エクスプローラからsetup_win.bat を管理者権限で実行する。  
+（setup_win.batは、各種設定ファイルのシンボリックリンクをユーザディレクトリに配置する）
  
-    .bashrc内で、plinkのパスを適宜変更
-
+.bashrc内で、plinkのパスを適宜変更します。
 
 
 ## CentOSの設定
@@ -79,7 +83,7 @@ CentOS-6.5-i386-minimal を想定
       %wheel ALL=(ALL) ALL
 
 ### ネットワークの設定
-ブート時にネットワークに接続するようにする
+ブート時にネットワークに接続するようにする。
 
     $ vi /etc/sysconfig/network-scripts/ifcfg-eth0
       ONBOOT=yes
@@ -88,24 +92,39 @@ CentOS-6.5-i386-minimal を想定
 ### パッケージのインストール
 
     $ sudo yum update
-    $ sudo yum install git gcc vim wget
+    $ sudo yum install man wget git gcc gcc-c++ vim wget
+
+#### python系のパッケージインストール
+    $ sudo yum install python-devel libxml2-devel libxslt-devel
+    $ wget http://python-distribute.org/distribute_setup.py
+    $ sudo python distribute_setup.py
+    $ sudo easy_install pip
+
+* python-devel, libxml2-devel, libxslt-devel は、setup.pyでbuild, installするために必要。
+* distribute_setup.pyは、distributeをインストールするためのスクリプトです。  
+distributeは、setuptoolsの互換パッケージです。  
+（setuptoolsは、ほとんどメンテナンスされていないので、こっちのが良い）
+* pipは、setuptoolsに含まれているeasy_installの置き換えとして開発されているものです。
+
 
 ### sshの設定
 
-    scpなどで、公開鍵(id_rsa.pub)をホームディレクトリに持ってくる
+事前に、scpなどで公開鍵(id_rsa.pub)をホームディレクトリに持ってくる。
+
     $ mkdir .ssh
     $ chmod 700 .ssh
     $ cp id_rsa.pub .ssh/authorized_keys
     $ chmod 600 .ssh/authorized_keys
 
-    これで、公開鍵を使ってのssh接続が可能になる
-    接続テストができたら、rootでのログインとパスワード認証を無効にしておく
+これで、公開鍵を使ってのssh接続が可能になる。
+接続テストができたら、rootでのログインとパスワード認証を無効にしておく。
 
     $ sudo vi /etc/ssh/sshd_config
       PermitRootLogin no
       PasswordAuthentication no
     
     $ sudo service sshd restart
+
 
 ### 設定ファイルの配置
     $ git clone git@github.com:syunkitada/home.git
