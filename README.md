@@ -24,6 +24,11 @@ bash, vimなど。
  * vim
  * vim-common
 
+### homeディレクトリの変更
+    $ vim /etc/passwd
+      ユーザのホームディレクトリが、/home/<username> となっているので、
+      /cygdrive/c/Users/<username> に書き変えて保存する
+
 ### mittyの設定
 * Looksから、半透明に設定
 * Textから、フォントを設定（MSゴシックとか）
@@ -81,7 +86,9 @@ CentOS-6.5-i386-minimal を想定
     $ sudo service network restart
 
 ### パッケージのインストール
-    $ yum install git gcc vim
+sudo yum -y install yum-priorities
+    $ sudo yum update
+    $ sudo yum install git gcc vim wget
 
 ### sshの設定
 
