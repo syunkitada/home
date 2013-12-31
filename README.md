@@ -86,7 +86,7 @@ CentOS-6.5-i386-minimal を想定
     $ sudo service network restart
 
 ### パッケージのインストール
-sudo yum -y install yum-priorities
+
     $ sudo yum update
     $ sudo yum install git gcc vim wget
 
