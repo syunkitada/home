@@ -39,18 +39,15 @@ NeoBundle 'goldfeld/vim-seek'
 set fileformat=unix
 set encoding=utf-8
 set fileencodings=utf-8
-set nocompatible " Vi互換モードOFF
+set nocompatible
 
+" シンタックス
 syntax on
 colorscheme molokai
 
 " 日本語対応関連
 set iminsert=0 " インサートモード中でデフォルト日本語入力をONにしない
 set imsearch=0 " 検索モードでデフォルト日本語入力をONにしない
-" C-] で日本語入力固定モード(デフォルト入力が日本語になる)の切替
-inoremap <silent> <Esc> <Esc>
-inoremap <silent> <C-[> <C-[>
-inoremap <silent> <C-]> <C-^>
 
 set number "行数の表示
 " set relativenumber " 相対行番号を有効にする
@@ -59,9 +56,10 @@ set nobackup
 set virtualedit=block " 矩形ビジュアルモードの選択範囲をブロック型にする
 
 " タブ（幅は4）, タブをスペースにする
+set autoindent
 set tabstop=4
 set shiftwidth=4
-set expandtab
+" set expandtab
 
 " 検索設定 
 set hlsearch
