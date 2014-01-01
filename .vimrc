@@ -6,6 +6,10 @@ if has('vim_starting')
 	runtime! userautoload/*.vim
 endif
 
+let &t_ti .= "\e[22;0t"
+let &t_te .= "\e[23;0t"
+set title
+
 " neobundleの初期化
 call neobundle#rc(expand('~/.vim/bundle/'))
 
