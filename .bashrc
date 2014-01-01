@@ -3,9 +3,8 @@ source ~/.git-prompt.sh
 
 GIT_PS1_SHOWDIRTYSTATE=true
 
-export LANG='ja_JP.UTF-8'
-export LC_ALL='ja_JP.UTF-8'
-export LC_MESSAGES='ja_JP.UTF-8'
+export TZ='/usr/share/zoneinfo/Asia/Tokyo'
+export LANG='en.us.UTF-8'
 
 # -------------------------------------------------------------
 # environment

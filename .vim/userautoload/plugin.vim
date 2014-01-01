@@ -52,6 +52,7 @@ let g:EasyMotion_grouping = 1   " 1ストローク選択を優先する
 " -------------------------
 map <silent> <C-/> :TComment<CR>
 
+
 " -------------------------
 " vim-seek
 " fの2文字検索版
@@ -69,4 +70,13 @@ map <silent> <C-/> :TComment<CR>
 map <F3> <Plug>Vm_toggle_sign
 map <silent> mm <Plug>Vm_toggle_sign
 
+
+" -------------------------
+" vimshell
+" vim上でshellを使えるようにします
+" ,s 新しいバッファ上でShellを立ち上げる
+" ,v ウィンドウ分割してShellを立ち上げる
+" -------------------------
+nmap ,s :VimShell<CR>
+nmap ,sp :VimShellPop<CR>
 
