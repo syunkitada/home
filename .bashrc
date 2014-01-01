@@ -12,8 +12,8 @@ export LC_MESSAGES='ja_JP.UTF-8'
 
 # for gnupack on windows
 if [ `uname -o` = "Cygwin" ]; then
-	plink="/home/Desktop/cygwin64/putty/plink"
-	plink_exe=${plink/\/home/$HOMEPATH}.exe
+	plink="$HOME/Desktop/cygwin64/putty/plink"
+	plink_exe=${plink/$HOME/$HOMEPATH}.exe
 	plink_exe=${plink_exe//\//\\}
     alias plink="${plink} -ssh -A -l `whoami`"
 
