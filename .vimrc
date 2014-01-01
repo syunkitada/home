@@ -28,6 +28,7 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 NeoBundle 'vim-scripts/YankRing.vim'
 NeoBundle 'vim-scripts/tComment'
+NeoBundle 'vim-scripts/sudo.vim'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'goldfeld/vim-seek'
 
@@ -57,9 +58,10 @@ set noswapfile
 set nobackup
 set virtualedit=block " 矩形ビジュアルモードの選択範囲をブロック型にする
 
-" タブ（幅は4）
+" タブ（幅は4）, タブをスペースにする
 set tabstop=4
 set shiftwidth=4
+set expandtab
 
 " 検索設定 
 set hlsearch
