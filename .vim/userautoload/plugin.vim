@@ -80,3 +80,14 @@ map <silent> mm <Plug>Vm_toggle_sign
 nmap ,s :VimShell<CR>
 nmap ,sp :VimShellPop<CR>
 
+
+" -------------------------
+" sudo.vim
+" root権限で、ファイルを編集したい場合、
+" 通常のsudo vim を利用するとユーザのvimrcを読み込んでくれない。
+" 以下のように、呼び出すとユーザのvimrcを読み込んで演習できる。
+" $ vim sudo:filename
+" :e sudo:filename
+" :e sudo:%
+" -------------------------
+
