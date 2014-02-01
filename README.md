@@ -23,6 +23,8 @@ bash, vimなど。
 * editor
  * vim
  * vim-common
+* net
+ * curl
 
 ### homeディレクトリの変更
     $ vim /etc/passwd
@@ -67,6 +69,11 @@ gitでsshを利用する場合、環境変数GIT_SSHにputtyのplink.exeのパ�
 （setup_win.batは、各種設定ファイルのシンボリックリンクをユーザディレクトリに配置する）
  
 .bashrc内で、plinkのパスを適宜変更します。
+
+### xampp環境
+* xamppインストール
+* xampp/php, xampp/perl/bin をWindowsのPATHに追加
+* php.confのopenssl 有効にしたり
 
 
 ## CentOSの設定
