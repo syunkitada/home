@@ -98,5 +98,4 @@ nmap ,sp :VimShellPop<CR>
 " -------------------------
 nmap <silent> ,e <C-y>,
 vmap <silent> ,e <C-y>,
-imap <silent> ,e <Esc><C-y>,
 
