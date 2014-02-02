@@ -31,6 +31,7 @@ NeoBundle 'vim-scripts/tComment'
 NeoBundle 'vim-scripts/sudo.vim'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'goldfeld/vim-seek'
+NeoBundle 'mattn/emmet-vim'
 
 
 " ----------------------------------------

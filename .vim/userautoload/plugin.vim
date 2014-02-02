@@ -91,3 +91,12 @@ nmap ,sp :VimShellPop<CR>
 " :e sudo:%
 " -------------------------
 
+" -------------------------
+" emmet
+" ,e でemmet補完
+" visualモード時に,e で Wrap with Abbreviation
+" -------------------------
+nmap <silent> ,e <C-y>,
+vmap <silent> ,e <C-y>,
+imap <silent> ,e <Esc><C-y>,
+
