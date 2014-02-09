@@ -25,6 +25,7 @@ bash, vimなど。
  * vim-common
 * net
  * curl
+ * wget
 
 ### homeディレクトリの変更
     $ vim /etc/passwd
