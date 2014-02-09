@@ -25,6 +25,7 @@ bash, vimなど。
  * vim-common
 * net
  * curl
+ * wget
 
 ### homeディレクトリの変更
     $ vim /etc/passwd
@@ -69,6 +70,13 @@ gitでsshを利用する場合、環境変数GIT_SSHにputtyのplink.exeのパ�
 （setup_win.batは、各種設定ファイルのシンボリックリンクをユーザディレクトリに配置する）
  
 .bashrc内で、plinkのパスを適宜変更します。
+
+### vimの設定
+コンソールからvimを立ち上げると、neobundleがプラグインをインストールします。
+
+この時点だと、vimshellがvimからは使えるが、gvimからは使えない。（vimprocのコンパイル環境が異なるため）  
+なので、gvimがあるフォルダのplugins/vimproc/autoload/vimproc_win64.dll を.vim/bundle/vimproc/autoload/にコピーする必要がある。  
+また、cygwin64/bin のパスを通しておくことで、gvimのvimshellからコマンドが実行できるようになる。
 
 ### xampp環境
 * xamppインストール
