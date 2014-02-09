@@ -78,7 +78,13 @@ map <silent> mm <Plug>Vm_toggle_sign
 " ,v ウィンドウ分割してShellを立ち上げる
 " -------------------------
 nmap ,s :VimShell<CR>
+nmap ,st <Esc>tabe<CR>:VimShellTab<CR>
 nmap ,sp :VimShellPop<CR>
+
+" プロンプトの設定
+let g:vimshell_prompt = '$ '
+let username = system("whoami")
+let g:vimshell_user_prompt = '"(".strftime("%H:%M:%S").") [".hostname().":".getcwd()."]"'
 
 
 " -------------------------

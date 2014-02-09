@@ -6,6 +6,7 @@ if has('vim_starting')
 	runtime! userautoload/*.vim
 endif
 
+
 let &t_ti .= "\e[22;0t"
 let &t_te .= "\e[23;0t"
 set title
@@ -17,6 +18,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 " :NeoBundleInstall
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
