@@ -4,6 +4,7 @@ set home=%CD%\
 set bashrc=%home%.bashrc
 set vimrc=%home%.vimrc
 set vrapperrc=%home%.vrapperrc
+set vimshrc=%home%.vimshrc
 set gvimrc=%home%.gvimrc
 set vim=%home%.vim
 set vimfiles=%home%.vim
@@ -13,6 +14,7 @@ set git_completion=%home%.git-completion.bash
 set ln_bashrc=%HOMEPATH%\.bash_profile
 set ln_vimrc=%HOMEPATH%\.vimrc
 set ln_vrapperrc=%HOMEPATH%\.vrapperrc
+set ln_vimshrc=%HOMEPATH%\.vimshrc
 set ln_gvimrc=%HOMEPATH%\.gvimrc
 set ln_vim=%HOMEPATH%\.vim
 set ln_vimfiles=%HOMEPATH%\vimfiles
@@ -28,6 +30,7 @@ del %ln_gvimrc%
 del %ln_vim%
 del %ln_vimfiles%
 del %ln_vrapperrc%
+del %ln_vimshrc%
 del %ln_git_prompt%
 del %ln_git_completion%
 
@@ -37,6 +40,7 @@ mklink %ln_gvimrc% %gvimrc%
 mklink %ln_vim% %vim%
 mklink %ln_vimfiles% %vimfiles%
 mklink %ln_vrapperrc% %vrapperrc%
+mklink %ln_vimshrc% %vimshrc%
 mklink %ln_git_prompt% %git_prompt%
 mklink %ln_git_completion% %git_completion%
 
