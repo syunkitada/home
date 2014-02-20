@@ -78,9 +78,11 @@ map <silent> mm <Plug>Vm_toggle_sign
 " ,v ウィンドウ分割してShellを立ち上げる
 " -------------------------
 nmap ,s :VimShell<CR>
-nmap ,sh :VimShell<CR>
+nmap ,sh :VimShellCreate<CR>
 nmap ,st :VimShellTab<CR>
 nmap ,sp :VimShellPop<CR>
+nmap ,ss :VimShellCreate -split-command=split<CR>
+nmap ,sv :VimShellCreate -split-command=vsplit<CR>
 
 " プロンプトの設定
 let g:vimshell_prompt = '$ '
