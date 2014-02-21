@@ -24,7 +24,6 @@ export TZ=Asia/Tokyo
 
 # history
 # ignoreboth: ignore space and dups
-export HISTIGNORE="ls*:history*"
 export HISTCONTROL="ignoreboth"
 export HISTFILESIZE="4096"
 export HISTSIZE="4096"
@@ -52,6 +51,7 @@ export PS1=$PS1
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+alias vimsh='vim -c :VimShell'
 
 # alias for misc
 alias grep='grep --color'

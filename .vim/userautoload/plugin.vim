@@ -83,6 +83,9 @@ nmap ,st :VimShellTab<CR>
 nmap ,sp :VimShellPop<CR>
 nmap ,ss :VimShellCreate -split-command=split<CR>
 nmap ,sv :VimShellCreate -split-command=vsplit<CR>
+nmap ,sw :VimShellCreate<CR><Esc>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>j<Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>k
+
+
 
 " プロンプトの設定
 let g:vimshell_prompt = '$ '
