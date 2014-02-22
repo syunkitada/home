@@ -3,11 +3,17 @@ source ~/.git-prompt.sh
 
 GIT_PS1_SHOWDIRTYSTATE=true
 
+# -------------------------------------------------------------
+# environment
+
 export TZ='/usr/share/zoneinfo/Asia/Tokyo'
 export LANG='en.us.UTF-8'
 
-# -------------------------------------------------------------
-# environment
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+	export TERM='xterm-256color'
+else
+	export TERM='xterm-color'
+fi
 
 # for gnupack on windows
 if [ `uname -o` = "Cygwin" ]; then
