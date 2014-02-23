@@ -44,6 +44,9 @@ set encoding=utf-8
 set fileencodings=utf-8
 set nocompatible
 
+" マウス操作を有効にする
+set mouse=a
+
 " シンタックス
 syntax on
 colorscheme molokai

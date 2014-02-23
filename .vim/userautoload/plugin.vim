@@ -40,10 +40,10 @@ let g:yankring_window_height = 13  " 履歴全件を見通せるようにウィ�
 
 " -------------------------
 " EasyMotion.vim
-" Ctrl+m[移動コマンド]で移動可能先をハイライトしてアルファベットで移動先を指定できる
+" z[移動コマンド]で移動可能先をハイライトしてアルファベットで移動先を指定できる
 " -------------------------
 let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-let g:EasyMotion_leader_key = "<C-m>"
+let g:EasyMotion_leader_key = "z"
 let g:EasyMotion_grouping = 1   " 1ストローク選択を優先する
 
 " -------------------------
@@ -76,6 +76,10 @@ map <silent> mm <Plug>Vm_toggle_sign
 " vim上でshellを使えるようにします
 " ,s 新しいバッファ上でShellを立ち上げる
 " ,v ウィンドウ分割してShellを立ち上げる
+" Tabで補完
+" C-lで履歴表示　
+" ,sw は、画面を４分割してvimshellを開きます
+" sudo実行に関して、毎回paswordを入力する必要がある（仕様です）
 " -------------------------
 nmap ,s :VimShell<CR>
 nmap ,sh :VimShellCreate<CR>
@@ -85,8 +89,6 @@ nmap ,ss :VimShellCreate -split-command=split<CR>
 nmap ,sv :VimShellCreate -split-command=vsplit<CR>
 nmap ,sw :VimShellCreate<CR><Esc>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>j<Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>k
 
-
-
 " プロンプトの設定
 let g:vimshell_prompt = '$ '
 let username = system("whoami")
@@ -94,7 +96,8 @@ let g:vimshell_user_prompt = '"(".strftime("%H:%M:%S").") [".hostname().":".getc
 
 
 " -------------------------
-"  neocomple
+"  neocomplcache
+" -------------------------
 let g:neocomplcache_enable_at_startup = 1
 
 
