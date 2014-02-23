@@ -17,10 +17,11 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " Recommended to install
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 " :NeoBundleInstall
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimproc', {
+NeoBundle 'git://github.com/Shougo/unite.vim'
+NeoBundle 'git://github.com/Shougo/vimfiler.vim'
+NeoBundle 'git://github.com/Shougo/neocomplcache'
+NeoBundle 'git://github.com/Shougo/vimshell'
+NeoBundle 'git://github.com/Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
       \     'cygwin' : 'make -f make_cygwin.mak',
@@ -28,12 +29,12 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle 'vim-scripts/YankRing.vim'
-NeoBundle 'vim-scripts/tComment'
-NeoBundle 'vim-scripts/sudo.vim'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'goldfeld/vim-seek'
-NeoBundle 'mattn/emmet-vim'
+NeoBundle 'git://github.com/Sim-scripts/YankRing.vim'
+NeoBundle 'git://github.com/Sim-scripts/tComment'
+NeoBundle 'git://github.com/Sim-scripts/sudo.vim'
+NeoBundle 'git://github.com/Sokaltog/vim-easymotion'
+NeoBundle 'git://github.com/Soldfeld/vim-seek'
+NeoBundle 'git://github.com/thinca/vim-quickrun'
 
 
 " ----------------------------------------
@@ -124,6 +125,7 @@ augroup MyGroup
     autocmd Filetype cpp command! Compile call CppCompile()
     autocmd Filetype python command! Compile call PyCompile()
     autocmd Filetype perl command! Compile call PlCompile()
+    autocmd Filetype ruby command! Compile call RbCompile()
 augroup END
 function! CCompile()
     echo compile
@@ -138,6 +140,10 @@ endfunction
 function! PlCompile()
     :w
     :!perl %
+endfunction
+function! RbCompile()
+    :w
+    :!ruby %
 endfunction
 
 map ,c :Compile<CR>

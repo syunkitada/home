@@ -1,3 +1,44 @@
+" -------------------------
+"  vimfiler
+" ,fs でEclipse風のエクスプローラを開く（バッファ表示)
+" ,ff でVimFilerを2画面作成
+" ,ft でVimFilerを新規タブで２画面作成
+"
+" # 使い方
+" -- 表示 --
+" t   フォルダを展開
+" T   展開解除
+" o   1ウィンドウの場合は新たにvimfilerを起動し、2ウィンドウの場合はディレクトリ位置を同期する
+" Tab 1ウィンドウの場合は新たにvimfilerを起動し、2ウィンドウの場合はウィンドウを切り替える
+" H   シェルを起動
+"
+" -- 移動 --
+" hjkl フォルダ・選択移動
+" \    ルートに移動
+" ~    ホームに移動
+" $    ゴミ箱に移動 (uコマンドでファイルの復元)
+"
+" -- 編集 --
+" e  ファイルの編集
+" q  バッファの残して終了
+" Q  終了
+" c  マークしたファイルをコピー
+" m  マークしたファイルを移動
+" d  マークしたファイルを削除(ゴミ箱）
+" D  マークしたファイルを完全削除(rm相当)
+" u  ファイルをゴミ箱から復元
+" r  マークしたファイルの名前を変更
+" K  新規ディレクトリを作成
+" N  新規ファイルを作成
+" *  すべてのファイルにマークをつける・マークをはずす
+" U  すべてのファイルのマークをはずす
+" -------------------------
+nmap ,fs :VimFiler -split -simple -winwidth=35 -no-quit<CR>
+nmap ,ff :VimFiler<CR>o
+nmap ,ft :tabe<CR>:VimFiler<CR>o
+"vimデフォルトのエクスプローラをvimfilerで置き換える
+let g:vimfiler_as_default_explorer = 1
+
 
 " -------------------------
 " unite.vim
@@ -99,6 +140,12 @@ let g:vimshell_user_prompt = '"(".strftime("%H:%M:%S").") [".hostname().":".getc
 "  neocomplcache
 " -------------------------
 let g:neocomplcache_enable_at_startup = 1
+
+" -------------------------
+"  quickrun
+"  ,r で一番下にウィンドウを分割させて高さ8spで実行結果を表示する
+" -------------------------
+nmap ,r :QuickRun -outputter/buffer/split "botright 8sp"<CR>
 
 
 " -------------------------
