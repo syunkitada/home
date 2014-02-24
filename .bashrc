@@ -1,15 +1,5 @@
-source ~/.git-completion.bash
-source ~/.git-prompt.sh
-
-GIT_PS1_SHOWDIRTYSTATE=true
-
 # -------------------------------------------------------------
 # environment
-
-export TZ='/usr/share/zoneinfo/Asia/Tokyo'
-export LANG='en.us.UTF-8'
-
-export TERM='xterm-256color'
 
 # for gnupack on windows
 if [ `uname -o` = "Cygwin" ]; then
@@ -17,12 +7,13 @@ if [ `uname -o` = "Cygwin" ]; then
 	plink_exe=${plink/$HOME/$HOMEPATH}.exe
 	plink_exe=${plink_exe//\//\\}
     alias plink="${plink} -ssh -A -l `whoami`"
-
     export GIT_SSH=$plink_exe
 fi
 
-# time zone
+# basic
 export TZ=Asia/Tokyo
+export LANG='en.us.UTF-8'
+export TERM='xterm-256color'
 
 # history
 # ignoreboth: ignore space and dups
@@ -33,6 +24,9 @@ export HISTSIZE="4096"
 
 # -------------------------------------------------------------
 # terminal
+source ~/.git-completion.bash
+source ~/.git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=true
 
 # prompt
 PS1='
@@ -40,6 +34,7 @@ PS1='
 # '
 
 export PS1=$PS1
+
 
 # -------------------------------------------------------------
 # complete

@@ -33,11 +33,12 @@
 " *  すべてのファイルにマークをつける・マークをはずす
 " U  すべてのファイルのマークをはずす
 " -------------------------
-nmap ,fs :VimFiler -split -simple -winwidth=35 -no-quit<CR>
+nmap ,fs :VimFiler -split -simple -winwidth=40 -no-quit<CR>
 nmap ,ff :VimFiler<CR>o
 nmap ,ft :tabe<CR>:VimFiler<CR>o
 "vimデフォルトのエクスプローラをvimfilerで置き換える
 let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_edit_action = 'tabopen'
 
 
 " -------------------------

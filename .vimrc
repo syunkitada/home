@@ -47,6 +47,7 @@ set nocompatible
 
 " マウス操作を有効にする
 set mouse=a
+set clipboard+=unnamed
 
 " シンタックス
 syntax on
