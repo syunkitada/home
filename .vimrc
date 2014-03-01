@@ -10,9 +10,7 @@ endif
 " neobundleの初期化
 call neobundle#rc(expand('~/.vim/bundle/'))
 
-" Recommended to install
-" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-" :NeoBundleInstall
+" plugins
 NeoBundle 'git://github.com/Shougo/unite.vim'
 NeoBundle 'git://github.com/Shougo/vimfiler.vim'
 NeoBundle 'git://github.com/Shougo/neocomplcache'
@@ -31,9 +29,11 @@ NeoBundle 'git://github.com/Sim-scripts/sudo.vim'
 NeoBundle 'git://github.com/Sokaltog/vim-easymotion'
 NeoBundle 'git://github.com/Soldfeld/vim-seek'
 NeoBundle 'git://github.com/thinca/vim-quickrun'
-NeoBundle 'git://github.com/tpope/vim-fugitive.git'
 NeoBundle 'git://github.com/gregsexton/gitv.git'
-
+NeoBundle 'git://github.com/mhinz/vim-startify.git'
+NeoBundle 'git://github.com/mattn/emmet-vim.git'
+NeoBundle 'git://github.com/tpope/vim-surround.git'
+NeoBundle 'git://github.com/tpope/vim-fugitive.git'
 
 " ----------------------------------------
 " 各種設定
@@ -44,8 +44,7 @@ set fileencodings=utf-8
 set nocompatible
 
 " マウス操作を有効にする
-set mouse=a
-set clipboard+=unnamed
+set mouse=nv
 
 " シンタックス
 syntax on

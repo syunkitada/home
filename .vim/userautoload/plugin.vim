@@ -172,14 +172,14 @@ vmap <silent> ,e <C-y>,
 " -------------------------
 " vim-fugitve
 " -------------------------
-nmap ,gs :Gstatus
-nmap ,gd :Gdiff
-nmap ,ga :Gwrite
-nmap ,gl :Glog
-nmap ,gc :Gcommit
-nmap ,gb :Gblame
-nmap ,gm :Gmove
-nmap ,gr :Gremove
+nmap ,gs :Gstatus<CR>
+nmap ,gd :Gdiff<CR>
+nmap ,ga :Gwrite<CR>
+nmap ,gl :Glog<CR>
+nmap ,gc :Gcommit<CR>
+nmap ,gb :Gblame<CR>
+nmap ,gm :Gmove<CR>
+nmap ,gr :Gremove<CR>
 
 
 " -------------------------
@@ -189,4 +189,12 @@ nmap ,gr :Gremove
 nmap ,gg :Gitv git
 " ファイル単位でコミットログを確認できる
 nmap ,gv :Gitv!
+
+
+" -------------------------
+"  vim-statify
+"  vimを開始した時にスタートページを表示します
+"  スタートページには,以下が表示され、ファイルを選択・編集できます
+"  バッファ、最近開いたファイル、現在のディレクトリで最近開いたファイル
+" -------------------------
 
