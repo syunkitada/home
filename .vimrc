@@ -2,14 +2,10 @@
 if has('vim_starting')
 	set nocompatible               " Be iMproved
 	set runtimepath+=~/.vim/bundle/neobundle.vim/
-	set runtimepath+=~/.vim/
+
+	" autoload my vimscript
 	runtime! userautoload/*.vim
 endif
-
-
-let &t_ti .= "\e[22;0t"
-let &t_te .= "\e[23;0t"
-set title
 
 " neobundleの初期化
 call neobundle#rc(expand('~/.vim/bundle/'))
@@ -35,6 +31,8 @@ NeoBundle 'git://github.com/Sim-scripts/sudo.vim'
 NeoBundle 'git://github.com/Sokaltog/vim-easymotion'
 NeoBundle 'git://github.com/Soldfeld/vim-seek'
 NeoBundle 'git://github.com/thinca/vim-quickrun'
+NeoBundle 'git://github.com/tpope/vim-fugitive.git'
+NeoBundle 'git://github.com/gregsexton/gitv.git'
 
 
 " ----------------------------------------
@@ -63,10 +61,11 @@ set noswapfile
 set nobackup
 set virtualedit=block " 矩形ビジュアルモードの選択範囲をブロック型にする
 
-" タブ（幅は4）, タブをスペースにする
+" タブ（幅は4）
 set autoindent
 set tabstop=4
 set shiftwidth=4
+" タブをスペースにする
 " set expandtab
 
 " 検索設定 
@@ -84,77 +83,13 @@ set wildmenu wildmode=list:full
 " indentは、オートインデントモードのインデントを削除可能にする
 set backspace=start,eol,indent
 
+" set vim title
+let &t_ti .= "\e[22;0t"
+let &t_te .= "\e[23;0t"
+set title
 
-" ----------------------------------------
-" .vimrc
-" ----------------------------------------
-" .vimrcのオープンコマンド
-let vimrcbody = '$MYVIMRC'
-let gvimrcbody = '$MYGVIMRC'
-function! OpenFile(file)
-    let empty_buffer = line('$') == 1 && strlen(getline('1')) == 0
-    if empty_buffer && !&modified
-        execute 'e ' . a:file
-    else
-        execute 'tabnew ' . a:file
-    endif
-endfunction
-command! OpenMyVimrc call OpenFile(vimrcbody)
-command! OpenMyGVimrc call OpenFile(gvimrcbody)
-nnoremap <Space><Space> :<C-u>OpenMyVimrc<CR>
-nnoremap <Space><Tab> :<C-u>OpenMyGVimrc<CR>
-
-" .vimrcを編集したら即反映する
-augroup MyAutoCmd
-    autocmd!
-augroup END
-
-if !has('gui_running') && !(has('win32') || has('win64'))
-    " .vimrcの再読込時にも色が変化するようにする
-    autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
-else
-    " .vimrcの再読込時にも色が変化するようにする
-    autocmd MyAutoCmd BufWritePost $MYVIMRC source $MYVIMRC | 
-                \if has('gui_running') | source $MYGVIMRC  
-    autocmd MyAutoCmd BufWritePost $MYGVIMRC if has('gui_running') | source $MYGVIMRC
-endif
-
-
-" コンパイルして実行
-augroup MyGroup
-    autocmd Filetype c command! Compile call CCompile()
-    autocmd Filetype cpp command! Compile call CppCompile()
-    autocmd Filetype python command! Compile call PyCompile()
-    autocmd Filetype perl command! Compile call PlCompile()
-    autocmd Filetype ruby command! Compile call RbCompile()
-augroup END
-function! CCompile()
-    echo compile
-endfunction
-function! CppCompile()
-    echo compile
-endfunction
-function! PyCompile()
-    :w
-    :!python %
-endfunction
-function! PlCompile()
-    :w
-    :!perl %
-endfunction
-function! RbCompile()
-    :w
-    :!ruby %
-endfunction
-
-map ,c :Compile<CR>
-
-
-
-
-
-
-filetype plugin indent on     " Required!
+" ---------- NeoBundle ----------
+filetype plugin indent on " Required!
 "
 " Brief help
 " :NeoBundleList          - list configured bundles
@@ -163,4 +98,5 @@ filetype plugin indent on     " Required!
 
 " Installation check.
 NeoBundleCheck
+
 

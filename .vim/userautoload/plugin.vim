@@ -129,7 +129,8 @@ nmap ,st :VimShellTab<CR>
 nmap ,sp :VimShellPop<CR>
 nmap ,ss :VimShellCreate -split-command=split<CR>
 nmap ,sv :VimShellCreate -split-command=vsplit<CR>
-nmap ,sw :VimShellCreate<CR><Esc>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>j<Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>k
+" nmap ,sw :VimShellCreate<CR><Esc>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>j<Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>k
+nmap ,sw :VimFiler<CR>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR>
 
 " プロンプトの設定
 let g:vimshell_prompt = '$ '
@@ -166,4 +167,26 @@ nmap ,r :QuickRun -outputter/buffer/split "botright 8sp"<CR>
 " -------------------------
 nmap <silent> ,e <C-y>,
 vmap <silent> ,e <C-y>,
+
+
+" -------------------------
+" vim-fugitve
+" -------------------------
+nmap ,gs :Gstatus
+nmap ,gd :Gdiff
+nmap ,ga :Gwrite
+nmap ,gl :Glog
+nmap ,gc :Gcommit
+nmap ,gb :Gblame
+nmap ,gm :Gmove
+nmap ,gr :Gremove
+
+
+" -------------------------
+" gitv
+" -------------------------
+" gitをコミットグラフで表示しつつ、差分を確認できる
+nmap ,gg :Gitv git
+" ファイル単位でコミットログを確認できる
+nmap ,gv :Gitv!
 
