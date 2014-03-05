@@ -5,12 +5,15 @@ augroup MyGroup
     autocmd Filetype python command! Compile call PyCompile()
     autocmd Filetype perl command! Compile call PlCompile()
     autocmd Filetype ruby command! Compile call RbCompile()
+    autocmd Filetype php command! Compile call PHPCompile()
 augroup END
 function! CCompile()
-    echo compile
+	:w
+	:!gcc % -o %.out && ./%.out
 endfunction
 function! CppCompile()
-    echo compile
+	:w
+	:!g++ % -o %.out && ./%.out
 endfunction
 function! PyCompile()
     :w
@@ -23,6 +26,10 @@ endfunction
 function! RbCompile()
     :w
     :!ruby %
+endfunction
+function! PHPCompile()
+    :w
+    :!php %
 endfunction
 
 map ,c :Compile<CR>
