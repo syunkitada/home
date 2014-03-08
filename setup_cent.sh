@@ -42,4 +42,4 @@ ln -s $vim $ln_vim
 ln -s $vimshrc $ln_vimshrc
 ln -s $vrapperrc $ln_vrapperrc
 
-git clone https://github.com/Shougo/neobundle.vim.git $bundle
+git clone https://github.com/Shougo/neobundle.vim.git $neobundle
