@@ -23,11 +23,11 @@ NeoBundle 'git://github.com/Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle 'git://github.com/Sim-scripts/YankRing.vim'
-NeoBundle 'git://github.com/Sim-scripts/tComment'
-NeoBundle 'git://github.com/Sim-scripts/sudo.vim'
-NeoBundle 'git://github.com/Sokaltog/vim-easymotion'
-NeoBundle 'git://github.com/Soldfeld/vim-seek'
+NeoBundle 'git://github.com/vim-scripts/YankRing.vim'
+NeoBundle 'git://github.com/vim-scripts/tComment'
+NeoBundle 'git://github.com/vim-scripts/sudo.vim'
+NeoBundle 'git://github.com/Lokaltog/vim-easymotion'
+NeoBundle 'git://github.com/goldfeld/vim-seek'
 NeoBundle 'git://github.com/thinca/vim-quickrun'
 NeoBundle 'git://github.com/gregsexton/gitv.git'
 NeoBundle 'git://github.com/mhinz/vim-startify.git'
