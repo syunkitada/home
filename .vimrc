@@ -23,6 +23,7 @@ NeoBundle 'git://github.com/Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'git://github.com/h1mesuke/unite-outline'
 NeoBundle 'git://github.com/vim-scripts/YankRing.vim'
 NeoBundle 'git://github.com/vim-scripts/tComment'
 NeoBundle 'git://github.com/vim-scripts/sudo.vim'

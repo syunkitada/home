@@ -1,5 +1,7 @@
+
 " -------------------------
 "  vimfiler
+"
 " ,fs でEclipse風のエクスプローラを開く（バッファ表示)
 " ,ff でVimFilerを2画面作成
 " ,ft でVimFilerを新規タブで２画面作成
@@ -33,7 +35,6 @@
 " N  新規ファイルを作成
 " *  すべてのファイルにマークをつける・マークをはずす
 " U  すべてのファイルのマークをはずす
-" -------------------------
 nmap ,fs :VimFiler -split -simple -winwidth=40 -no-quit<CR>
 nmap ,ff :VimFiler<CR>o
 nmap ,ft :tabe<CR>:VimFiler<CR>o
@@ -44,7 +45,7 @@ let g:vimfiler_edit_action = 'tabopen'
 
 " -------------------------
 " unite.vim
-" -------------------------
+"
 " 入力モードで開始する
 " let g:unite_enable_start_insert=1
 " ファイル一覧
@@ -79,7 +80,15 @@ autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
 
 
 " -------------------------
+" unite-outline
+"
+" ,uo : アウトライン表示
+" -------------------------
+nnoremap <silent> ,uo : <C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>
+
+" -------------------------
 " YankRing.vim
+"
 " pでペーストした後に、Ctrl+p, Ctrl+nでそれ以前にヤンクした履歴をペーストできる
 " -------------------------
 let g:yankring_max_history = 10    " 記録する履歴の件数を10件に制限する
@@ -87,14 +96,17 @@ let g:yankring_window_height = 13  " 履歴全件を見通せるようにウィ�
 
 " -------------------------
 " EasyMotion.vim
+"
 " z[移動コマンド]で移動可能先をハイライトしてアルファベットで移動先を指定できる
 " -------------------------
 let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 let g:EasyMotion_leader_key = "z"
 let g:EasyMotion_grouping = 1   " 1ストローク選択を優先する
 
+
 " -------------------------
 " tComment
+"
 " Ctrl+/ でコメントアウト
 " -------------------------
 map <silent> <C-/> :TComment<CR>
@@ -102,6 +114,7 @@ map <silent> <C-/> :TComment<CR>
 
 " -------------------------
 " vim-seek
+"
 " fの2文字検索版
 " sで検索を開始(sをおした後に2文字入力すると移動する）
 " Sで前を検索開始
@@ -110,6 +123,7 @@ map <silent> <C-/> :TComment<CR>
 
 " -------------------------
 "  visualmark
+"
 "  行をハイライトしてマークする
 "  F3でマークし、もう一度F3でマークを取り消す
 "  F2でマークした箇所を順に移動する
@@ -120,6 +134,7 @@ map <silent> mm <Plug>Vm_toggle_sign
 
 " -------------------------
 " vimshell
+"
 " vim上でshellを使えるようにします
 " ,s 新しいバッファ上でShellを立ち上げる
 " ,v ウィンドウ分割してShellを立ち上げる
@@ -150,6 +165,7 @@ let g:neocomplcache_enable_at_startup = 1
 
 " -------------------------
 "  quickrun
+"
 "  ,r で一番下にウィンドウを分割させて高さ8spで実行結果を表示する
 " -------------------------
 nmap ,r :QuickRun -outputter/buffer/split "botright 8sp"<CR>
@@ -157,6 +173,7 @@ nmap ,r :QuickRun -outputter/buffer/split "botright 8sp"<CR>
 
 " -------------------------
 " sudo.vim
+"
 " root権限で、ファイルを編集したい場合、
 " 通常のsudo vim を利用するとユーザのvimrcを読み込んでくれない。
 " 以下のように、呼び出すとユーザのvimrcを読み込んで演習できる。
@@ -167,6 +184,7 @@ nmap ,r :QuickRun -outputter/buffer/split "botright 8sp"<CR>
 
 " -------------------------
 " emmet
+"
 " ,e でemmet補完
 " visualモード時に,e で Wrap with Abbreviation
 " -------------------------
@@ -189,7 +207,7 @@ nmap ,gr :Gremove<CR>
 
 " -------------------------
 " gitv
-" -------------------------
+"
 " gitをコミットグラフで表示しつつ、差分を確認できる
 nmap ,gg :Gitv git
 " ファイル単位でコミットログを確認できる
@@ -198,7 +216,10 @@ nmap ,gv :Gitv!
 
 " -------------------------
 "  vim-statify
+"
 "  vimを開始した時にスタートページを表示します
 "  スタートページには,以下が表示され、ファイルを選択・編集できます
 "  バッファ、最近開いたファイル、現在のディレクトリで最近開いたファイル
 " -------------------------
+
+
