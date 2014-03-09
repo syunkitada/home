@@ -48,6 +48,7 @@ encoding utf-8 utf-8
 
 shell -$SHELL
 
+bind t title
 bind n screen
 bind x remove
 bind q only
@@ -69,6 +70,7 @@ bind j next
 # Window
 # <p>n(c)  : new window
 # <p>l(")  : window list
+# <p>t(A)  : set window title
 # <p>h(p)  : move previous window
 # <p>j(n)  : move next window
 # <p>SPACE : move next window
