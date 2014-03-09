@@ -15,6 +15,7 @@ NeoBundle 'git://github.com/Shougo/unite.vim'
 NeoBundle 'git://github.com/Shougo/vimfiler.vim'
 NeoBundle 'git://github.com/Shougo/neocomplcache'
 NeoBundle 'git://github.com/Shougo/vimshell'
+NeoBundle 'git://github.com/Shougo/neomru.vim'
 NeoBundle 'git://github.com/Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -24,7 +25,6 @@ NeoBundle 'git://github.com/Shougo/vimproc', {
       \    },
       \ }
 NeoBundle 'git://github.com/h1mesuke/unite-outline'
-NeoBundle 'git://github.com/vim-scripts/YankRing.vim'
 NeoBundle 'git://github.com/vim-scripts/tComment'
 NeoBundle 'git://github.com/vim-scripts/sudo.vim'
 NeoBundle 'git://github.com/Lokaltog/vim-easymotion'

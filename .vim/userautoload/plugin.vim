@@ -50,16 +50,19 @@ let g:vimfiler_edit_action = 'tabopen'
 " let g:unite_enable_start_insert=1
 " ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" レジスタ一覧
+" レジスタ一覧(選択してペースト)
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
 nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" 常用セット
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-" ブックマーク一覧、追加
+" バッファ一覧
+nnoremap <silent> ,ul :<C-u>Unite buffer<CR>
+" 最近使用したファイルとバッファ一覧
+nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
+" ブックマーク一覧
 nnoremap <silent> ,ub :<C-u>Unite bookmark<CR>
+" ブックマーク追加
 nnoremap <silent> ,ua :<C-u>UniteBookmarkAdd<CR>
-" 
+
 
 " ファイル一覧時の動作
 " qで終了
@@ -87,12 +90,12 @@ autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
 nnoremap <silent> ,uo : <C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>
 
 " -------------------------
-" YankRing.vim
+"  neomru.vim
 "
-" pでペーストした後に、Ctrl+p, Ctrl+nでそれ以前にヤンクした履歴をペーストできる
+" 最近利用したファイル
+"  unite で利用
 " -------------------------
-let g:yankring_max_history = 10    " 記録する履歴の件数を10件に制限する
-let g:yankring_window_height = 13  " 履歴全件を見通せるようにウィンドウの高さを調整
+
 
 " -------------------------
 " EasyMotion.vim
