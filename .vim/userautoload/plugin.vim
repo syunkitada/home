@@ -47,8 +47,6 @@ let g:vimfiler_edit_action = 'tabopen'
 " -------------------------
 " 入力モードで開始する
 " let g:unite_enable_start_insert=1
-" バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
 " ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
@@ -57,8 +55,10 @@ nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
 " 常用セット
 nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-" 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" ブックマーク一覧、追加
+nnoremap <silent> ,ub :<C-u>Unite bookmark<CR>
+nnoremap <silent> ,ua :<C-u>UniteBookmarkAdd<CR>
+" 
 
 " ファイル一覧時の動作
 " qで終了
@@ -72,6 +72,10 @@ au FileType unite inoremap <silent> <buffer> <expr> v unite#do_action('vsplit')
 " tでウィンドウをタブで開く
 au FileType unite nnoremap <silent> <buffer> <expr> t unite#do_action('tabopen')
 au FileType unite inoremap <silent> <buffer> <expr> t unite#do_action('tabopen')
+
+" vimshell, vimfilerからuniteを起動して移動した時にvimshell, vimfilerへ移動する
+" for Unite bookmark
+autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
 
 
 " -------------------------
@@ -198,4 +202,3 @@ nmap ,gv :Gitv!
 "  スタートページには,以下が表示され、ファイルを選択・編集できます
 "  バッファ、最近開いたファイル、現在のディレクトリで最近開いたファイル
 " -------------------------
-
