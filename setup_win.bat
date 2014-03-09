@@ -1,48 +1,52 @@
 : set variables of rc files.
 
 set home=%CD%\
-set bashrc=%home%.bashrc
-set vimrc=%home%.vimrc
-set vrapperrc=%home%.vrapperrc
-set vimshrc=%home%.vimshrc
-set gvimrc=%home%.gvimrc
-set vim=%home%.vim
-set vimfiles=%home%.vim
+set bash_profile=%home%.bash_profile
 set git_prompt=%home%.git-prompt.sh
 set git_completion=%home%.git-completion.bash
+set screenrc=%home%.screenrc
+set vimrc=%home%.vimrc
+set gvimrc=%home%.gvimrc
+set vimshrc=%home%.vimshrc
+set vim=%home%.vim
+set vimfiles=%home%.vim
+set vrapperrc=%home%.vrapperrc
 
-set ln_bashrc=%HOMEPATH%\.bash_profile
-set ln_vimrc=%HOMEPATH%\.vimrc
-set ln_vrapperrc=%HOMEPATH%\.vrapperrc
-set ln_vimshrc=%HOMEPATH%\.vimshrc
-set ln_gvimrc=%HOMEPATH%\.gvimrc
-set ln_vim=%HOMEPATH%\.vim
-set ln_vimfiles=%HOMEPATH%\vimfiles
+set ln_bash_profile=%HOMEPATH%\.bash_profile
 set ln_git_prompt=%HOMEPATH%\.git-prompt.sh
 set ln_git_completion=%HOMEPATH%\.git-completion.bash
+set ln_screenrc=%HOMEPATH%\.screenrc
+set ln_vimrc=%HOMEPATH%\.vimrc
+set ln_gvimrc=%HOMEPATH%\.gvimrc
+set ln_vimshrc=%HOMEPATH%\.vimshrc
+set ln_vim=%HOMEPATH%\.vim
+set ln_vimfiles=%HOMEPATH%\vimfiles
+set ln_vrapperrc=%HOMEPATH%\.vrapperrc
 
 : cls is clean display
 cls
 
-del %ln_bashrc%
+del %ln_bash_profile%
+del %ln_git_prompt%
+del %ln_git_completion%
+del %ln_screenrc%
 del %ln_vimrc%
 del %ln_gvimrc%
+del %ln_vimshrc%
 del %ln_vim%
 del %ln_vimfiles%
 del %ln_vrapperrc%
-del %ln_vimshrc%
-del %ln_git_prompt%
-del %ln_git_completion%
 
-mklink %ln_bashrc% %bashrc%
+mklink %ln_bash_profile% %bash_profile%
+mklink %ln_git_prompt% %git_prompt%
+mklink %ln_git_completion% %git_completion%
+mklink %ln_screenrc% %screenrc%
 mklink %ln_vimrc% %vimrc%
 mklink %ln_gvimrc% %gvimrc%
+mklink %ln_vimshrc% %vimshrc%
 mklink %ln_vim% %vim%
 mklink %ln_vimfiles% %vimfiles%
 mklink %ln_vrapperrc% %vrapperrc%
-mklink %ln_vimshrc% %vimshrc%
-mklink %ln_git_prompt% %git_prompt%
-mklink %ln_git_completion% %git_completion%
 
 
 : @echo off is what don't output command.

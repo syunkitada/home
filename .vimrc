@@ -45,6 +45,8 @@ set nocompatible
 
 " マウス操作を有効にする
 set mouse=nv
+" screen対応
+set ttymouse=xterm2
 
 " シンタックス
 syntax on

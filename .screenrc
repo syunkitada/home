@@ -1,0 +1,110 @@
+# 現在の背景色で消去する
+defbce "on"
+# 太字には明るい色を使う(^[はvimでC-v ESCで入力する)
+attrcolor b "^["
+# 256色表示設定
+term xterm-256color
+# スクロールバッファは最大10000行にする
+defscrollback 10000
+# 別画面サポート。Vimやless使うときに便利
+altscreen on
+# コマンドキーをCtrl+Zにする
+#escape ^Zz
+# ビジュアルベル（画面全体が点滅する）を切る
+vbell off
+# ベルの時はメッセージ（＋音）を出す(^GはvimでC-v C-gで入力する)
+#bell_msg "Bell in window %^G"
+# 端末が落ちたら自動的にデタッチする
+autodetach on
+# スタートアップメッセージを消す
+startup_message off
+# ログファイルのファイル名
+logfile "$HOME/.screen/screen-%Y%m%d-%n.log"
+# 標準でログをとる
+deflog on
+# ウィンドウのタイトル指定
+shelltitle '$ |bash'
+#メッセージを表示する時間(秒単位)
+msgwait 5
+#次のメッセージを表示するまでの遅延時間(秒単位)
+msgminwait 1
+
+# マウスを利用できるようにする
+termcapinfo xterm* ti@:te@
+
+# hardstatus and caption
+hardstatus on
+caption always "%{= wb} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wk} [%l] %{=b wb}%y/%m/%d(%D) %{=b wm}%c"
+# caption always "%{=r dg}%H[%n]: %c %{-}%`%-w%{=b bw}%n %t%{-}%+w"
+sorendition '+r .b'
+
+# Prefixキーの設定
+escape ^aA
+
+# エンコード
+defkanji utf-8
+defencoding utf-8
+encoding utf-8 utf-8
+
+shell -$SHELL
+
+bind n screen
+bind x remove
+bind q only
+bind s split
+bind v split -v
+bind l windowlist
+bind h prev
+bind j next
+
+# screen 使い方 
+# <p> = prefix key
+# <c> = command mode
+# (x) = default binded key
+#
+# $ screen : run screen
+#
+# prefix = ^a
+#
+# Window
+# <p>n(c)  : new window
+# <p>l(")  : window list
+# <p>h(p)  : move previous window
+# <p>j(n)  : move next window
+# <p>SPACE : move next window
+# <p>[num] : move [num] window
+# <p>k     : kill current window
+# <p>\     : kill all window
+#
+# Window 分割
+# <p>s(S) : window split
+# <p>v(|) : window split
+# <p>|    : window vertical split
+# <p>TAB  : focus next splited window
+# <p>x(X) : remove current splited window
+# <p>Q    : remove other splited window
+#
+# コピー・ペースト
+# <p>ESC      : copy mode <c>
+# <p>[        : copy mode <c>
+# <c>ESC      : exit copy mode
+# <c>SPACE    : start select <s>
+# <c><s>SPACE : copy selected and exit copy mode
+# <p>]        : paste
+# * コピーモード中の移動コマンドはVimと同じです
+#
+# Detach と Attach
+# <p>d : detach
+# $ screen -ls     : show detached screens
+# There is a screen on:
+#         8152.pty1.hogehoge    (Detached)
+# $ screen -r 8152 : attach detached screen
+# $ screen -r      : if num of detached screen is one, attach one, else show detached screens
+# すでにattachされてるscreenを別の端末からdetach, attachできる
+# $ screen -d 8152
+# $ screen -r 8152
+# また、attachされてるセッションに、別の端末からattachすることもできる
+# $ screen -x 8152
+#
+#
+
