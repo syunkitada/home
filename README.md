@@ -16,16 +16,18 @@ bash, vimなど。
 パッケージは、Defaultのものと、以下などをチェックしてインストール  
 ついでに、KaoriYaのgvimや、puttyもまとめて置いとく
 
-* develop
+* Develop
  * gccのコンパイラ各種(c, c++, objectiv-c など)
  * git
  * make
-* editor
+* Editor
  * vim
  * vim-common
-* net
+* Net
  * curl
  * wget
+* Utils
+ * screen
 
 ### homeディレクトリの変更
     $ vim /etc/passwd
