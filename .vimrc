@@ -1,13 +1,17 @@
-" vim_startingは、vimの起動時のみ真になる
+" vim_starting is true only at start up
 if has('vim_starting')
-	set nocompatible               " Be iMproved
+	" ---------- NeoBundle required ----------
+	set nocompatible
 	set runtimepath+=~/.vim/bundle/neobundle.vim/
+	" ---------- NeoBundle end ---------------
 
-	" autoload my vimscript
+	" autoload my vimscripts
 	runtime! userautoload/*.vim
 endif
 
-" neobundleの初期化
+
+" ---------- NeoBundle ----------
+" initialize neobundle
 call neobundle#rc(expand('~/.vim/bundle/'))
 
 " plugins
@@ -35,54 +39,63 @@ NeoBundle 'git://github.com/mhinz/vim-startify.git'
 NeoBundle 'git://github.com/mattn/emmet-vim.git'
 NeoBundle 'git://github.com/tpope/vim-surround.git'
 NeoBundle 'git://github.com/tpope/vim-fugitive.git'
+" ---------- NeoBundle ----------
+
 
 " ----------------------------------------
-" 各種設定
+" common settings
 " ----------------------------------------
 set fileformat=unix
 set encoding=utf-8
 set fileencodings=utf-8
-set nocompatible
 
-" マウス操作を有効にする
-set mouse=nv
-" screen対応
-set ttymouse=xterm2
-
-" シンタックス
+" setting syntax color
 syntax on
 colorscheme molokai
 
-" 日本語対応関連
-set iminsert=0 " インサートモード中でデフォルト日本語入力をONにしない
-set imsearch=0 " 検索モードでデフォルト日本語入力をONにしない
-
-set number "行数の表示
-" set relativenumber " 相対行番号を有効にする
-set noswapfile
-set nobackup
-set virtualedit=block " 矩形ビジュアルモードの選択範囲をブロック型にする
-
-" タブ（幅は4）
+" indent
 set autoindent
 set tabstop=4
 set shiftwidth=4
-" タブをスペースにする
+" if tab to space
 " set expandtab
 
-" 検索設定 
+" search
 set hlsearch
 set incsearch
 set ignorecase
 
-"コマンドラインモードにおける補完機能を設定
-"list:full は、候補が2つ以上あるときに、すべての候補を一覧表示にし、最初に並ぶ候補を補完対象とする
+" show number of lines
+set number
+
+" enable mouse operation
+set mouse=nv
+" support 'GNU Screen'
+set ttymouse=xterm2
+
+
+" disable default japanise input 
+" disable default japanise input in insert mode
+set iminsert=0
+" disable default japanise input in search mode
+set imsearch=0
+
+" no swapfile, backupfile
+set noswapfile
+set nobackup
+
+" set to block the selected range of rectangle visual mode
+set virtualedit=block
+
+
+" set completion on command line mode
+" list:full is show completion list, if there are two more completions
 set wildmenu wildmode=list:full 
 
-" Backspaceで文字を消せるようにする
-" startは、ノーマルモードに移った後に、再び挿入モードに入った時に削除可能にする
-" eolは、行頭でBackspaceを押した時に行を連結できるようにする
-" indentは、オートインデントモードのインデントを削除可能にする
+" enable backspace on start, end, indent
+" start  : enable delete on enter insert mode
+" eol    : enable delete end of line
+" indent : enable delete indent(autoindent)
 set backspace=start,eol,indent
 
 " set vim title
@@ -90,15 +103,18 @@ let &t_ti .= "\e[22;0t"
 let &t_te .= "\e[23;0t"
 set title
 
-" ---------- NeoBundle ----------
-filetype plugin indent on " Required!
-"
-" Brief help
-" :NeoBundleList          - list configured bundles
-" :NeoBundleInstall(!)    - install(update) bundles
-" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 
+" ---------- NeoBundle required ----------
+filetype plugin indent on
 " Installation check.
 NeoBundleCheck
+" ---------- NeoBundle end ---------------
 
+
+" -------------------------------------------------------------
+" end .vimrc
+"
+" if you want to add your settings, please describe below.
+" or please put the vimscript in '.vim/userautoload'
+" -------------------------------------------------------------
 

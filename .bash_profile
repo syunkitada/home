@@ -12,7 +12,6 @@ fi
 
 # basic
 export TZ=Asia/Tokyo
-export LANG='en.us.UTF-8'
 export TERM='xterm-256color'
 
 # history
@@ -59,4 +58,11 @@ alias ls='ls -hF --color=always --show-control-chars'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+
+
+# -------------------------------------------------------------
+# end .bash_profile
+#
+# if you want to add your settings, please describe below.
+# -------------------------------------------------------------
 
