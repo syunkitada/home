@@ -70,9 +70,18 @@ set number
 
 " enable mouse operation
 set mouse=nv
+" GUI
+set guioptions+=a
+" CUI
+set clipboard+=autoselect
+nnoremap <RightMouse> "*p
+inoremap <RightMouse> <C-r><C-o>*
 " support 'GNU Screen'
 set ttymouse=xterm2
-
+" eliminate the wait time after pressing ESC key in insert mode on teraterm
+let &t_SI .= "\e[?7727h"
+let &t_EI .= "\e[?7727l"
+inoremap <special> <Esc>O[ <Esc>
 
 " disable default japanise input 
 " disable default japanise input in insert mode
