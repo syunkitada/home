@@ -1,4 +1,6 @@
+" for teraterm
 if &term =~ "xterm256"
+	" set paste on paste from clipboard
 	let &t_ti .= "\e[?2004h"
 	let &t_te .= "\e[?2004l"
 	let &pastetoggle = "\e[201~"
@@ -14,5 +16,19 @@ if &term =~ "xterm256"
 	cnoremap <special> <Esc>[201~ <nop>
 endif
 
-" コピペ用
+" vim -clipbord
+" for selected mode on teraterm
 nmap ,c :tabe %<CR>:set nonumber<CR>i
+
+" vim +clipboard
+" for gui
+set guioptions+=a
+" for cui
+set clipboard+=autoselect
+" mouse for clipboard
+nnoremap <RightMouse> "*p
+inoremap <RightMouse> <C-r><C-o>*
+nnoremap <MiddleMouse> GVgg
+inoremap <MiddleMouse> <Esc>GVgg
+vnoremap <MiddleMouse> <Esc>GVgg
+
