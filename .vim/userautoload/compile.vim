@@ -32,4 +32,5 @@ function! PHPCompile()
     :!php %
 endfunction
 
-map ,c :Compile<CR>
+" quick run があるからいらないかも？
+" map ,r :Compile<CR>

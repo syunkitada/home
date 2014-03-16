@@ -31,6 +31,7 @@ NeoBundle 'git://github.com/Shougo/vimproc', {
 NeoBundle 'git://github.com/h1mesuke/unite-outline'
 NeoBundle 'git://github.com/vim-scripts/tComment'
 NeoBundle 'git://github.com/vim-scripts/sudo.vim'
+NeoBundle 'git://github.com/vim-scripts/vcscommand.vim'
 NeoBundle 'git://github.com/Lokaltog/vim-easymotion'
 NeoBundle 'git://github.com/goldfeld/vim-seek'
 NeoBundle 'git://github.com/thinca/vim-quickrun'
@@ -101,15 +102,15 @@ let &t_te .= "\e[23;0t"
 set title
 
 " for teraterm
-if &term =~ "xterm256"
-	" eliminate the wait time after pressing the ESC key in insert mode
-	let &t_SI .= "\e[?7727h"
-	let &t_EI .= "\e[?7727l"
-	inoremap <special> <Esc>O[ <Esc>
-endif
+" eliminate the wait time after pressing the ESC key in insert mode
+" let &t_SI .= "\e[?7727h"
+" let &t_EI .= "\e[?7727l"
+" inoremap <special> <Esc>O[ <Esc>
+set timeoutlen=1000 ttimeoutlen=0
 
 " support 'GNU Screen'
 set ttymouse=xterm2
+
 
 
 " ---------- NeoBundle required ----------

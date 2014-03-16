@@ -18,7 +18,7 @@ endif
 
 " vim -clipbord
 " for selected mode on teraterm
-nmap ,c :tabe %<CR>:set nonumber<CR>i
+nmap [deplicate_tab] :tabe %<CR>:set nonumber<CR>i
 
 " vim +clipboard
 " for gui

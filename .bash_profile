@@ -6,6 +6,7 @@ if [ `uname -o` = "Cygwin" ]; then
 	plink="$HOME/Desktop/cygwin64/putty/plink"
 	plink_exe=${plink/$HOME/$HOMEPATH}.exe
 	plink_exe=${plink_exe//\//\\}
+    alias exp='explorer .'
     alias plink="${plink} -ssh -A -l `whoami`"
     export GIT_SSH=$plink_exe
 fi
@@ -58,6 +59,7 @@ alias ls='ls -hF --color=always --show-control-chars'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+alias s='screen'
 
 
 # -------------------------------------------------------------

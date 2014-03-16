@@ -41,9 +41,9 @@
 " U  すべてのファイルのマークをはずす
 " yy ファイルのフルパスコピー
 
-nmap ,fs :VimFiler -split -simple -winwidth=40 -no-quit<CR>
-nmap ,ff :VimFiler<CR>o
-nmap ,ft :tabe<CR>:VimFiler<CR>o
+nmap [vimfiler]s :VimFiler -split -simple -winwidth=40 -no-quit<CR>
+nmap [vimfiler]f :VimFiler<CR>o
+nmap [vimfiler]t :tabe<CR>:VimFiler<CR>o
 "vimデフォルトのエクスプローラをvimfilerで置き換える
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_edit_action = 'tabopen'
@@ -55,19 +55,19 @@ let g:vimfiler_edit_action = 'tabopen'
 " 入力モードで開始する
 " let g:unite_enable_start_insert=1
 " ファイル一覧
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧(選択してペースト)
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 " バッファ一覧
-nnoremap <silent> ,ul :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]l :<C-u>Unite buffer<CR>
 " 最近使用したファイルとバッファ一覧
-nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
+nnoremap <silent> [unite]u :<C-u>Unite file_mru buffer<CR>
 " ブックマーク一覧
-nnoremap <silent> ,ub :<C-u>Unite bookmark<CR>
+nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
 " ブックマーク追加
-nnoremap <silent> ,ua :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
 
 
 " ファイル一覧時の動作
@@ -93,7 +93,7 @@ autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
 "
 " ,uo : アウトライン表示
 " -------------------------
-nnoremap <silent> ,uo : <C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>
+nnoremap <silent> [unite]o : <C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>
 
 " -------------------------
 "  neomru.vim
@@ -118,7 +118,7 @@ let g:EasyMotion_grouping = 1   " 1ストローク選択を優先する
 "
 " Ctrl+/ でコメントアウト
 " -------------------------
-map <silent> <C-/> :TComment<CR>
+nmap <silent> [tcomment] :TComment<CR>
 
 
 " -------------------------
@@ -137,8 +137,9 @@ map <silent> <C-/> :TComment<CR>
 "  F3でマークし、もう一度F3でマークを取り消す
 "  F2でマークした箇所を順に移動する
 " -------------------------
-map <F3> <Plug>Vm_toggle_sign
-map <silent> mm <Plug>Vm_toggle_sign
+map [visualmark]m <Plug>Vm_toggle_sign
+map <silent> [visualmark]n <Plug>Vm_goto_next_sign
+map <silent> [visualmark]p <Plug>Vm_goto_prev_sign
 
 
 " -------------------------
@@ -152,12 +153,12 @@ map <silent> mm <Plug>Vm_toggle_sign
 " ,sw は、画面を４分割してvimshellを開きます
 " sudo実行に関して、毎回paswordを入力する必要がある（仕様です）
 " -------------------------
-nmap ,s :VimShell<CR>
-nmap ,sh :VimShellCreate<CR>
-nmap ,st :VimShellTab<CR>
-nmap ,sp :VimShellPop<CR>
-nmap ,ss :VimShellCreate -split-command=split<CR>
-nmap ,sv :VimShellCreate -split-command=vsplit<CR>
+nmap [vimshell] :VimShell<CR>
+nmap [vimshell]h :VimShellCreate<CR>
+nmap [vimshell]t :VimShellTab<CR>
+nmap [vimshell]p :VimShellPop<CR>
+nmap [vimshell]s :VimShellCreate -split-command=split<CR>
+nmap [vimshell]v :VimShellCreate -split-command=vsplit<CR>
 " nmap ,sw :VimShellCreate<CR><Esc>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>j<Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>k
 nmap ,sw :VimFiler<CR>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR>
 
@@ -177,7 +178,7 @@ let g:neocomplcache_enable_at_startup = 1
 "
 "  ,r で一番下にウィンドウを分割させて高さ8spで実行結果を表示する
 " -------------------------
-nmap ,r :QuickRun -outputter/buffer/split "botright 8sp"<CR>
+nmap [quickrun] :QuickRun -outputter/buffer/split "botright 8sp"<CR>
 
 
 " -------------------------
@@ -197,30 +198,30 @@ nmap ,r :QuickRun -outputter/buffer/split "botright 8sp"<CR>
 " ,e でemmet補完
 " visualモード時に,e で Wrap with Abbreviation
 " -------------------------
-nmap <silent> ,e <C-y>,
-vmap <silent> ,e <C-y>,
+nmap <silent> [emmet] <C-y>,
+vmap <silent> [emmet] <C-y>,
 
 
 " -------------------------
 " vim-fugitve
 " -------------------------
-nmap ,gs :Gstatus<CR>
-nmap ,gd :Gdiff<CR>
-nmap ,ga :Gwrite<CR>
-nmap ,gl :Glog<CR>
-nmap ,gc :Gcommit<CR>
-nmap ,gb :Gblame<CR>
-nmap ,gm :Gmove<CR>
-nmap ,gr :Gremove<CR>
+nmap [git]s :Gstatus<CR>
+nmap [git]d :Gdiff<CR>
+nmap [git]a :Gwrite<CR>
+nmap [git]l :Glog<CR>
+nmap [git]c :Gcommit<CR>
+nmap [git]b :Gblame<CR>
+nmap [git]m :Gmove<CR>
+nmap [git]r :Gremove<CR>
 
 
 " -------------------------
 " gitv
 "
 " gitをコミットグラフで表示しつつ、差分を確認できる
-nmap ,gg :Gitv git
+nmap [git]g :Gitv git
 " ファイル単位でコミットログを確認できる
-nmap ,gv :Gitv!
+nmap [git]v :Gitv!
 
 
 " -------------------------
@@ -230,5 +231,12 @@ nmap ,gv :Gitv!
 "  スタートページには,以下が表示され、ファイルを選択・編集できます
 "  バッファ、最近開いたファイル、現在のディレクトリで最近開いたファイル
 " -------------------------
+ 
 
+" -------------------------
+" vcscommand
+" git, svnなどいろいろなvcsを同じコマンドで扱える
+" <leader>cd diff
+" default leader = \
+" -------------------------
 
