@@ -60,7 +60,7 @@ au BufWinEnter * let w:m1 = matchadd("Tab", '\t')
 au WinEnter * let w:m1 = matchadd("Tab", '\t')
 
 " visualize eol of space and tab
-highlight WhitespaceEOL ctermbg=167
+highlight WhitespaceEOL ctermbg=239
 au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
 au WinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
 
