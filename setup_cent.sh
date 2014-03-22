@@ -43,3 +43,5 @@ ln -s $vimshrc $ln_vimshrc
 ln -s $vrapperrc $ln_vrapperrc
 
 git clone git://github.com/Shougo/neobundle.vim.git $neobundle
+
+source ${HOME}/.bash_profile
