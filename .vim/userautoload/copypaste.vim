@@ -27,7 +27,7 @@ set guioptions+=a
 set clipboard+=autoselect
 " mouse for clipboard
 nnoremap <RightMouse> "*p
-inoremap <RightMouse> <C-r><C-o>*
+inoremap <RightMouse> <Esc>"*p
 nnoremap <MiddleMouse> GVgg
 inoremap <MiddleMouse> <Esc>GVgg
 vnoremap <MiddleMouse> <Esc>GVgg

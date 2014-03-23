@@ -54,6 +54,21 @@ set fileencodings=utf-8
 syntax on
 colorscheme molokai
 
+" visualize tab
+highlight Tab ctermbg=234
+au BufWinEnter * let w:m1 = matchadd("Tab", '\t')
+au WinEnter * let w:m1 = matchadd("Tab", '\t')
+
+" visualize eol of space and tab
+highlight WhitespaceEOL ctermbg=9
+au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
+au WinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
+
+" visualize double-byte space
+highlight ZenkakuSpace cterm=underline ctermbg=9
+au BufWinEnter * let w:m3 = matchadd("ZenkakuSpace", '　')
+au WinEnter * let w:m3 = matchadd("ZenkakuSpace", '　')
+
 " indent
 set autoindent
 set tabstop=4
@@ -73,7 +88,7 @@ set number
 " enable mouse operation
 set mouse=nv
 
-" disable default japanise input 
+" disable default japanise input
 " disable default japanise input in insert mode
 set iminsert=0
 " disable default japanise input in search mode
@@ -89,7 +104,7 @@ set virtualedit=block
 
 " set completion on command line mode
 " list:full is show completion list, if there are two more completions
-set wildmenu wildmode=list:full 
+set wildmenu wildmode=list:full
 
 " enable backspace on start, end, indent
 " start  : enable delete on enter insert mode

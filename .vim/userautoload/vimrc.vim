@@ -34,3 +34,5 @@ endif
 
 command! Ev edit $MYVIMRC
 command! Rv source $MYVIMRC 
+command! Eg edit $MYGVIMRC
+command! Rg source $MYGVIMRC 
