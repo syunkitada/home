@@ -232,25 +232,14 @@ vmap <silent> [emmet] <C-y>,
 
 
 " -------------------------
-" vim-fugitve
-" -------------------------
-nmap [git]s :Gstatus<CR>
-nmap [git]d :Gdiff<CR>
-nmap [git]a :Gwrite<CR>
-nmap [git]l :Glog<CR>
-nmap [git]c :Gcommit<CR>
-nmap [git]b :Gblame<CR>
-nmap [git]m :Gmove<CR>
-nmap [git]r :Gremove<CR>
-
-
-" -------------------------
 " gitv
 "
 " gitをコミットグラフで表示しつつ、差分を確認できる
-nmap [git]g :Gitv git
-" ファイル単位でコミットログを確認できる
-nmap [git]v :Gitv!
+nmap [git]g :Gitv<CR>
+" ファイル単位でコミットログを確認、開くことができる
+" Enterでファイルを開く
+" D でdiff表示
+nmap [git]v :Gitv!<CR>
 
 
 " -------------------------
@@ -268,8 +257,9 @@ nmap [git]v :Gitv!
 " <leader>cd diff
 " default leader = \
 " -------------------------
-nmap [vcs]d :VCSDiff<CR>
-nmap [vcs]u :VCSAnnotate<CR>
-nmap [vcs]a :VCSAdd<CR>
 nmap [vcs]l :VCSLog<CR>
+nmap [vcs]d :VCSDiff<CR>
+nmap [vcs]b :VCSBlame<CR>
+nmap [vcs]a :VCSAdd<CR>
+nmap [vcs]c :VCSCommit<CR>
 

@@ -4,16 +4,24 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
+nnoremap <S-r> <C-r>
+
 " プリフィックス
 " プラグイン
 nmap <Space>f [vimfiler]
 nmap <Space>u [unite]
 nmap <Space>/ [tcomment]
-nmap <Space>v [visualmark]
 nmap <Space>s [vimshell]
 nmap <Space>r [quickrun]
 nmap <Space>e [emmet]
 nmap <Space>g [git]
+nmap <Space>v [vcs]
+" signature 'Leader'             : "m" 
+" signature 'GotoNextLineByPos'  : "<Space>;"
+" signature 'GotoPrevLineByPos'  : "<Space>:"
+
+" EasyMotion_leader_key = "z"
+
 
 " 個人的なもの
 nmap <Space>t [deplicate_tab]

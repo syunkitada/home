@@ -21,6 +21,9 @@ export HISTCONTROL="ignoreboth"
 export HISTFILESIZE="4096"
 export HISTSIZE="4096"
 
+# set editor
+export EDITOR="/usr/bin/vim"
+
 
 # -------------------------------------------------------------
 # terminal
@@ -31,7 +34,7 @@ GIT_PS1_SHOWDIRTYSTATE=true
 # prompt
 PS1='
 \[\e[0;37m\](\t)\[\e[00m\] [\u@\[\e[1;31m\]\H\[\e[00m\]:\w \[\e[1;31m\]$(__git_ps1 "(%s)")\[\e[00m\] | Retv:${?} Jobs:\j]
-# '
+$ '
 
 export PS1=$PS1
 
