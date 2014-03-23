@@ -1,10 +1,6 @@
-
+"
 " -------------------------
 "  vimfiler
-"
-" ,fs でEclipse風のエクスプローラを開く（バッファ表示)
-" ,ff でVimFilerを2画面作成
-" ,ft でVimFilerを新規タブで２画面作成
 "
 " # 使い方
 " -- 表示 --
@@ -55,19 +51,17 @@ let g:vimfiler_edit_action = 'tabopen'
 " 入力モードで開始する
 " let g:unite_enable_start_insert=1
 " ファイル一覧
-nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]f :UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧(選択してペースト)
-nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
-" 最近使用したファイル一覧
-nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]r :Unite -buffer-name=register register<CR>
 " バッファ一覧
-nnoremap <silent> [unite]l :<C-u>Unite buffer<CR>
-" 最近使用したファイルとバッファ一覧
-nnoremap <silent> [unite]u :<C-u>Unite file_mru buffer<CR>
+nnoremap <silent> [unite]l :Unite buffer<CR>
+" 最近使用したファイル
+nnoremap <silent> [unite]u :Unite file_mru buffer<CR>
 " ブックマーク一覧
-nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
+nnoremap <silent> [unite]b :Unite bookmark<CR>
 " ブックマーク追加
-nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [unite]a :UniteBookmarkAdd<CR>
 
 
 " ファイル一覧時の動作
@@ -89,18 +83,41 @@ autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
 
 
 " -------------------------
-" unite-outline
-"
-" ,uo : アウトライン表示
-" -------------------------
-nnoremap <silent> [unite]o : <C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>
-
-" -------------------------
 "  neomru.vim
 "
 " 最近利用したファイル
 "  unite で利用
 " -------------------------
+
+
+" -------------------------
+" unite-outline
+"
+" ファイルを解析し、アウトラインをuniteで表示する
+" -------------------------
+nnoremap <silent> [unite]o :Unite -no-quit -vertical -winwidth=30 outline<CR>
+
+
+" -------------------------
+"  unite-mark
+"
+"  マークの一覧をuniteで表示する
+" -------------------------
+nnoremap [unite]m :Unite mark<CR>
+
+
+" -------------------------
+"  vim-signature
+"  show mark toggle
+" -------------------------
+let g:SignatureMap = {
+	\ 'Leader'             : "m", 
+	\ 'PurgeMarks'         : "<Space>",
+	\ 'PlaceNextMark'      : ",",
+    \ 'PurgeMarksAtLine'   :  "-",
+	\ 'GotoNextLineByPos'  : "m;",
+	\ 'GotoPrevLineByPos'  : "m:",
+	\ }
 
 
 " -------------------------
@@ -111,6 +128,30 @@ nnoremap <silent> [unite]o : <C-u>Unite -no-quit -vertical -winwidth=30 outline<
 let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 let g:EasyMotion_leader_key = "z"
 let g:EasyMotion_grouping = 1   " 1ストローク選択を優先する
+"equire tpope/vim-repeat to enable dot repeat support
+" Jump to anywhere with only `s{char}{target}`$
+" `s<CR>` repeat last find motion.
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+" Bidirectional & within line 't' motion
+omap f <Plug>(easymotion-bd-fl)
+omap t <Plug>(easymotion-bd-tl)
+
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+map zh <Plug>(easymotion-lineforward)
+map zj <Plug>(easymotion-j)
+map zk <Plug>(easymotion-k)
+map zl <Plug>(easymotion-linebackward)
+"
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+" Use uppercase target labels and type as a lower case
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_use_smartsign_jp = 1 " JP layout
 
 
 " -------------------------
@@ -128,18 +169,6 @@ nmap <silent> [tcomment] :TComment<CR>
 " sで検索を開始(sをおした後に2文字入力すると移動する）
 " Sで前を検索開始
 " -------------------------
-
-
-" -------------------------
-"  visualmark
-"
-"  行をハイライトしてマークする
-"  F3でマークし、もう一度F3でマークを取り消す
-"  F2でマークした箇所を順に移動する
-" -------------------------
-map [visualmark]m <Plug>Vm_toggle_sign
-map <silent> [visualmark]n <Plug>Vm_goto_next_sign
-map <silent> [visualmark]p <Plug>Vm_goto_prev_sign
 
 
 " -------------------------
@@ -239,4 +268,8 @@ nmap [git]v :Gitv!
 " <leader>cd diff
 " default leader = \
 " -------------------------
+nmap [vcs]d :VCSDiff<CR>
+nmap [vcs]u :VCSAnnotate<CR>
+nmap [vcs]a :VCSAdd<CR>
+nmap [vcs]l :VCSLog<CR>
 
