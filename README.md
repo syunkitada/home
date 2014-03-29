@@ -49,7 +49,7 @@ home
 ### git の設定
     $ git config --global user.name "syunkitada"
     $ git config --global user.email "syun.kitada@gmail.com"
-    $ git config --global core.autocrlf false
+    // $ git config --global core.autocrlf false
 
 ### sshの鍵作成
     $ ssh-keygen -t rsa -b 5096 -C "hoge@piyo.com"
