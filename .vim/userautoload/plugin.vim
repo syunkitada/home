@@ -178,7 +178,7 @@ nmap <silent> [tcomment] :TComment<CR>
 " ,s 新しいバッファ上でShellを立ち上げる
 " ,v ウィンドウ分割してShellを立ち上げる
 " Tabで補完
-" C-lで履歴表示　
+" C-lで履歴表示
 " ,sw は、画面を４分割してvimshellを開きます
 " sudo実行に関して、毎回paswordを入力する必要がある（仕様です）
 " -------------------------
@@ -189,7 +189,7 @@ nmap [vimshell]p :VimShellPop<CR>
 nmap [vimshell]s :VimShellCreate -split-command=split<CR>
 nmap [vimshell]v :VimShellCreate -split-command=vsplit<CR>
 " nmap ,sw :VimShellCreate<CR><Esc>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>j<Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>k
-nmap ,sw :VimFiler<CR>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR>
+nmap [vimshell]w :VimFiler<CR>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR>
 
 " プロンプトの設定
 let g:vimshell_prompt = '$ '

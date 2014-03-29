@@ -1,5 +1,6 @@
 : set variables of rc files.
 
+cd /d %~dp0
 set home=%CD%\
 set bash_profile=%home%.bash_profile
 set git_prompt=%home%.git-prompt.sh
