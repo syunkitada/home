@@ -249,7 +249,7 @@ nmap [git]v :Gitv!<CR>
 "  スタートページには,以下が表示され、ファイルを選択・編集できます
 "  バッファ、最近開いたファイル、現在のディレクトリで最近開いたファイル
 " -------------------------
- 
+
 
 " -------------------------
 " vcscommand
@@ -262,4 +262,13 @@ nmap [vcs]d :VCSDiff<CR>
 nmap [vcs]b :VCSBlame<CR>
 nmap [vcs]a :VCSAdd<CR>
 nmap [vcs]c :VCSCommit<CR>
+
+
+" -------------------------
+" over.vim
+" コマンドラインの拡張
+"   置換時のハイライト機能
+" -------------------------
+nmap [over] :OverCommandLine<CR>
+vmap [over] :OverCommandLine<CR>s/
 

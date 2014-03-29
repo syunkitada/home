@@ -16,6 +16,8 @@ nmap <Space>r [quickrun]
 nmap <Space>e [emmet]
 nmap <Space>g [git]
 nmap <Space>v [vcs]
+nmap <Space>o [over]
+vmap <Space>o [over]
 " signature 'Leader'             : "m" 
 " signature 'GotoNextLineByPos'  : "<Space>;"
 " signature 'GotoPrevLineByPos'  : "<Space>:"

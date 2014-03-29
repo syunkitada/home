@@ -40,6 +40,7 @@ NeoBundle 'git://github.com/gregsexton/gitv.git'
 NeoBundle 'git://github.com/mhinz/vim-startify.git'
 NeoBundle 'git://github.com/mattn/emmet-vim.git'
 NeoBundle 'git://github.com/tpope/vim-surround.git'
+NeoBundle 'git://github.com/osyo-manga/vim-over'
 " ---------- NeoBundle ----------
 
 
