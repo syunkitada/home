@@ -117,7 +117,7 @@ CentOS-6.5-i386-minimal を想定
 ### パッケージのインストール
 
     $ sudo yum update
-    $ sudo yum install man wget git gcc gcc-c++ vim wget
+    $ sudo yum install man wget git gcc gcc-c++ vim
 
 #### python系のパッケージインストール
     $ sudo yum install python-devel libxml2-devel libxslt-devel
