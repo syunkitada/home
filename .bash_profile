@@ -3,7 +3,7 @@
 
 # for gnupack on windows
 if [ `uname -o` = "Cygwin" ]; then
-	plink="$HOME/Desktop/cygwin64/putty/plink"
+	plink="$HOME/Desktop/cygwin/putty/plink"
 	plink_exe=${plink/$HOME/$HOMEPATH}.exe
 	plink_exe=${plink_exe//\//\\}
     alias exp='explorer .'
