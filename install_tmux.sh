@@ -11,7 +11,7 @@ make install
 cd ../
 rm -rf libevent*
 
-echo /usr/local/lib > /etc/ld.so.conf.d/libevent.conf
+echo /usr/local/lib | sudo tee /etc/ld.so.conf.d/libevent.conf
 sudo ldconfig
 
 wget http://downloads.sourceforge.net/tmux/tmux-1.9a.tar.gz
