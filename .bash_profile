@@ -64,8 +64,14 @@ alias ls='ls -hF --color=always --show-control-chars'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+
+# arias for screen and tmux
 alias s='screen'
+alias sa='screen -r'
+alias sl='screen -ls'
 alias t='tmux'
+alias ta='tmux a'
+alias tl='tmux ls'
 
 
 # -------------------------------------------------------------
