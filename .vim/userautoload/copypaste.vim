@@ -1,6 +1,5 @@
-" for teraterm
-if &term =~ "xterm256"
-	" set paste on paste from clipboard
+" disable autoindent on paste
+if &term =~ "xterm"
 	let &t_ti .= "\e[?2004h"
 	let &t_te .= "\e[?2004l"
 	let &pastetoggle = "\e[201~"
@@ -16,9 +15,8 @@ if &term =~ "xterm256"
 	cnoremap <special> <Esc>[201~ <nop>
 endif
 
-" vim -clipbord
-" for selected mode on teraterm
-nmap [deplicate_tab] :tabe %<CR>:set nonumber<CR>i
+" yank register to clipboard of teraterm
+command! CopyToTeraterm let $vim_clipboard = @" | !echo "$vim_clipboard" | copy_to_teraterm
 
 " vim +clipboard
 " for gui

@@ -1,5 +1,6 @@
 #!/bin/sh
 
+bin=`pwd`/bin
 bash_profile=`pwd`/.bash_profile
 git_prompt=`pwd`/.git-prompt.sh
 git_completion=`pwd`/.git-completion.bash
@@ -12,6 +13,7 @@ vim=`pwd`/.vim
 neobundle=${vim}/bundle/neobundle.vim/
 vrapperrc=`pwd`/.vrapperrc
 
+ln_bin=${HOME}/.bin
 ln_bash_profile=${HOME}/.bash_profile
 ln_git_prompt=${HOME}/.git-prompt.sh
 ln_git_completion=${HOME}/.git-completion.bash
@@ -23,6 +25,7 @@ ln_vimshrc=${HOME}/.vimshrc
 ln_vim=${HOME}/.vim
 ln_vrapperrc=${HOME}/.vrapperrc
 
+rm -f  $ln_bin
 rm -f  $ln_bash_profile
 rm -f  $ln_git_prompt
 rm -f  $ln_git_completion
@@ -35,6 +38,7 @@ rm -rf $ln_vim
 rm -rf $neobundle
 rm -f  $ln_vrapperrc
 
+ln -s $bin $ln_bin
 ln -s $bash_profile $ln_bash_profile
 ln -s $git_prompt $ln_git_prompt
 ln -s $git_completion $ln_git_completion

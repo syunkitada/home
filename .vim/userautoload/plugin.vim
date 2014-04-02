@@ -114,7 +114,7 @@ let g:SignatureMap = {
 	\ 'Leader'             : "m", 
 	\ 'PurgeMarks'         : "<Space>",
 	\ 'PlaceNextMark'      : ",",
-    \ 'PurgeMarksAtLine'   :  "-",
+	\ 'PurgeMarksAtLine'   :  "-",
 	\ 'GotoNextLineByPos'  : "m;",
 	\ 'GotoPrevLineByPos'  : "m:",
 	\ }

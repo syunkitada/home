@@ -24,9 +24,6 @@ export HISTSIZE="4096"
 # set editor
 export EDITOR="/usr/bin/vim"
 
-# change path priorities
-export PATH=usr/local/bin:$PATH
-
 # -------------------------------------------------------------
 # terminal
 source ~/.git-completion.bash
@@ -39,6 +36,9 @@ PS1='
 $ '
 
 export PS1=$PS1
+
+# change path priorities
+export PATH=$HOME/.bin:/usr/local/bin:$PATH
 
 
 # -------------------------------------------------------------
