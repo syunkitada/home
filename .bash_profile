@@ -1,14 +1,14 @@
 # -------------------------------------------------------------
 # environment
 
-# for gnupack on windows
-if [ `uname -o` = "Cygwin" ]; then
+# for cygwin on windows
+if [[ `uname` =~ ^CYGWIN ]]; then
 	plink="$HOME/Desktop/cygwin/putty/plink"
 	plink_exe=${plink/$HOME/$HOMEPATH}.exe
 	plink_exe=${plink_exe//\//\\}
-    alias exp='explorer .'
-    alias plink="${plink} -ssh -A -l `whoami`"
-    export GIT_SSH=$plink_exe
+	alias exp='explorer .'
+	alias plink="${plink} -ssh -A -l `whoami`"
+	export GIT_SSH=$plink_exe
 fi
 
 # basic
@@ -24,6 +24,8 @@ export HISTSIZE="4096"
 # set editor
 export EDITOR="/usr/bin/vim"
 
+# change path priorities
+export PATH=usr/local/bin:$PATH
 
 # -------------------------------------------------------------
 # terminal
