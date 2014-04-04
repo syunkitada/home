@@ -35,7 +35,7 @@ home
  * curl
  * wget
 * Utils
- * screen
+ * tmux
 
 ### homeディレクトリの変更
     $ vim /etc/passwd
