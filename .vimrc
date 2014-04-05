@@ -114,9 +114,9 @@ set wildmenu wildmode=list:full
 set backspace=start,eol,indent
 
 " set vim title
-let &t_ti .= "\e[22;0t"
-let &t_te .= "\e[23;0t"
-set title
+"let &t_ti .= "\e[22;0t"
+"let &t_te .= "\e[23;0t"
+"set title
 
 " for teraterm
 " eliminate the wait time after pressing the ESC key in insert mode

@@ -65,6 +65,7 @@ alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
 alias s='screen'
+alias t='tmux'
 
 
 # -------------------------------------------------------------
