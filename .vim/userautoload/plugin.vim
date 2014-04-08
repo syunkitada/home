@@ -131,8 +131,8 @@ let g:EasyMotion_grouping = 1   " 1ストローク選択を優先する
 "equire tpope/vim-repeat to enable dot repeat support
 " Jump to anywhere with only `s{char}{target}`$
 " `s<CR>` repeat last find motion.
-nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
+nmap s <Plug>(easymotion-s)
+nmap t <Plug>(easymotion-t)
 " Bidirectional & within line 't' motion
 omap f <Plug>(easymotion-bd-fl)
 omap t <Plug>(easymotion-bd-tl)
@@ -262,13 +262,4 @@ nmap [vcs]d :VCSDiff<CR>
 nmap [vcs]b :VCSBlame<CR>
 nmap [vcs]a :VCSAdd<CR>
 nmap [vcs]c :VCSCommit<CR>
-
-
-" -------------------------
-" over.vim
-" コマンドラインの拡張
-"   置換時のハイライト機能
-" -------------------------
-nmap [over] :OverCommandLine<CR>
-vmap [over] :OverCommandLine<CR>s/
 

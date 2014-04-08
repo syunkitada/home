@@ -16,7 +16,6 @@ nmap <Space>r [quickrun]
 nmap <Space>e [emmet]
 nmap <Space>g [git]
 nmap <Space>v [vcs]
-nmap <Space>o [over]
 nmap <Space>y [yank_to_teraterm]
 " signature 'Leader'             : "m"
 " signature 'GotoNextLineByPos'  : "<Space>;"
