@@ -9,18 +9,9 @@ tar xvzf libevent-2.0.21-stable.tar.gz
 cd libevent-2.0.21-stable
 ./configure
 make
-sudo make install
+make install
 cd ../
-rm -rf libevent*
 
 echo /usr/local/lib | sudo tee /etc/ld.so.conf.d/libevent.conf
 sudo ldconfig
 
-wget http://downloads.sourceforge.net/tmux/tmux-1.9a.tar.gz
-tar xvzf tmux-1.9a.tar.gz
-cd tmux-1.9a
-./configure
-make
-sudo make install
-cd ../
-rm -rf tmux*
