@@ -14,7 +14,6 @@ vimrc=`pwd`/.vimrc
 gvimrc=`pwd`/.gvimrc
 vimshrc=`pwd`/.vimshrc
 vim=`pwd`/.vim
-neobundle=${vim}/bundle/neobundle.vim/
 vrapperrc=`pwd`/.vrapperrc
 
 ln_bash_profile=${HOME}/.bash_profile
@@ -37,7 +36,6 @@ rm -f  $ln_vimrc
 rm -f  $ln_gvimrc
 rm -f  $ln_vimshrc
 rm -rf $ln_vim
-rm -rf $neobundle
 rm -f  $ln_vrapperrc
 
 ln -s $bash_profile $ln_bash_profile
@@ -51,6 +49,9 @@ ln -s $vim $ln_vim
 ln -s $vimshrc $ln_vimshrc
 ln -s $vrapperrc $ln_vrapperrc
 
-git clone git://github.com/Shougo/neobundle.vim.git $neobundle
+neobundle=${vim}/bundle/neobundle.vim/
+if [ ! -e $neobundle ]; then
+    git clone git://github.com/Shougo/neobundle.vim.git $neobundle
+fi
 
 source ${HOME}/.bash_profile
