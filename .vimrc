@@ -1,12 +1,12 @@
 " vim_starting is true only at start up
 if has('vim_starting')
-	" ---------- NeoBundle required ----------
-	set nocompatible
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
-	" ---------- NeoBundle end ---------------
+    " ---------- NeoBundle required ----------
+    set nocompatible
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    " ---------- NeoBundle end ---------------
 
-	" autoload my vimscripts
-	runtime! userautoload/*.vim
+    " autoload my vimscripts
+    runtime! userautoload/*.vim
 endif
 
 
@@ -21,13 +21,13 @@ NeoBundle 'git://github.com/Shougo/neocomplcache'
 NeoBundle 'git://github.com/Shougo/vimshell'
 NeoBundle 'git://github.com/Shougo/neomru.vim'
 NeoBundle 'git://github.com/Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+            \'build' : {
+            \        'windows' : 'make -f make_mingw32.mak',
+            \        'cygwin' : 'make -f make_cygwin.mak',
+            \        'mac' : 'make -f make_mac.mak',
+            \        'unix' : 'make -f make_unix.mak',
+            \    },
+            \}
 NeoBundle 'git://github.com/h1mesuke/unite-outline'
 NeoBundle 'git://github.com/tacroe/unite-mark'
 NeoBundle 'git://github.com/vim-scripts/tComment'
@@ -55,12 +55,17 @@ syntax on
 colorscheme molokai
 
 " visualize tab
-highlight Tab ctermbg=234
+highlight Tab ctermbg=236
 au BufWinEnter * let w:m1 = matchadd("Tab", '\t')
 au WinEnter * let w:m1 = matchadd("Tab", '\t')
 
+" visualize 4 space
+highlight Whitespaces ctermbg=234
+au BufWinEnter * let w:m1 = matchadd("Whitespaces", '    ')
+au WinEnter * let w:m1 = matchadd("Whitespaces", '    ')
+
 " visualize eol of space and tab
-highlight WhitespaceEOL ctermbg=239
+highlight WhitespaceEOL ctermbg=240
 au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
 au WinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
 
@@ -74,7 +79,7 @@ set autoindent
 set tabstop=4
 set shiftwidth=4
 " if tab to space
-" set expandtab
+set expandtab
 
 " search
 set hlsearch

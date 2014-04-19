@@ -38,7 +38,7 @@ $ '
 export PS1=$PS1
 
 # change path priorities
-export PATH=$HOME/.bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 
 # -------------------------------------------------------------
