@@ -9,57 +9,68 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-TMUX_VERSION=1.8
+TMUX_VERSION=1.9
 VIM_VERSION=7.4
 INSTALLATION_DIR=$HOME/.local
-TMP_WORKING_DIR=$HOME/tmp_working_dir
+TMP_WORKING_DIR=/tmp/local_install
 
 mkdir -p $INSTALLATION_DIR $TMP_WORKING_DIR
-cd $TMP_WORKING_DIR
+pushd $TMP_WORKING_DIR
 
 if [ $1 = tmux -o $1 = vim -o $1 = all ]; then
     # install libevent
-    wget https://github.com/downloads/libevent/libevent/libevent-2.0.19-stable.tar.gz
-    tar xvzf libevent*.tar.gz
-    cd libevent*
-    ./configure --prefix=$INSTALLATION_DIR --disable-shared
-    make
-    make install
-    cd ..
+    LIBEVENT=libevent-2.0.21-stable
+    if [ ! -e ${LIBEVENT}.tar.gz ]; then
+        wget http://downloads.sourceforge.net/project/levent/libevent/libevent-2.0/${LIBEVENT}.tar.gz
+        tar xvzf ${LIBEVENT}.tar.gz
+        pushd $LIBEVENT
+        ./configure --prefix=$INSTALLATION_DIR --disable-shared
+        make
+        make install
+        popd
+    fi
 
     # install ncurses
-    wget ftp://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz
-    tar xvzf ncurses*.tar.gz
-    cd ncurses*
-    ./configure --prefix=$INSTALLATION_DIR
-    make
-    make install
-    cd ..
+    NCURSES=ncurses-5.9
+    if [ ! -e ${NCURSES}.tar.gz ]; then
+        wget ftp://ftp.gnu.org/gnu/ncurses/${NCURSES}.tar.gz
+        tar xvzf ${NCURSES}.tar.gz
+        pushd $NCURSES
+        ./configure --prefix=$INSTALLATION_DIR
+        make
+        make install
+        popd
+    fi
 fi
 
 if [ $1 = tmux -o $1 = all ]; then
     # install tmux
-    wget -O tmux-${TMUX_VERSION}.tar.gz http://sourceforge.net/projects/tmux/files/tmux/tmux-${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz/download
-    tar xvzf tmux-*.tar.gz
-    cd tmux-*
-    ./configure CFLAGS="-I$INSTALLATION_DIR/include -I$INSTALLATION_DIR/include/ncurses" LDFLAGS="-L$INSTALLATION_DIR/lib -L$INSTALLATION_DIR/include/ncurses -L$INSTALLATION_DIR/include"
+    if [ -e tmux-${TMUX_VERSION}.tar.gz ]; then
+        wget -O tmux-${TMUX_VERSION}.tar.gz http://sourceforge.net/projects/tmux/files/tmux/tmux-${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz/download
+        tar xvzf tmux-*.tar.gz
+        pushd tmux-*
+        ./configure CFLAGS="-I$INSTALLATION_DIR/include -I$INSTALLATION_DIR/include/ncurses" LDFLAGS="-L$INSTALLATION_DIR/lib -L$INSTALLATION_DIR/include/ncurses -L$INSTALLATION_DIR/include"
     CPPFLAGS="-I$INSTALLATION_DIR/include -I$INSTALLATION_DIR/include/ncurses" LDFLAGS="-static -L$INSTALLATION_DIR/include -L$INSTALLATION_DIR/include/ncurses -L$INSTALLATION_DIR/lib" make
-    cp tmux $INSTALLATION_DIR/bin
-    cd ..
+        cp tmux $INSTALLATION_DIR/bin
+        popd
+    fi
 fi
 
 if [ $1 = vim -o $1 = all ]; then
     # install vim
-    wget ftp://ftp.vim.org/pub/vim/unix/vim-${VIM_VERSION}.tar.bz2
-    tar -xvf vim*.tar.bz2
-    cd vim*
-    ./configure --prefix=$INSTALLATION_DIR
-    make
-    make install
-    cd ../
-    rm -rf vim*
+    if [ -e vim-${VIM_VERSION}.tar.bz2 ]; then
+        wget ftp://ftp.vim.org/pub/vim/unix/vim-${VIM_VERSION}.tar.bz2
+        tar -xvf vim*.tar.bz2
+        pushd vim*
+        ./configure --prefix=$INSTALLATION_DIR
+        make
+        make install
+        popd
+    fi
 fi
 
 # complete
-rm -rf $TMP_WORKING_DIR
+popd
+
 echo "\nSUCCESS INSTALLED "$1
+
