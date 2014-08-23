@@ -54,4 +54,4 @@ if [ ! -e $neobundle ]; then
     git clone git://github.com/Shougo/neobundle.vim.git $neobundle
 fi
 
-source ${HOME}/.bash_profile
+source $ln_bash_profile

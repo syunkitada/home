@@ -12,7 +12,7 @@ fi
 TMUX_VERSION=1.9
 VIM_VERSION=7.4
 INSTALLATION_DIR=$HOME/.local
-TMP_WORKING_DIR=/tmp/local_install
+TMP_WORKING_DIR=/tmp/install_local
 
 mkdir -p $INSTALLATION_DIR $TMP_WORKING_DIR
 pushd $TMP_WORKING_DIR
@@ -31,6 +31,7 @@ if [ $1 = tmux -o $1 = vim -o $1 = all ]; then
     fi
 
     # install ncurses
+    sudo yum install ncurses-devel -y
     NCURSES=ncurses-5.9
     if [ ! -e ${NCURSES}.tar.gz ]; then
         wget ftp://ftp.gnu.org/gnu/ncurses/${NCURSES}.tar.gz
@@ -45,7 +46,7 @@ fi
 
 if [ $1 = tmux -o $1 = all ]; then
     # install tmux
-    if [ -e tmux-${TMUX_VERSION}.tar.gz ]; then
+    if [ ! -e tmux-${TMUX_VERSION}.tar.gz ]; then
         wget -O tmux-${TMUX_VERSION}.tar.gz http://sourceforge.net/projects/tmux/files/tmux/tmux-${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz/download
         tar xvzf tmux-*.tar.gz
         pushd tmux-*
@@ -58,7 +59,7 @@ fi
 
 if [ $1 = vim -o $1 = all ]; then
     # install vim
-    if [ -e vim-${VIM_VERSION}.tar.bz2 ]; then
+    if [ ! -e vim-${VIM_VERSION}.tar.bz2 ]; then
         wget ftp://ftp.vim.org/pub/vim/unix/vim-${VIM_VERSION}.tar.bz2
         tar -xvf vim*.tar.bz2
         pushd vim*
