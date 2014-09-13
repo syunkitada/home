@@ -54,4 +54,4 @@ if [ ! -e $neobundle ]; then
     git clone git://github.com/Shougo/neobundle.vim.git $neobundle
 fi
 
-source $ln_bash_profile
+sudo yum install man wget git gcc gcc-c++ vim ncurses-devel -y

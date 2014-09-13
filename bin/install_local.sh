@@ -31,7 +31,6 @@ if [ $1 = tmux -o $1 = vim -o $1 = all ]; then
     fi
 
     # install ncurses
-    sudo yum install ncurses-devel -y
     NCURSES=ncurses-5.9
     if [ ! -e ${NCURSES}.tar.gz ]; then
         wget ftp://ftp.gnu.org/gnu/ncurses/${NCURSES}.tar.gz
