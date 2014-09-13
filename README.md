@@ -114,24 +114,6 @@ CentOS-6.5-i386-minimal を想定
       ONBOOT=yes
     $ sudo service network restart
 
-### パッケージのインストール
-
-    $ sudo yum update
-    $ sudo yum install man wget git gcc gcc-c++ vim
-
-#### python系のパッケージインストール
-    $ sudo yum install python-devel libxml2-devel libxslt-devel
-    $ wget http://python-distribute.org/distribute_setup.py
-    $ sudo python distribute_setup.py
-    $ sudo easy_install pip
-
-* python-devel, libxml2-devel, libxslt-devel は、setup.pyでbuild, installするために必要。
-* distribute_setup.pyは、distributeをインストールするためのスクリプトです。  
-distributeは、setuptoolsの互換パッケージです。  
-（setuptoolsは、ほとんどメンテナンスされていないので、こっちのが良い）
-* pipは、setuptoolsに含まれているeasy_installの置き換えとして開発されているものです。
-
-
 ### sshの設定
 
 事前に、scpなどで公開鍵(id_rsa.pub)をホームディレクトリに持ってくる。
@@ -155,7 +137,14 @@ distributeは、setuptoolsの互換パッケージです。
     $ git clone git@github.com:syunkitada/home.git
     $ cd home
     $ ./setup_cent.sh
+
+
+### パッケージのインストール
+    # tmuxとvimをインストール
+    $ ./install_local all
     
+    # pipのインストール
+    $ ./install_pip
 
 
 
