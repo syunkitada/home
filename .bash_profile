@@ -40,9 +40,11 @@ export PS1=$PS1
 # change path priorities
 export PATH=$HOME/.local/bin:$PATH
 
+if [ -e /usr/bin/virtualenvwrapper.sh ]; then
+    export WORKON_HOME=$HOME/.virtualenvs && \
+    source `which virtualenvwrapper.sh`
+fi
 
-export WORKON_HOME=$HOME/.virtualenvs
-source `which virtualenvwrapper.sh`
 
 # -------------------------------------------------------------
 # complete
