@@ -263,3 +263,11 @@ nmap [vcs]b :VCSBlame<CR>
 nmap [vcs]a :VCSAdd<CR>
 nmap [vcs]c :VCSCommit<CR>
 
+
+
+" -------------------------
+" syntastic
+" シンタックスチェック用のプラグイン
+" -------------------------
+let g:syntastic_python_checkers = ["flake8"]
+

@@ -41,6 +41,9 @@ export PS1=$PS1
 export PATH=$HOME/.local/bin:$PATH
 
 
+export WORKON_HOME=$HOME/.virtualenvs
+source `which virtualenvwrapper.sh`
+
 # -------------------------------------------------------------
 # complete
 # complete -d cd
