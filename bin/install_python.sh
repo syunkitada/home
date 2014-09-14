@@ -22,7 +22,24 @@ popd
 # flake8は、コーディングルールをチェックするpep8とシンタックスチェックをするPyFlakes合わせたものです
 sudo pip install flake8
 
+# コードチェック
+# $ flake8 [file path]
+
+
 # virtualenv, wrapperはpythonの仮想化環境を作成し、
 # pythonをバージョンごとに管理するためのものです
 sudo pip install virtualenv
 sudo pip install virtualenvwrapper
+
+# virtualenv環境の作成
+# $ mkvirtualenv env-hogehoge
+
+# アクティベート
+# $ workon env-hogehoge
+
+# ディアクティベート
+# $ deactivate
+
+# 現在のvirtualenv環境を表示するために .bash_profileに以下を追記しとく
+# export WORKON_HOME=$HOME/.virtualenvs
+# source `which virtualenvwrapper.sh`
