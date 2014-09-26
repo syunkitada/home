@@ -3,16 +3,12 @@
 # python開発環境のためのセットアップスクリプトです
 
 pushd tmp
-# * python-devel, libxml2-devel, libxslt-devel は、setup.pyでbuild, installするために必要
-sudo yum install python-devel libxml2-devel libxslt-devel
+# python-devel, libxml2-devel, libxslt-devel, libevent-develこれらがないと、pipインストール出来なパッケージがいくつか存在するためインストールする
+sudo yum install python-devel libxml2-devel libxslt-devel libevent-devel
 
-# distributeのインストール
-# distributeは、setuptoolsの互換パッケージです
-# （setuptoolsは、ほとんどメンテナンスされていないので、こっちのが良い）
-# distribute_setup.pyは、distributeをインストールするためのスクリプトです
-wget http://python-distribute.org/distribute_setup.py
-sudo python distribute_setup.py
-rm -rf distribute*
+# pipのインストール
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | sudo python
+rm -rf setuptools*
 
 # pipは、setuptoolsに含まれているeasy_installの置き換えとして開発されているものです
 sudo easy_install pip
