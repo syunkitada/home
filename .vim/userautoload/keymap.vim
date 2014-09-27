@@ -17,6 +17,7 @@ nmap <Space>e [emmet]
 nmap <Space>g [git]
 nmap <Space>v [vcs]
 nmap <Space>y [yank_to_teraterm]
+nmap <Space>t [tasklist]
 " signature 'Leader'             : "m"
 " signature 'GotoNextLineByPos'  : "<Space>;"
 " signature 'GotoPrevLineByPos'  : "<Space>:"
@@ -25,6 +26,5 @@ nmap <Space>y [yank_to_teraterm]
 
 
 " 個人的なもの
-nmap <Space>t [deplicate_tab]
 nmap <Space>y :CopyToTeraterm<CR>
 vmap <Space>y  y:CopyToTeraterm<CR>

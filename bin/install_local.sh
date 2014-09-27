@@ -62,7 +62,10 @@ if [ $1 = vim -o $1 = all ]; then
         wget ftp://ftp.vim.org/pub/vim/unix/vim-${VIM_VERSION}.tar.bz2
         tar -xvf vim*.tar.bz2
         pushd vim*
-        ./configure --prefix=$INSTALLATION_DIR
+        ./configure --prefix=$INSTALLATION_DIR \
+                    --with-features=huge \
+                    --enable-multibyte \
+                    --enable-pythoninterp \
         make
         make install
         popd
