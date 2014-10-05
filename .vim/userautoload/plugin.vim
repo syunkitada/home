@@ -271,3 +271,9 @@ nmap [vcs]c :VCSCommit<CR>
 " -------------------------
 let g:syntastic_python_checkers = ["flake8"]
 
+
+" -------------------------
+" tasklist
+" TODO機能
+" -------------------------
+nmap [tasklist] <plug>TaskList

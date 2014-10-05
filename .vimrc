@@ -15,20 +15,26 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 
 " plugins
-NeoBundle 'git://github.com/Shougo/unite.vim'
-NeoBundle 'git://github.com/Shougo/vimfiler.vim'
-NeoBundle 'git://github.com/Shougo/neocomplcache'
-NeoBundle 'git://github.com/Shougo/vimshell'
+" uniteのver.6.0だとunite-outlineが動作しないので5.1を利用する: 2014/9/27
+NeoBundleLazy 'git://github.com/Shougo/unite.vim', 'ver.5.1', {
+    \'autoload' : {'commands': ['Unite', 'UniteWithBufferDir']}}
+NeoBundleLazy 'git://github.com/h1mesuke/unite-outline', {
+    \'autoload': {'unit_sources': ['outline']}}
+NeoBundleLazy 'git://github.com/Shougo/vimfiler.vim', {
+    \'autoload': {'commands': ['VimFiler']}}
+NeoBundleLazy 'git://github.com/Shougo/neocomplcache', {
+    \'autoload': {'insert': 1}}
+NeoBundleLazy 'git://github.com/Shougo/vimshell', {
+    \'autoload': {'commands': ['VimShell', 'VimShellCreate', 'VimShellPop', 'VimShellTab']}}
 NeoBundle 'git://github.com/Shougo/neomru.vim'
 NeoBundle 'git://github.com/Shougo/vimproc', {
-            \'build' : {
-            \        'windows' : 'make -f make_mingw32.mak',
-            \        'cygwin' : 'make -f make_cygwin.mak',
-            \        'mac' : 'make -f make_mac.mak',
-            \        'unix' : 'make -f make_unix.mak',
-            \    },
-            \}
-NeoBundle 'git://github.com/h1mesuke/unite-outline'
+    \'build' : {
+    \        'windows' : 'make -f make_mingw32.mak',
+    \        'cygwin' : 'make -f make_cygwin.mak',
+    \        'mac' : 'make -f make_mac.mak',
+    \        'unix' : 'make -f make_unix.mak',
+    \    },
+    \}
 NeoBundle 'git://github.com/tacroe/unite-mark'
 NeoBundle 'git://github.com/vim-scripts/tComment'
 NeoBundle 'git://github.com/vim-scripts/sudo.vim'
@@ -38,12 +44,13 @@ NeoBundle 'git://github.com/Lokaltog/vim-easymotion'
 NeoBundle 'git://github.com/thinca/vim-quickrun'
 NeoBundle 'git://github.com/gregsexton/gitv.git'
 NeoBundle 'git://github.com/mhinz/vim-startify.git'
-NeoBundle 'git://github.com/mattn/emmet-vim.git'
-NeoBundle 'git://github.com/tpope/vim-surround.git'
+NeoBundleLazy 'git://github.com/mattn/emmet-vim.git', {
+    \'autoload': {'filetypes': ['html']}}
 NeoBundle 'git://github.com/tpope/vim-surround.git'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
+NeoBundleLazy 'git://github.com/vim-scripts/TaskList.vim', {
+    \ 'autoload': {'mappings': ['<Plug>TaskList']}}
 " ---------- NeoBundle ----------
-
 
 " ----------------------------------------
 " common settings
@@ -154,4 +161,3 @@ set t_ut=
 " if you want to add your settings, please describe below.
 " or please put the vimscript in '.vim/userautoload'
 " -------------------------------------------------------------
-

@@ -50,7 +50,8 @@ export PS1=$PS1
 export PATH=$HOME/.local/bin:$PATH
 
 if [ -e /usr/bin/virtualenvwrapper.sh ]; then
-    export WORKON_HOME=$HOME/.virtualenvs && \
+    export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=$HOME/Devel
     source `which virtualenvwrapper.sh`
 fi
 

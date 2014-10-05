@@ -33,7 +33,11 @@ home
  * vim-common
 * Net
  * curl
+ * openssl
  * wget
+* Python
+ * python
+ * python-crypto
 * Utils
  * tmux
 
@@ -87,6 +91,17 @@ gitでsshを利用する場合、環境変数GIT_SSHにputtyのplink.exeのパ�
 この時点だと、vimshellがvimからは使えるが、gvimからは使えない。（vimprocのコンパイル環境が異なるため）  
 なので、gvimがあるフォルダのplugins/vimproc/autoload/vimproc_win64.dll を.vim/bundle/vimproc/autoload/にコピーする必要がある。  
 また、cygwin64/bin のパスを通しておくことで、gvimのvimshellからコマンドが実行できるようになる。
+
+### pythonの設定
+1. [setuptools](https://pypi.python.org/pypi/setuptools) のインストール
+    * [ez_setup.py](https://bootstrap.pypa.io/ez_setup.py) をダウンロードして、"$ python ez_setup.py" を実行
+2. pipとその他パッケージのインストール
+   ``` bash
+   $ easy_install pip
+  
+   $ pip install flake8
+   $ pip install fabric
+   ```
 
 ### xampp環境
 * xamppインストール

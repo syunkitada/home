@@ -3,16 +3,22 @@
 # python開発環境のためのセットアップスクリプトです
 
 pushd tmp
-# * python-devel, libxml2-devel, libxslt-devel は、setup.pyでbuild, installするために必要
-sudo yum install python-devel libxml2-devel libxslt-devel
+# python-devel, libxml2-devel, libxslt-devel, libevent-devel
+# pipはソースからインストールしようとするのでビルド環境を整える必要がある
+sudo yum install python-devel libxml2-devel libxslt-devel libevent-devel
 
-# distributeのインストール
-# distributeは、setuptoolsの互換パッケージです
-# （setuptoolsは、ほとんどメンテナンスされていないので、こっちのが良い）
-# distribute_setup.pyは、distributeをインストールするためのスクリプトです
-wget http://python-distribute.org/distribute_setup.py
-sudo python distribute_setup.py
-rm -rf distribute*
+wget http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz
+tar xzvf Python-2.7.3.tgz
+cd Python-2.7.3
+./configure --enable-shared --with-threads
+make
+sudo make install
+sudo cp libpython2.7.so libpython2.7.so.1.0 /usr/lib
+sudo ldconfig
+
+# pipのインストール
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | sudo python
+rm -rf setuptools*
 
 # pipは、setuptoolsに含まれているeasy_installの置き換えとして開発されているものです
 sudo easy_install pip
@@ -21,6 +27,9 @@ popd
 
 # flake8は、コーディングルールをチェックするpep8とシンタックスチェックをするPyFlakes合わせたものです
 sudo pip install flake8
+
+# 
+sudo pip install jedi
 
 # コードチェック
 # $ flake8 [file path]
