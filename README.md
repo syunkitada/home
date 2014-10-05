@@ -92,6 +92,12 @@ gitでsshを利用する場合、環境変数GIT_SSHにputtyのplink.exeのパ�
 なので、gvimがあるフォルダのplugins/vimproc/autoload/vimproc_win64.dll を.vim/bundle/vimproc/autoload/にコピーする必要がある。  
 また、cygwin64/bin のパスを通しておくことで、gvimのvimshellからコマンドが実行できるようになる。
 
+### pythonの設定
+1. [setuptools](https://pypi.python.org/pypi/setuptools)のインストール
+2. pipのインストール
+   ``` bash
+   ```
+
 ### xampp環境
 * xamppインストール
 * xampp/php, xampp/perl/bin をWindowsのPATHに追加
