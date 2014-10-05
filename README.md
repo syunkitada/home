@@ -33,7 +33,11 @@ home
  * vim-common
 * Net
  * curl
+ * openssl
  * wget
+* Python
+ * python
+ * python-crypto
 * Utils
  * tmux
 
