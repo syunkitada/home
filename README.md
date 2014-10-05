@@ -94,8 +94,11 @@ gitでsshを利用する場合、環境変数GIT_SSHにputtyのplink.exeのパ�
 
 ### pythonの設定
 1. [setuptools](https://pypi.python.org/pypi/setuptools)のインストール
-2. pipのインストール
+2. pipとその他パッケージのインストール
    ``` bash
+   $ easy_install pip
+  
+   $ pip install fabric
    ```
 
 ### xampp環境
