@@ -99,6 +99,7 @@ gitでsshを利用する場合、環境変数GIT_SSHにputtyのplink.exeのパ�
    ``` bash
    $ easy_install pip
   
+   $ pip install flake8
    $ pip install fabric
    ```
 
