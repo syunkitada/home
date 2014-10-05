@@ -93,7 +93,8 @@ gitでsshを利用する場合、環境変数GIT_SSHにputtyのplink.exeのパ�
 また、cygwin64/bin のパスを通しておくことで、gvimのvimshellからコマンドが実行できるようになる。
 
 ### pythonの設定
-1. [setuptools](https://pypi.python.org/pypi/setuptools)のインストール
+1. [setuptools](https://pypi.python.org/pypi/setuptools) のインストール
+    * [ez_setup.py](https://bootstrap.pypa.io/ez_setup.py) をダウンロードして、"$ python ez_setup.py" を実行
 2. pipとその他パッケージのインストール
    ``` bash
    $ easy_install pip
