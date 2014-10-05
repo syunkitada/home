@@ -11,6 +11,7 @@ if [[ `uname` =~ ^CYGWIN ]]; then
     export GIT_SSH=$plink_exe
 
     # start sshagent
+    # if add ssh agent, run $ ssh-add [id_rsa]
     SSHAGNET=/usr/bin/ssh-agent
     SSHAGENT=/usr/bin/ssh-agent
     SSHAGENTARGS="-s"
