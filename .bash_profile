@@ -3,12 +3,21 @@
 
 # for cygwin on windows
 if [[ `uname` =~ ^CYGWIN ]]; then
-	plink="$HOME/Desktop/cygwin/putty/plink"
-	plink_exe=${plink/$HOME/$HOMEPATH}.exe
-	plink_exe=${plink_exe//\//\\}
-	alias exp='explorer .'
-	alias plink="${plink} -ssh -A -l `whoami`"
-	export GIT_SSH=$plink_exe
+    plink="$HOME/Desktop/cygwin/putty/plink"
+    plink_exe=${plink/$HOME/$HOMEPATH}.exe
+    plink_exe=${plink_exe//\//\\}
+    alias exp='explorer .'
+    alias plink="${plink} -ssh -A -l `whoami`"
+    export GIT_SSH=$plink_exe
+
+    # start sshagent
+    SSHAGNET=/usr/bin/ssh-agent
+    SSHAGENT=/usr/bin/ssh-agent
+    SSHAGENTARGS="-s"
+    if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
+        eval `$SSHAGENT $SSHAGENTARGS`
+        trap "kill $SSH_AGENT_PID" 0
+    fi
 fi
 
 # basic
