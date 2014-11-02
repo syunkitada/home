@@ -38,7 +38,7 @@
 " yy ファイルのフルパスコピー
 
 nmap [vimfiler]s :VimFiler -split -simple -winwidth=40 -no-quit<CR>
-nmap [vimfiler]f :VimFiler<CR>o
+nmap [vimfiler]f :VimFilerDouble<CR>
 nmap [vimfiler]t :tabe<CR>:VimFiler<CR>o
 "vimデフォルトのエクスプローラをvimfilerで置き換える
 let g:vimfiler_as_default_explorer = 1
@@ -111,13 +111,13 @@ nnoremap [unite]m :Unite mark<CR>
 "  show mark toggle
 " -------------------------
 let g:SignatureMap = {
-	\ 'Leader'             : "m", 
-	\ 'PurgeMarks'         : "<Space>",
-	\ 'PlaceNextMark'      : ",",
-	\ 'PurgeMarksAtLine'   :  "-",
-	\ 'GotoNextLineByPos'  : "m;",
-	\ 'GotoPrevLineByPos'  : "m:",
-	\ }
+    \ 'Leader'             : "m",
+    \ 'PurgeMarks'         : "<Space>",
+    \ 'PlaceNextMark'      : ",",
+    \ 'PurgeMarksAtLine'   :  "-",
+    \ 'GotoNextLineByPos'  : "m;",
+    \ 'GotoPrevLineByPos'  : "m:",
+    \ }
 
 
 " -------------------------
@@ -136,16 +136,19 @@ nmap t <Plug>(easymotion-t)
 " Bidirectional & within line 't' motion
 omap f <Plug>(easymotion-bd-fl)
 omap t <Plug>(easymotion-bd-tl)
+vmap f <Plug>(easymotion-bd-fl)
+vmap t <Plug>(easymotion-bd-tl)
 
-map  / <Plug>(easymotion-sn)
+nmap / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
+vmap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
 
-map zh <Plug>(easymotion-lineforward)
+map zh <Plug>(easymotion-linebackward)
 map zj <Plug>(easymotion-j)
 map zk <Plug>(easymotion-k)
-map zl <Plug>(easymotion-linebackward)
+map zl <Plug>(easymotion-lineforward)
 "
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 " Use uppercase target labels and type as a lower case
@@ -240,15 +243,6 @@ nmap [git]g :Gitv<CR>
 " Enterでファイルを開く
 " D でdiff表示
 nmap [git]v :Gitv!<CR>
-
-
-" -------------------------
-"  vim-statify
-"
-"  vimを開始した時にスタートページを表示します
-"  スタートページには,以下が表示され、ファイルを選択・編集できます
-"  バッファ、最近開いたファイル、現在のディレクトリで最近開いたファイル
-" -------------------------
 
 
 " -------------------------

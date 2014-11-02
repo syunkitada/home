@@ -11,8 +11,9 @@ endif
 
 
 " ---------- NeoBundle ----------
-" initialize neobundle
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
 
 " plugins
 " uniteのver.6.0だとunite-outlineが動作しないので5.1を利用する: 2014/9/27
@@ -43,14 +44,22 @@ NeoBundle 'git://github.com/kshenoy/vim-signature'
 NeoBundle 'git://github.com/Lokaltog/vim-easymotion'
 NeoBundle 'git://github.com/thinca/vim-quickrun'
 NeoBundle 'git://github.com/gregsexton/gitv.git'
-NeoBundle 'git://github.com/mhinz/vim-startify.git'
 NeoBundleLazy 'git://github.com/mattn/emmet-vim.git', {
     \'autoload': {'filetypes': ['html']}}
 NeoBundle 'git://github.com/tpope/vim-surround.git'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundleLazy 'git://github.com/vim-scripts/TaskList.vim', {
     \ 'autoload': {'mappings': ['<Plug>TaskList']}}
-" ---------- NeoBundle ----------
+
+
+" ---------- NeoBundle required ----------
+call neobundle#end()
+filetype plugin indent on
+
+" Installation check.
+NeoBundleCheck
+" ---------- NeoBundle end ---------------
+
 
 " ----------------------------------------
 " common settings
@@ -142,12 +151,6 @@ set timeoutlen=1000 ttimeoutlen=0
 set ttymouse=xterm2
 
 
-
-" ---------- NeoBundle required ----------
-filetype plugin indent on
-" Installation check.
-NeoBundleCheck
-" ---------- NeoBundle end ---------------
 
 " tmux用
 " tmuxは背景色消去に対応していないので、vimを開くと文字がない部分の背景色が端末の背景色のままになってしまう
