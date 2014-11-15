@@ -16,12 +16,13 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 
 " plugins
-" uniteのver.6.0だとunite-outlineが動作しないので5.1を利用する: 2014/9/27
+" unite-ver.6.0だとunite-outlineが動作しないのでver.5.1を利用する: 2014/9/27
 NeoBundleLazy 'git://github.com/Shougo/unite.vim', 'ver.5.1', {
     \'autoload' : {'commands': ['Unite', 'UniteWithBufferDir']}}
 NeoBundleLazy 'git://github.com/h1mesuke/unite-outline', {
     \'autoload': {'unit_sources': ['outline']}}
-NeoBundleLazy 'git://github.com/Shougo/vimfiler.vim', {
+" vimfiler-ver.4.1がファイル作成時にエラー(unit依存?)を出すのでver.4.0を利用する: 2014/11/15
+NeoBundleLazy 'git://github.com/Shougo/vimfiler.vim', 'ver.4.0', {
     \'autoload': {'commands': ['VimFiler']}}
 NeoBundleLazy 'git://github.com/Shougo/neocomplcache', {
     \'autoload': {'insert': 1}}
