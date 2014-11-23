@@ -5,6 +5,9 @@ export EDITOR=vim        # エディタをvimに設定
 export VISUAL=vim        # lessから使うエディタをvimに設定
 export LANG=ja_JP.UTF-8  # 文字コードをUTF-8に設定
 export KCODE=u           # KCODEにUTF-8を設定
+export TZ=Asia/Tokyo
+export TERM='xterm-256color'
+
 
 # for cygwin on windows
 if [[ `uname` =~ ^CYGWIN ]]; then
@@ -183,7 +186,9 @@ function rprompt-git-current-branch {
             if [[ -n `echo "$st" | grep "Changes to be committed"` ]]; then
                 symbol=$symbol'+'
             fi
-            if [[ -n `echo "$st" | grep "Changes not staged for commit"` ]]; then
+            if [[ -n `echo "$st" | grep "Changed but not updated"` ]]; then
+                symbol=$symbol'*'
+            elif [[ -n `echo "$st" | grep "Changes not staged for commit"` ]]; then
                 symbol=$symbol'*'
             fi
         fi

@@ -38,7 +38,8 @@
 " yy ファイルのフルパスコピー
 
 nmap [vimfiler]s :VimFiler -split -simple -winwidth=40 -no-quit<CR>
-nmap [vimfiler]f :VimFilerDouble<CR>
+nmap [vimfiler]r :VimFiler<CR>
+nmap [vimfiler]f :VimFiler<CR>o
 nmap [vimfiler]t :tabe<CR>:VimFiler<CR>o
 "vimデフォルトのエクスプローラをvimfilerで置き換える
 let g:vimfiler_as_default_explorer = 1
