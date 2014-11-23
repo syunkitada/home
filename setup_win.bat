@@ -3,6 +3,7 @@
 cd /d %~dp0
 set home=%CD%\
 set bash_profile=%home%.bash_profile
+set zshrc=%home%.zshrc
 set git_prompt=%home%.git-prompt.sh
 set git_completion=%home%.git-completion.bash
 set screenrc=%home%.screenrc
@@ -15,6 +16,7 @@ set vimfiles=%home%.vim
 set vrapperrc=%home%.vrapperrc
 
 set ln_bash_profile=%HOMEPATH%\.bash_profile
+set ln_zshrc=%HOMEPATH%\.zshrc
 set ln_git_prompt=%HOMEPATH%\.git-prompt.sh
 set ln_git_completion=%HOMEPATH%\.git-completion.bash
 set ln_screenrc=%HOMEPATH%\.screenrc
@@ -30,6 +32,7 @@ set ln_vrapperrc=%HOMEPATH%\.vrapperrc
 cls
 
 del %ln_bash_profile%
+del %ln_zshrc%
 del %ln_git_prompt%
 del %ln_git_completion%
 del %ln_screenrc%
@@ -42,6 +45,7 @@ del %ln_vimfiles%
 del %ln_vrapperrc%
 
 mklink %ln_bash_profile% %bash_profile%
+mklink %ln_zshrc% %zshrc%
 mklink %ln_git_prompt% %git_prompt%
 mklink %ln_git_completion% %git_completion%
 mklink %ln_screenrc% %screenrc%
