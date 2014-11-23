@@ -167,23 +167,23 @@ function rprompt-git-current-branch {
         return
     fi
     st=`git status 2> /dev/null`
-    if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
+    if [[ -n `echo "$st" | grep "nothing to"` ]]; then
         color=%F{green}
         symbol=''
     else
         symbol=' '
         color=%F{yellow}
-        if [[ -n `echo "$st" | grep "^Unmerged paths"` ]]; then
+        if [[ -n `echo "$st" | grep "Unmerged paths"` ]]; then
             color=%F{red}
             symbol=$symbol'*+|MERGING'
         else
-            if [[ -n `echo "$st" | grep "^Untracked"` ]]; then
+            if [[ -n `echo "$st" | grep "Untracked"` ]]; then
                 symbol=$symbol'?'
             fi
-            if [[ -n `echo "$st" | grep "^Changes to be committed"` ]]; then
+            if [[ -n `echo "$st" | grep "Changes to be committed"` ]]; then
                 symbol=$symbol'+'
             fi
-            if [[ -n `echo "$st" | grep "^Changes not staged for commit"` ]]; then
+            if [[ -n `echo "$st" | grep "Changes not staged for commit"` ]]; then
                 symbol=$symbol'*'
             fi
         fi
