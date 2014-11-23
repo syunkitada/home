@@ -1,6 +1,11 @@
 # -------------------------------------------------------------
 # environment
 
+
+# zshがあるならzshを使う
+[ -x "/bin/zsh" ] && exec /bin/zsh
+
+
 # for cygwin on windows
 if [[ `uname` =~ ^CYGWIN ]]; then
     plink="$HOME/Desktop/cygwin/putty/plink"
