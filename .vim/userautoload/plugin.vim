@@ -25,9 +25,12 @@
 " q  バッファの残して終了
 " Q  終了
 " gs safemode有効、無効切り替え（ファイルの作成や削除はsafemodeではできない）
+"
 " Space マーク
 " c  マークしたファイルをコピー
+" cc カーソル下のファイルをコピー
 " m  マークしたファイルを移動
+" mm カーソル下のファイルをコピー
 " d  マークしたファイルを削除(ゴミ箱）
 " dd 削除
 " r  マークしたファイルの名前を変更
@@ -36,6 +39,18 @@
 " *  すべてのファイルにマークをつける・マークをはずす
 " U  すべてのファイルのマークをはずす
 " yy ファイルのフルパスコピー
+"
+" 補足
+" c, m, dはマークされてるファイルがないときは、カーソル下のファイルをマークする
+" このため、cc, mm, ddなどと入力すればカーソル下のファイルを操作できる
+"
+" また、m, cによるファイルの移動、コピーは、
+" 2画面の時は他方のディレクトリへの移動、コピーとなる
+" 1画面の時は移動先を聞かれるのでパスを入力する
+"
+" その他
+" x  システム関連付けを実行
+" E  外部ファイラでファイルを開く
 
 nmap [vimfiler]s :VimFiler -split -simple -winwidth=40 -no-quit<CR>
 nmap [vimfiler]r :VimFiler<CR>
@@ -86,8 +101,9 @@ autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
 " -------------------------
 "  neomru.vim
 "
-" 最近利用したファイル
-"  unite で利用
+" 最近利用したファイルをuniteで表示
+" unite で利用
+" nnoremap <silent> [unite]u :Unite file_mru buffer<CR>
 " -------------------------
 
 
@@ -161,17 +177,7 @@ let g:EasyMotion_use_smartsign_jp = 1 " JP layout
 " -------------------------
 " tComment
 "
-" Ctrl+/ でコメントアウト
-" -------------------------
-nmap <silent> [tcomment] :TComment<CR>
-
-
-" -------------------------
-" vim-seek
-"
-" fの2文字検索版
-" sで検索を開始(sをおした後に2文字入力すると移動する）
-" Sで前を検索開始
+" Ctrl + / でコメントアウト
 " -------------------------
 
 
@@ -179,11 +185,8 @@ nmap <silent> [tcomment] :TComment<CR>
 " vimshell
 "
 " vim上でshellを使えるようにします
-" ,s 新しいバッファ上でShellを立ち上げる
-" ,v ウィンドウ分割してShellを立ち上げる
 " Tabで補完
-" C-lで履歴表示
-" ,sw は、画面を４分割してvimshellを開きます
+" C-uで履歴表示(autohotkey)
 " sudo実行に関して、毎回paswordを入力する必要がある（仕様です）
 " -------------------------
 nmap [vimshell] :VimShell<CR>
@@ -192,7 +195,6 @@ nmap [vimshell]t :VimShellTab<CR>
 nmap [vimshell]p :VimShellPop<CR>
 nmap [vimshell]s :VimShellCreate -split-command=split<CR>
 nmap [vimshell]v :VimShellCreate -split-command=vsplit<CR>
-" nmap ,sw :VimShellCreate<CR><Esc>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>j<Esc>:VimShellCreate -split-command=vsplit<CR><Esc><C-w>k
 nmap [vimshell]w :VimFiler<CR>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR>
 
 " プロンプトの設定
@@ -219,7 +221,7 @@ nmap [quickrun] :QuickRun -outputter/buffer/split "botright 8sp"<CR>
 "
 " root権限で、ファイルを編集したい場合、
 " 通常のsudo vim を利用するとユーザのvimrcを読み込んでくれない。
-" 以下のように、呼び出すとユーザのvimrcを読み込んで演習できる。
+" 以下のように、呼び出すとユーザのvimrcを読み込んで編集できる。
 " $ vim sudo:filename
 " :e sudo:filename
 " :e sudo:%
