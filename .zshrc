@@ -151,7 +151,7 @@ alias tl='tmux ls'
 
 ### Prompt ###
 tmp_prompt="
-%{${fg[cyan]}%}(%T) [%n@%m:%~ (%?)]%{${reset_color}%}
+%{${fg[cyan]}%}%n@%M:%~ (%?)%{${reset_color}%}
 %# "
 tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
 tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
@@ -198,4 +198,4 @@ function rprompt-git-current-branch {
     echo "$color%\[$name$symbol%\]%f%b"
 }
 
-RPROMPT='`rprompt-git-current-branch`'
+RPROMPT='`rprompt-git-current-branch` (%T)'
