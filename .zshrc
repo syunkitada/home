@@ -31,8 +31,8 @@ if [[ `uname` =~ ^CYGWIN ]]; then
 fi
 
 
-# bindkey -e # キーバインドをemacsモードに設定
-bindkey -v # キーバインドをviモードに設定
+bindkey -e # キーバインドをemacsモードに設定
+# bindkey -v # キーバインドをviモードに設定
 
 setopt no_beep           # ビープ音を鳴らさないようにする
 setopt auto_cd           # ディレクトリ名の入力のみで移動する 
