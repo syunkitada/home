@@ -51,7 +51,7 @@ NeoBundle 'git://github.com/tpope/vim-surround.git'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundleLazy 'git://github.com/vim-scripts/TaskList.vim', {
     \ 'autoload': {'mappings': ['<Plug>TaskList']}}
-NeoBundle 'git@github.com:kchmck/vim-coffee-script.git'
+NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
 
 
 " ---------- NeoBundle required ----------

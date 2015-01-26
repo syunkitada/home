@@ -269,6 +269,8 @@ nmap [vcs]c :VCSCommit<CR>
 " シンタックスチェック用のプラグイン
 " -------------------------
 let g:syntastic_python_checkers = ["flake8"]
+let g:syntastic_coffee_checkers = ['coffeelint']
+let g:syntastic_css_checkers = ['csslint']
 
 
 " -------------------------
