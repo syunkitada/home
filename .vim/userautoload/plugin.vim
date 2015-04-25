@@ -275,11 +275,11 @@ nmap [git]m :Merginal<CR>
 " <leader>cd diff
 " default leader = \
 " -------------------------
-nmap [vcs]l :VCSLog<CR>
-nmap [vcs]d :VCSDiff<CR>
-nmap [vcs]b :VCSBlame<CR>
-nmap [vcs]a :VCSAdd<CR>
-nmap [vcs]c :VCSCommit<CR>
+" nmap [vcs]l :VCSLog<CR>
+" nmap [vcs]d :VCSDiff<CR>
+" nmap [vcs]b :VCSBlame<CR>
+" nmap [vcs]a :VCSAdd<CR>
+" nmap [vcs]c :VCSCommit<CR>
 
 
 

@@ -81,7 +81,6 @@ syntax on
 " let g:lucius_high_contrast = "0"
 " colorscheme lucius
 colorscheme hybrid
-let s:addbg      = "95"
 
 " visualize tab
 " highlight Tab ctermbg=236

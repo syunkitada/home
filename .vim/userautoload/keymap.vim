@@ -14,7 +14,6 @@ nmap <Space>s [vimshell]
 nmap <Space>r [quickrun]
 nmap <Space>e [emmet]
 nmap <Space>g [git]
-nmap <Space>v [vcs]
 nmap <Space>y [yank_to_teraterm]
 nmap <Space>t [tasklist]
 " signature 'Leader'             : "m"
