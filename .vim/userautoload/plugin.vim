@@ -112,7 +112,7 @@ autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
 "
 " ファイルを解析し、アウトラインをuniteで表示する
 " -------------------------
-nnoremap <silent> [unite]o :Unite -no-quit -vertical -winwidth=30 outline<CR>
+nnoremap <silent> [unite]o :Unite -no-quit -vertical -winwidth=70 outline<CR>
 
 
 " -------------------------
@@ -143,16 +143,16 @@ let g:SignatureMap = {
 " z[移動コマンド]で移動可能先をハイライトしてアルファベットで移動先を指定できる
 " -------------------------
 let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-let g:EasyMotion_leader_key = "z"
 let g:EasyMotion_grouping = 1   " 1ストローク選択を優先する
 "equire tpope/vim-repeat to enable dot repeat support
 " Jump to anywhere with only `s{char}{target}`$
 " `s<CR>` repeat last find motion.
 nmap s <Plug>(easymotion-s)
-nmap t <Plug>(easymotion-t)
 " Bidirectional & within line 't' motion
 omap s <Plug>(easymotion-s)
 vmap s <Plug>(easymotion-s)
+" nmap t <Plug>(easymotion-t)
+" vmap t <Plug>(easymotion-t)
 " omap f <Plug>(easymotion-bd-fl)
 " omap t <Plug>(easymotion-bd-tl)
 " vmap f <Plug>(easymotion-bd-fl)
@@ -164,11 +164,6 @@ vmap s <Plug>(easymotion-s)
 " map  n <Plug>(easymotion-next)
 " map  N <Plug>(easymotion-prev)
 
-map zh <Plug>(easymotion-linebackward)
-map zj <Plug>(easymotion-j)
-map zk <Plug>(easymotion-k)
-map zl <Plug>(easymotion-lineforward)
-"
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 " Use uppercase target labels and type as a lower case
 let g:EasyMotion_use_upper = 1
@@ -240,14 +235,38 @@ vmap <silent> [emmet] <C-y>,
 
 
 " -------------------------
-" gitv
-"
-" gitをコミットグラフで表示しつつ、差分を確認できる
-nmap [git]g :Gitv<CR>
-" ファイル単位でコミットログを確認、開くことができる
-" Enterでファイルを開く
-" D でdiff表示
-nmap [git]v :Gitv!<CR>
+" gitv, vim-fugitive
+
+" Gitv
+" コミットログをブラウザモードで表示
+" <CR>
+" O  opens in new tab
+" l  open
+" <C-space> next commit
+" <C-p> previos commit
+" all refs
+nmap [git]l :Gitv<CR>
+nmap [git]la :Gitv --all<CR>
+" コミットログをファイルモードで表示
+" <CR>             | コミット次のファイルを表示
+" D                | 表示中のファイルと選択されたファイルの差分を表示
+" ハイライトしてD  | 一番上と一番下のコミットの差分を表示
+nmap [git]f :Gitv!<CR>
+
+" vim-fugitive
+" gitの基本機能
+nmap [git]a :Gwrite<CR>
+nmap [git]c :Gcommit -v<CR>
+nmap [git]s :Gstatus<CR>
+nmap [git]b :Gblame<CR>
+nmap [git]d :Gdiff<CR>
+nmap [git]p :Gpull<CR>
+nmap [git]pu :Gpush<CR>
+
+" vim-merginal
+" ブランチの管理(一覧、作成、切替、削除)と、ブランチ間のマージ(およびコンフリクトの解消)
+nmap [git]m :Merginal<CR>
+
 
 
 " -------------------------

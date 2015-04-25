@@ -40,10 +40,13 @@ NeoBundle 'git://github.com/Shougo/vimproc', {
 NeoBundle 'git://github.com/tacroe/unite-mark'
 NeoBundle 'git://github.com/vim-scripts/tComment'
 NeoBundle 'git://github.com/vim-scripts/sudo.vim'
-NeoBundle 'git://github.com/vim-scripts/vcscommand.vim'
+NeoBundle 'git://github.com/cohama/agit.vim'  " git log 見るためのプラグイン
+" NeoBundle 'git://github.com/vim-scripts/vcscommand.vim'
+NeoBundle 'git://github.com/idanarye/vim-merginal'
 NeoBundle 'git://github.com/kshenoy/vim-signature'
 NeoBundle 'git://github.com/Lokaltog/vim-easymotion'
 NeoBundle 'git://github.com/thinca/vim-quickrun'
+NeoBundle 'git://github.com/tpope/vim-fugitive'
 NeoBundle 'git://github.com/gregsexton/gitv.git'
 NeoBundleLazy 'git://github.com/mattn/emmet-vim.git', {
     \'autoload': {'filetypes': ['html']}}
@@ -72,22 +75,28 @@ set fileencodings=utf-8
 
 " setting syntax color
 syntax on
-colorscheme molokai
+" colorscheme molokai
+" colorscheme twilight
+" let g:lucius_style = "dark"
+" let g:lucius_high_contrast = "0"
+" colorscheme lucius
+colorscheme hybrid
+let s:addbg      = "95"
 
 " visualize tab
-highlight Tab ctermbg=236
-au BufWinEnter * let w:m1 = matchadd("Tab", '\t')
-au WinEnter * let w:m1 = matchadd("Tab", '\t')
-
-" visualize 4 space
-highlight Whitespaces ctermbg=234
-au BufWinEnter * let w:m1 = matchadd("Whitespaces", '    ')
-au WinEnter * let w:m1 = matchadd("Whitespaces", '    ')
-
-" visualize eol of space and tab
-highlight WhitespaceEOL ctermbg=240
-au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
-au WinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
+" highlight Tab ctermbg=236
+" au BufWinEnter * let w:m1 = matchadd("Tab", '\t')
+" au WinEnter * let w:m1 = matchadd("Tab", '\t')
+" 
+" " visualize 4 space
+" highlight Whitespaces ctermbg=234
+" au BufWinEnter * let w:m1 = matchadd("Whitespaces", '    ')
+" au WinEnter * let w:m1 = matchadd("Whitespaces", '    ')
+" 
+" " visualize eol of space and tab
+" highlight WhitespaceEOL ctermbg=234
+" au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
+" au WinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
 
 " visualize double-byte space
 highlight ZenkakuSpace cterm=underline ctermbg=203
