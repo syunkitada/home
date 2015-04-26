@@ -40,14 +40,9 @@ NeoBundle 'git://github.com/Shougo/vimproc', {
 NeoBundle 'git://github.com/tacroe/unite-mark'
 NeoBundle 'git://github.com/vim-scripts/tComment'
 NeoBundle 'git://github.com/vim-scripts/sudo.vim'
-NeoBundle 'git://github.com/cohama/agit.vim'  " git log 見るためのプラグイン
-" NeoBundle 'git://github.com/vim-scripts/vcscommand.vim'
-NeoBundle 'git://github.com/idanarye/vim-merginal'
 NeoBundle 'git://github.com/kshenoy/vim-signature'
 NeoBundle 'git://github.com/Lokaltog/vim-easymotion'
 NeoBundle 'git://github.com/thinca/vim-quickrun'
-NeoBundle 'git://github.com/tpope/vim-fugitive'
-NeoBundle 'git://github.com/gregsexton/gitv.git'
 NeoBundleLazy 'git://github.com/mattn/emmet-vim.git', {
     \'autoload': {'filetypes': ['html']}}
 NeoBundle 'git://github.com/tpope/vim-surround.git'
@@ -55,7 +50,16 @@ NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundleLazy 'git://github.com/vim-scripts/TaskList.vim', {
     \ 'autoload': {'mappings': ['<Plug>TaskList']}}
 NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
+NeoBundle 'git://github.com/majutsushi/tagbar.git'
+NeoBundle 'git://github.com/itchyny/lightline.vim.git'
+NeoBundle 'git://github.com/wesleyche/SrcExpl'
 
+" NeoBundle 'git://github.com/vim-scripts/vcscommand.vim' all vcsなプラグイン
+" for git
+NeoBundle 'git://github.com/cohama/agit.vim'  " git log 見るためのプラグイン
+NeoBundle 'git://github.com/idanarye/vim-merginal'
+NeoBundle 'git://github.com/tpope/vim-fugitive'
+NeoBundle 'git://github.com/gregsexton/gitv.git'
 
 " ---------- NeoBundle required ----------
 call neobundle#end()
@@ -81,6 +85,9 @@ syntax on
 " let g:lucius_high_contrast = "0"
 " colorscheme lucius
 colorscheme hybrid
+
+" show status line
+set laststatus=2
 
 " visualize tab
 " highlight Tab ctermbg=236

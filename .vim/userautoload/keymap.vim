@@ -10,12 +10,15 @@ nnoremap <S-r> <C-r>
 " プラグイン
 nmap <Space>f [vimfiler]
 nmap <Space>u [unite]
-nmap <Space>s [vimshell]
+nmap <Space>h [vimshell]
 nmap <Space>r [quickrun]
 nmap <Space>e [emmet]
 nmap <Space>g [git]
 nmap <Space>y [yank_to_teraterm]
 nmap <Space>t [tasklist]
+nmap <Space>o [tagbar]
+nmap <Space>s [srcexpl]
+
 " signature 'Leader'             : "m"
 " signature 'GotoNextLineByPos'  : "<Space>;"
 " signature 'GotoPrevLineByPos'  : "<Space>:"
