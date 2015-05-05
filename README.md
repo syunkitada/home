@@ -32,6 +32,7 @@ home
  * vim
  * vim-common
 * Net
+ * bind-utils 
  * curl
  * openssl
  * wget
