@@ -36,10 +36,11 @@ home
  * curl
  * openssl
  * wget
- * ping
 * Python
  * python
  * python-crypto
+* Tcl
+ * expect
 * Utils
  * tmux
 
