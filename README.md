@@ -28,6 +28,7 @@ home
  * gccのコンパイラ各種(c, c++, objectiv-c など)
  * git
  * make
+ * ctags
 * Editor
  * vim
  * vim-common
