@@ -28,16 +28,20 @@ home
  * gccのコンパイラ各種(c, c++, objectiv-c など)
  * git
  * make
+ * ctags
 * Editor
  * vim
  * vim-common
 * Net
+ * bind-utils 
  * curl
  * openssl
  * wget
 * Python
  * python
  * python-crypto
+* Tcl
+ * expect
 * Utils
  * tmux
 
