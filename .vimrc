@@ -29,7 +29,7 @@ NeoBundleLazy 'git://github.com/Shougo/neocomplcache', {
 NeoBundleLazy 'git://github.com/Shougo/vimshell', {
     \'autoload': {'commands': ['VimShell', 'VimShellCreate', 'VimShellPop', 'VimShellTab']}}
 NeoBundle 'git://github.com/Shougo/neomru.vim'
-NeoBundle 'git://github.com/Shougo/vimproc', {
+NeoBundle 'git://github.com/Shougo/vimproc', 'ver.7.1', {
     \'build' : {
     \        'windows' : 'make -f make_mingw32.mak',
     \        'cygwin' : 'make -f make_cygwin.mak',
