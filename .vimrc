@@ -89,20 +89,23 @@ colorscheme hybrid
 " show status line
 set laststatus=2
 
+" visualize eol of space and tab
+set list
+set listchars=tab:>_,trail:.,eol:↲
+
+highlight WhitespaceEOL ctermbg=236
+au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
+au WinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
+
 " visualize tab
-" highlight Tab ctermbg=236
-" au BufWinEnter * let w:m1 = matchadd("Tab", '\t')
-" au WinEnter * let w:m1 = matchadd("Tab", '\t')
-" 
-" " visualize 4 space
-" highlight Whitespaces ctermbg=234
-" au BufWinEnter * let w:m1 = matchadd("Whitespaces", '    ')
-" au WinEnter * let w:m1 = matchadd("Whitespaces", '    ')
-" 
-" " visualize eol of space and tab
-" highlight WhitespaceEOL ctermbg=234
-" au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
-" au WinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
+highlight Tab ctermbg=236
+au BufWinEnter * let w:m1 = matchadd("Tab", '\t')
+au WinEnter * let w:m1 = matchadd("Tab", '\t')
+
+" visualize 4 space
+highlight Whitespaces ctermbg=236
+au BufWinEnter * let w:m1 = matchadd("Whitespaces", '    ')
+au WinEnter * let w:m1 = matchadd("Whitespaces", '    ')
 
 " visualize double-byte space
 highlight ZenkakuSpace cterm=underline ctermbg=203
