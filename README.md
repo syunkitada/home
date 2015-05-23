@@ -3,10 +3,10 @@
 This is my dot files, and other setting files.
 
 ## Contents
-* [About keybind](#About keybind)
-* [Setup Windows](/syunkitada/home/docs/setup_windows.md)
-* [Setup CentOS](/syunkitada/home/docs/setup_centos.md)
-* [Setup Ubuntu](/syunkitada/home/docs/setup_ubuntu.md)
+* [About keybind](#About_keybind)
+* [Setup Windows](/docs/setup_windows.md)
+* [Setup CentOS](/docs/setup_centos.md)
+* [Setup Ubuntu](/docs/setup_ubuntu.md)
 
 
 ## About keybind
