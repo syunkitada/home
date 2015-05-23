@@ -3,7 +3,6 @@
 This is my dot files, and other setting files.
 
 ## Contents
-* [About keybind](#About_keybind)
 * [Setup Windows](/docs/setup_windows.md)
 * [Setup CentOS](/docs/setup_centos.md)
 * [Setup Ubuntu](/docs/setup_ubuntu.md)
