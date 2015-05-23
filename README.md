@@ -11,7 +11,7 @@ This is my dot files, and other setting files.
 ## About keybind
 For Windows7, and JIS keyboard.
 
-Keybind managed [autohotkey](https://github.com/syunkitada/autohotkey).
+Keybind managed by [autohotkey](https://github.com/syunkitada/autohotkey).
 
 ### Cheatsheat
 ![mycheatsheet](http://dl.dropboxusercontent.com/u/29431105/shed/cheatsheats/mycheatsheet.png)
