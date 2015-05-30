@@ -53,7 +53,7 @@ can't add wlan0 to bridge mybr: Operation not supported
 
 ## Setup nat to ssh VM
 ``` bash
-# 192.192.122.0/24へのアクセスを許可する
+# 192.168.122.0/24へのアクセスを許可する
 sudo iptables -R FORWARD 1 -o virbr0 -s 0.0.0.0/0 -d 192.168.122.0/255.255.255.0 -j ACCEPT
 
 # 10022ポートへのアクセスを192.168.122.156:22 へ転送する
@@ -61,5 +61,12 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 10022 -j DNAT --to 192.168.122
 
 sudo iptables -L -t nat
 sudo iptables -L
+
+# TODO サーバ起動時にiptablesを反映させる
 ```
 
+## Virsh commands
+``` bash
+# Autostart VM
+$ sudo virsh autostart testvm
+```

@@ -3,8 +3,11 @@
 ## Common software
 * Microsoft Security Essentials
 * Lhaplus
-* clover
-* desktops
+* Clover
+* Desktops
+* VLC media player
+* TrueCrypt
+* LibreOffice
 
 ## Install cygwin
 * Install position: ~/Desktop/cygwin/cygwin64

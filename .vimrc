@@ -133,6 +133,9 @@ set number
 " enable mouse operation
 set mouse=nv
 
+" enable clipboard
+set clipboard=unnamed,autoselect
+
 " disable default japanise input
 " disable default japanise input in insert mode
 set iminsert=0
@@ -178,6 +181,7 @@ set ttymouse=xterm2
 " tmuxは背景色消去に対応していないので、vimを開くと文字がない部分の背景色が端末の背景色のままになってしまう
 " t_ut 端末オプションで、現在の背景色を使って端末の背景をクリアする
 set t_ut=
+
 
 
 " -------------------------------------------------------------

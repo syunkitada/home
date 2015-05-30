@@ -19,3 +19,12 @@ au WinEnter * let w:m3 = matchadd("ZenkakuSpace", '　')
 gui
 set transparency=225
 
+" 英語メニューにする
+source $VIMRUNTIME/delmenu.vim 
+set langmenu=none 
+source $VIMRUNTIME/menu.vim
+
+" 英語メッセージにする
+if has("multi_lang")
+language C
+endif
