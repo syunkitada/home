@@ -20,6 +20,7 @@ NeoBundleLazy 'git://github.com/Shougo/unite.vim', 'ver.6.1', {
     \'autoload' : {'commands': ['Unite', 'UniteWithBufferDir']}}
 NeoBundleLazy 'git://github.com/Shougo/vimfiler.vim', 'ver.4.1', {
     \'autoload': {'commands': ['VimFiler']}}
+" NeoBundle 'git://github.com/scrooloose/nerdtree'  " NERDTree is filer like vimfiler, bat this will sumetimes freeze
 NeoBundleLazy 'git://github.com/Shougo/neocomplcache', {
     \'autoload': {'insert': 1}}
 NeoBundleLazy 'git://github.com/Shougo/vimshell', {
@@ -47,6 +48,7 @@ NeoBundleLazy 'git://github.com/vim-scripts/TaskList.vim', {
     \ 'autoload': {'mappings': ['<Plug>TaskList']}}
 NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
 NeoBundle 'git://github.com/majutsushi/tagbar.git'
+" NeoBundle 'git://github.com/vim-scripts/taglist.vim'  " Taglist is show outline of tag like Tagbar, however Tagbar is easy to see than this.
 NeoBundle 'git://github.com/itchyny/lightline.vim.git'
 NeoBundle 'git://github.com/wesleyche/SrcExpl'
 

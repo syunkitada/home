@@ -22,6 +22,7 @@
 "
 " -- 編集 --
 " e  ファイルの編集
+" E  スプリットしてファイルの編集
 " q  バッファの残して終了
 " Q  終了
 " gs safemode有効、無効切り替え（ファイルの作成や削除はsafemodeではできない）
@@ -306,6 +307,13 @@ nmap [tasklist] <plug>TaskList
 " TagbarToggle
 " -------------------------
 nmap [tagbar] :TagbarToggle<CR>
+
+
+" -------------------------
+" TagList
+" -------------------------
+" let Tlist_Use_Right_Window = 1
+" nmap [tagbar] :TlistToggle<CR>
 
 
 " -------------------------
