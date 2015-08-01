@@ -87,7 +87,7 @@ set laststatus=2
 
 " visualize eol of space and tab
 set list
-set listchars=tab:>_,trail:.,eol:↲
+set listchars=tab:>_,trail:.
 
 highlight WhitespaceEOL ctermbg=236
 au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')

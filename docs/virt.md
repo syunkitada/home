@@ -24,7 +24,44 @@ kvm                   452043  1 kvm_intel
     --location='/tmp/imgs/CentOS-6.6-x86_64-bin-DVD1.iso' \
     --nographics \
     --extra-args='console=tty0 console=ttyS0,115200n8 keymap=ja'
+
+# Create Snapshot
+% sudo virsh snapshot-create-as testvm testsnap 'first snap'
+
+% sudo virsh snapshot-list testvm
+ Name                 Creation Time             State
+ ------------------------------------------------------------
+  testsnap             2015-06-21 11:58:35 +0900 running
+
+% sudo virsh snapshot-revert testvm testsnap
+
+% sudo virsh snapshot-info testvm testsnap
+Name:           testsnap
+Domain:         testvm
+Current:        yes
+State:          running
+Location:       internal
+Parent:         -
+Children:       0
+Descendants:    0
+Metadata:       yes
+
+% sudo virsh snapshot-info testvm --current
+Name:           testsnap
+Domain:         testvm
+Current:        yes
+State:          running
+Location:       internal
+Parent:         -
+Children:       0
+Descendants:    0
+Metadata:       yes
+
+% sudo virsh snapshot-dumpxml vm1 snap1
+
+% sudo virsh snapshot-delete vm1 snap1
 ```
+
 
 ## XXX Add bridge
 
