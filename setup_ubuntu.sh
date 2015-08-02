@@ -58,4 +58,4 @@ if [ ! -e $neobundle ]; then
     git clone git://github.com/Shougo/neobundle.vim.git $neobundle
 fi
 
-sudo apt-get install vim tmux git zsh
+sudo apt-get install git zsh build-essential vim ncurses-dev -y
