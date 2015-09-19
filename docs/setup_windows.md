@@ -59,7 +59,7 @@ $ git config --global user.email "syun.kitada@gmail.com"
 ## Setup ssh key
 ### create ssh key
 ``` bash
-$ ssh-keygen -t rsa -b 5096 -C "hoge@piyo.com"
+$ ssh-keygen -t rsa -b 4096 -C "hoge@piyo.com"
 ```
 
 ### Deproy ssk key

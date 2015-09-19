@@ -62,6 +62,12 @@ Metadata:       yes
 % sudo virsh snapshot-delete vm1 snap1
 ```
 
+## Virt clone
+``` bash
+$ sudo virt stop centos7dev1
+$ sudo virt-clone -o centos7dev1 -n centos7dev2 -f /opt/imgs/centos7dev2.img
+```
+
 
 ## XXX Add bridge
 
