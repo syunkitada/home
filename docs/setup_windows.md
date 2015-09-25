@@ -16,11 +16,11 @@
 
 Install cygwin package is,
 
-* Develop
+* Devel
+ * ctags
  * gcc (c, c++, objectiv-c, etc)
  * git
  * make
- * ctags
 * Editor
  * vim
  * vim-common
@@ -36,6 +36,8 @@ Install cygwin package is,
 * Utils
  * tmux
  * zsh
+* Web
+ * wget
 
 ## Change home directory
 ``` bash
