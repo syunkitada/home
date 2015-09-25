@@ -1,7 +1,8 @@
 # Windows
 
 ## Common software
-* Microsoft Security Essentials
+* Microsoft Security Essentials (Windows7)
+* Windows Defender (Windows 8, 10: default installed)
 * Lhaplus
 * Clover
 * Desktops
@@ -113,3 +114,7 @@ $ easy_install pip
 * Install xampp
 * Setup PATH:path of xampp/php, path of xampp/perl/bin
 * Edit php.conf to enable openssl
+
+
+## Disable deflag if ssd
+Disable by "ドライブのデフラグと最適化"
