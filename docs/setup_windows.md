@@ -28,7 +28,6 @@ Install cygwin package is,
  * bind-utils 
  * curl
  * openssl
- * wget
 * Python
  * python
  * python-crypto
@@ -36,10 +35,11 @@ Install cygwin package is,
  * expect
 * Utils
  * tmux
+ * zsh
 
 ## Change home directory
 ``` bash
-$ mkpasswd -l [-d] > /etc/passwd
+$ mkpasswd -l > /etc/passwd
 
 $ vim /etc/passwd
 < home/<username>
