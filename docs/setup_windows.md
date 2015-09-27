@@ -1,7 +1,8 @@
 # Windows
 
 ## Common software
-* Microsoft Security Essentials
+* Microsoft Security Essentials (Windows7)
+* Windows Defender (Windows 8, 10: default installed)
 * Lhaplus
 * Clover
 * Desktops
@@ -16,11 +17,11 @@
 
 Install cygwin package is,
 
-* Develop
+* Devel
+ * ctags
  * gcc (c, c++, objectiv-c, etc)
  * git
  * make
- * ctags
 * Editor
  * vim
  * vim-common
@@ -28,7 +29,6 @@ Install cygwin package is,
  * bind-utils 
  * curl
  * openssl
- * wget
 * Python
  * python
  * python-crypto
@@ -36,10 +36,13 @@ Install cygwin package is,
  * expect
 * Utils
  * tmux
+ * zsh
+* Web
+ * wget
 
 ## Change home directory
 ``` bash
-$ mkpasswd -l [-d] > /etc/passwd
+$ mkpasswd -l > /etc/passwd
 
 $ vim /etc/passwd
 < home/<username>
@@ -111,3 +114,7 @@ $ easy_install pip
 * Install xampp
 * Setup PATH:path of xampp/php, path of xampp/perl/bin
 * Edit php.conf to enable openssl
+
+
+## Disable deflag if ssd
+Disable by "ドライブのデフラグと最適化"
