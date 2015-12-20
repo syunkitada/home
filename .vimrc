@@ -16,17 +16,17 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 
 " plugins
-NeoBundleLazy 'git://github.com/Shougo/unite.vim', 'ver.6.1', {
+NeoBundleLazy 'https://github.com/Shougo/unite.vim', 'ver.6.1', {
     \'autoload' : {'commands': ['Unite', 'UniteWithBufferDir']}}
-NeoBundleLazy 'git://github.com/Shougo/vimfiler.vim', 'ver.4.1', {
+NeoBundleLazy 'https://github.com/Shougo/vimfiler.vim', 'ver.4.1', {
     \'autoload': {'commands': ['VimFiler']}}
-" NeoBundle 'git://github.com/scrooloose/nerdtree'  " NERDTree is filer like vimfiler, bat this will sumetimes freeze
-NeoBundleLazy 'git://github.com/Shougo/neocomplcache', {
+" NeoBundle 'https://github.com/scrooloose/nerdtree'  " NERDTree is filer like vimfiler, bat this will sumetimes freeze
+NeoBundleLazy 'https://github.com/Shougo/neocomplcache', {
     \'autoload': {'insert': 1}}
-NeoBundleLazy 'git://github.com/Shougo/vimshell', {
+NeoBundleLazy 'https://github.com/Shougo/vimshell', {
     \'autoload': {'commands': ['VimShell', 'VimShellCreate', 'VimShellPop', 'VimShellTab']}}
-NeoBundle 'git://github.com/Shougo/neomru.vim'
-NeoBundle 'git://github.com/Shougo/vimproc', 'ver.7.1', {
+NeoBundle 'https://github.com/Shougo/neomru.vim'
+NeoBundle 'https://github.com/Shougo/vimproc', 'ver.7.1', {
     \'build' : {
     \        'windows' : 'make -f make_mingw32.mak',
     \        'cygwin' : 'make -f make_cygwin.mak',
@@ -34,30 +34,30 @@ NeoBundle 'git://github.com/Shougo/vimproc', 'ver.7.1', {
     \        'unix' : 'make -f make_unix.mak',
     \    },
     \}
-NeoBundle 'git://github.com/tacroe/unite-mark'
-NeoBundle 'git://github.com/vim-scripts/tComment'
-NeoBundle 'git://github.com/vim-scripts/sudo.vim'
-NeoBundle 'git://github.com/kshenoy/vim-signature'
-NeoBundle 'git://github.com/Lokaltog/vim-easymotion'
-NeoBundle 'git://github.com/thinca/vim-quickrun'
-NeoBundleLazy 'git://github.com/mattn/emmet-vim.git', {
+NeoBundle 'https://github.com/tacroe/unite-mark'
+NeoBundle 'https://github.com/vim-scripts/tComment'
+NeoBundle 'https://github.com/vim-scripts/sudo.vim'
+NeoBundle 'https://github.com/kshenoy/vim-signature'
+NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
+NeoBundle 'https://github.com/thinca/vim-quickrun'
+NeoBundleLazy 'https://github.com/mattn/emmet-vim.git', {
     \'autoload': {'filetypes': ['html']}}
-NeoBundle 'git://github.com/tpope/vim-surround.git'
-NeoBundle 'git://github.com/scrooloose/syntastic.git'
-NeoBundleLazy 'git://github.com/vim-scripts/TaskList.vim', {
+NeoBundle 'https://github.com/tpope/vim-surround.git'
+NeoBundle 'https://github.com/scrooloose/syntastic.git'
+NeoBundleLazy 'https://github.com/vim-scripts/TaskList.vim', {
     \ 'autoload': {'mappings': ['<Plug>TaskList']}}
-NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
-NeoBundle 'git://github.com/majutsushi/tagbar.git'
-" NeoBundle 'git://github.com/vim-scripts/taglist.vim'  " Taglist is show outline of tag like Tagbar, however Tagbar is easy to see than this.
-NeoBundle 'git://github.com/itchyny/lightline.vim.git'
-NeoBundle 'git://github.com/wesleyche/SrcExpl'
+NeoBundle 'https://github.com/kchmck/vim-coffee-script.git'
+NeoBundle 'https://github.com/majutsushi/tagbar.git'
+" NeoBundle 'https://github.com/vim-scripts/taglist.vim'  " Taglist is show outline of tag like Tagbar, however Tagbar is easy to see than this.
+NeoBundle 'https://github.com/itchyny/lightline.vim.git'
+NeoBundle 'https://github.com/wesleyche/SrcExpl'
 
-" NeoBundle 'git://github.com/vim-scripts/vcscommand.vim' all vcsなプラグイン
+" NeoBundle 'https://github.com/vim-scripts/vcscommand.vim' all vcsなプラグイン
 " for git
-NeoBundle 'git://github.com/cohama/agit.vim'  " git log 見るためのプラグイン
-NeoBundle 'git://github.com/idanarye/vim-merginal'
-NeoBundle 'git://github.com/tpope/vim-fugitive'
-NeoBundle 'git://github.com/gregsexton/gitv.git'
+NeoBundle 'https://github.com/cohama/agit.vim'  " git log 見るためのプラグイン
+NeoBundle 'https://github.com/idanarye/vim-merginal'
+NeoBundle 'https://github.com/tpope/vim-fugitive'
+NeoBundle 'https://github.com/gregsexton/gitv.git'
 
 " ---------- NeoBundle required ----------
 call neobundle#end()
