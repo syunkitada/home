@@ -19,12 +19,22 @@ root@478de01cf936:/# uname -a
 Linux 478de01cf936 3.16.0-49-generic #65~14.04.1-Ubuntu SMP Wed Sep 9 10:03:23 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
+## 基本コマンド
 ``` bash
+# イメージの一覧
+$ docker images
+
 # イメージの削除
 $ docker rmi -f [image]
 
 # コンテナの削除
 $ docker rm -f [container]
+
+# コンテナの一覧（起動中のみ）
+$ docker ps
+
+# コンテナの一覧（全一覧）
+$ docker ps -a
 ```
 
 ## docker build
@@ -87,8 +97,6 @@ ubuntu              14.04               d55e68e6cc9c        2 weeks ago         
 $ sudo docker run -d -p 22 test-sshd /usr/sbin/sshd -D
 
 # 確認
-# docker ps は起動中のcontainer一覧を表示する
-# docker pa -a とすると、全container一覧を表示する
 $ sudo docker ps
 CONTAINER ID        IMAGE               COMMAND               CREATED             STATUS              PORTS                   NAMES
 b40230dcb3f0        test-sshd:latest    "/usr/sbin/sshd -D"   9 minutes ago       Up 9 minutes        0.0.0.0:32768->22/tcp   admiring_poincare
