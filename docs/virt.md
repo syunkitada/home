@@ -7,7 +7,10 @@
 % sudo lsmod | grep kvm
 kvm_intel             143590  0
 kvm                   452043  1 kvm_intel
+
+% sudo apt-get install libvirt-bin qemu
 ```
+
 
 ## Virt install
 ``` bash
@@ -67,6 +70,41 @@ Metadata:       yes
 $ sudo virt stop centos7dev1
 $ sudo virt-clone -o centos7dev1 -n centos7dev2 -f /opt/imgs/centos7dev2.img
 ```
+
+## Booting cloud image with libvirt
+```
+$ vim meta-data
+> instance-id: my-instance-id
+> local-hostname: my-host-name
+
+$ vim user-data
+> #!/bin/sh
+> 
+> echo 'hello world' > /etc/fstab
+> apt-get install -y sudo passwd openssh-server
+> 
+> mkdir /var/run/sshd
+> 
+> useradd fabric -d /home/fabric
+> gpasswd --add fabric sudo
+> mkdir /home/fabric
+> chown fabric:fabric /home/fabric
+> echo 'fabric:fabric' |chpasswd
+
+$ sudo genisoimage -o config.iso -V cidata -r -J meta-data user-data
+
+$ sudo virt-install \
+    --connect=qemu:///system \
+    --name=testvm --vcpus=1 --ram=1024 \
+    --accelerate --hvm --virt-type=kvm \
+    --cpu host \
+    --disk ubuntu14.img,format=qcow2 --import \
+    --disk config.iso,device=cdrom \
+    --nographics
+```
+
+参考
+* http://blog.oddbit.com/2015/03/10/booting-cloud-images-with-libvirt/
 
 
 ## XXX Add bridge
