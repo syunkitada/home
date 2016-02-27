@@ -112,6 +112,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias vimsh='vim -c :VimShell'
 alias vimf='vim -c :VimFiler'
+alias doc='cd ~/home/docs && vim -c "VimFiler"'
 
 # alias for misc
 alias grep='grep --color'
