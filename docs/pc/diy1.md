@@ -20,7 +20,7 @@ SSD: CSSD-S6T256NHG6Q: 規格サイズ：2.5インチ インターフェイス�
 ケース: Elite 130 Cube RC-130-KKN1-JP：対応ファクター：Mini-ITX 3.5インチシャドウベイ：3個 5.25インチベイ：1個
 6098円
 
-電源: EarthWatts EA-550-PLATINUM: 対応規格：ATX/EPS 電源容量：550W 80PLUS認証：Platinum サイズ：150x140x86mm 重量：1.9Kg
+電源: EarthWatts EA-550-PLATINUM(ANTEC): 対応規格：ATX/EPS 電源容量：550W 80PLUS認証：Platinum サイズ：150x140x86mm 重量：1.9Kg
 7970円
 
 合計: 12478 + 8970 + 6013 + 16821 + 13830 + 6098 + 7970 = 72180
