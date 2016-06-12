@@ -26,7 +26,7 @@ repo = 'https://github.com/Shougo/vimfiler.vim'
 repo = 'https://github.com/scrooloose/nerdtree'
 
 [[plugins]]
-repo = 'https://github.com/Shougo/neocomplcache'
+repo = 'https://github.com/Shougo/neocomplete'
 
 [[plugins]]
 repo = 'https://github.com/Shougo/neomru.vim'
