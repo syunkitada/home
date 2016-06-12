@@ -53,9 +53,4 @@ ln -s $vim $ln_vim
 ln -s $vimshrc $ln_vimshrc
 ln -s $vrapperrc $ln_vrapperrc
 
-neobundle=${vim}/bundle/neobundle.vim/
-if [ ! -e $neobundle ]; then
-    git clone git://github.com/Shougo/neobundle.vim.git $neobundle
-fi
-
-sudo yum install man wget git gcc gcc-c++ vim ncurses-devel -y
+# sudo yum install man wget git gcc gcc-c++ vim ncurses-devel -y

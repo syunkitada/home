@@ -1,71 +1,56 @@
+if len($H)
+  let g:home = expand('$H')
+  set runtimepath-=~/.vim
+  set runtimepath+=$H/.vim
+else
+  let g:home = expand('~')
+endif
+
+let g:vim_home = g:home . '/.vim'
+let g:rc_dir   = g:vim_home . '/rc'
+
+" vimrc に以下のように追記
+
+" プラグインが実際にインストールされるディレクトリ
+let s:dein_dir = expand('~/.cache/dein')
+" dein.vim 本体
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+" dein.vim がなければ github から落としてくる
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
+
+" 設定開始
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  " プラグインリストを収めた TOML ファイル
+  let s:toml      = g:rc_dir . '/dein.toml'
+  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+
+  " TOML を読み込み、キャッシュしておく
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
+  " 設定終了
+  call dein#end()
+  call dein#save_state()
+endif
+
+" もし、未インストールものものがあったらインストール
+if dein#check_install()
+  call dein#install()
+endif
+
 " vim_starting is true only at start up
 if has('vim_starting')
-    " ---------- NeoBundle required ----------
-    set nocompatible
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-    " ---------- NeoBundle end ---------------
-
     " autoload my vimscripts
     runtime! userautoload/*.vim
 endif
-
-
-" ---------- NeoBundle ----------
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-
-" plugins
-NeoBundleLazy 'https://github.com/Shougo/unite.vim', 'ver.6.1', {
-    \'autoload' : {'commands': ['Unite', 'UniteWithBufferDir']}}
-NeoBundleLazy 'https://github.com/Shougo/vimfiler.vim', 'ver.4.1', {
-    \'autoload': {'commands': ['VimFiler']}}
-" NeoBundle 'https://github.com/scrooloose/nerdtree'  " NERDTree is filer like vimfiler, bat this will sumetimes freeze
-NeoBundleLazy 'https://github.com/Shougo/neocomplcache', {
-    \'autoload': {'insert': 1}}
-NeoBundleLazy 'https://github.com/Shougo/vimshell', {
-    \'autoload': {'commands': ['VimShell', 'VimShellCreate', 'VimShellPop', 'VimShellTab']}}
-NeoBundle 'https://github.com/Shougo/neomru.vim'
-NeoBundle 'https://github.com/Shougo/vimproc', 'ver.7.1', {
-    \'build' : {
-    \        'windows' : 'make -f make_mingw32.mak',
-    \        'cygwin' : 'make -f make_cygwin.mak',
-    \        'mac' : 'make -f make_mac.mak',
-    \        'unix' : 'make -f make_unix.mak',
-    \    },
-    \}
-NeoBundle 'https://github.com/tacroe/unite-mark'
-NeoBundle 'https://github.com/vim-scripts/tComment'
-NeoBundle 'https://github.com/vim-scripts/sudo.vim'
-NeoBundle 'https://github.com/kshenoy/vim-signature'
-NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
-NeoBundle 'https://github.com/thinca/vim-quickrun'
-NeoBundleLazy 'https://github.com/mattn/emmet-vim.git', {
-    \'autoload': {'filetypes': ['html']}}
-NeoBundle 'https://github.com/tpope/vim-surround.git'
-NeoBundle 'https://github.com/scrooloose/syntastic.git'
-NeoBundleLazy 'https://github.com/vim-scripts/TaskList.vim', {
-    \ 'autoload': {'mappings': ['<Plug>TaskList']}}
-NeoBundle 'https://github.com/kchmck/vim-coffee-script.git'
-NeoBundle 'https://github.com/majutsushi/tagbar.git'
-" NeoBundle 'https://github.com/vim-scripts/taglist.vim'  " Taglist is show outline of tag like Tagbar, however Tagbar is easy to see than this.
-NeoBundle 'https://github.com/itchyny/lightline.vim.git'
-NeoBundle 'https://github.com/wesleyche/SrcExpl'
-
-" NeoBundle 'https://github.com/vim-scripts/vcscommand.vim' all vcsなプラグイン
-" for git
-NeoBundle 'https://github.com/cohama/agit.vim'  " git log 見るためのプラグイン
-NeoBundle 'https://github.com/idanarye/vim-merginal'
-NeoBundle 'https://github.com/tpope/vim-fugitive'
-NeoBundle 'https://github.com/gregsexton/gitv.git'
-
-" ---------- NeoBundle required ----------
-call neobundle#end()
-filetype plugin indent on
-
-" Installation check.
-NeoBundleCheck
-" ---------- NeoBundle end ---------------
 
 
 " ----------------------------------------

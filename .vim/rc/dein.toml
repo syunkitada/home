@@ -1,0 +1,82 @@
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+hook_post_update = '''
+  if dein#util#_is_windows()
+    let cmd = 'tools\\update-dll-mingw'
+  elseif dein#util#_is_cygwin()
+    let cmd = 'make -f make_cygwin.mak'
+  elseif executable('gmake')
+    let cmd = 'gmake'
+  else
+    let cmd = 'make'
+  endif
+  let g:dein#plugin.build = cmd
+'''
+
+[[plugins]]
+repo = 'https://github.com/Shougo/vimshell'
+
+[[plugins]]
+repo = 'https://github.com/Shougo/unite.vim'
+
+[[plugins]]
+repo = 'https://github.com/Shougo/vimfiler.vim'
+
+[[plugins]]
+repo = 'https://github.com/scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'https://github.com/Shougo/neocomplete'
+
+[[plugins]]
+repo = 'https://github.com/Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'https://github.com/tacroe/unite-mark'
+
+[[plugins]]
+repo = 'https://github.com/vim-scripts/tComment'
+
+[[plugins]]
+repo = 'https://github.com/kshenoy/vim-signature'
+
+[[plugins]]
+repo = 'https://github.com/Lokaltog/vim-easymotion'
+
+[[plugins]]
+repo = 'https://github.com/thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'https://github.com/tpope/vim-surround.git'
+
+[[plugins]]
+repo = 'https://github.com/scrooloose/syntastic.git'
+
+[[plugins]]
+repo = 'https://github.com/vim-scripts/TaskList.vim'
+
+[[plugins]]
+repo = 'https://github.com/kchmck/vim-coffee-script.git'
+
+[[plugins]]
+repo = 'https://github.com/majutsushi/tagbar.git'
+
+[[plugins]]
+repo = 'https://github.com/itchyny/lightline.vim.git'
+
+[[plugins]]
+repo = 'https://github.com/wesleyche/SrcExpl'
+
+
+# git
+[[plugins]]
+repo = 'https://github.com/cohama/agit.vim'
+
+[[plugins]]
+repo = 'https://github.com/idanarye/vim-merginal'
+
+[[plugins]]
+repo = 'https://github.com/tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'https://github.com/gregsexton/gitv.git'
