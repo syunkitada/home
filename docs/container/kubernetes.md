@@ -1,14 +1,16 @@
 # Kubernetes
 
 ## Config of kubectl
+``` bash
 $ kubectl config set-credentials myself --username=admin --password=admin \
 kubectl config set-cluster local-server --server=http://localhost:8080 \
 kubectl config set-context default-context --cluster=local-server --user=myself \
 kubectl config use-context default-context \
 kubectl config set contexts.default-context.namespace default \
+```
 
 ## Helloworld
-```
+``` bash
 $ vim httpd.yaml
 apiVersion: v1
 kind: Pod
