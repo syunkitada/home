@@ -1,0 +1,84 @@
+# OPCEL 250
+
+* [出題範囲](https://opcel.org/examarea)
+* [受験方法](https://opcel.org/registration)
+
+
+# 250.1 クラウドコンピューティングの概念
+## 用語
+* IaaS: 仮想サーバ、仮想ネットワークインフラを提供(AWS, GCE)
+* PaaS: アプリケーションを動作させるためのプラットフォームを提供(Heroku, GAE)
+* SaaS: ソフトウェア機能を提供(Google Docs, Cybouze)
+* パブリッククラウド: インフラ構築のコストとメンテナンスの手間を削減できる
+* プライベートクラウド: 企業内に独自の所持・構築できる、重要な情報を安全に保管できる
+* ハイブリッドクラウド: パブリッククラウドにもプライベートクラウドにもそれぞれ利点欠点はあるが、必要に応じてパブリックとして、プライベートとしても使い分できるクラウドのことをハイブリッドクラウドという
+* SLA: サービス品質保証、VM稼働率とか
+
+
+# 250.2 OpenStack のアーキテクチャと設計
+## Core サービス
+* Keystone: 認証、トークン管理、endpoint 管理
+* Horizon: WEB UI
+* Glance: イメージ管理
+* Cinder: ブロックストレージ
+* Swift: オブジェクトストレージ
+* Neutron: ネットワーク管理
+* Nova: VM 管理
+
+## IaaS の追加サービス
+* Ceilometer: メータリングサンプル収集
+* Heat:  オーケストレーション
+* Ironic: ベアメタル
+* Barbican: セキュアストレージ(パスワードや証明書を管理するためのもの)
+* Designate: DNSaaS、nova や neutron と統合し、自動でレコードの作成などを行う
+* Magnum: コンテナ(docker, kubernetes)のオーケストレーションエンジン
+* Manila: 共有ストレージ
+
+## SaaS の追加サービス
+* Trove: DBaaS
+    * 汎用イメージを使う場合はtrove-agentを起動イメージに追加することで必要なデータベースのインストール、セットアップを行ってくれる
+* Sahara: Hadoop クラスタ管理
+* Murano: アプリケーションカタログ
+    * Dashboardの専用の画面でボタンを押すだけで単純なアプリケーション環境のデプロイを行う
+    * kubeやhttp, mysqlなどデプロイできる
+* Zaqar: メッセージキュー
+
+
+# 250.3 OpenStack のインストレーションとデプロイメント
+* DevStack
+    * shellscriptベースの公式デプロイツール
+    * 設定ファイル    : local.conf(推奨）, localrc(旧）
+    * stack.sh        : デプロイ
+    * unstack.sh      : 停止
+    * clean.sh        : インストール済みの関連パッケージを削除
+    * rejoin-stack.sh : 停止したOpenStack環境を再開
+* RDO Manger
+    * TripleOをベースにしている
+    * Deployment Cloud(Ironic)のデプロイから、Workload Cloud（ユーザランド）のデプロイをサポート
+* PackStack
+    * pappetベースのデプロイツール
+    * packstack --allinone             : all in oneのデプロイ
+    * packstack --gen-answer-file=FILE : answer-file(設定ファイル）の生成
+    * packstack --answer-file=FILE     : answer-fileを指定して実行
+* Red Hat Enterprise Linux OpenStack Platform 6 (Foreman, Puppet)
+    * tripleOベースのdirectorというプロジェクトを使う
+* Ubuntu OpenStack (Landscape, MAAS, JuJu)
+* Ubuntu OpenStack Installer
+    * MAAS, JuJuを使ったデプロイツール
+    * all in one  : ホストにLXCを構築して、その上にLinux KVM環境を作り、3つの仮想マシン(controller, compute, network)にOpenStackの各コンポーネントをインストールする
+    * マルチノード: ノードの管理にmaasを使い、 jujuでデプロイする
+    * openstack-install : デプロイ
+    * openstack-install --openstack-release [version] : version指定してデプロイ
+    * openstack-status  : デプロイ状況の確認
+* JuJu
+    * juju deploy                         : アプリケーションの
+    * juju add-relation                   : サービス同士を関連づける
+    * juju expose                         : サービスを公開
+    * juju status                         : サービスの稼働状況を確認
+    * juju ssh 'machine'                  : サービスにSSH接続
+    * juju destroy-environment 'envname'  : Juju環境の削除
+* SUSE OpenStack Cloud 5 (Crowbar, Chef)
+* Rackspace Private Cloud (Ansible)
+* HP Helion
+* Mirantis FUEL
+* Chef for OpenStack(Chef)
