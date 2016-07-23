@@ -2,10 +2,20 @@
 
 # 253.1 ネットワーキングサービス (Neutron)
 
-ブリッジの調査
-ovs-vsctl show
+## 概要
+VMが接続するネットワークを提供するサービス
 
-フラットネットワークと、仮想ネットワークの2種類を扱える
+## プロバイダネットワーク
+VMのネットワークを作成するためのプロバイダを定義・作成しておくことで、
+管理者はこのプロバイダを利用して、VM用のネットワークを作成できる。
+
+プロバイダの種類は、フラットネットワークと仮想ネットワーク
+プロバイダの実装(ドライバ)は、linuxbridge, OVSなどがある
+
+## Openvswitch
+NetFlow、OpenFlow、および sFlow をサポートする仮想ネットワークへのスイッチングサービスを提供します。
+Open vSwitch は、STP、LACP、802.1Q VLAN タグ付けなどのレイヤー 2 (L2) 機能のサポートにより、物理スイッチとの統合も可能です。
+また、GREトンネリング、VXLANトンネリングによる仮想ネットワークのサポートもしている。
 
 ## フラットネットワーク(Linuxbridge or OVS)
 linuxbridge-agent or openvswitch-agent | フラットネットワークのインターフェイスにブリッジをマッピングし、ブリッジにVMのtapをつなげる
@@ -14,14 +24,19 @@ dhcp-agent   | bridge-agentがマッピングしたブリッジで、dnsmasqを�
 
 ## 仮想ネットワーク(OVS)
 Fixed IP     | 仮想ネットワーク上でもつVMのIP
-Floating IP  | VMを外部ネットワークにみせるため、Fixed IPへルーティングするためのIP
+Floating IP  | VMを外部ネットワークにみせるため、Fixed IPへNATするためのIP
 network-node: openvswitch-agent | フラットネットワークにブリッジをマッピングし(br-ex)、外部ネットワーク・仮想ネットワークをつなげる
-network-node: l3-agent          | 仮想ネットワーク上でのルータ作成・削除(VMが仮想ネットワーク内部から、他の内部ネットワークもしくは、外部ネットワークへ通信するためにはこのルータを通る)
+network-node: l3-agent          | 仮想ネットワーク上での仮想ルータの作成・変更・削除を行う
+                                l 仮想ルータはVMのゲートウェイとしてふるまい、
+                                | VM通信の仮想ネットワーク内部から他の内部ネットワークへのルーティング、
+                                | 外部ネットワークへ通信するためのNAT、Floating IPからFixed IPへのNATを行う(ip tables)
 network-node: dhcp-agent        | 仮想ネットワークごとにdnsmasqを立ち上げIPの払い出しを行う
 network-node: metadata-agent    | 仮想ネットワークごとにproxyを立ち上げ、VMがnovaのmetadata apiへアクセスする際のプロキシを行う
 compute-node: openvswitch-agent | network-nodeとBr-Tunnelingで接続したブリッジを作成し、ブリッジにVMのtapをつなげる
 dvr                             | 仮想ルータを各compute上に置く構成
 l3ha(vrrp)                      | 複数の仮想ルータを複数のネットワークノードに分散配置し、アクティブスタンバイさせる（冗長性の担保のみできる）
+
+
 
 Network Namespaceを使っている
 dhcpとrouterにはそれぞれnetnsが切られており、
@@ -34,6 +49,10 @@ $ ip r
 ネットワーク同士のルーティングテーブルが設定されている
 内部アドレスからのゲートウェイアドレスを持ち、外部へのゲートウェイアドレスが設定されている
 またFloating IPもここで持ち、アクセスが来たらNATして内部へ転送する
+
+## セキュリティグループ
+VM起動時にセキュリティグループを指定することで、VMへのACLをiptablesなどで管理する
+指定がない場合は、defaultセキュリティグループが設定される
 
 ## コマンド
 neutron floatingip-list
@@ -51,6 +70,10 @@ neutron security-group-rule-list
 neutron security-group-rule-show
 neutron security-group-rule-create
 neutron security-group-rule-delete
+
+
+ブリッジの調査
+ovs-vsctl show
 
 
 # 253.2 コンピュートサービス (Nova)
