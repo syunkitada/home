@@ -3,6 +3,7 @@
 # 252.1 イメージサービス (Glance)
 ## コマンド
 | glance | openstack | 説明 |
+| --- | --- | --- |
 | glance image-create --disk-format qcow2 --container-format bare --name [name] --file [file] | openstack image create --disk-format qcow2 --container-format bare --file [file] [name] | |
 | glance image-delete [image]                     | openstack image delete [option]            | |
 | glance image-update [option] [image]            | openstack image set [option] [image]       | |
