@@ -10,10 +10,10 @@
 | glance image-list                               | openstack image list                       | |
 | glance image-download --file [file] [image_id]  | openstack image save --file [file] [image] | |
 | [glance-cache](http://docs.openstack.org/developer/glance/cache.html) | | |
-| glance-cache-cleaner    | glanceキャッシュのクリーンアップ
-| glance-cache-pruner     | キャッシュが一定サイズを超えていたら最近使用されていないキャッシュを捨てる
-| glance-cache-manager    | glanceキャッシュの管理
-| glance-cache-prefetcher | キャッシュ予約キューに入っているイメージのキャッシングを実施する。キャッシュ予約キューにイメージを入れるには、APIをりようするか、glance-cache-manageコマンドを実行する
+| glance-cache-cleaner    | glanceキャッシュのクリーンアップ | |
+| glance-cache-pruner     | キャッシュが一定サイズを超えていたら最近使用されていないキャッシュを捨てる | |
+| glance-cache-manager    | glanceキャッシュの管理 | |
+| glance-cache-prefetcher | キャッシュ予約キューに入っているイメージのキャッシングを実施する。キャッシュ予約キューにイメージを入れるには、APIをりようするか、glance-cache-manageコマンドを実行する | |
 
 ## 設定ファイル
 * glance-api.conf
