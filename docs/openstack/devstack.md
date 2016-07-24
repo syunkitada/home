@@ -21,3 +21,7 @@ RABBIT_PASSWORD=$ADMIN_PASSWORD
 SERVICE_PASSWORD=$ADMIN_PASSWORD
 SERVICE_TOKEN=a682f596-76f3-11e3-b3b2-e716f9080d50
 ```
+
+
+## 参考
+* [Devstack入門] (https://github.com/rafiror/openstack/wiki/Devstack%E5%85%A5%E9%96%80)
