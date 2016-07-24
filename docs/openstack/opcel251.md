@@ -100,7 +100,18 @@
 
 
 # 251.2 ダッシュボード(Horizon)とRESTful API
+## HorizonとRESTful API
+* local_settings.pyにkeystoneのエンドポイントを設定
+    * OPENSTACK_KEYSTONE_URL = "http://localhost:5000/v3"
+* keystoneで認証、keystoneからのサービスカタログの取得、各種サービスのRESTful APIをたたいてリソース操作を行う
 
+## Horizonのカスタマイズ
+* ダッシュボードとパネルを追加
+    * mkdir openstack_dashboard/dashboards/dashbord1/
+    * mkdir openstack_dashboard/dashboards/dashbord1/panel1
+* ブランド設定
+    * openstack_dashboard/templates/header/_brand.html
+    * openstack_dashboard/static/dashboard/img/logo.png
 
 # 251.3 テレメトリ(Ceilometer)
 ## コマンド
