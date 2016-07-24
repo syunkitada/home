@@ -140,7 +140,44 @@
 
 # 251.4 オーケストレーション (Heat)
 
+## 各種サービスデーモンの役割
+* heat-api
+    * api
+* heat-api-cfn
+    * AWS CloudFormation (CFN)テンプレートを解釈
+* heat-engine
+    * リソースの操作
+
+## オーケストレーションユーザ
+* オーケストレーションユーザの認証にtrustを使用する
+* heat-engineがリソースを操作する際の認証方式のこと
+
 ## コマンド
-heat stack-create
-heat stack-delete
-heat stack-list
+| heat | openstack | 説明 |
+| --- | --- | --- |
+| スタック | | |
+| heat stack-list                     | | |
+| heat stack-show [stack]             | | |
+| heat stack-create -f [file] [stack] | | |
+| heat stack-delete [stack]           | | |
+| リソース | | |
+| heat resource-list [stack]          | | |
+| 管理コマンド | | |
+| heatt-manage db_sync  | | |
+
+
+## CFNテンプレート
+```
+heat_template_version: 2015-04-30
+
+description: Simple template to deploy a single compute instance
+
+resources:
+  my_instance:
+    type: OS::Nova::Server
+    properties:
+      image: hoge
+      flavor: flavor1
+      networks:
+        - network: piyo
+```
