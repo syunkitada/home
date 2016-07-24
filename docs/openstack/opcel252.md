@@ -72,21 +72,29 @@
 
 
 # 252.3 ブロックストレージ (Cinder)
+
 ## コマンド
-cinder volume-list
-cinder list
-cinder show
-cinder create
-cinder delete
-cinder snapshot-list
-cinder snapshot-delete
-cinder backup-list
-cinder backup-show
-cinder backup-create
-cinder backup-restore
-cinder backup-delete
-nova volume-attach vm volume
-nova volume-detach vm volume
+| cinder | openstack | 説明 |
+| --- | --- | --- |
+| ボリューム | | |
+| cinder list                                       | openstack volume list                         |
+| cinder show [volume]                              | openstack volume show [volume]                |
+| cinder create --name [name] [size]                | openstack volume create --size [size] [name]  |
+| cinder delete [volume]                            | openstack volume delete [volume]              |
+| スナップショット | | |
+| cinder snapshot-list                              | openstack snapshot list              |
+| cinder snapshot-show [snapshot]                   | openstack snapshot show [snapshot]   |
+| cinder snapshot-ceate [volume]                    | openstack snapshot create [volume]   |
+| cinder snapshot-delete [snapshot]                 | openstack snapshot delete [snapshot] |
+| バックアップ | | |
+| cinder backup-list                                | openstack backup list                          |
+| cinder backup-show [backup]                       | openstack backup show [backup]                 |
+| cinder backup-create --name [name] [volume]       | openstack backup create --name [name] [volume] |
+| cinder backup-restore --volume [volume] [backup]  | openstack backup restore [backup] [volume]     |
+| cinder backup-delete [backup]                     | openstack backup delete [backup]               |
+| アタッチ・デタッチ | | |
+| nova volume-attach [vm] [volume]                  |  |
+| nova volume-detach [vm] [volume]                  |  |
 
 
 
