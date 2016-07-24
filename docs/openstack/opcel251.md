@@ -127,15 +127,15 @@
 ## コマンド
 | ceilometer | openstack | 説明 |
 | --- | --- | --- |
-| Alarm                                       | | |
-| ceilometer alarm-list                                       | | |
-| ceilometer alarm-show                                       | | |
-| ceilometer alarm-create                                       | | |
-| ceilometer alarm-delete                                       | | |
-| Meter                                       | | |
-| ceilometer meter-list                                       | | 測定項目一覧                               |
-| Sample                                       | | |
-| ceilometer sample-list -m meter -q resource_id=instance_id  | | 測定項目のデータを一覧表示、-q で絞り込み  |
+| アラーム                                                        | | |
+| ceilometer alarm-list                                           | | |
+| ceilometer alarm-show                                           | | |
+| ceilometer alarm-create                                         | | |
+| ceilometer alarm-delete                                         | | |
+| メータ(測定項目)                                                | | |
+| ceilometer meter-list                                           | | |
+| サンプル(測定したデータ)                                        | | |
+| ceilometer sample-list -m [meter] -q [resource_id=instance_id]  | | -m でメータを指定、-q で絞り込み  |
 
 
 # 251.4 オーケストレーション (Heat)
