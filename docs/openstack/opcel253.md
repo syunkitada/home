@@ -110,7 +110,7 @@ SDN
 | Flavor            | | |
 | nova flavor-list  | | |
 | Keypair           | | |
-| nova keypair-add MY_KEY > MY_KEY.pem  | | キーペアを作成して、pemに保存する方法 |
+| nova keypair-add MY_KEY > MY_KEY.pem  | | キーペアを作成して、pemに保存する |
 | nova keypair-list      | | |
 | Other                  | | |
 | nova image-list        | | |
@@ -127,6 +127,7 @@ SDN
 
 ## コマンド
 | ironic | openstack | 説明 |
+| --- | --- | --- |
 | ironic node-create    | | ベアメタルノードの追加
 | ironic node-delete    | | ベアメタルノードの削除
 | ironic node-list      | | ノードの一覧を表示
