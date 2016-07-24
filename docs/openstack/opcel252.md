@@ -114,6 +114,7 @@ LVM, NFS, iSCSI, Cephなど
 
 ## コマンド
 | swift | openstack | 説明 |
+| --- | --- | --- |
 | swift post [container]                                    | openstack container create [container]        | |
 | swift post -m 'web-listings: true' public                 | | webサーバのディレクトリインデックス表示 |
 | swift delete [container]                                  | openstack container delete [container]        | |
