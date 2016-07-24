@@ -136,6 +136,8 @@
 | ceilometer meter-list                                           | | |
 | サンプル(測定したデータ)                                        | | |
 | ceilometer sample-list -m [meter] -q [resource_id=instance_id]  | | -m でメータを指定、-q で絞り込み  |
+| 管理コマンド                                                    | | |
+| ceilometer-dbsync                                               | | |
 
 
 # 251.4 オーケストレーション (Heat)
@@ -163,7 +165,7 @@
 | リソース | | |
 | heat resource-list [stack]          | | |
 | 管理コマンド | | |
-| heatt-manage db_sync  | | |
+| heat-manage db_sync                 | | |
 
 
 ## CFNテンプレート
