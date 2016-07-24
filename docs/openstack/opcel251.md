@@ -106,6 +106,7 @@
 * keystoneで認証、keystoneからのサービスカタログの取得、各種サービスのRESTful APIをたたいてリソース操作を行う
 
 ## Horizonのカスタマイズ
+* [Customizing Horizon](http://docs.openstack.org/developer/horizon/topics/customizing.html)
 * ダッシュボードとパネルを追加
     * mkdir openstack_dashboard/dashboards/dashbord1/
     * mkdir openstack_dashboard/dashboards/dashbord1/panel1
@@ -114,10 +115,27 @@
     * openstack_dashboard/static/dashboard/img/logo.png
 
 # 251.3 テレメトリ(Ceilometer)
-## コマンド
-ceilometer meter-list    | 測定項目一覧
-ceilometer sample-list -m meter -q resource_id=instance_id  | 測定項目のデータを一覧表示、-q で絞り込み
+## 各種サービスデーモンの役割
+* ceilometer-polling-agent: 各ノードで起動し、notification データを収集しキューに流す
+    * ceilometer-agent-compute, ceilometer-agent-central, ceilometer-agent-ipmi などがある
+* ceilometer-notification-agent: キューからnotification データを収集しsampleデータに加工しキューに流す
+* ceilometer-collector: キューからsampleデータを収集し、データベースに格納する
+* ceilometer-api: データベースからsampleデータを提供する
+* ceilometer-alarm-evaluator: apiからsampleデータを取得して評価し、alarmの閾値を超えればalarm-notifierに中継する
+* ceilometer-alarm-notifier: alarm発生時の動作に従い、アクションを起こす
 
+## コマンド
+| ceilometer | openstack | 説明 |
+| --- | --- | --- |
+| Alarm                                       | | |
+| ceilometer alarm-list                                       | | |
+| ceilometer alarm-show                                       | | |
+| ceilometer alarm-create                                       | | |
+| ceilometer alarm-delete                                       | | |
+| Meter                                       | | |
+| ceilometer meter-list                                       | | 測定項目一覧                               |
+| Sample                                       | | |
+| ceilometer sample-list -m meter -q resource_id=instance_id  | | 測定項目のデータを一覧表示、-q で絞り込み  |
 
 
 # 251.4 オーケストレーション (Heat)

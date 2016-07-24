@@ -116,4 +116,5 @@
         * nova-manage
             * nova-manage db sync
             * nova-manage api_db sync(mitaka)
+        * ceilometer-dbsync
     * サービス起動
