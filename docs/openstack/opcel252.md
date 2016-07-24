@@ -96,68 +96,81 @@
 | nova volume-attach [vm] [volume]                  |  |
 | nova volume-detach [vm] [volume]                  |  |
 
+## コンポーネント
+* cinder-api
+* cinder-scheduler
+* cinder-volume
+* cinder-backup
+
+## ボリュームのバックエンド
+LVM, NFS, iSCSI, Cephなど
+
+## ストレージノード間でストレージボリュームを移行
+
+## 一貫性グループ(consistency group)機能
 
 
 # 252.4 オブジェクトストレージ (Swift)
 
-webサーバのディレクトリインデックス表示ができる
-swift post -m 'web-listings: true' public
-
 ## コマンド
-swift post <container>
-swift delete <container>
-swift list
-swift stat <container>
-swift upload <container> <file_or_directory>
-swift download <container> <object>
-swift list <container>
-swift delete <container> <object>
-openstack container
-openstack object
+| swift | openstack | 説明 |
+| swift post [container]                                    | openstack container create [container]        | |
+| swift post -m 'web-listings: true' public                 | | webサーバのディレクトリインデックス表示 |
+| swift delete [container]                                  | openstack container delete [container]        | |
+| swift list                                                | openstack container list                      | |
+| swift stat [container]                                    | openstack container show [container]          | |
+| swift upload [container] [file_or_directory]              | openstack object create [containber] [file]   | |
+| swift download --output [file] [container] [object]       | openstack object save --file [file] [container] [object]  | |
+| swift list [container]                                    | openstack object list [container]             | |
+| swift delete [container] [object]                         | openstack object delete [container] [object]  | |
 
-## ビルダーファイル
-swiftはアカウント情報はアカウントサーバ、コンテナ情報はコンテナサーバ、オブジェクト情報はオブジェクトサーバで管理しています。
-これらの情報はビルダーファイルという設定ファイルに記述されており、swift-ring-builderコマンドを使って設定の確認や変更が可能。
+## ビルダーファイル・リングファイル
+* Swiftはアカウント情報はアカウントサーバ、コンテナ情報はコンテナサーバ、オブジェクト情報はオブジェクトサーバで管理している
+* Swiftでは各情報をどのように分散配置するかという設定情報をリングと呼んでおり、リングファイルで管理しています。
+* リングファイルを作成するための元情報はビルダーファイルという設定ファイルに記述されている
 
-swift-ring-builder container.builder
-変更した設定を反映するには、
+``` bash
+# ビルダーファイルの作成
+# swift-ring-builder <builder_file> create <part_power> <replicas> <min_part_hours>
+# builder_file | account.builder, container.builder, object.builder
+# part_power 利用するパーティション数を決定するためのパラメータ
+# replicas   1つのオブジェクトの複製を作る数
+# min_part_hours  パーティションの複数回の移動を制限する時間
 
-## リングファイル
-Swiftではホストがどういったサービスを提供する、オブジェクトをどのように分散配置するといった設定情報をリングと呼んでおり、リングファイルで管理しています。
-リングファイル作成時に指定するレプリカ数は追加するデバイス数に依存します。レプリカ数>=デバイス数
+$ swift-ring-builder account.builder create 10 2 1
+$ swift-ring-builder container.builder create 10 2 1
+$ swift-ring-builder object.builder create 10 2 1
 
-swift-ring-builder <builder_file> create <part_power> <replicas> <min_part_hours>
-builder_file | account.builder, container.builder, object.builder
-part_power 利用するパーティション数を決定するためのパラメータ
-replicas   1つのオブジェクトの複製を作る数
-min_part_hours  パーティションの複数回の移動を制限する時間
-
-swift-ring-builder account.builder create 10 2 1
-swift-ring-builder container.builder create 10 2 1
-swift-ring-builder object.builder create 10 2 1
-
-## デバイスの追加と削除
-リングを作成したら、このリングにデバイスを追加思案す。
-swift-ring-builder <builder_file> add <device> <option>
-
-swift-ring-builder <builder_file> add rlz1-<account-server_ip:6002 or container-server_ip:6001 or object-server_ip:6000>/xfs1 100
-swift-ring-builder <builder_file> remove rlz1-....
-
-swiftはストレージをゾーンで管理します。ゾーンにストレージがあればあるほど読み書きのパフォーマンスが向上する。
-オブジェクトがswiftのストレージノードにアップロードされると、そのゾーンに属するストレージの一つにオブジェクトが保管されます。
-オブジェクトが保管されるとレプリカの設定に従って別のゾーンに属したストレージノードにオブジェクトのレプリカが作成されます。
-
-
-デバイスを追加・削除したあとは、
-swift-ring-builder <builder-file> rebalance
-
-を実行すると、リングファイルが作成され、これが実際にデータ格納ようディスクの管理をしているファイルとなります。
-これにしたがってswiftはオブジェクトを各デバイスに配置・複製します。
-
+$ ls
 account.builder
-account.ring.gz
 container.builder
-container.ring.gz
 object.builder
-object.ring.gz
+```
 
+## ビルダーファイルへのストレージデバイスの追加と削除
+* リングファイルの作成に必要なレプリカ数は追加するデバイス数に依存する(レプリカ数>=デバイス数)
+* swiftはストレージをゾーンという単位で管理する
+    * ゾーンにストレージデバイスを増やすことでパフォーマンスが向上する。
+* オブジェクトがswiftのストレージノードにアップロードされると、そのゾーンに属するストレージの一つにオブジェクトが保存される
+* オブジェクトが保管されるとレプリカの設定に従って別のゾーンに属したストレージノードにオブジェクトのレプリカが作成される
+
+``` bash
+# ビルダーファイルへのデバイスの追加
+$ swift-ring-builder <builder_file> add <device> <option>
+$ swift-ring-builder <builder_file> add rlz1-<account-server_ip:6002 or container-server_ip:6001 or object-server_ip:6000>/xfs1 100
+
+# ビルダーファイルへのデバイスの削除
+$ swift-ring-builder <builder_file> remove rlz1-....
+```
+
+## リングファイルの作成
+* ビルダーファイルに従ってリングファイルを作成する
+* リングファイルに従って、Swiftはオブジェクトを各ストレージデバイスに配置・複製する
+``` bash
+$ swift-ring-builder <builder-file> rebalance
+
+$ ls
+account.ring.gz
+container.ring.gz
+object.ring.gz
+```
