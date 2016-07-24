@@ -71,6 +71,20 @@
             * sh foreman_server.sh : foremanサーバのセットアップ
             * webダッシュボードからユーザ作成、ホスト登録、各種設定、デプロイ
 * Ubuntu OpenStack (Landscape, MAAS, JuJu)
+    * Landscape
+        * Ubuntu向けのシステム管理ツール
+        * ソフトウェアアップデート、パッケージ管理などを一元化して行える
+        * モニタリング機能もあり、システムリソースの利用状況、ボトルネックの検出、パーフォーマンスチューニングができる
+    * MAAS
+        * 物理サーバのプロビジョニング
+        * DHCP, DNS, PXEでノードを登録
+    * JuJu
+        * juju deploy                         : アプリケーションの
+        * juju add-relation                   : サービス同士を関連づける
+        * juju expose                         : サービスを公開
+        * juju status                         : サービスの稼働状況を確認
+        * juju ssh 'machine'                  : サービスにSSH接続
+        * juju destroy-environment 'envname'  : Juju環境の削除
 * Ubuntu OpenStack Installer
     * MAAS, JuJuを使ったデプロイツール
     * all in one  : ホストにLXCを構築して、その上にLinux KVM環境を作り、3つの仮想マシン(controller, compute, network)にOpenStackの各コンポーネントをインストールする
@@ -78,13 +92,6 @@
     * openstack-install : デプロイ
     * openstack-install --openstack-release [version] : version指定してデプロイ
     * openstack-status  : デプロイ状況の確認
-* JuJu
-    * juju deploy                         : アプリケーションの
-    * juju add-relation                   : サービス同士を関連づける
-    * juju expose                         : サービスを公開
-    * juju status                         : サービスの稼働状況を確認
-    * juju ssh 'machine'                  : サービスにSSH接続
-    * juju destroy-environment 'envname'  : Juju環境の削除
 * SUSE OpenStack Cloud 5 (Crowbar, Chef)
 * Rackspace Private Cloud (Ansible)
 * HP Helion

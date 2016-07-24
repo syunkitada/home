@@ -3,32 +3,34 @@
 # 251.1 アイデンティティサービス、認証と認可(Keystone)
 
 ## コマンド
-openstack quota show admin
-openstack quota set --cores 8 admin
-
-openstack project list
-openstack project show
-openstack project create
-openstack project delete
-openstack proejct set
-
-openstack user list
-openstack user show
-openstack user create
-openstack user delete
-openstack user set
-
-openstack role list
-openstack role show
-openstack role create
-openstack role delete
-openstack role set
-
-openstack user role list
-openstack role add
-openstack role remove deleteと注意(remove はユーザからroleを外す）
-
-openstack endpoint show <servicename>
+| keystone | openstack | 説明 |
+| --- | --- | --- |
+|          | openstack quota show admin                                         | quota の詳細表示
+|          | openstack quota set --cores 8 admin                                | quota の更新
+|          |                                                                    |
+|          | openstack project list                                             | project 一覧
+|          | openstack project show                                             | project の詳細表示
+|          | openstack project create                                           |
+|          | openstack project delete                                           |
+|          | openstack proejct set                                              |
+|          |                                                                    |
+|          | openstack user list                                                |
+|          | openstack user show                                                |
+|          | openstack user create                                              |
+|          | openstack user delete                                              |
+|          | openstack user set                                                 |
+|          |                                                                    |
+|          | openstack role list                                                |
+|          | openstack role show                                                |
+|          | openstack role create                                              |
+|          | openstack role delete                                              |
+|          | openstack role set                                                 |
+|          |                                                                    |
+|          | openstack user role list                                           |
+|          | openstack role add                                                 |
+|          | openstack role remove deleteと注意(remove はユーザからroleを外す） |
+|          |                                                                    |
+|          | openstack endpoint show <servicename>                              |
 
 ## バックエンド
 LDAPをバックエンドに使うとことで、既存のLDAPアカウントを使ってOpenStackにログオンすることができる
