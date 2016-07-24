@@ -24,19 +24,50 @@
 
 
 # 252.2 イメージの作成
-## cloud-init
-/etc/cloud/cloud.cfg, /etc/cloud/cloud.cfg.d 内のファイルを書き換えることで、
-rootユーザでのログインやパスワード認証を許可したり、デフォルトユーザを定義したり、任意のパッケージインストールなどができる
-
-VMにcloud-initが仕込まれていると、VMの起動時に公開鍵などのファイル(metadata)をnovaからダウンロード設定してくれる、
-これをNetworkNamespaceで分離されているネットワークでも実現するのがmetadata-agent
-http://d.hatena.ne.jp/pyde/20130914/p1
-
-
-## qemu-image
-qemu-image でqcow2形式にするには
-qemu-image convert -c -f raw -O qcow2 original.img resize.qcow2
-
+* [イメージの変更](http://docs.openstack.org/ja/image-guide/modify-images.html)
+* guestfish
+    * 仮想マシンイメージ内のファイルを編集できる
+    * guestfish --rw -a centos63_desktop.img
+    * 専用のシェル上で操作する
+* guestmount, guestumount
+    * 仮想マシンイメージをマウントして編集できる
+    * guestmount -a centos63_desktop.qcow2 -m /dev/vg_centosbase/lv_root --rw /mnt
+* libguestfs tools (virt-*)
+    * virt-edit: イメージ内のファイルを編集する
+    * virt-df: イメージ内の空き容量を表示
+    * virt-resize: イメージの容量を変更
+    * virt-sysprep: イメージを配布する準備(SSHホスト鍵の削除、MACアドレスの削除、ユーザの削除）
+    * virt-sparsify: イメージをスパース化できる
+    * virt-p2v: 物理マシンをKVMで動作するイメージに変換
+    * virt-v2v: XenやVMwareイメージをKVMのイメージに変換
+* cloud-init
+    * VMにcloud-initが仕込まれていると、VMの起動時に公開鍵などのファイル(metadata)をnovaからダウンロード設定してくれる
+    * 仮想ネットワークでmetadata利用するにはmetadata-agent(novaへのプロキシ）を利用する
+    * /etc/cloud/cloud.cfg, /etc/cloud/cloud.cfg.d 内のファイルを書き換えることで、rootユーザの設定などデフォルトの設定を組み込むことができる
+* cloudbase-init
+    * windowsのcloud-init
+* qemu-img
+    * rawからqcow2へのコンバート: qemu-image convert -c -f raw -O qcow2 original.img resize.qcow2
+* losetup, kpartx
+    * losetup -f : 未使用のloopデバイスを見つける
+    * losetup [loop dev] [raw img] : loopデバイスをrawイメージに関連付ける
+    * mount /dev/loop0 /mnt : mntする
+    * kpartx -av /dev/loop0 : イメージが複数のパーティションを持つ場合、パーティションを別々のデバイス(/dev/mapper/loop0p1)として認識させる
+    * imount /dev/mapper/loop0p1 /mnt/image : ルートファイルシステムに対応するパーティションをマウントする
+    * umount /mnt/image; rmdir /mnt/image; kpartx -d /dev/loop0; losetup -d /dev/loop0 : クリーンアップ
+* disk-image-create
+    * [イメージ作成のサポートツール](http://docs.openstack.org/ja/image-guide/create-images-automatically.html)
+    * disk-image-create ubuntu vm : ubuntuのイメージを作成
+* LVM ユーティリティ
+    * Logical Volume Manager
+    * ディスクパーティションを管理する
+* qemu-nbd
+    * modprobe nbd max_part=16 : qcow2 イメージをマウントするために、 nbd (ネットワークブロックデバイス) カーネルモジュールを読み込む必要がある
+    * qemu-nbd -c /dev/nbd0 image.qcow2
+    * partprobe /dev/nbd0
+* /etc/udev/
+    * デバイスの識別方法およびデバイス名の作成方法を決定するルール・ファイル
+    * イメージを作る際にMACアドレスなど一部消す必要がある
 
 
 # 252.3 ブロックストレージ (Cinder)
