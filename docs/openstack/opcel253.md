@@ -90,43 +90,45 @@ SDN
 
 
 # 253.2 コンピュートサービス (Nova)
-キーペアを作成して、pemに保存する方法
-nova keypair-add MY_KEY > MY_KEY.pem
-
-
-nova list
-nova show
-nova flavor-list
-nova keypair-list
-nova image-list
-nova secgroup-list
-nova net-list
-nova floating-ip-list
-nova volume-list
-nova hypervisor-list
-
-nova boot
-nova console-log
-nova delete
-nova stop
-nova suspend
-nova start
-nova reboot
-nova resume
-nova unpause
-nova rescue
-nova unrescure
-
+## コマンド
+| nova | openstack | 説明 |
+| --- | --- | --- |
+| Instance          | | |
+| nova list         | | |
+| nova show         | | |
+| nova boot         | | |
+| nova console-log  | | |
+| nova delete       | | |
+| nova stop         | | |
+| nova suspend      | | |
+| nova start        | | |
+| nova reboot       | | |
+| nova resume       | | |
+| nova unpause      | | |
+| nova rescue       | | |
+| nova unrescure    | | |
+| Flavor            | | |
+| nova flavor-list  | | |
+| Keypair           | | |
+| nova keypair-add MY_KEY > MY_KEY.pem  | | キーペアを作成して、pemに保存する方法 |
+| nova keypair-list      | | |
+| Other                  | | |
+| nova image-list        | | |
+| nova secgroup-list     | | |
+| nova net-list          | | |
+| nova floating-ip-list  | | |
+| nova volume-list       | | |
 
 
 # 253.3 ベアメタルプロビジョニング (Ironic)
-PXE, IPMIなどの既存技術を使ってプロビジョニングする
-物理マシンの電源制御、OSのプロビジョニング、使用後のディスク消去、BIOS/ファームウェアのアップデート、ノードの管理が可能です
-ironic-python-agent | ディスカバリ、使用後のディスクデータの消去、BIOS・ファームウェアのアップデート
-ironic-neutron-plugin | neutron-networkの利用
+* PXE,DHCP,NBP,TFTP,IPMIなどの既存技術を使ってプロビジョニングする
+* 物理マシンの電源制御、OSのプロビジョニング、使用後のディスク消去、BIOS/ファームウェアのアップデート、ノードの管理が可能です
+* UEFIおよびローカルブートプロパティを含む、ハードウェアノード用のFlavor
 
 ## コマンド
-ironic node-create  | ベアメタルノードの追加
-ironic node-delete  | ベアメタルノードの削除
-ironic node-list    | ノードの一覧を表示
-
+| ironic | openstack | 説明 |
+| ironic node-create    | | ベアメタルノードの追加
+| ironic node-delete    | | ベアメタルノードの削除
+| ironic node-list      | | ノードの一覧を表示
+| ironic-python-agent   | | ディスカバリ、使用後のディスクデータの消去、BIOS・ファームウェアのアップデート
+| ironic-neutron-plugin | | neutron-networkの利用
