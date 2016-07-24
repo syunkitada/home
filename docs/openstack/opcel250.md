@@ -92,8 +92,28 @@
     * openstack-install : デプロイ
     * openstack-install --openstack-release [version] : version指定してデプロイ
     * openstack-status  : デプロイ状況の確認
-* SUSE OpenStack Cloud 5 (Crowbar, Chef)
-* Rackspace Private Cloud (Ansible)
-* HP Helion
-* Mirantis FUEL
-* Chef for OpenStack(Chef)
+* その他デプロイ
+    * SUSE OpenStack Cloud 5 (Crowbar, Chef)
+    * Rackspace Private Cloud (Ansible)
+    * HP Helion
+    * Mirantis FUEL
+    * Chef for OpenStack(Chef)
+* 手動デプロイの流れ
+    * パッケージインストール
+        * pip install -r requirements.txt
+        * pip install python-openstack-client
+        * python setup.py install
+    * 設定ファイルの編集
+    * DBの同期
+        * cinder-manage
+            * cinder-manage db sync
+        * glance-manage
+            * glance-manage db_sync
+        * keystone-manage
+            * keystone-manage db_sync
+        * neutron-db-manage
+            * neutron-db-manage upgrade head
+        * nova-manage
+            * nova-manage db sync
+            * nova-manage api_db sync(mitaka)
+    * サービス起動

@@ -2,45 +2,26 @@
 
 # 251.1 アイデンティティサービス、認証と認可(Keystone)
 
-## コマンド
-| keystone | openstack | 説明 |
-| --- | --- | --- |
-|          | openstack quota show admin                                         | quota の詳細表示
-|          | openstack quota set --cores 8 admin                                | quota の更新
-|          |                                                                    |
-|          | openstack project list                                             | project 一覧
-|          | openstack project show                                             | project の詳細表示
-|          | openstack project create                                           |
-|          | openstack project delete                                           |
-|          | openstack proejct set                                              |
-|          |                                                                    |
-|          | openstack user list                                                |
-|          | openstack user show                                                |
-|          | openstack user create                                              |
-|          | openstack user delete                                              |
-|          | openstack user set                                                 |
-|          |                                                                    |
-|          | openstack role list                                                |
-|          | openstack role show                                                |
-|          | openstack role create                                              |
-|          | openstack role delete                                              |
-|          | openstack role set                                                 |
-|          |                                                                    |
-|          | openstack user role list                                           |
-|          | openstack role add                                                 |
-|          | openstack role remove deleteと注意(remove はユーザからroleを外す） |
-|          |                                                                    |
-|          | openstack endpoint show <servicename>                              |
+## ドメイン、プロジェクト(テナント)、ユーザ、ロール
+* ドメイン: プロジェクトを含み、管理する単位
+* プロジェクト: ユーザを含み、管理する単位
+    * テナントとも呼ぶ
+* ユーザ: 個人
+* ロール: ユーザに対して追加できる権限
+    * 基本的にはadmin、Memberのみ
 
-## バックエンド
-LDAPをバックエンドに使うとことで、既存のLDAPアカウントを使ってOpenStackにログオンすることができる
+## 認証方式
+* パスワード: ユーザ名、パスワード、プロジェクトにより認証する
+* トークン: パスワード認証などでトークンを発行し、そのトークンにより認証する
+* 証明書: 証明書により認証する
 
 ## policy.json
-* ロール・プロジェクト・ユーザごとの機能制限を設定できる
-* role:admin_required       : adminのみ
-* role:demo                 : demoロールのみ
-* user_id:%(user_id)s       : 指定したユーザのみ
-* project_id:%(project_id)s : 指定したプロジェクトのみ
+* /etc/[service]/policy.jsonによって、ロール・プロジェクト・ユーザごとの機能権限を設定できる
+* 設定単位
+    * role:admin_required       : adminのみ
+    * role:demo                 : demoロールのみ
+    * user_id:%(user_id)s       : 指定したユーザのみ
+    * project_id:%(project_id)s : 指定したプロジェクトのみ
 
 ```
 例:
@@ -54,6 +35,68 @@ LDAPをバックエンドに使うとことで、既存のLDAPアカウントを
     ...
 }
 ```
+
+## サービスカタログとリージョン
+* keystoneにより、各サービスカタログ、そのエンドポイントが一元管理されている
+* リージョンは、サービスエンドポイントを含み、管理する単位
+    * 一つのリージョンに対して同サービスのエンドポイントを複数登録できない
+    * リージョンを分ければ、同サービスを登録可能
+    * リージョンごとに各種サービスリソースの管理も分かれる
+
+## コマンド
+| keystone | openstack | 説明 |
+| --- | --- | --- |
+|  | openstack user list                                                | |
+|  | openstack user role list [user]                                    | |
+|  | openstack user show [user]                                         | |
+|  | openstack user create [user] --password [password]                 | |
+|  | openstack user delete [user]                                       | |
+|  | openstack user set [option] [user]                                 | |
+|  |                                                                    | |
+|  | openstack project list                                             | |
+|  | openstack project show [project]                                   | |
+|  | openstack project create [project]                                 | |
+|  | openstack project delete [project]                                 | |
+|  | openstack proejct set [option] [project]                           | |
+|  |                                                                    | |
+|  | openstack domain list                                              | |
+|  | openstack domain show [domain]                                     | |
+|  | openstack domain create [domain]                                   | |
+|  | openstack domain delete [domain]                                   | |
+|  | openstack domain set [option] [domain]                             | |
+|  |                                                                    | |
+|  | openstack role list                                                | |
+|  | openstack role show [role]                                         | |
+|  | openstack role create [role]                                       | |
+|  | openstack role delete [role]                                       | |
+|  |                                                                    | |
+|  | openstack user role list [user]                                    | |
+|  | openstack role add --user [user] --project [project] [role]        | |
+|  | openstack role remove --user [user] --project [project] [role]     | deleteと混在しないように注意 |
+|  |                                                                    | |
+|  | openstack service list                                             | |
+|  | openstack service show [service]                                   | |
+|  | openstack service create --name [name] [type]                      | |
+|  | openstack service delete [service]                                 | |
+|  | openstack service set [option] [service]                           | |
+|  |                                                                    | |
+|  | openstack endpoint list                                            | |
+|  | openstack endpoint show [endpoint_id]                              | |
+|  | openstack endpoint create --publicurl [url] --internalurl [url] --adminurl [url] --region [region] [type] | |
+|  | openstack endpoint delete [endpoint_id]                            | |
+|  | openstack endpoint set [option] [endpoint_id]                      | |
+|  |                                                                    | |
+|  | openstack catalog list                                             | |
+|  | openstack catalog show [servicename]                               | |
+|  |                                                                    | |
+|  | openstack quota show [project]                                     | |
+|  | openstack quota set [option] [project]                             | |
+|  |                                                                    | |
+|  | openstack limits show [option]                                     | ? |
+|  |                                                                    | |
+|  | openstack usage list [option]                                      | ? |
+|  | openstack usage show [option]                                      | ? |
+
 
 
 # 251.2 ダッシュボード(Horizon)とRESTful API
