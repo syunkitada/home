@@ -1,23 +1,26 @@
 # OPCEL 252
 
 # 252.1 イメージサービス (Glance)
+## コマンド
+| glance | openstack | 説明 |
+| glance image-create --disk-format qcow2 --container-format bare --name [name] --file [file] | openstack image create --disk-format qcow2 --container-format bare --file [file] [name] | |
+| glance image-delete [image]                     | openstack image delete [option]            | |
+| glance image-update [option] [image]            | openstack image set [option] [image]       | |
+| glance image-show [image]                       | openstack image show [image]               | |
+| glance image-list                               | openstack image list                       | |
+| glance image-download --file [file] [image_id]  | openstack image save --file [file] [image] | |
+| [glance-cache](http://docs.openstack.org/developer/glance/cache.html) | | |
+| glance-cache-cleaner    | glanceキャッシュのクリーンアップ
+| glance-cache-pruner     | キャッシュが一定サイズを超えていたら最近使用されていないキャッシュを捨てる
+| glance-cache-manager    | glanceキャッシュの管理
+| glance-cache-prefetcher | キャッシュ予約キューに入っているイメージのキャッシングを実施する。キャッシュ予約キューにイメージを入れるには、APIをりようするか、glance-cache-manageコマンドを実行する
 
-glance image-create
-glance image-delete
-glance image-update
-glance image-show
-glance image-list
-glance image-download
-
-
-## glance-cache
-http://docs.openstack.org/developer/glance/cache.html
-
-glance-cache-cleaner    | glanceキャッシュのクリーンアップ
-glance-cache-pruner     | キャッシュが一定サイズを超えていたら最近使用されていないキャッシュを捨てる
-glance-cache-manager    | glanceキャッシュの管理
-glance-cache-prefetcher | キャッシュ予約キューに入っているイメージのキャッシングを実施する
-                        | キャッシュ予約キューにイメージを入れるには、APIをりようするか、glance-cache-manageコマンドを実行する
+## 設定ファイル
+* glance-api.conf
+* glance-cache.conf
+* glance-registry.conf
+* glance-scrubber.conf
+* schema-image.json
 
 
 # 252.2 イメージの作成
