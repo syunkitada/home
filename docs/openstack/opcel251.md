@@ -46,25 +46,26 @@
 ## コマンド
 | keystone | openstack | 説明 |
 | --- | --- | --- |
+|ユーザ |                                                                    | |
 |  | openstack user list                                                | |
 |  | openstack user role list [user]                                    | |
 |  | openstack user show [user]                                         | |
 |  | openstack user create [user] --password [password]                 | |
 |  | openstack user delete [user]                                       | |
 |  | openstack user set [option] [user]                                 | |
-|  |                                                                    | |
+|プロジェクト  |                                                                    | |
 |  | openstack project list                                             | |
 |  | openstack project show [project]                                   | |
 |  | openstack project create [project]                                 | |
 |  | openstack project delete [project]                                 | |
 |  | openstack proejct set [option] [project]                           | |
-|  |                                                                    | |
+|ドメイン  |                                                                    | |
 |  | openstack domain list                                              | |
 |  | openstack domain show [domain]                                     | |
 |  | openstack domain create [domain]                                   | |
 |  | openstack domain delete [domain]                                   | |
 |  | openstack domain set [option] [domain]                             | |
-|  |                                                                    | |
+|ロール |                                                                    | |
 |  | openstack role list                                                | |
 |  | openstack role show [role]                                         | |
 |  | openstack role create [role]                                       | |
@@ -73,27 +74,26 @@
 |  | openstack user role list [user]                                    | |
 |  | openstack role add --user [user] --project [project] [role]        | |
 |  | openstack role remove --user [user] --project [project] [role]     | deleteと混在しないように注意 |
-|  |                                                                    | |
+| サービス |                                                                    | |
 |  | openstack service list                                             | |
 |  | openstack service show [service]                                   | |
 |  | openstack service create --name [name] [type]                      | |
 |  | openstack service delete [service]                                 | |
 |  | openstack service set [option] [service]                           | |
-|  |                                                                    | |
+| エンドポイント |                                                                    | |
 |  | openstack endpoint list                                            | |
 |  | openstack endpoint show [endpoint_id]                              | |
 |  | openstack endpoint create --publicurl [url] --internalurl [url] --adminurl [url] --region [region] [type] | |
 |  | openstack endpoint delete [endpoint_id]                            | |
 |  | openstack endpoint set [option] [endpoint_id]                      | |
-|  |                                                                    | |
+| カタログ |                                                                    | |
 |  | openstack catalog list                                             | |
 |  | openstack catalog show [servicename]                               | |
-|  |                                                                    | |
+| Quota |                                                                    | |
 |  | openstack quota show [project]                                     | |
 |  | openstack quota set [option] [project]                             | |
-|  |                                                                    | |
+| その他 |                                                                    | |
 |  | openstack limits show [option]                                     | ? |
-|  |                                                                    | |
 |  | openstack usage list [option]                                      | ? |
 |  | openstack usage show [option]                                      | ? |
 
