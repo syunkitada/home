@@ -57,6 +57,60 @@ Address           Kbytes     RSS   Dirty Mode  Mapping
 ...
 ```
 
+## hugepage
+http://dpdk.org/doc/guides-16.04/sample_app_ug/vhost.html
+https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/7/html/Virtualization_Tuning_and_Optimization_Guide/sect-Virtualization_Tuning_Optimization_Guide-Memory-Tuning.html
+
+```
+# デフォルトを確認
+$ cat /proc/meminfo
+AnonHugePages:     81920 kB
+HugePages_Total:    2048
+HugePages_Free:     2048
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+
+# hugepage を1G * 8page 確保
+$ sudo vim /etc/default/grub
+GRUB_CMDLINE_LINUX="hugepagesz=1G hugepages=8"
+
+$ sudo grub-mkconfig -o /boot/grub/grub.cfg
+$ reboot
+
+# 確認
+$ cat /proc/meminfo
+AnonHugePages:     53248 kB
+HugePages_Total:      13
+HugePages_Free:       13
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:    1048576 kB
+
+$ vim /etc/fstab
+hugetlbfs   /mnt/huge   hugetlbfs defaults,pagesize=1G 0 0
+
+$ sudo mount -a
+
+# mount確認
+# デフォルトで、kvmも/run/hugepages/kvm にhugetlbfsをマウントしてるマウントしてる？
+$ mount
+hugetlbfs-kvm on /run/hugepages/kvm type hugetlbfs (rw,mode=775,gid=125)
+hugetlbfs on /mnt/huge type hugetlbfs (rw,pagesize=1G)
+
+# hugepageをバッキングメモリにして2GのVMを起動すると、hugepageから確保される
+$ sudo pmap 5150
+5150:   /usr/bin/qemu-system-x86_64 -name centos7 -S -machine pc-i440fx-trusty,accel=kvm,usb=off -cpu Nehalem,+invpcid,+erms,+fsgsbase,+abm,+rdtscp,+pdpe1gb,+rdrand,+osxsave,+xs
+ave,+tsc-deadline,+movbe,+pcid,+pdcm,+xtpr,+tm2,+est,+vmx,+ds_cpl,+monitor,+dtes64,+pclmuldq,+pbe,+tm,+ht,+ss,+acpi,+ds,+vme -m 1954 -mem-prealloc -mem-path /run/hugepages/kvm/l
+ibvirt/qemu -realtime mlock=off -smp 2,sockets=1,cores=2,threads=1 -uuid 2c28f6ae-5fb4-11e6-95b5-cce1d540d3fa -nographic -no-user-config -nodefaults -chardev socket
+00007f8980000000 2097152K rw--- qemu_back_mem.pc.ram.ZedopK (deleted)
+00007f8a34000000   1144K rw---   [ anon ]
+0
+
+```
+
+
+
 ## /proc/[PID]/smaps
 ```
 $ sudo cat /proc/23572/smaps | less
@@ -78,6 +132,12 @@ Locked:                0 kB
 VmFlags: rd wr mr mw me dc ac sd hg mg
 7
 
+# 2Gなので2ページ分消費された
+$ cat /proc/meminfo
+HugePages_Total:      13
+HugePages_Free:       11
+HugePages_Rsvd:        0
+HugePages_Surp:        0
 ```
 
 
