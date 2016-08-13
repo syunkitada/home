@@ -24,6 +24,22 @@ if [[ `uname` =~ ^CYGWIN ]]; then
         eval `$SSHAGENT $SSHAGENTARGS`
         trap "kill $SSH_AGENT_PID" 0
     fi
+
+else
+    # ForwardAgent が有効な状態で、ssh ログインしなおすと、環境変数SSH_AUTH_SOCK が新しいパスをさすようになる
+    # ここで tmux attach すると、tmux セッション上のシェルは以前の SSH_AUTH_SOCK の値を保持し続けていてるので認証ができなくなる
+    # このため、ログインするたびに $HOME/.ssh/agent に symlink を貼るようにする
+    agent="$HOME/.ssh/agent"
+    if [ -S "$SSH_AUTH_SOCK" ]; then
+        case $SSH_AUTH_SOCK in
+        /tmp/*/agent.[0-9]*)
+            ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
+        esac
+    elif [ -S $agent ]; then
+        export SSH_AUTH_SOCK=$agent
+    else
+        echo "no ssh-agent"
+    fi
 fi
 
 # basic
