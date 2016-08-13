@@ -1,6 +1,6 @@
 # Ubuntu
 
-For Ubuntu 14 LTS.
+For Ubuntu 16 LTS.
 
 ## Setup authorized_keys
 Scp my id_rsa.pub to ubuntu home directory.
@@ -32,10 +32,3 @@ $ sudo apt-get install libvirt-bin
 $ sudo apt-get install virtinst
 $ sudo virsh list
 ```
-
-## Setup keybind
-### xkb
-* http://ill-identified.hatenablog.com/entry/2014/09/14/143337
-* http://qiita.com/tetsutan/items/bfa5768c3d618ca35d4a
-
-### autokey

@@ -1,9 +1,0 @@
-partial modifier_keys
-xkb_symbols "swapkeys" {
-  replace key <NFER> { [ Escape ] };
-  replace key <CAPS> { [ Tab ] };
-  replace key <ESC> { [ Caps_Lock ] };
-  replace key <XFER> { [ Shift_L ] };
-  replace key <LALT> { [ Ctrl_L ] };
-  replace key <LCTL> { [ Alt_L ] };
-};

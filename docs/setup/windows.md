@@ -1,14 +1,16 @@
 # Windows
 
 ## Common software
-* Microsoft Security Essentials (Windows7)
-* Windows Defender (Windows 8, 10: default installed)
-* Lhaplus
-* Clover
-* Desktops
-* VLC media player
-* TrueCrypt
-* LibreOffice
+| Soft | Description |
+| --- | --- |
+| Microsoft Security Essentials (Windows7)            | |
+| Windows Defender (Windows 8, 10: default installed) | |
+| Lhaplus           | |
+| Clover            | |
+| Desktops          | |
+| VLC media player  | |
+| TrueCrypt         | |
+| LibreOffice       | |
 
 ## Install cygwin
 * Install position: ~/Desktop/cygwin/cygwin64
@@ -16,29 +18,15 @@
 * And Install 'KaoriYa gvim', 'putty', 'teraterm' to ~/Desktop/cygwin/
 
 Install cygwin package is,
-
-* Devel
- * ctags
- * gcc (c, c++, objectiv-c, etc)
- * git
- * make
-* Editor
- * vim
- * vim-common
-* Net
- * bind-utils 
- * curl
- * openssl
-* Python
- * python
- * python-crypto
-* Tcl
- * expect
-* Utils
- * tmux
- * zsh
-* Web
- * wget
+| Category | Soft |
+| --- | --- |
+| Devel  | ctags, gcc (c, c++, objectiv-c, etc), git, make |
+| Editor | vim, vim-common           |
+| Net    | bind-utils, curl, openssl |
+| Python | python, python-crypto     |
+| Tcl    | expect    |
+| Utils  | tmux, zsh |
+| Web    | wget      |
 
 ## Change home directory
 ``` bash
@@ -110,11 +98,5 @@ Edit .bashrc or .zshrc, and setup path plink.exe.
 $ easy_install pip
 ```
 
-## Setup xampp
-* Install xampp
-* Setup PATH:path of xampp/php, path of xampp/perl/bin
-* Edit php.conf to enable openssl
-
-
 ## Disable deflag if ssd
-Disable by "ドライブのデフラグと最適化"
+* Disable by "ドライブのデフラグと最適化"
