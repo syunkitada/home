@@ -9,7 +9,7 @@ This is my dot files, and other setting files.
 
 
 ## About keybind
-For Windows7, and JIS keyboard.
+For Windows7/10, and JIS keyboard.
 
 Keybind managed by [autohotkey](https://github.com/syunkitada/autohotkey).
 
