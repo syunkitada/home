@@ -1,5 +1,6 @@
-"colorscheme twilight
-colorscheme molokai
+" colorscheme twilight
+" colorscheme molokai
+colorscheme hybrid
 
 " visualize tab
 highlight Tab guibg=#303030
@@ -26,5 +27,5 @@ source $VIMRUNTIME/menu.vim
 
 " 英語メッセージにする
 if has("multi_lang")
-language C
+    language C
 endif
