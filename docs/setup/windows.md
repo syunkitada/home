@@ -17,7 +17,8 @@
   * local position: ~/Desktop/cygwin/local
 * And Install 'KaoriYa gvim', 'putty', 'teraterm' to ~/Desktop/cygwin/
 
-Install cygwin package is,
+Install cygwin package is
+
 | Category | Soft |
 | --- | --- |
 | Devel  | ctags, gcc (c, c++, objectiv-c, etc), git, make |
