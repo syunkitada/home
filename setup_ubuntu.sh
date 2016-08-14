@@ -16,7 +16,6 @@ gvimrc=`pwd`/.gvimrc
 vimshrc=`pwd`/.vimshrc
 vim=`pwd`/.vim
 vrapperrc=`pwd`/.vrapperrc
-xkb=`pwd`/.xkb
 
 ln_bash_profile=${HOME}/.bash_profile
 ln_zshrc=${HOME}/.zshrc
@@ -29,20 +28,18 @@ ln_gvimrc=${HOME}/.gvimrc
 ln_vimshrc=${HOME}/.vimshrc
 ln_vim=${HOME}/.vim
 ln_vrapperrc=${HOME}/.vrapperrc
-ln_xkb=${HOME}/.xkb
 
-rm -f  $ln_bash_profile
-rm -f  $ln_zshrc
-rm -f  $ln_git_prompt
-rm -f  $ln_git_completion
-rm -f  $ln_screenrc
-rm -f  $ln_tmuxconf
-rm -f  $ln_vimrc
-rm -f  $ln_gvimrc
-rm -f  $ln_vimshrc
+rm -f $ln_bash_profile
+rm -f $ln_zshrc
+rm -f $ln_git_prompt
+rm -f $ln_git_completion
+rm -f $ln_screenrc
+rm -f $ln_tmuxconf
+rm -f $ln_vimrc
+rm -f $ln_gvimrc
+rm -f $ln_vimshrc
 rm -f $ln_vim
-rm -f  $ln_vrapperrc
-rm -f $ln_xkb
+rm -f $ln_vrapperrc
 
 ln -s $bash_profile $ln_bash_profile
 ln -s $zshrc $ln_zshrc
@@ -55,11 +52,11 @@ ln -s $gvimrc $ln_gvimrc
 ln -s $vim $ln_vim
 ln -s $vimshrc $ln_vimshrc
 ln -s $vrapperrc $ln_vrapperrc
-ln -s $xkb $ln_xkb
-
-neobundle=${vim}/bundle/neobundle.vim/
-if [ ! -e $neobundle ]; then
-    git clone git://github.com/Shougo/neobundle.vim.git $neobundle
-fi
 
 sudo apt-get install git zsh build-essential vim ncurses-dev -y
+
+# install fzf
+if [ ! -e ~/.fzf ]; then
+    git clone https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+fi
