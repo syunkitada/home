@@ -87,6 +87,10 @@ HugePages_Rsvd:        0
 HugePages_Surp:        0
 Hugepagesize:    1048576 kB
 
+# hugepageサイズ
+$ cat /proc/sys/vm/nr_hugepages
+13
+
 $ vim /etc/fstab
 hugetlbfs   /mnt/huge   hugetlbfs defaults,pagesize=1G 0 0
 
