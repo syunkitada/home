@@ -7,6 +7,7 @@ cp -f bin/* $local_bin/
 
 bash_profile=`pwd`/.bash_profile
 zshrc=`pwd`/.zshrc
+zsh=`pwd`/.zsh
 git_prompt=`pwd`/.git-prompt.sh
 git_completion=`pwd`/.git-completion.bash
 screenrc=`pwd`/.screenrc
@@ -19,6 +20,7 @@ vrapperrc=`pwd`/.vrapperrc
 
 ln_bash_profile=${HOME}/.bash_profile
 ln_zshrc=${HOME}/.zshrc
+ln_zsh=${HOME}/.zsh
 ln_git_prompt=${HOME}/.git-prompt.sh
 ln_git_completion=${HOME}/.git-completion.bash
 ln_screenrc=${HOME}/.screenrc
@@ -31,6 +33,7 @@ ln_vrapperrc=${HOME}/.vrapperrc
 
 rm -f $ln_bash_profile
 rm -f $ln_zshrc
+rm -f $ln_zsh
 rm -f $ln_git_prompt
 rm -f $ln_git_completion
 rm -f $ln_screenrc
@@ -43,6 +46,7 @@ rm -f $ln_vrapperrc
 
 ln -s $bash_profile $ln_bash_profile
 ln -s $zshrc $ln_zshrc
+ln -s $zsh $ln_zsh
 ln -s $git_prompt $ln_git_prompt
 ln -s $git_completion $ln_git_completion
 ln -s $screenrc $ln_screenrc
