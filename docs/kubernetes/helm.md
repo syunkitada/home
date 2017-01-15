@@ -148,6 +148,6 @@ tufted-butterfly-mychart-1502860468-nkslx   1/1       Running   0          20m
 ```
 
 ## 参考
-* [quickstart] (https://github.com/kubernetes/helm/blob/master/docs/quickstart.md)
-* [charts] https://github.com/kubernetes/helm/blob/master/docs/charts.md
-* [Kubernetes Helmとは] (http://qiita.com/tkusumi/items/12857780d8c8463f9b9c)
+* [quickstart](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md)
+* [charts](https://github.com/kubernetes/helm/blob/master/docs/charts.md)
+* [Kubernetes Helmとは](http://qiita.com/tkusumi/items/12857780d8c8463f9b9c)

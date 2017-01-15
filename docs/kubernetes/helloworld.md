@@ -1,84 +1,65 @@
 # Helloworkd
 
-## Helloworld
+## ReplicationController, Service リソースを作成するための定義ファイルを作成する
 ``` bash
-$ vim httpd.yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: httpd
-    labels:
-      app: httpd
-      spec:
-        containers:
-        - name: httpd
-          image: httpd
-          ports:
-          - containerPort: 80
-
-$ kubectl create -f httpd.yaml
-
-$ kubectl get pods
-NAME                  READY     STATUS             RESTARTS   AGE
-httpd                 1/1       Running            0          29m
-
-$ kubectl get pod httpd -o yaml
-...
-  hostIP: 192.168.122.51
-  phase: Running
-  podIP: 10.20.47.3
-
-$ curl 10.20.47.3
-<html><body><h1>It works!</h1></body></html>
-
-$ vim httpd-rc.yaml
+cat << EOS > nginx.yaml
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: httpd-rc
+  name: helloworld-rc
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        app: httpd
-        tier: frontend
+        app: helloworld-nginx
     spec:
       containers:
-      - name: httpd
-        image: httpd
+      - name: helloworld
+        image: nginx
         ports:
         - containerPort: 80
 
-$ kubectl create -f httpd-rc.yaml
-$ kubectl get replicationcontroller
-NAME       DESIRED   CURRENT   AGE
-httpd-rc   2         2         5m
+---
 
-$ kubectl get pod
-NAME             READY     STATUS    RESTARTS   AGE
-httpd-rc-39ue0   1/1       Running   0          6m
-httpd-rc-fj3nh   1/1       Running   0          6m
-
-
-$ vim httpd-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: httpd-service
+  name: helloworld-svc
 spec:
-  type: NodePort
-  ports:
-  - port: 80
-    nodePort: 30080
   selector:
-    app: httpd
-    tier: frontend
+    app: helloworld-nginx
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+EOS
 
-$ kubectl get service
-NAME            CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
-httpd-service   10.254.121.16   nodes         80/TCP    1m
+```
 
-$ curl 192.168.122.51:30080
-<html><body><h1>It works!</h1></body></html>
+## デプロイ
+```
+$ kubectl create -f nginx.yaml
+replicationcontroller "helloworld-rc" created
+service "helloworld-svc" created
+
+$ kubectl get svc
+NAME             CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+helloworld-svc   10.3.0.47    <none>        80/TCP    41s
+kubernetes       10.3.0.1     <none>        443/TCP   5h
+
+$ kubectl get rc
+NAME            DESIRED   CURRENT   READY     AGE
+helloworld-rc   2         2         2         53s
+
+$ kubectl get pod
+NAME                  READY     STATUS    RESTARTS   AGE
+helloworld-rc-bf3zw   1/1       Running   0          1m
+helloworld-rc-xhhjl   1/1       Running   0          1m
+
+$ curl 10.3.0.47
+<!DOCTYPE html>
+<html>
+...
+</html>
 ```
