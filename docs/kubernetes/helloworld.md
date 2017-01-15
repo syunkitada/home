@@ -1,13 +1,4 @@
-# Kubernetes
-
-## Config of kubectl
-``` bash
-$ kubectl config set-credentials myself --username=admin --password=admin \
-kubectl config set-cluster local-server --server=http://localhost:8080 \
-kubectl config set-context default-context --cluster=local-server --user=myself \
-kubectl config use-context default-context \
-kubectl config set contexts.default-context.namespace default \
-```
+# Helloworkd
 
 ## Helloworld
 ``` bash
@@ -91,8 +82,3 @@ httpd-service   10.254.121.16   nodes         80/TCP    1m
 $ curl 192.168.122.51:30080
 <html><body><h1>It works!</h1></body></html>
 ```
-
-## Reference
-* [Kubernetes を使ったマルチホスト環境でのクラスタを構築する【基礎編】](http://christina04.hatenablog.com/entry/2016/05/25/011129)
-* [Kubernetes を使ったマルチホスト環境でのクラスタを構築する【flannel編】](http://christina04.hatenablog.com/entry/2016/05/26/193000)
-* [kubernetesによるDockerコンテナ管理入門] (http://knowledge.sakura.ad.jp/tech/3681/)
