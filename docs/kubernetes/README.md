@@ -4,7 +4,7 @@
 | リンク | 説明 |
 | --- | --- |
 | [Helloworld](helloworld.md) | ReplicationController, Serviceを使ってみる |
-| [ConfigMap](configmap.md) | Kubernetesのパッケージマネージャ |
+| [ConfigMap](configmap.md) | 設定情報を扱うためのリソース |
 | [Helm](helm.md) | Kubernetesのパッケージマネージャ |
 
 
