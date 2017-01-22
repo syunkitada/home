@@ -3,8 +3,9 @@
 ## Contents
 | リンク | 説明 |
 | --- | --- |
-| [helloworld](helloworld.md) | ReplicationController, Serviceを使ってみる |
-| [helm](helm.md) | Kubernetesのパッケージマネージャ |
+| [Helloworld](helloworld.md) | ReplicationController, Serviceを使ってみる |
+| [ConfigMap](configmap.md) | Kubernetesのパッケージマネージャ |
+| [Helm](helm.md) | Kubernetesのパッケージマネージャ |
 
 
 ## External Links

@@ -53,8 +53,8 @@ metadata:
   uid: 6861da05-e096-11e6-9a6d-00163e371dc9
 ```
 
-## podからconfigmapを利用する
-configmapは環境変数に設定するか、Volumeとしてマウントすることができる
+## PodからConfigMapを利用する
+ConfigMapは環境変数に設定するか、Volumeとしてマウントすることができる
 
 ``` bash
 $ cat << EOS > nginx-pod.yaml
