@@ -6,7 +6,7 @@ Helmとは、Kubernetesのサービスやポッドをデプロイするための
 | --- | --- | --- |
 | helm(舵) | yum, aptに相当するパッケージマネージャ。 |
 | tiller(舵柄) | デプロイを担うサーバコンポーネント。 |
-| chart(海図) | dep, rpmに相当するパッケージ。Kubernetesのマニフェストのテンプレートをまとめたもの |
+| chart(海図) | dep, rpmに相当するパッケージ。Kubernetesのmanifestのテンプレートをまとめたもの |
 
 
 ## helmのインストール
