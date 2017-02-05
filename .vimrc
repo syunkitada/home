@@ -170,6 +170,11 @@ set ttymouse=xterm2
 " t_ut 端末オプションで、現在の背景色を使って端末の背景をクリアする
 set t_ut=
 
+let _currentfile=expand("%:r")
+if _currentfile == 'Makefile'
+  set noexpandtab
+endif
+
 
 set rtp+=~/.fzf
 

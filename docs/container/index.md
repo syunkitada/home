@@ -4,11 +4,10 @@
 
 ### ubuntu
 ``` bash
-# ubuntu 14
-$ sudo apt-get install docker.io
-
+# ubuntu 16
+# show https://docs.docker.com/engine/installation/linux/ubuntu/
 $ docker -v
-Docker version 1.6.2, build 7c8fca2
+Docker version 1.13.0, build 49bf474
 ```
 
 ### centos
