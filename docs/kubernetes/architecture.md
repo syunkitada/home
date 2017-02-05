@@ -1,14 +1,17 @@
 # Service
 
 ## 主要コンポーネント
-kube-api
+kube-apiserver
 * Kubernetesのリソースを管理するAPIサーバ
+
+kubectl
+* kube-apiserverを叩くためのCLIクライアント
 
 etcd
 * Kubernetesのリソースデータを保管する分散KVS
 
 kube-scheduler
-* Podのノードへの割り当てを行うスケジューラ
+* Podをノードへ割り当てるスケジューラ
 
 kube-controller-manager
 * ReplicationControllerなどの各種コントローラを起動して管理するマネージャ
@@ -75,10 +78,15 @@ Heapster
 * メトリックスのフォワード先のストレージバックエンドが必要
   * InfluxDBが使われることが多い
   * メトリックス表示にはGrafanaが使われることが多い
-
+* Heapsterを利用していればkubernetes-dashbord上でNamespaceごと、PodごとのCPU、メモリの使用量のグラフを見ることができる
 
 Prometheus
-* 
+* SoundCloudによって開発されているOSSのメトリックスの収集・監視システム
+* Google 出身者が Google 社内監視ツール Borgmon にインスパイアされて作成された
+* [アーキテクチャ](https://prometheus.io/docs/introduction/overview/#architecture)
+* サービスディスカバリの機能があるのでKubernetesと連携がしやすい
+* データの保存はローカルストレージなので大規模なスケールは怪しいが、Kubernetesクラスタ一つ分は監視できそう?
+* グラフの描画機能はPrometheus事態にもあるが、Grafanaを使うのが推奨
 
 kube-state-metrics
 * [Github](https://github.com/kubernetes/kube-state-metrics)
@@ -89,5 +97,6 @@ kube-state-metrics
 * Prometheusのscraperによって消費されるように設計されている
   * /metricsを開くと未処理のメトリックスが表示される
 
-
-
+Fluentd + ElasticSearch
+* 各ノード上でFluentdをDaemonsetで動かしてログをElasticSearchに集約
+* ElasticSearchにログ検索・分析をする
