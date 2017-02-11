@@ -37,16 +37,6 @@ Visualization
   * Grafana推奨なので、開発中止
 
 
-## Prometheus on Kubernetes
-
-node exporter
-* ホストの情報に関してはこれで大体のメトリックスが収集できる
-* カスタムメトリックス
-    * collector.textfile.directoryオプションをつかうと、node_exporterからカスタムメトリックスを送信できるようになる
-    * Borgmonでは各アプリが/varzというパスでアプリケーションのメトリックスを公開することになっている
-
-
-
 ## シンプルな設定
 prometheus自体もメトリックスを提供しているので、これを収集できる
 ```
@@ -88,3 +78,29 @@ scrape_configs:
         - dc1-prometheus:9090
         - dc2-prometheus:9090
 ```
+
+## Install and Start
+``` bash
+$ wget https://github.com/prometheus/prometheus/releases/download/v1.5.2/prometheus-1.5.2.linux-amd64.tar.gz
+$ tar prometheus-1.5.2.linux-amd64.tar.gz
+$ cd prometheus-1.5.2.linux-amd64/
+$ ./prometheus -config.file prometheus.yml
+INFO[0000] Listening on :9090
+```
+
+
+## Exporters
+### node exporter
+* ホストの情報に関してはこれで大体のメトリックスが収集できる
+* カスタムメトリックス
+    * collector.textfile.directoryオプションをつかうと、node_exporterからカスタムメトリックスを送信できるようになる
+    * Borgmonでは各アプリが/varzというパスでアプリケーションのメトリックスを公開することになっている
+
+
+### haproxy exporter
+* haproxy用のメトリックスを収集する
+* Grafana: https://grafana.net/dashboards/367
+
+
+## blackbox exporter
+* サービスのヘルスチェックができる
