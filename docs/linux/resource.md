@@ -288,6 +288,58 @@ topコマンドでもある程度のプロセス状態を見ることは可能�
 * Z   Zombie  TASK_ZOMBIE ゾンビ状態。子プロセスが exit して親プロセスにリープされるまでの状態。
 
 
+## strace
+```
+$ sudo strace -tt -s 1024 -p 21479
+strace: Process 21479 attached
+01:11:41.916190 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:41.993740 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:41.998771 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:42.008637 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:42.037605 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:42.177448 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:42.677560 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:42.728213 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:43.177583 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:43.677658 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:43.993764 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:43.998780 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:44.008636 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:44.037613 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:44.074510 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:44.081921 pread64(20, "\26\24\0\t\2\274\1\377\t\1$\0\35\0\0\0\0\1\0\0\0\1\33l;9", 26, 110) = 26
+01:11:44.082095 pread64(21, "\26\24\0\t\2\274\1\377\t\1$\0'\0\0\0\0\1\0\0\0\1\353\366\372\374", 26, 120) = 26
+01:11:44.082191 pread64(20, "\33h\0\20\0\273@\324\257\320\230\257\261\0\3\0\0\0\0\0\0\0\0\0\0\1\0\0\0\1\302.\225X", 34, 0) = 34
+01:11:44.082264 pread64(21, "'4\0\20\f\273@\324\257\320\230\257\261\1\1\0\5\1L\254\215\277\305\305V\314\260\205\312\305V\0\0\0\0\1\0\0\0\1i\221\315\264", 44, 0) = 44
+01:11:44.082334 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
+01:11:44.177746 futex(0x2731d30, FUTEX_WAIT, 0, NULL^Cstrace: Process 21479 detached
+ <detached ...>
+
+# 統計情報を表示する
+$ sudo strace -p 21479 -c
+strace: Process 21479 attached
+^Cstrace: Process 21479 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+  0.00    0.000000           0         8           futex
+  0.00    0.000000           0         1           epoll_wait
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000000                     9           total
+```
+プロセスが呼び出すシステムコールをトレースする。
+このときシステムコールがエラーになる箇所を探すと、不具合の手掛かりになる。
+
+
+## /proc/interrupts
+```
+$ cat /proc/interrupts
+
+$ watch -n 1 -d "cat /proc/interrupts | egrep 'RES|CAL|TLB'"
+```
+* /proc/interruptsで割り込みを表示できる
+* 割り込みを少なくするようにチューニングすることはパフォーマンス向上につながる
+* 逆に、割り込みが多すぎるとパケットや、プロセスのつまりの原因になる
+
 
 ## 参考
 * [6万ミリ秒でできるLinuxパフォーマンス分析]: https://yakst.com/ja/posts/3601?platform=hootsuite
