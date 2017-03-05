@@ -315,6 +315,17 @@ strace: Process 21479 attached
 01:11:44.177746 futex(0x2731d30, FUTEX_WAIT, 0, NULL^Cstrace: Process 21479 detached
  <detached ...>
 
+
+# grepして特定のシステムコールを抽出する
+$ sudo strace -tt -s 1024 -p 5262 2>&1 | grep 'ioctl'
+11:32:12.501130 ioctl(13, KVM_IRQ_LINE_STATUS, 0x7f3c841e8f90) = 0
+11:32:12.501637 ioctl(13, KVM_IRQ_LINE_STATUS, 0x7f3c7fffef00) = 0
+11:32:12.504265 ioctl(13, KVM_IRQ_LINE_STATUS, 0x7f3c7fefdf90) = 0
+^C
+
+# ファイルに出力する
+$ sudo strace -tt -s 1024 -p 5262 -o test.log
+
 # 統計情報を表示する
 $ sudo strace -p 21479 -c
 strace: Process 21479 attached
