@@ -140,9 +140,9 @@ Percentage of the requests served within a certain time (ms)
 * Time taken for tests  
     This  is the time taken from the moment the first socket connection is created to the moment the last
     response is received
-* _Complete requests_  
+* __Complete requests__  
     The number of successful responses received
-* _Failed requests_  
+* __Failed requests__  
     The number of requests that were considered a failure. If the number is greater  than  zero,  another
     line will be printed showing the number of requests that failed due to connecting, reading, incorrect
     content length, or exceptions.
@@ -162,10 +162,10 @@ Percentage of the requests served within a certain time (ms)
 * HTML transferred  
     The  total  number of document bytes received from the server. This number excludes bytes received in
     HTTP headers
-* _Requests per second_  
+* __Requests per second__  
     This is the number of requests per second. This value  is  the  result  of  dividing  the  number  of
     requests by the total time taken
-* _Time per request_  
+* __Time per request__  
     The  average  time  spent  per  request. The first value is calculated with the formula concurrency *
     timetaken * 1000 / done while the second value is calculated with the formula timetaken * 1000 / done
 * Transfer rate  
