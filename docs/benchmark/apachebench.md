@@ -118,47 +118,55 @@ Percentage of the requests served within a certain time (ms)
 ```
 
 ## Output
-* Server Software
+* Server Software  
     The value, if any, returned in the server HTTP header of the first successful response. This includes
     all  characters  in the header from beginning to the point a character with decimal value of 32 (most
     notably: a space or CR/LF) is detected.
-* Server Hostname
+* Server Hostname  
     The DNS or IP address given on the command line
-* Server Port
+* Server Port  
     The port to which ab is connecting. If no port is given on the command line, this will default to  80
     for http and 443 for https.
-* SSL/TLS Protocol
+* SSL/TLS Protocol  
     The protocol parameters negotiated between the client and server. This will only be printed if SSL is
     used.
-* Document Path
+* Document Path  
     The request URI parsed from the command line string.
-* Document Length
+* Document Length  
     This is the size in bytes of the first successfully returned document. If the document length changes
     during testing, the response is considered an error.
-* Concurrency Level
+* Concurrency Level  
     The number of concurrent clients used during the test
-* Time taken for tests
+* Time taken for tests  
     This  is the time taken from the moment the first socket connection is created to the moment the last
     response is received
-* Complete requests
+* _Complete requests_  
     The number of successful responses received
-* Failed requests
+* _Failed requests_  
     The number of requests that were considered a failure. If the number is greater  than  zero,  another
     line will be printed showing the number of requests that failed due to connecting, reading, incorrect
     content length, or exceptions.
-* Write errors
+* Write errors  
     The number of errors that failed during write (broken pipe).
-* Non-2xx responses
+* Non-2xx responses  
     The number of responses that were not in the 200 series of response codes. If all responses were 200,
     this field is not printed.
-* Keep-Alive requests
+* Keep-Alive requests  
     The number of connections that resulted in Keep-Alive requests
-* Total body sent
+* Total body sent  
     If  configured  to  send  data as part of the test, this is the total number of bytes sent during the
     tests. This field is omitted if the test did not include a body to send.
-* Total transferred
+* Total transferred  
     The total number of bytes received from the server. This number is essentially the  number  of  bytes
     sent over the wire.
-* HTML transferred
+* HTML transferred  
     The  total  number of document bytes received from the server. This number excludes bytes received in
     HTTP headers
+* _Requests per second_  
+    This is the number of requests per second. This value  is  the  result  of  dividing  the  number  of
+    requests by the total time taken
+* _Time per request_  
+    The  average  time  spent  per  request. The first value is calculated with the formula concurrency *
+    timetaken * 1000 / done while the second value is calculated with the formula timetaken * 1000 / done
+* Transfer rate  
+    The rate of transfer as calculated by the formula totalread / 1024 / timetaken
