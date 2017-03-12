@@ -1,7 +1,7 @@
 # Kubernetes
 
 ## Contents
-| リンク | 説明 |
+| Link | Description |
 | --- | --- |
 | [kubeadm](https://kubernetes.io/docs/getting-started-guides/kubeadm/) | 開発用のkubernetesを構築するためのコマンド |
 | [Helloworld](helloworld.md) | ReplicationController, Serviceを使ってみる |
@@ -11,7 +11,7 @@
 
 
 ## External Links
-| リンク | 説明 |
+| Link | Description |
 | --- | --- |
 | [リファレンス](https://kubernetes.io/docs/reference/) | リファレンス |
 | [アーキテクチャ](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md) | Kubernetes architecture |
