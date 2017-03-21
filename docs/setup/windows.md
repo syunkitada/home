@@ -25,8 +25,9 @@ Install cygwin package is
 | Editor | vim, vim-common           |
 | Net    | bind-utils, curl, openssl |
 | Python | python, python-crypto     |
+| Shell  | zsh |
 | Tcl    | expect    |
-| Utils  | tmux, zsh |
+| Utils  | tmux |
 | Web    | wget      |
 
 ## Change home directory
