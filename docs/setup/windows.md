@@ -5,8 +5,8 @@
 | --- | --- |
 | Microsoft Security Essentials (Windows7)            | |
 | Windows Defender (Windows 8, 10: default installed) | |
+| GVIM              | GVIM [KaoriYa](https://www.kaoriya.net/) |
 | Lhaplus           | |
-| Clover            | |
 | Desktops          | |
 | VLC media player  | |
 | TrueCrypt         | |
@@ -32,11 +32,16 @@ Install cygwin package is
 
 ## Change home directory
 ``` bash
-$ mkpasswd -l > /etc/passwd
+# $ mkpasswd -l > /etc/passwd
+#
+# $ vim /etc/passwd
+# < home/<username>
+# > /cygdrive/c/Users/<username>
 
-$ vim /etc/passwd
-< home/<username>
-> /cygdrive/c/Users/<username>
+$ vim .bash_profile
+HOME=/cygdrive/c/Users/[user]
+cd ~
+source .bash_profile
 ```
 
 ## cygwin options
@@ -88,9 +93,8 @@ setu_win.bat create symbolic link from dot files to home directory.
 Edit .bashrc or .zshrc, and setup path plink.exe.
 
 ## Setup vim
-* Run vim on cygwin. First, install plugins by neobundle.
-* Copy [gvim]/plugins/vimproc/autoload/vimproc_win64.dll to .vim/bundle/vimproc/autoload/ for vimshell on gvim 
-* To execute cygwin command on vimshell, add path of cygwin64/bin to PATH of env.
+* Run vim on cygwin. First, install plugins by dein.
+* Add path of cygwin/bin to PATH of env. for GVIM.
 
 ## Setup python
 1. Install [setuptools](https://pypi.python.org/pypi/setuptools)
