@@ -4,8 +4,11 @@ abは、Apache Benchの略で、Apacheに標準でついてくるベンチマー
 
 ## Install
 ``` bash
-# Install
+# Install centos
 $ yum install httpd
+
+# Install ubuntu
+$ sudo apt-get install apache2-utils
 ```
 
 ## Run ab
@@ -170,3 +173,42 @@ Percentage of the requests served within a certain time (ms)
     timetaken * 1000 / done while the second value is calculated with the formula timetaken * 1000 / done
 * Transfer rate  
     The rate of transfer as calculated by the formula totalread / 1024 / timetaken
+
+
+## rpsを最大化するためのoption最適化
+* request数(-n)は一定以上上げないと、rpsの最大値を求められない
+* ただし、やみくもに上げすぎても意味はないので最適値で検証するとよい
+``` bash
+$ ab -n 10000 -c 1 http://127.0.0.1/
+Requests per second:    18387.59 [#/sec] (mean)
+
+$ ab -n 100000 -c 1 http://127.0.0.1/
+Requests per second:    21382.16 [#/sec] (mean)
+
+$ ab -n 500000 -c 1 http://127.0.0.1/
+Requests per second:    21124.96 [#/sec] (mean)
+```
+
+* concurencyは一定以上上げないと、rpsの最大値を求められない
+* ベンチマークの際にmpstatを投げておいて、CPUを使い切ってるか確認するとよい
+``` bash
+$ ab -n 100000 -c 2 http://127.0.0.1/
+Requests per second:    32741.26 [#/sec] (mean)
+
+$ ab -n 100000 -c 4 http://127.0.0.1/
+Requests per second:    34753.32 [#/sec] (mean)
+
+$ ab -n 100000 -c 8 http://127.0.0.1/
+Requests per second:    34433.86 [#/sec] (mean)
+
+$ mpstat 1 -P ALL
+CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+all   18.81    0.00   48.51    0.00    0.00   18.81    0.00    0.00    0.00   13.86
+  0   23.23    0.00   47.47    0.00    0.00    8.08    0.00    0.00    0.00   21.21
+  1   14.85    0.00   50.50    0.00    0.00   28.71    0.00    0.00    0.00    5.94
+
+CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+all   21.13    0.00   46.39    0.00    0.00   24.74    0.00    0.00    0.00    7.73
+  0   30.53    0.00   44.21    0.00    0.00    9.47    0.00    0.00    0.00   15.79
+  1   13.00    0.00   47.00    0.00    0.00   40.00    0.00    0.00    0.00    0.00
+```
