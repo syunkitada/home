@@ -70,6 +70,103 @@ System Activity Reporter
 $ sar -n TCP,ETCP,DEV 1
 ```
 
+## iotop
+``` bash
+$ sudo iotop
+Total DISK READ :       0.00 B/s | Total DISK WRITE :       0.00 B/s
+Actual DISK READ:       0.00 B/s | Actual DISK WRITE:       0.00 B/s
+  TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN     IO>    COMMAND
+24094 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.03 % [kworker/0:2]
+23552 be/4 apache      0.00 B/s    0.00 B/s  0.00 %  0.00 % httpd -DFOREGROUND
+    1 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % systemd --system --deserialize 41
+    2 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [kthreadd]
+    3 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [ksoftirqd/0]
+```
+
+## slabtop
+* スラブアロケータのメモリ利用量
+* https://www.ibm.com/developerworks/jp/linux/library/l-linux-slab-allocator/
+``` bash
+$ slabtop
+Active / Total Objects (% used)    : 772062 / 781600 (98.8%)
+ Active / Total Slabs (% used)      : 15524 / 15524 (100.0%)
+ Active / Total Caches (% used)     : 65 / 97 (67.0%)
+ Active / Total Size (% used)       : 83137.34K / 84572.69K (98.3%)
+ Minimum / Average / Maximum Object : 0.01K / 0.11K / 15.88K
+
+  OBJS ACTIVE  USE OBJ SIZE  SLABS OBJ/SLAB CACHE SIZE NAME
+128860 127969  99%    0.02K    758      170      3032K fsnotify_event_holder
+125440 124298  99%    0.03K    980      128      3920K kmalloc-32
+ 98304  97251  98%    0.01K    192      512       768K kmalloc-8
+ 86751  86751 100%    0.19K   4131       21     16524K dentry
+ 75387  75387 100%    0.10K   1933       39      7732K buffer_head
+ 73984  72910  98%    0.06K   1156       64      4624K kmalloc-64
+ 57856  56381  97%    0.02K    226      256       904K kmalloc-16
+ 31977  31977 100%    0.08K    627       51      2508K selinux_inode_security
+ 16980  16980 100%    1.06K   1132       15     18112K xfs_inode
+ 13962  13962 100%    0.15K    537       26      2148K xfs_ili
+ 12077  11813  97%    0.58K    929       13      7432K inode_cache
+ 11700  11700 100%    0.11K    325       36      1300K sysfs_dir_cache
+  8892   8650  97%    0.21K    494       18      1976K vm_area_struct
+  7462   7462 100%    0.57K    533       14      4264K radix_tree_node
+```
+
+
+## pcstat
+* https://github.com/tobert/pcstat
+* ページキャッシュ統計を表示する
+* データベースなどのパフォーマンス分析で使える
+``` bash
+curl -L -o pcstat https://github.com/tobert/pcstat/raw/2014-05-02-01/pcstat.x86_64
+chmod 755 pcstat
+$ ~/pcstat data*
+|-----------+----------------+------------+-----------+---------|
+| Name      | Size           | Pages      | Cached    | Percent |
+|-----------+----------------+------------+-----------+---------|
+| data00    | 6682           | 2          | 2         | 100.000 |
+| data01    | 12127          | 3          | 3         | 100.000 |
+| data02    | 11876          | 3          | 3         | 100.000 |
+|-----------+----------------+------------+-----------+---------|
+```
+
+## tiptop
+* VMでは利用できない（PMCs が enabledである必要がある)
+* Mcycle: CPU cycles
+* Minst: Instructions
+* IPC(Instructions Per Clock cycle): Executed instructions per cycle
+* %MISS: Cache miss per instructions (in %)
+* %BMIS: Branch misprediction per instruction (in %)
+```
+$ tiptop
+tiptop -                                                        [root]
+Tasks: 241 total,   2 displayed                                                                     screen  0: default
+
+  PID [ %CPU] %SYS    P   Mcycle   Minstr   IPC  %MISS  %BMIS  %BUS COMMAND
+ 3092+   0.5   0.0    0     1.84     1.35  0.73   0.97   0.95   0.1 beam.smp
+ 2386+   0.5   0.0    0     0.24     0.09  0.38   8.95   1.11   0.3 mysqld
+```
+
+
+
+
 collectl
 atop
 dstat
+
+ltrace
+ethtool
+snmpget
+lldptool
+blktrace
+/proc
+pcstat
+
+// advanced tracers
+perf_events
+ftrace
+eBPF
+SystemTap
+ktap
+LTTng
+dtrace4linux
+sysdig

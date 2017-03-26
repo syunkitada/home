@@ -70,3 +70,36 @@ $ nicstat 1
 13:34:49     eth0    0.06    0.10    1.00    1.00   66.00   102.0  0.00   0.00
 13:34:49       lo    0.00    0.00    0.00    0.00    0.00    0.00  0.00   0.00
 ```
+
+
+## ss
+* socket statistics
+```
+# -m: show socket memory usage
+# -o: show timer information
+# -p: show process using socket
+$ ss -mop
+Netid State      Recv-Q Send-Q                                                                     Local Address:Port                                                                                      Peer Address:Port
+...
+tcp   CLOSE-WAIT 272    0                                                                              127.0.0.1:50595                                                                                        127.0.0.1:http
+         skmem:(r2304,rb1061296,t0,tb2626560,f1792,w0,o0,bl0)
+tcp   ESTAB      0      4432                                                                     192.168.122.101:ssh                                                                                      192.168.122.1:57568                 timer:(on,009ms,0)
+         skmem:(r0,rb369280,t0,tb87040,f15200,w5280,o0,bl0)
+tcp   FIN-WAIT-1 0      1                                                                       ::ffff:127.0.0.1:http                                                                                  ::ffff:127.0.0.1:50594                 timer:(on,198ms,0)
+         skmem:(r0,rb1061488,t0,tb2626560,f2816,w1280,o0,bl0)
+tcp   FIN-WAIT-1 0      1                                                                       ::ffff:127.0.0.1:http                                                                                  ::ffff:127.0.0.1:50595                 timer:(on,198ms,0)
+         skmem:(r0,rb1061488,t0,tb2626560,f2816,w1280,o0,bl0)
+```
+
+
+## iptraf
+コマンドライン上でGUIみたいなインターフェイスで統計が見れる
+``` bash
+$ iptraf-ng
+ iptraf-ng 1.1.4
+l TCP Connections (Source Host:Port) qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq Packets qqqqqqqqqqqqqqqqqqqqqqqqqq Bytes qqqqqqqqqqq Flag qqqqqqqqq Iface qqqqqqqqqqqqqqqqqqqqqqk
+xl192.168.122.101:22                                                                                                                      >    1751                           377324             -PA-           eth0                        x
+xm192.168.122.1:57568                                                                                                                     >    1751                            91232             --A-           eth0                        x
+xl192.168.122.1:53068                                                                                                                     >      62                             4100             --A-           eth0                        x
+...
+```
