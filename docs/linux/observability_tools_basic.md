@@ -1,4 +1,4 @@
-# Resource
+# Observability tools basic
 
 PCのリソースの利用状況や正常性、エラーをチェックするためのコマンド集です。
 
@@ -254,21 +254,26 @@ topコマンドには、これより前に見てきたメトリクスの多く�
 topの良くないところとしては、時間を追って表れるパターンをつかみにくいことで、これらは連続して出力を出してくれるvmstatやpidstatなどの方がよりはっきりと分かります。間欠的に現れる現象についても、出力を素早く停止(Ctrl-Sで一時停止、Ctrl-Sで再開)できないとスクリーンがクリアされて消えてしまいます。
 
 
-## ps auxw
-```
-$ ps auxw
-USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root         1  0.0  0.1 125772  6280 ?        Ss   01:56   0:01 /usr/lib/systemd/systemd --system --deserialize 40
-root         2  0.0  0.0      0     0 ?        S    01:56   0:00 [kthreadd]
-root         3  0.0  0.0      0     0 ?        R    01:56   0:01 [ksoftirqd/0]
-root         7  0.0  0.0      0     0 ?        S    01:56   0:00 [migration/0]
-root         8  0.0  0.0      0     0 ?        S    01:56   0:00 [rcu_bh]
-root         9  0.0  0.0      0     0 ?        S    01:56   0:00 [rcuob/0]
-root        10  0.0  0.0      0     0 ?        R    01:56   0:02 [rcu_sched]
-root        11  0.0  0.0      0     0 ?        S    01:56   0:04 [rcuos/0]
-root        12  0.0  0.0      0     0 ?        S    01:56   0:00 [watchdog/0]
+## ps
+### ps -eF f
+``` bash
+$ ps -eF f
+UID        PID  PPID  C    SZ   RSS PSR STIME TTY      STAT   TIME CMD
+root         2     0  0     0     0   0 08:46 ?        S      0:00 [kthreadd]
+root         3     2  0     0     0   0 08:46 ?        S      0:00  \_ [ksoftirqd/0]
+root         6     2  0     0     0   0 08:46 ?        S      0:00  \_ [kworker/u2:0]
+root         7     2  0     0     0   0 08:46 ?        S      0:00  \_ [migration/0]
+root         8     2  0     0     0   0 08:46 ?        S      0:00  \_ [rcu_bh]
 ...
+root     12009     1  0 56550  5152   0 08:48 ?        Ss     0:00 /usr/sbin/httpd -DFOREGROUND
+apache   12010 12009  0 56550  3000   0 08:48 ?        S      0:00  \_ /usr/sbin/httpd -DFOREGROUND
+apache   12011 12009  0 56550  3000   0 08:48 ?        S      0:00  \_ /usr/sbin/httpd -DFOREGROUND
+apache   12012 12009  0 56550  3000   0 08:48 ?        S      0:00  \_ /usr/sbin/httpd -DFOREGROUND
+apache   12013 12009  0 56550  3000   0 08:48 ?        S      0:00  \_ /usr/sbin/httpd -DFOREGROUND
+```
 
+### watch -n 1 -d "ps auxw | grep ' R' | grep -v grep"
+``` bash
 $ watch -n 1 -d "ps auxw | grep ' R' | grep -v grep"
 root        10  0.0  0.0      0     0 ?        R    01:56   0:02 [rcu_sched]
 root       276  0.0  0.0      0     0 ?        R    01:56   0:01 [xfsaild/sda1]
@@ -280,65 +285,19 @@ $ watch -n 1 -d "ps auxw | grep ' D' | grep -v grep"
 topコマンドでもある程度のプロセス状態を見ることは可能であるが、より正確にプロセスの状態を見たい場合はpsを利用するとよい。
 例えば、実行キューが詰まっている場合はRでgrepしたり、IOが詰まっている場合はDでgrepしたりすると、どのプロセスが悪さをしているかがわかる。
 
-### ステータス
+ステータス
 * R   Run TASK_RUNNING    実行可能な状態。CPUが空きさえすれば、いつでも実行可能な状態。
 * S   Sleep   TASK_INTERRUPTIBLE  割り込み可能な待ち状態。おもに復帰時間が予測不能な長時間の待ち状態。スリープやユーザからの入力待ちなど。
 * D   Disk Sleep  TASK_UNINTERRUPTIBLE    割り込み不可能な待ち状態。おもに短時間で復帰する場合の待ち状態。ディスクの入出力待ち。
 * T   Stopped TASK_STOPPED    サスペンドシグナルを送られて実行中断になった状態。リジュームされるまでスケジューリングされない。
 * Z   Zombie  TASK_ZOMBIE ゾンビ状態。子プロセスが exit して親プロセスにリープされるまでの状態。
 
-
-## strace
+### ps -eo [fields]
+* 表示フィールドをカスタマイズする
+``` bash
+$ ps -eo user,sz,rss,minflt,majflt,pcpu,args
 ```
-$ sudo strace -tt -s 1024 -p 21479
-strace: Process 21479 attached
-01:11:41.916190 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:41.993740 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:41.998771 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:42.008637 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:42.037605 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:42.177448 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:42.677560 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:42.728213 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:43.177583 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:43.677658 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:43.993764 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:43.998780 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:44.008636 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:44.037613 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:44.074510 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:44.081921 pread64(20, "\26\24\0\t\2\274\1\377\t\1$\0\35\0\0\0\0\1\0\0\0\1\33l;9", 26, 110) = 26
-01:11:44.082095 pread64(21, "\26\24\0\t\2\274\1\377\t\1$\0'\0\0\0\0\1\0\0\0\1\353\366\372\374", 26, 120) = 26
-01:11:44.082191 pread64(20, "\33h\0\20\0\273@\324\257\320\230\257\261\0\3\0\0\0\0\0\0\0\0\0\0\1\0\0\0\1\302.\225X", 34, 0) = 34
-01:11:44.082264 pread64(21, "'4\0\20\f\273@\324\257\320\230\257\261\1\1\0\5\1L\254\215\277\305\305V\314\260\205\312\305V\0\0\0\0\1\0\0\0\1i\221\315\264", 44, 0) = 44
-01:11:44.082334 futex(0x2731d30, FUTEX_WAIT, 0, NULL) = 0
-01:11:44.177746 futex(0x2731d30, FUTEX_WAIT, 0, NULL^Cstrace: Process 21479 detached
- <detached ...>
 
-
-# grepして特定のシステムコールを抽出する
-$ sudo strace -tt -s 1024 -p 5262 2>&1 | grep 'ioctl'
-11:32:12.501130 ioctl(13, KVM_IRQ_LINE_STATUS, 0x7f3c841e8f90) = 0
-11:32:12.501637 ioctl(13, KVM_IRQ_LINE_STATUS, 0x7f3c7fffef00) = 0
-11:32:12.504265 ioctl(13, KVM_IRQ_LINE_STATUS, 0x7f3c7fefdf90) = 0
-^C
-
-# ファイルに出力する
-$ sudo strace -tt -s 1024 -p 5262 -o test.log
-
-# 統計情報を表示する
-$ sudo strace -p 21479 -c
-strace: Process 21479 attached
-^Cstrace: Process 21479 detached
-% time     seconds  usecs/call     calls    errors syscall
------- ----------- ----------- --------- --------- ----------------
-  0.00    0.000000           0         8           futex
-  0.00    0.000000           0         1           epoll_wait
------- ----------- ----------- --------- --------- ----------------
-100.00    0.000000                     9           total
-```
-プロセスが呼び出すシステムコールをトレースする。
-このときシステムコールがエラーになる箇所を探すと、不具合の手掛かりになる。
 
 
 ## /proc/interrupts
