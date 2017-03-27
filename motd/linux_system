@@ -1,0 +1,44 @@
+OS
+| Applications            |
+|      | System libraries |  <- ltrace -o log.txt [command]
+ -------------------------
+| System Call Interface   |  <- strace -tttT -p [pid], strace -p [pid] -c
+ -------------------------
+| Linux Kernel                                           |
+| VFS                    | Sockets      | Scheduler      |
+|  - lsof                |  - ss        |                |
+| File Systems           | TCP/UDP      | Virtual Memory |
+|  - df                  |              |                |
+|  - du -sh *            |              |                |
+|                        |              |                |
+| Volume Manager         | IP           | Clocksource    |
+|                        |  - ip        |                |
+|                        |  - route     |                |
+|                        |  - iptables  |                |
+| Block Device Interface | Ethernet     |                |
+|                        |  - tcpdump   |                |
+ -------------------------
+| Device Drivvers         |
+ -------------------------
+| Firmware                |
+ -------------------------
+
+Hardware
+|CPU| -- Memory Bus -- |DRAM|
+|   | -- I/O Bus -- |I/O Bridge| -- |I/O Controller| -- |Disk|
+                    |          |                     -- |Disk|
+                    |          |                     -- |Swap|
+                    |          | -- |Network Controller|| -- |Port|
+                    |          |                          -- |Port|
+
+$ dstat [options]
+# -t: timestamp
+# -c: cpu usage, -y: irq, contextswitch counter, -i: interupts, -p: process stat(run, blk, new)
+# -d: disk i/o, -g: page in/out, -s: swap usage
+# -m: memory usage
+# -C, -D, -N, -I: Filtering options (CPU, DISK, NetworkInterface, Interupts)
+# e.g. -C 0,1,total, -D sda, -N eth0, -I 25
+
+Links
+* Linux Performance Checklist: http://www.brendangregg.com/USEmethod/use-linux.html
+* Perf: http://www.brendangregg.com/perf.html
