@@ -103,3 +103,35 @@ xm192.168.122.1:57568                                                           
 xl192.168.122.1:53068                                                                                                                     >      62                             4100             --A-           eth0                        x
 ...
 ```
+
+
+
+## ethtool
+Mostly interface tuning; som stats
+```
+$ sudo ethtool eth0
+Settings for eth0:
+        Supported ports: [ TP ]
+        Supported link modes:   10baseT/Half 10baseT/Full
+                                100baseT/Half 100baseT/Full
+                                1000baseT/Full
+        Supported pause frame use: No
+        Supports auto-negotiation: Yes
+        Advertised link modes:  10baseT/Half 10baseT/Full
+                                100baseT/Half 100baseT/Full
+                                1000baseT/Full
+        Advertised pause frame use: No
+        Advertised auto-negotiation: Yes
+        Speed: 1000Mb/s
+        Duplex: Full
+        Port: Twisted Pair
+        PHYAD: 1
+        Transceiver: internal
+        Auto-negotiation: on
+        MDI-X: on (auto)
+        Supports Wake-on: pumbg
+        Wake-on: g
+        Current message level: 0x00000007 (7)
+                               drv probe link
+        Link detected: yes
+```
