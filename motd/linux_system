@@ -1,35 +1,41 @@
 OS
+ -------------------------
 | Applications            |
 |      | System libraries |  <- ltrace -o log.txt [command]
  -------------------------
-| System Call Interface   |  <- strace -tttT -p [pid], strace -p [pid] -c
- -------------------------
-| Linux Kernel                                           |
-| VFS                    | Sockets      | Scheduler      |
-|  - lsof                |  - ss        |                |
-| File Systems           | TCP/UDP      | Virtual Memory |
-|  - df                  |              |                |
-|  - du -sh *            |              |                |
-|                        |              |                |
-| Volume Manager         | IP           | Clocksource    |
-|                        |  - ip        |                |
-|                        |  - route     |                |
-|                        |  - iptables  |                |
-| Block Device Interface | Ethernet     |                |
-|                        |  - tcpdump   |                |
- -------------------------
+| System Call Interface   |  <- strace -tttT -p [pid], strace -p [pid] -c, perf
+ ----------------------------------------------------------------------------------------
+| Linux Kernel                                                                           |
+| VFS                    | Sockets               | Scheduler                             |
+|  - lsof                |  - ss                 |  - sar -w                             |
+|                        |                       |  - dstat -pyc                         |
+| File Systems           | TCP/UDP               | Virtual Memory                        |
+|  - df                  |  - sar -n TCP,ETCP 1  |  - /proc/meminfo                      |
+|  - du -sh *            |                       |                                       |
+|                        |                       |                                       |
+| Volume Manager         | IP                    | Clocksource                           |
+|  - lvm                 |  - ip a               |  - /sys/devices/system/clocksource/.. |
+|                        |  - ip route           |                                       |
+|                        |  - iptables           |                                       |
+| Block Device Interface | Ethernet              |                                       |
+|  - lsblk               |  - tcpdump            |                                       |
+|                        |  - sar -n DEV         |                                       |
+ ----------------------------------------------------------------------------------------
 | Device Drivvers         |
  -------------------------
 | Firmware                |
  -------------------------
 
 Hardware
-|CPU| -- Memory Bus -- |DRAM|
-|   | -- I/O Bus -- |I/O Bridge| -- |I/O Controller| -- |Disk|
-                    |          |                     -- |Disk|
-                    |          |                     -- |Swap|
-                    |          | -- |Network Controller|| -- |Port|
-                    |          |                          -- |Port|
+| CPU                 | -- Memory Bus -- | DRAM        |
+|  - mpstat -P ALL 1  |                     - numastat |
+|                     | -- I/O Bus -- | I/O Bridge | -- | I/O Controller  | -- | Disk |
+                            - lspci   |            |    |  - iostat -xz 1 | -- | Disk |
+                                      |            |    |  - iotop        | -- | Swap |
+                                      |            |    |  - blktrace     |
+                                      |            |
+                                      |            | -- | Network Controller | -- | Port | <- ethtool
+                                      |            |    |                    | -- | Port |
 
 $ dstat [options]
 # -t: timestamp
@@ -38,6 +44,7 @@ $ dstat [options]
 # -m: memory usage
 # -C, -D, -N, -I: Filtering options (CPU, DISK, NetworkInterface, Interupts)
 # e.g. -C 0,1,total, -D sda, -N eth0, -I 25
+
 
 Links
 * Linux Performance Checklist: http://www.brendangregg.com/USEmethod/use-linux.html
