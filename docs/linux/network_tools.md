@@ -1,16 +1,30 @@
 # Network tools
 
-## traceroute
+## ping
+* レイテンシを確認する
 ```
-# ドメインへのrouteを調べる
+$ ping google.co.jp
+PING google.co.jp (216.58.197.195) 56(84) bytes of data.
+64 bytes from nrt13s48-in-f195.1e100.net (216.58.197.195): icmp_seq=1 ttl=54 time=3.73 ms
+64 bytes from nrt13s48-in-f195.1e100.net (216.58.197.195): icmp_seq=2 ttl=54 time=4.13 ms
+```
+
+## traceroute
+* 通信経路を確認する
+* レイテンシを確認する
+```
 $ traceroute google.co.jp
 ```
 
 ## mtr
+* mtrは連続でtracerouteし、その結果を描画し続けます
+* 通信経路のレイテンシやLoss率を見たい場合に利用します
 ```
-# 連続でtracerouteする
 # loss率などがわかる
-$ mtr  google.co.jp
+$ mtr  192.168.122.102
+                                                                                                                                                                                                    Packets               Pings
+ Host                                                                                                                                                                                             Loss%   Snt   Last   Avg  Best  Wrst StDev
+ 1. 192.168.122.102                                                                                                                                                                                0.0%     2    0.6   0.5   0.4   0.6   0.0
 ```
 
 
