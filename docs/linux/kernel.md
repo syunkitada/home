@@ -1,5 +1,7 @@
 # Kernel
 
+* perf_tools: http://www.brendangregg.com/Perf/linux_perf_tools_full.png
+* Kernel Map: http://makelinux.net/kernel_map/
 * Kernel Source(github tovals) : https://github.com/torvalds/linux
 * アーカイブ: https://www.kernel.org/
 

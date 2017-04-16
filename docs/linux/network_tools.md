@@ -65,12 +65,94 @@ Tcp:
     2 resets sent
 ...
 
+# インターフェイスのエラーやドロップを確認する
+$ netstat -i
+Kernel Interface table
+Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+eth0      1500   149313      0  11707 0        118987      0      0      0 BMRU
+lo       65536        6      0      0 0             6      0      0      0 LRU
+
 # 各プロトコルの詳細を表示する
 $ netstat -p
 ```
 
-## ip
+## ss
+* socket statistics
+```
+# -m: show socket memory usage
+# -o: show timer information
+# -p: show process using socket
+$ sudo ss -mop
+Netid State      Recv-Q Send-Q                                                                     Local Address:Port                                                                                      Peer Address:Port
+...
+tcp   CLOSE-WAIT 272    0                                                                              127.0.0.1:50595                                                                                        127.0.0.1:http
+         skmem:(r2304,rb1061296,t0,tb2626560,f1792,w0,o0,bl0)
+tcp   ESTAB      0      4432                                                                     192.168.122.101:ssh                                                                                      192.168.122.1:57568                 timer:(on,009ms,0)
+         skmem:(r0,rb369280,t0,tb87040,f15200,w5280,o0,bl0)
+tcp   FIN-WAIT-1 0      1                                                                       ::ffff:127.0.0.1:http                                                                                  ::ffff:127.0.0.1:50594                 timer:(on,198ms,0)
+         skmem:(r0,rb1061488,t0,tb2626560,f2816,w1280,o0,bl0)
+tcp   FIN-WAIT-1 0      1                                                                       ::ffff:127.0.0.1:http                                                                                  ::ffff:127.0.0.1:50595                 timer:(on,198ms,0)
+         skmem:(r0,rb1061488,t0,tb2626560,f2816,w1280,o0,bl0)
 
+# socketのサマリを表示
+$ ss -s
+Total: 178 (kernel 0)
+TCP:   9 (estab 2, closed 1, orphaned 0, synrecv 0, timewait 0/0), ports 0
+
+Transport Total     IP        IPv6
+*         0         -         -
+RAW       0         0         0
+UDP       2         1         1
+TCP       8         5         3
+INET      10        6         4
+FRAG      0         0         0
+```
+
+
+
+## ip
+```
+# ルーティングテーブルの確認
+$ ip route
+default via 192.168.122.1 dev eth0
+192.168.122.0/24 dev eth0  proto kernel  scope link  src 192.168.122.102
+
+
+```
+
+## arp
+* arpテーブルの確認に利用します
+* L2の通信ができない場合や、L2に他IPが存在しないことを確認するために利用します
+```
+# arpテーブルのキャッシュ確認
+$ arp
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.122.101          ether   00:16:3e:09:6e:0d   C                     eth0
+gateway                  ether   fe:16:3e:09:6e:0d   C                     eth0
+
+# 特定IPのキャッシュを確認
+$ arp 192.168.122.101
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.122.101          ether   00:16:3e:09:6e:0d   C                     eth0
+
+# キャッシュにない場合はno entryが表示される
+$ arp 192.168.122.103
+192.168.122.103 (192.168.122.103) -- no entry
+
+# pingを飛ばすと、arp解決してキャッシュに乗る
+$ ping 192.168.122.103
+PING 192.168.122.103 (192.168.122.103) 56(84) bytes of data.
+64 bytes from 192.168.122.103: icmp_seq=1 ttl=64 time=0.644 ms
+64 bytes from 192.168.122.103: icmp_seq=2 ttl=64 time=0.325 ms
+^C
+--- 192.168.122.103 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1000ms
+rtt min/avg/max/mdev = 0.325/0.484/0.644/0.161 ms
+
+$ arp 192.168.122.103
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.122.103          ether   00:16:3e:25:a0:c6   C                     eth0
+```
 
 
 ## nicstat
@@ -83,26 +165,6 @@ $ nicstat 1
     Time      Int   rKB/s   wKB/s   rPk/s   wPk/s    rAvs    wAvs %Util    Sat
 13:34:49     eth0    0.06    0.10    1.00    1.00   66.00   102.0  0.00   0.00
 13:34:49       lo    0.00    0.00    0.00    0.00    0.00    0.00  0.00   0.00
-```
-
-
-## ss
-* socket statistics
-```
-# -m: show socket memory usage
-# -o: show timer information
-# -p: show process using socket
-$ ss -mop
-Netid State      Recv-Q Send-Q                                                                     Local Address:Port                                                                                      Peer Address:Port
-...
-tcp   CLOSE-WAIT 272    0                                                                              127.0.0.1:50595                                                                                        127.0.0.1:http
-         skmem:(r2304,rb1061296,t0,tb2626560,f1792,w0,o0,bl0)
-tcp   ESTAB      0      4432                                                                     192.168.122.101:ssh                                                                                      192.168.122.1:57568                 timer:(on,009ms,0)
-         skmem:(r0,rb369280,t0,tb87040,f15200,w5280,o0,bl0)
-tcp   FIN-WAIT-1 0      1                                                                       ::ffff:127.0.0.1:http                                                                                  ::ffff:127.0.0.1:50594                 timer:(on,198ms,0)
-         skmem:(r0,rb1061488,t0,tb2626560,f2816,w1280,o0,bl0)
-tcp   FIN-WAIT-1 0      1                                                                       ::ffff:127.0.0.1:http                                                                                  ::ffff:127.0.0.1:50595                 timer:(on,198ms,0)
-         skmem:(r0,rb1061488,t0,tb2626560,f2816,w1280,o0,bl0)
 ```
 
 

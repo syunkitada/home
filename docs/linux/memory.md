@@ -172,3 +172,28 @@ HugePages_Surp:        0
 ## kmalloc()
 
 
+## slub
+* カーネルは、メモリの利用効率を高めるために、カーネル空間内のさまざまな メモリ資源を、資源ごとにキャッシュしている領域
+* もし、slubのメモリが断片化してしまうとパフォーマンスにも影響が出てくる
+* スラブの利用量はslubtopで確認できる
+
+```
+Active / Total Objects (% used)    : 1343215 / 1352019 (99.3%)
+ Active / Total Slabs (% used)      : 35104 / 35104 (100.0%)
+ Active / Total Caches (% used)     : 66 / 98 (67.3%)
+ Active / Total Size (% used)       : 193251.77K / 194863.62K (99.2%)
+ Minimum / Average / Maximum Object : 0.01K / 0.14K / 15.88K
+
+  OBJS ACTIVE  USE OBJ SIZE  SLABS OBJ/SLAB CACHE SIZE NAME
+295152 295152 100%    0.10K   7568       39     30272K buffer_head
+238770 238620  99%    0.19K  11370       21     45480K dentry
+150848 148349  98%    0.06K   2357       64      9428K kmalloc-64
+128860 127969  99%    0.02K    758      170      3032K fsnotify_event_holder
+125696 124665  99%    0.03K    982      128      3928K kmalloc-32
+ 98304  97251  98%    0.01K    192      512       768K kmalloc-8
+ 69003  68498  99%    0.08K   1353       51      5412K selinux_inode_security
+ 58368  58368 100%    0.02K    228      256       912K kmalloc-16
+```
+
+
+
