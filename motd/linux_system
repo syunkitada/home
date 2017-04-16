@@ -41,9 +41,11 @@ $ dstat [options]
 # -t: timestamp
 # -c: cpu usage, -y: irq, contextswitch counter, -i: interupts, -p: process stat(run, blk, new)
 # -d: disk i/o, -g: page in/out, -s: swap usage
-# -m: memory usage
+# -m: memory usage, --vm: vmstats
 # -C, -D, -N, -I: Filtering options (CPU, DISK, NetworkInterface, Interupts)
 # e.g. -C 0,1,total, -D sda, -N eth0, -I 25
+# --tcp, --socket: socket
+# --aio, --fs, --ipc, --lock
 
 
 Links
