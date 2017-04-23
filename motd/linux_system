@@ -7,32 +7,34 @@ OS
  ----------------------------------------------------------------------------------------
 | Linux Kernel                                                                           |
 | VFS                    | Sockets               | Scheduler                             |
-|  - lsof                |  - ss                 |  - sar -w                             |
-|                        |                       |  - dstat -pyc                         |
+|  - lsof                |  - ss -mop, -s        |  - sar -w                             |
+|                        |  - netstat -an, -s    |  - dstat -pyc                         |
 | File Systems           | TCP/UDP               | Virtual Memory                        |
-|  - df                  |  - sar -n TCP,ETCP 1  |  - /proc/meminfo                      |
-|  - du -sh *            |                       |                                       |
+|  - df -h               |  - sar -n TCP,ETCP 1  |  - /proc/meminfo                      |
+|  - du -sh *            |                       |  - slabtop                            |
 |                        |                       |                                       |
 | Volume Manager         | IP                    | Clocksource                           |
 |  - lvm                 |  - ip a               |  - /sys/devices/system/clocksource/.. |
 |                        |  - ip route           |                                       |
 |                        |  - iptables           |                                       |
+|                        |  - conntrack -l       |                                       |
 | Block Device Interface | Ethernet              |                                       |
 |  - lsblk               |  - tcpdump            |                                       |
 |                        |  - sar -n DEV         |                                       |
  ----------------------------------------------------------------------------------------
-| Device Drivvers         |
+| Device Drivvers         |  <- dmesg
  -------------------------
 | Firmware                |
  -------------------------
 
 Hardware
 | CPU                 | -- Memory Bus -- | DRAM        |
-|  - mpstat -P ALL 1  |                     - numastat |
+|  - mpstat -P ALL 1  |                  |  - numastat |
+|  - htop             |                  |  - numactl  |
 |                     | -- I/O Bus -- | I/O Bridge | -- | I/O Controller  | -- | Disk |
-                            - lspci   |            |    |  - iostat -xz 1 | -- | Disk |
-                                      |            |    |  - iotop        | -- | Swap |
-                                      |            |    |  - blktrace     |
+                            - tiptop  |            |    |  - iostat -xz 1 | -- | Disk |
+                            - lsusb   |            |    |  - iotop        | -- | Swap |
+                            - lspci   |            |    |  - blktrace     |
                                       |            |
                                       |            | -- | Network Controller | -- | Port | <- ethtool
                                       |            |    |                    | -- | Port |
