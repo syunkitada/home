@@ -1,19 +1,28 @@
 # Helm
 Helmとは、Kubernetesのサービスやポッドをデプロイするためのパッケージマネージャです。
 
-## 用語集
+## 目次
+* [Glossary](#Glossary)
+* [Install Helm](#Install Helm)
+* [Create Service Account for Tiller](#Create Service Account for Tiller)
+* [Create Chart](#Create Chart)
+* [Install Chart from repository](#Install Chart from repository)
+* [upgrade, history, rollback for Resource](#upgrade, history, rollback for Resource)
+* [Reference](#Reference)
+
+## Glossary
 | 用語 | 説明 |
-| --- | --- | --- |
+| --- | --- |
 | helm(舵) | yum, aptに相当するパッケージマネージャ。 |
 | tiller(舵柄) | デプロイを担うサーバコンポーネント。 |
 | chart(海図) | dep, rpmに相当するパッケージ。Kubernetesのmanifestのテンプレートをまとめたもの |
 
 
-## helmのインストール
+## Install Helm
 バイナリが、Githubに置いてあるので、ダウンロードして適当なところに置く(/usr/bin/ など)
 https://github.com/kubernetes/helm/releases
 
-## tillerの起動とホームの初期化
+## Initialize Helm and Install Tiller
 以下の$HOME/.helmの作成、およびtillerのデプロイ(kube-system)を行ってくれる。
 ```
 # クライアントとサーバの初期化を行う
@@ -27,7 +36,7 @@ NAME            DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 tiller-deploy   1         1         1            1           2h
 ```
 
-## tiller用のサービスアカウントを作成する
+## Create Service Account for Tiller
 * Kubernetes v1.6 以上でRBACを使用している場合に必要
 * kubeadmでKubernetesを設定した場合にRBACによりtillerがKubernetesのリソースにアクセスできない
     * https://github.com/kubernetes/helm/issues/222
@@ -38,7 +47,7 @@ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admi
 kubectl edit deploy --namespace kube-system tiller-deploy #and add the line serviceAccount: tiller to spec/template/spec
 ```
 
-## chartの作成
+## Create Chart
 以下の手順でサンプルchart(nginx)を作成できる。
 ```
 $ helm create mychart
@@ -76,7 +85,7 @@ $ curl 10.3.0.90
 ...
 ```
 
-## リポジトリからchartをインストール
+## Install Chart from repository
 ```
 # chartの検索
 $ helm search
@@ -94,7 +103,7 @@ $ ls mysql
 Chart.yaml  README.md  templates  values.yaml
 ```
 
-## リリースのupgrade, history, rollback
+## upgrade, history, rollback for Resource
 ```
 # バージョンを上げてみる
 $ vim mychart/Chart.yaml
@@ -158,7 +167,7 @@ NAME                                        READY     STATUS    RESTARTS   AGE
 tufted-butterfly-mychart-1502860468-nkslx   1/1       Running   0          20m
 ```
 
-## 参考
+## Reference
 * [quickstart](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md)
 * [charts](https://github.com/kubernetes/helm/blob/master/docs/charts.md)
 * [Kubernetes Helmとは](http://qiita.com/tkusumi/items/12857780d8c8463f9b9c)
