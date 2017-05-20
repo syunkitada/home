@@ -8,8 +8,8 @@ Helmとは、Kubernetesのサービスやポッドをデプロイするための
 * [Create Chart](#create-chart)
 * [Install Chart from repository](#install-chart-from-repository)
 * [upgrade, history, rollback for Resource](#upgrade-history-rollback-for-resource)
-* [Reference](#reference)
 * [Operation](#operation)
+* [Reference](#reference)
 
 ## Glossary
 | 用語 | 説明 |
