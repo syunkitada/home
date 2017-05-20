@@ -9,6 +9,7 @@ Helmとは、Kubernetesのサービスやポッドをデプロイするための
 * [Install Chart from repository](#install-chart-from-repository)
 * [upgrade, history, rollback for Resource](#upgrade-history-rollback-for-resource)
 * [Reference](#reference)
+* [Operation of Tiller](#operation-of-tiller)
 
 ## Glossary
 | 用語 | 説明 |
@@ -166,6 +167,16 @@ $ kubectl get pods
 NAME                                        READY     STATUS    RESTARTS   AGE
 tufted-butterfly-mychart-1502860468-nkslx   1/1       Running   0          20m
 ```
+
+## Operation of Tiller
+* ConfigMapの肥大化に注意する
+    * TillerはREVISION情報の一つ一つをすべてConfigMapで管理している
+    * ConfigMapは、一つのNamespaceでの管理数が大量(500以上)になると、その取得自体が重くなってくる
+    * 実際の運用では、ConfigMapが肥大化する前に古いREVISIONを定期的に削除する仕組みが必要
+* TillerのNamespace管理
+    * helm initでは、kube-system NamespaceでTillerのService, Deploymentが作成されるが、他のNamespaceで作成することも可能
+    * --tiller-namespace オプションにより、どのNamespace上のTillerを利用するかを選択できる
+        * 例: helm list --tiller-namespace [namespace]
 
 ## Reference
 * [quickstart](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md)
