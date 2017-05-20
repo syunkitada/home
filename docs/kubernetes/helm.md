@@ -9,7 +9,7 @@ Helmとは、Kubernetesのサービスやポッドをデプロイするための
 * [Install Chart from repository](#install-chart-from-repository)
 * [upgrade, history, rollback for Resource](#upgrade-history-rollback-for-resource)
 * [Reference](#reference)
-* [Operation of Tiller](#operation-of-tiller)
+* [Operation](#operation)
 
 ## Glossary
 | 用語 | 説明 |
@@ -168,7 +168,7 @@ NAME                                        READY     STATUS    RESTARTS   AGE
 tufted-butterfly-mychart-1502860468-nkslx   1/1       Running   0          20m
 ```
 
-## Operation of Tiller
+## Operation
 * ConfigMapの肥大化に注意する
     * TillerはREVISION情報の一つ一つをすべてConfigMapで管理している
     * ConfigMapは、一つのNamespaceでの管理数が大量(500以上)になると、その取得自体が重くなってくる
