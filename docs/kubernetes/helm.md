@@ -2,13 +2,13 @@
 Helmとは、Kubernetesのサービスやポッドをデプロイするためのパッケージマネージャです。
 
 ## 目次
-* [Glossary](#Glossary)
-* [Install Helm](#Install Helm)
-* [Create Service Account for Tiller](#Create Service Account for Tiller)
-* [Create Chart](#Create Chart)
-* [Install Chart from repository](#Install Chart from repository)
-* [upgrade, history, rollback for Resource](#upgrade, history, rollback for Resource)
-* [Reference](#Reference)
+* [Glossary](#glossary)
+* [Install Helm](#install-helm)
+* [Create Service Account for Tiller](#create-service-account-for-tiller)
+* [Create Chart](#create-chart)
+* [Install Chart from repository](#install-chart-from-repository)
+* [upgrade, history, rollback for Resource](#upgrade-history-rollback-for-resource)
+* [Reference](#reference)
 
 ## Glossary
 | 用語 | 説明 |
