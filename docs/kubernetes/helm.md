@@ -1,7 +1,7 @@
 # Helm
 Helmとは、Kubernetesのサービスやポッドをデプロイするためのパッケージマネージャです。
 
-## 目次
+## Index
 * [Glossary](#glossary)
 * [Install Helm](#install-helm)
 * [Create Service Account for Tiller](#create-service-account-for-tiller)
