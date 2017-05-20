@@ -27,6 +27,17 @@ NAME            DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 tiller-deploy   1         1         1            1           2h
 ```
 
+## tiller用のサービスアカウントを作成する
+* Kubernetes v1.6 以上でRBACを使用している場合に必要
+* kubeadmでKubernetesを設定した場合にRBACによりtillerがKubernetesのリソースにアクセスできない
+    * https://github.com/kubernetes/helm/issues/222
+* helm init後に、以下の手順でtiller-deployにサービスアカウントを設定する必要がある
+``` bash
+kubectl create serviceaccount --namespace kube-system tiller
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+kubectl edit deploy --namespace kube-system tiller-deploy #and add the line serviceAccount: tiller to spec/template/spec
+```
+
 ## chartの作成
 以下の手順でサンプルchart(nginx)を作成できる。
 ```
