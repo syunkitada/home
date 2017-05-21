@@ -7,6 +7,7 @@
 | [Helloworld](helloworld.md) | ReplicationController, Serviceを使ってみる |
 | [Resource](resource.md) | KubernetesのResourceに関するメモ |
 | [Architecture](architecture.md) | KubernetesのArchitectureに関するメモ |
+| [Ingress](ingress.md) | L7ロードバランサの機能を提供します |
 | [Helm](helm.md) | Kubernetesのパッケージマネージャ |
 
 
