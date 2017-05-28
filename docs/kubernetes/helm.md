@@ -26,6 +26,10 @@ https://github.com/kubernetes/helm/releases
 ## Initialize Helm and Install Tiller
 以下の$HOME/.helmの作成、およびtillerのデプロイ(kube-system)を行ってくれる。
 ```
+$ wget https://storage.googleapis.com/kubernetes-helm/helm-v2.4.2-linux-amd64.tar.gz
+$ tar -xf helm-v2.4.2-linux-amd64.tar.gz
+$ sudo mv linux-amd64/helm /usr/local/bin/
+
 # クライアントとサーバの初期化を行う
 $ helm init
 
@@ -40,12 +44,11 @@ tiller-deploy   1         1         1            1           2h
 ## Create Service Account for Tiller
 * Kubernetes v1.6 以上でRBACを使用している場合に必要
 * kubeadmでKubernetesを設定した場合にRBACによりtillerがKubernetesのリソースにアクセスできない
-    * https://github.com/kubernetes/helm/issues/222
 * helm init後に、以下の手順でtiller-deployにサービスアカウントを設定する必要がある
 ``` bash
 kubectl create serviceaccount --namespace kube-system tiller
 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-kubectl edit deploy --namespace kube-system tiller-deploy #and add the line serviceAccount: tiller to spec/template/spec
+kubectl edit deploy --namespace kube-system tiller-deploy #and add the line 'serviceAccount: tiller' to spec/template/spec
 ```
 
 ## Create Chart
