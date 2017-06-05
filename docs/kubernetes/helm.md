@@ -171,7 +171,7 @@ NAME                                        READY     STATUS    RESTARTS   AGE
 tufted-butterfly-mychart-1502860468-nkslx   1/1       Running   0          20m
 ```
 
-## Operation
+## Memo
 * ConfigMapの肥大化に注意する
     * TillerはREVISION情報の一つ一つをすべてConfigMapで管理している
     * ConfigMapは、一つのNamespaceでの管理数が大量(500以上)になると、その取得自体が重くなってくる
@@ -180,6 +180,9 @@ tufted-butterfly-mychart-1502860468-nkslx   1/1       Running   0          20m
     * helm initでは、kube-system NamespaceでTillerのService, Deploymentが作成されるが、他のNamespaceで作成することも可能
     * --tiller-namespace オプションにより、どのNamespace上のTillerを利用するかを選択できる
         * 例: helm list --tiller-namespace [namespace]
+* Go template
+    * https://golang.org/pkg/text/template/
+    * http://masterminds.github.io/sprig/
 
 ## Reference
 * [quickstart](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md)
