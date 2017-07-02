@@ -14,9 +14,25 @@
     * この辺も考慮して何を指すか考えてマザーボードを選択するとよい
 
 
-## QPI(QuickPathInterconnect)
-* CPU同士(NUMA)、CPUとチップセットを相互に接続するインターフェイス
+## CPU
+### アーキテクチャ
+* Intel
+    * Nehalem, Sandy-bridge, Ivy-bridge, Haswell, Broadwell, Skylake, Kabylake
+    * [IntelR 64 and IA-32 Architectures Optimization Reference Manual](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf)
+    * ECE 4750 Computer Architecture Intel Skylake]http://www.csl.cornell.edu/courses/ece4750/handouts/ece4750-section-skylake.pdf
+* AMD
+    * EPYC: http://pc.watch.impress.co.jp/docs/column/kaigai/1066385.html
+
+### コア間接続
+* CPUのコア間やチップセットはネットワークのように接続されている
+    * 接続の仕方はアーキテクチャによって異なる
+    * Xeonのリング型とメッシュ型のアーキテクチャ: http://hexus.net/tech/news/cpu/107011-intel-mesh-architecture-announced-upcoming-xeons/
+* Intel: QPI(QuickPathInterconnect)
+    * CPU同士(NUMA)、CPUとチップセットを相互に接続するインターフェイス
+* AMD: Infinity Fabric
+    * EPYCで、オンダイ、オンパッケージ、パッケージ間のすべての接続に使われてる
 
 
-## Refarence
-* [Nehalem microarchitecture](https://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect#/media/File:Intel_Nehalem_arch.svg)
+
+## メモリ
+* [DDR4](https://ja.wikipedia.org/wiki/DDR4_SDRAM)
