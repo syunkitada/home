@@ -1,0 +1,15 @@
+[Unit]
+Description=OpenStack Identity Service
+After=syslog.target network.target
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/uwsgi --socket 127.0.0.1:35358 --master --home /opt/keystone --wsgi-file /opt/keystone/bin/keystone-wsgi-public --processes 2 --threads 1
+ExecStop=/bin/kill -WINCH ${MAINPID}
+User=root
+Restart=always
+KillSignal=SIGQUIT
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

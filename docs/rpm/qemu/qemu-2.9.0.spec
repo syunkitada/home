@@ -10,7 +10,7 @@ Group:          System/Emulators/PC
 Version:        %{version}
 Release:        %{release}
 
-Source0:        http://download.qemu-project.org/qemu-2.9.0.tar.xz
+Source0:        https://github.com/openstack/keystone/archive/12.0.0.0b2.tar.gz
 
 BuildRequires:  gcc
 Requires:       gcc
