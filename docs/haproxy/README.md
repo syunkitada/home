@@ -34,3 +34,9 @@ director dns 192.168.0.100:53
  option tcpcheck
  server server1 192.168.1.10:53 weight 10 check
  server server2 192.168.1.11:53 weight 10 check
+
+
+## stats
+```
+watch 'echo "show stat" | nc -U /var/lib/haproxy/stats | cut -d "," -f 1,2,5-11,18,24,27,30,36,50,37,56,57,62 | column -s, -t'
+```

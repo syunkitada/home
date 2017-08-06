@@ -5,10 +5,11 @@
 
 ## Install
 ```
-$ wget https://github.com/wg/wrk/archive/4.0.2.tar.gz
-$ tar xf 4.0.2.tar.gz
-$ cd wrk-4.0.2
-$ make
+wget https://github.com/wg/wrk/archive/4.0.2.tar.gz && \
+tar xf 4.0.2.tar.gz && \
+cd wrk-4.0.2 && \
+make && \
+sudo mv wrk /usr/local/bin/
 ```
 
 ## Run wrk
