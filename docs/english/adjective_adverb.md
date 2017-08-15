@@ -89,7 +89,7 @@
 * 限定と説明で意味が変わる形容詞
     * certainの場合
         * a certain person: とある人
-        * I'm certain ~ : 私は~だと確信している、私は確実に~した
+        * I'm certain  : 私は～だと確信している、私は確実に～した
     * presentの場合
         * my present address: 私の現住所
         * Many people were present at the ceremony: 多くの人がセレモニーに出席していた
