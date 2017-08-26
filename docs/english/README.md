@@ -7,3 +7,7 @@
 | [Noun(名詞)](noun.md) | 名詞 |
 | [Adjective(形容詞)](adjective.md) | 名詞を修飾するもの |
 | [Adverb(副詞)](adverb.md) | 名詞以外を修飾するもの |
+| [Verb(動詞)](verb.md) | 動詞 |
+| [英文の読み方](howtoread.md) | 英文の読み方 |
+| [海外旅行: 飛行機での英語](airplain.md) | 飛行機での英語 |
+| [海外旅行: 飛行場での英語](airport.md) | 飛行場での英語 |
