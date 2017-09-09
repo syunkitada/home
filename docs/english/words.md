@@ -11,6 +11,7 @@
 * deride
 * compensate
 * argue
+* populate
 
 ## 名詞
 * prerequisites
@@ -30,6 +31,7 @@
 
 ## 副詞
 * roughly
+* regardless
 
 ## 前置詞
 * essentially
