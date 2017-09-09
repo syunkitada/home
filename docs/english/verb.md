@@ -4,11 +4,6 @@
 * 動詞の目的となる言葉
 * I watched a movie の a movie
 
-## 前置詞
-* 言葉と言葉をつなぐ役割を持った言葉
-* I saw your mobile phone on the table.
-    * onがI saw your mobile phone と the tableをつないでいる
-
 ## 自動詞・他動詞
 ### 自動詞
 * 目的語が必須ではない

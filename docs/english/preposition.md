@@ -1,4 +1,5 @@
 # Preposition
+* 言葉と言葉をつなぐ役割を持った言葉
 
 ## in
 * 空間の中にいるイメージ
@@ -62,7 +63,7 @@
 
 ## for
 * 目的に向かっているが、まだ到達していないイメージ
-    * toではその目標に到達しているが、forではまだ到達していない感覚から、様々なよう用の違いとなって現れる
+    * toではその目標に到達しているが、forではまだ到達していない感覚から、様々な用法の違いとなって現れる
 * 対象の相手を表すfor
     * I have a gift for you.
         * あなたのためのプレゼントを持っているが、まだそれを渡していない
@@ -79,18 +80,20 @@
     * I will travel from Osaka to Tokyo
 * 時間的な開始地点を示す前置詞from
     * He will be here tommorrow from 3 o'clock onward.
-* 期限を示すfrom
+* 起源を示すfrom
     * 「目的から離れているイメージ」を発展的に解釈し、起源や発祥を示すことができる
     * Hiromi got the idea from her younger brother.
 
-## of: 何かの一部分のイメージ
+## of
+* 何かの一部分のイメージ
 * 一部分を示すof
     * I am a critizen of Japan.
     * The cost of the house is high.
     * We have plenty of time.
     * She is the president of this company.
 
-## over: 「対象物の上空を超えて反対側に着地する」イメージ
+## over
+* 対象物の上空を超えて反対側に着地するイメージ
 * 物理的な対象物を飛び越えるover
     * The plane will fly over New Yourk.
     * Someone put a plate over the hole in the road.
@@ -102,7 +105,8 @@
     * The king rules over the people in the country.
         * 比喩的に全体に焦点をあてた様子
 
-## through: 突き抜けるイメージ、筒のような立体的な物体・空間を突き抜けている感覚がある
+## through
+* 突き抜けるイメージ、筒のような立体的な物体・空間を突き抜けている感覚がある
 * 物理的な空間を突き受けるthrough
     * トンネルなどの立体感のある空間や、門や信号などの平面的な場所を抜ける際に使える
         * He drove through the tunnel without his light on.
