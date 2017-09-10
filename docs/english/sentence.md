@@ -67,6 +67,54 @@ each of the girls
 * We are going to pay a visit to Mr.Suzuki next month.
 * Please fill out the forms online.
 
+* We guarantee on-time delivery of all products.
+* This year's tour will be different from last year's in many.
+* These shirts are different than those ones in size.
+* The decision was made by the board of directors.
+* How did you find out about our service?
+* The theater is located near the hotel.
+
+* The conference was well attended.
+* The attendance of the concert was very low.
+* Let's extend a warm welcome to our new employees.
+
+* The prize for the best employee was awarded to Ms. Hwang.
+* There is an extra charge for delivery outside the city.
+* Our Web site is currently under construction.
+* I applied for a supervisory position.
+
+* How much is the budget for the new project?
+* Breakfast is included in the room rates.
+* We conducted a customer survey.
+* Sales tax is included in the bill.
+* Ms.Han has arranged the merchandise on the shelves.
+* The shipping of this product is free.
+* Please tell us the shipping address.
+* I am going to give a lecture at a university tomorrow.
+
+* Jacky submitted a proposal and the commitee adopted it.
+* I work for the public relations department.
+* Office supplies such as pens and paper can be ordered through this Web site.
+* Chae Yeon is planning to use public transportation.
+* We sincerely apologize for your inconvenience.
+* The CEO will be present at today's meeting.
+* Dr.Shi will present a lecture tommorrow.
+
+* The item will be shipped within 3 business days.
+* Prease bring your own beverage to the party.
+* A $10 admission fee will be charged at the event.
+* The store is closed until further notice.
+* What is suggested about Mr.Lam?
+* The schedule has not been decided yet.
+* I have not finished the report yet.
+* What will she probably do next.
+* The station is close to the stadium.
+
+* What is mentioned about Mr. Callow?
+* We need to address the issue as soon as possible.
+* I was told that shipping would be free. However, a fee of $20 was charged.
+
+
 ## GoBoiano
 * you-hoo
 * Anime fans often deride ecchi shows for compensating a poor story and bland characters with copious amounts of fanservice.

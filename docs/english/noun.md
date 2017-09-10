@@ -14,6 +14,7 @@
 * -ee
     * employee
     * refree
+    * attendee
 * -ment
     * supplement
     * argument
@@ -33,6 +34,7 @@
 * -ance
     * entrance
     * appearance
+    * attendance
 * -ence
     * independence
 * -ency

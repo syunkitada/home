@@ -147,6 +147,22 @@
 * by
     * 対象物が何かの真横に位置しているイメージ
         * He stood by the window looking out over the fields.
+    * 手段
+        * written by pen
+* with
+    * つながりのイメージ
+        * He had no money with him.
+        * I like girls with blonde hair.
+    * 道後・材料などもつながりか感じられる
+        * I wrote my name with a pencil.
+        * I cooked dumpling made with butter.
+    * 原因と結果のつながり
+        * I was in bed with the flu.
+    * 時間とのつながり
+        * Wisdom comes with age.
+* within
+    * 空間(場所、時間）の内側のイメージ
+        * The item will be shipped within 3 business days.
 * in front of
     * 主語となる単語が対象物の目の前にあり、その状態を眺めているイメージ
         * A car is parked in front of the building.
@@ -160,6 +176,7 @@
 * outside
     * insideの逆で、対象物がその容器の外にあるイメージ
         * We heard strange noises outside the house.
+* near
 
 
 ## 参考
