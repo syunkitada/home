@@ -4,6 +4,8 @@
 * Kernel Map: http://makelinux.net/kernel_map/
 * Kernel Source(github tovals) : https://github.com/torvalds/linux
 * アーカイブ: https://www.kernel.org/
+* [linuxカーネルで学ぶＣ言語のマクロ](http://qiita.com/satoru_takeuchi/items/3769a644f7113f2c8040)
+* [システムコールとLinuxカーネルのソース](http://www.coins.tsukuba.ac.jp/~yas/coins/os2-2012/2012-12-04/)
 
 ## ディレクトリ構造(kernel 4.10.8)
 * arch/

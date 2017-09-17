@@ -130,6 +130,9 @@ ibvirt/qemu -realtime mlock=off -smp 2,sockets=1,cores=2,threads=1 -uuid 2c28f6a
 ```
 
 
+## hugetlb
+
+
 
 ## /proc/[PID]/smaps
 ```
