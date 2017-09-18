@@ -56,3 +56,7 @@ sudo vim /usr/share/nginx/html/info.php
 
 
 curl localhost:6080/info.php
+
+
+## チューニング
+http://qiita.com/sion_cojp/items/c02b5b5586b48eaaa469
