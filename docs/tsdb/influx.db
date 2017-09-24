@@ -1,0 +1,10 @@
+# InfluxDB
+
+```
+$ influx
+
+> create database mydb
+> show databases
+> use mydb
+
+```
