@@ -1,11 +1,10 @@
 # ハードウェアから見たメモリ
 
-
 ## 規格
 * [DDR4](https://ja.wikipedia.org/wiki/DDR4_SDRAM)
 
 
-## モジュール
+## 用語
 * SPD
     * Serial Presence Detect
     * PCやサーバーを起動するさいに、メモリモジュールの情報をBIOSに伝える規格/仕組み
@@ -14,4 +13,9 @@
     * SPDデータはEEPROM(Electrically Erasable Programmable Read Only Memory)と呼ばれるモジュールに保存される
         * ライトプロテクトの機能が搭載されている
         * データの書き換えには専用の機器が必要
+    * 参考: [メモリモジュールに"SPD"という情報があるのを知っていますか?](http://pc.watch.impress.co.jp/docs/column/century_micro/1076466.html)
 
+
+## 記事
+* 2017/09/29 (サーバー/ハイエンドPCの主記憶を変革するNVDIMM技術](http://pc.watch.impress.co.jp/docs/column/semicon/1083346.html)
+* 2011/11/18 [次世代DRAM規格「DDR4」と新技術規格「3DS」の概要を公表- Server Memory Forum 2011](http://www.kumikomi.net/archives/2011/11/rp49serv.php?page=2)

@@ -19,10 +19,10 @@
 * federate proxyはinfluxdb全台にqeryを投げて、結果をマージしてgrafanaへ返す
     * queryは一定時間キャッシュする
 ```
-|node-exporter|  ->
-|node-exporter|  -> |prometheus|              |prometheus master| - |influxdb raw|  <-
-|node-exporter|  ->              /federate ->                       |influxdb long| <- |influx federate proxy| <- |grafana|  <- |LB| <- user
-|node-exporter|  ->              /federate ->                       |influxdb long| <- |influx federate proxy| <- |grafana|  <- |LB| <- user
-|node-exporter|  -> |prometheus|              |prometheus master| - |influxdb raw|  <-
-|node-exporter|  ->
+|node-exporter|  ->                            -> alert manager
+|node-exporter|  -> |prometheus|              |prometheus master|  <- (polling) |relay| -> |influxdb| <- |grafana|  <- |LB| <- user
+|node-exporter|  ->              /federate ->                                               |syncer|
+|node-exporter|  ->              /federate ->
+|node-exporter|  -> |prometheus|              |prometheus master|  <- (polling) |relay| -> |influxdb| <- |grafana|  <- |LB| <- user
+|node-exporter|  ->                            -> alert manager
 ```
