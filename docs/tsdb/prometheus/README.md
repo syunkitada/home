@@ -96,12 +96,11 @@ https://github.com/prometheus/docs/blob/master/content/docs/operating/configurat
 
 
 ## 冗長性について
-* メトリクスの収集経路を多重化することで冗長性を確保できそう(だが、あやしい。。)
+* メトリクスの収集経路を多重化することで冗長性を確保できる
 * 末端のprometheus slaveがダウンした場合、もう片方のprometheus slaveからメトリクスは収集可能
 * prometheus masterがダウンした場合、もう片方のprometheus masterにuserはアクセスできる
-    * masterが一度ダウンしてしまうと、ダウンした期間のデータは保存ができないため、LBに参加する前に抜けたデータを補填する必要がある
-    * しかし、ローカルストレージの場合、これができない
-    * master側は、remote storageのinfluxdbなどを利用すると、データの補填が可能になるかも?
+    * masterが一度ダウンしてしまうと、ダウンした期間のデータは保存できず、歯抜けとなってしまう
+    * 監視用途や数日程度のメトリックス閲覧を目的とした使い方であればよいが、長期的に安定してデータを保持する用途には向かない
 ```
 |node-exporter|  ->
 |node-exporter|  -> |prometheus slave|    |prometheus master| - |grafana|
@@ -149,3 +148,8 @@ INFO[0000] Listening on :9090
 
 ## blackbox exporter
 * サービスのヘルスチェックができる
+
+
+## Reference
+* [AbemaTVにおけるモニタリング](https://speakerdeck.com/nghialv/monitoring-at-abematv)
+* [AbemaTVにPrometheusというモニタリングシステムを導入した話](https://developers.cyberagent.co.jp/blog/archives/3814/)
