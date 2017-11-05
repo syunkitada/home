@@ -26,6 +26,31 @@
 * udevadm monitor コマンドでueventを監視できる
 
 
+## パーティション
+```
+$ sudo parted -l
+Model: ATA TOSHIBA THNSNJ25 (scsi)
+Disk /dev/sda: 256GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags:
+
+Number  Start   End    Size    Type      File system     Flags
+ 1      1049kB  239GB  239GB   primary   ext4            boot
+ 2      239GB   256GB  17.0GB  extended
+ 5      239GB   256GB  17.0GB  logical   linux-swap(v1)
+
+$ mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,nosuid,relatime,size=3842644k,nr_inodes=960661,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=1611440k,mode=755)
+/dev/sda1 on / type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+...
+```
+
+
 ## LVM
 LVM（logical volume manager）とは，複数のハード・ディスクやパーティションにまたがった記憶領域を一つの論理的なディスクとして扱うことのできるディスク管理機能
 

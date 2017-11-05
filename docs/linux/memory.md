@@ -423,12 +423,219 @@ Linuxは、メモリアロケータがメモリをノードごとに分割する
 CPUスケジューラもノードを意識して階層構造になっている。
 基本的にスレッドにはそのスレッドが動作しているCPUの所属ノード内のメモリを割り当てる
 そして、割り当てに失敗した場合にもう片方のノードからメモリを割り当てる
+メモリのアクセス速度は、当然同じノード上のメモリ方法が早く、他ノードのメモリアクセスはその倍時間がかかる
+このため、NUMA環境では、プロセスとそのメモリ配置がノードごとによるように固定するとよい
+これは、numactlというコマンドや、mempolicyというシステムコールで設定できます
+また、numadというカーネルデーモンを使うことで、自動配置を調整するような仕組みもある
+しかし、動的なページマイグレーションにはペナルティがあるので、できるだけ静的に設定するとよい
 
 reclaim処理もノード単位で行われる
 カーネルスレッドのkswapdなどもノード単位で動作する
 zone_reclaim_mode を有効にする必要がある
 
 
+CPUやメモリのハイツを操作する
+cpusetは、CPUやメモリ、根とワークなどのリソースをグループ単位に割り当てたりできる「cgroup」の機能の一つです。
+プロセスに割り当てたCPUやメモリの配置をユーザが外部から操作できるAPIを備えています。
+cpusetは、ファイルシステムとしてマウントして使用します。
+cpusetを用いて配置を操作する際は、コントロールファイルと呼ばれるファイルに書き込みます。
+
+```
+$ mount
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/lib/systemd/systemd-cgroups-agent,name=systemd)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,devices)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,freezer)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,blkio)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,perf_event,release_agent=/run/cgmanager/agents/cgm-release-agent.perf_event)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset,clone_children)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,pids,release_agent=/run/cgmanager/agents/cgm-release-agent.pids)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,cpu,cpuacct)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,hugetlb,release_agent=/run/cgmanager/agents/cgm-release-agent.hugetlb)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,net_cls,net_prio)
+cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,memory)
+
+$ ls /sys/fs/cgroup/cpuset
+cgroup.clone_children  cpuset.cpu_exclusive   cpuset.effective_mems  cpuset.memory_migrate           cpuset.memory_spread_page  cpuset.sched_load_balance        notify_on_release
+cgroup.procs           cpuset.cpus            cpuset.mem_exclusive   cpuset.memory_pressure          cpuset.memory_spread_slab  cpuset.sched_relax_domain_level  release_agent
+cgroup.sane_behavior   cpuset.effective_cpus  cpuset.mem_hardwall    cpuset.memory_pressure_enabled  cpuset.mems                machine/                         tasks
+```
+
+あるプロセスのCPUやメモリの配置を操作するとします。
+まずは、cpusetの操作用ディレクトリを作る、すると、ディレクトリ内に自動的に各種コントロールファイルがつくられる
+/sys/fs/cgroup/cpuset/Group_A
+
+このうち、「cgroup.procs」というファイルに操作するプロセスのIDを書き込む
+cat /sys/fs/cgroup/cpuset/machine/kubernetes-centos7-1.libvirt-qemu/vcpu0/cgroup.procs
+10607
+
+そして、cpuset.cpusに利用するCPU, cpuset.memsにノード(今後このノードからリソースの割り当てを得る)を設定できる
+cat /sys/fs/cgroup/cpuset/machine/kubernetes-centos7-1.libvirt-qemu/vcpu0/cpuset.cpus
+0-1
+cat /sys/fs/cgroup/cpuset/machine/kubernetes-centos7-1.libvirt-qemu/vcpu0/cpuset.mems
+0
+
+メモリの割り当ては少し注意が必要で、値を書き込んで設定を変更しても、その効果は新たに割り当てられるノードにしか恩恵は受けられない
+すでに使用中のメモリを移動させるには「cpuset.memory_migrate」に1を設定しておく
+これにより、cpuset.memsに値を書き込んだ際に必要に応じてメモリマイグレーションが発生し、使用中のメモリがすべて指定ノードに移動される
+
+このcpusetを利用してメモリ配置を自動調整するサービスがnumadです。
+numadは、プロセスのCPUやメモリーを必要に応じて適切に配置なおしてくれるデーモン。
+numadは一定時間ごと(15秒ごと)にシステムをスキャンし、次の2種類のシステム情報を入手する
+* ノードごとのCPUアイドル率
+    * /proc/stats から取得
+    * 各CPUごとのフィールド4番目にシステム起動時からの通算アイドル時間が10ミリ秒単位で表示される
+    * これを繰り返し取得し、前回スキャン時からのアイドル時間の差分を差分を計算する
+    * この結果を経過時間で割ると、直近のCPUのアイドル率が求まる
+    * これをCPU_FREEとする
+* ノードごとの空きメモリ情報
+    * /sys/devices/system/node/node0/meminfo
+    * このMemFreeの値をMEM_FREEとする
+* CPU_FREE * MEM_FREE の値をノードが持つリソースの余裕を評価する値として利用する
+* 全プロセスをスキャンして/proc/プロセスID/statファイルから「CPU使用量」および「メモリ使用量」を入手する
+    * これらを掛け合わせてスコアを出し、高い順にソートする
+リストの上位から順に、各プロセスのノード配置を変更するかどうか判定していく
+判定では、/proc/[pid]/numa_mapsを開き、各プロセスがどのノードでどれだけのメモリを利用しているのかチェックする
+得られた（プロセスの)各ノードでのメモリー使用量をMEM_FREEの値に加味し、
+magnitude=CPU_FREE*MEM_FREE
+という式を使って各ノードのリソース空き状態を評価する
+このmagnitudeという値をもとに、利用するノードの優先度を決める
+現状の利用ノードが優先度の高いノードとは異なっていた場合、プロセスのCPUやメモリを再配置する
+再配置は、cpuset.memory_migrateに1を設定したうえで、cpuset.cpusファイルにCPU、cpuset.memsにノードの値をセットすることで行われる
+プロセスを1つ移動したら、同じプロセスを何度も行ったり来たりさせないように最低5秒待ってから次回のスキャンを行います
+
+
+# 自動NUMAバランス
+2012-2013にかけて、カーネル側で自動的にアプリケーションのメモリアクセスを追跡し、CPUとメモリの配置をチューニング（バランス)する仕組みが開発された
+CPUの移動とスケジューラ
+プロセスが実際にメモリが割り当てられるのは、プロセスが仮想メモリに実際にアクセスしたときです。
+この時、OSはメモリアクセスを実施したCPUにもとっも近いノードからメモリを割り当てる。
+しかし、スケジューラの都合によってプロセスが動作するCPUが別のNUMAノードに代わると、メモリが遠くなってしまう。
+
+プロセススケジューラはシステム全体を見ながら空いているCPUにプロセスを移動しようと、常に監視を続けています。
+移動の際、現在のCPUが属すNUMAノード内の別のCPUを優先するよう配慮します。
+
+カーネルによるNUMA自動バランシングでは、メモリマイグレーションを利用して、自動的にCPUの位置とメモリの位置を調整します。
+カーネルのスケジューラにプロセスとメモリの位置を追跡し、必要に応じてメモリを移動したり、（プロセスがスケジュールされるべきNUMAノードを覚えておいて）チャンスがあれば元の位置にプロセスを戻したりする機能が付加されました。
+これは自動で有効化されているため、無効化する場合は numa_balancing=disableをセットする
+
+
+アクセス時のメモリ移動
+プロセスにメモリページが割り当てられた際、ページの位置がプロセスのページテーブルに登録される。
+メモリアクセスの追跡に置いてもページテーブルが利用される。
+numa_balancingが有効の場合、一定時間ごとにプロセスのメモリをスキャンして、メモリマッピングを一時的に引きはがす処理が行われます
+このとき、ページマイグレーションの場合と同じようにページテーブルのPresentBitを0にし、ページテーブルには「NUMA情報収集のために、一時的にページを外した」ことを記録しておきます。
+こうしておくと、プロセスがメモリをアクセスした際に、PageFaultが発生し、OSがメモリアクセスを補足できる。
+PageFaultが起こると、カーネルはプロセスが現在動作しているCPUと引きはがしたページ位置(NUMAノード)を比較し、
+それらが異なるNUMAノードに置かれている場合にはページマイグレーションを発生させて、メモリをCPUのあるNUMAノードに移動させます。
+
+
+プロセスのアクセス追跡
+ページマイグレーションにはオーバヘッドがあるので、頻繁に行うわけにはいかない。
+そこで、カーネルは、どのNUAノードでPageFaultが起こったかを記録した統計データを集めて活用しています。
+この統計情報には、ページが単一のスレッドからアクセスされたのか、複数のスレッドから共有アクセスされたのか、ページマイグレーションが発生したのかなどが記録される
+numa_balancingの統計情報は/proc/vmstat で参照できる
+```
+$ cat /proc/vmstat | grep numa
+numa_hit 6400786
+numa_miss 0
+numa_foreign 0
+numa_interleave 23049
+numa_local 6400786
+numa_other 0
+numa_pte_updates 0             # numa_balancingが変えたPate Table Entryの数
+numa_huge_pte_updates 0        # numa_balancingが変えたHuge Pate Table Entryの数
+numa_hint_faults 0             # 上記PTEへのPageFaultの総数
+numa_hint_faults_local 0       # numa_hint_faultsのうち、元のメモリのノード位置とページフォルト時のノード位置が同じだった数
+numa_pages_migrated 0          # ページマイグレーションの成功数
+```
+スケジューラは統計データをもとに主に二つの判断を下す。
+一つはページスキャンの頻度です。
+例えば、複数のスレッドから共有アクセスされるページの場合、それらスレッドが複数のNUMAノードに分散していると、最適なノードを決められない。
+このようなページが多い場合は、スキャンの頻度を下げる。
+逆に、ページが単一のスレッドからアクセスされメモリマイグレーションが多く発生している場合はスキャンの頻度を高めて、CPUとメモリのバランスを改善できる
+
+もう一つは、プロセスが動作するCPUの決定に使われる。
+CPUがすべて空いていれば、メモリに近いCPUでスレッドを走らせればよいが、そうでない場合は適切なCPUを割り出す
+場合によっては、プロセスを最適なCPUに移動する
+
+
+## キャッシュと複数CPU
+CPUコアが増えた場合、複数のCPUコアから同時にアクセスされる可能性のあるメモリ領域の取り扱い。
+PER CPUメモリの仕組みを見てみる
+
+CPUキャッシュとライン
+CPUからメモリへのアクセスを高速化するために、CPUにはキャッシュが搭載されている。
+CPUの仕組みにも依存するが、あるCPUが数バイトのメモリを読み出すと、まずメモリからキャッシュにひと固まりのデータ(ラインと呼ぶ)がロードされる。
+そして、CPUがキャッシュから必要なデータを読み出す。
+書き込む際は、いったんキャッシュを収め(write-allocate)、キャッシュラインに変更を加えた後、適切なタイミングでメモリに書き戻します(write-back)
+
+キャッシュ操作はライン単位で実施される。
+キャッシュラインのサイズは、Intel CPUでは64バイトと考えてよいようです。
+
+
+CPU0とCPU1の二つのCPUがあるとする
+CPU0がデータXに書き込んだ後、CPU1が同じデータXに書き込んだ場合を考えてみる。
+まず、CPU0がデータXを含むラインをメモリから読みだしてキャッシュに収め、キャッシュラインに改変を加える。
+この後、CPU1が同じデータXに改変を加えるわでだが、メモリ上のデータXはCPU0のキャッシュラインにあるデータXよりも古くなっている。
+
+そこで、CPU0のキャッシュラインをCPU1に移します。
+その際、CPU0側のキャッシュを消して、CPU1がデータXを独占的に書き換えられるようにします。
+なお、CPU0とCPU1がいずれもデータXを読み出すだけで書き換えない場合は、CPU0およびCPU1のキャッシュに同じラインが乗っていることもあります。
+
+False Sharing
+前述のように、米Intel社製CPUではラインが64バイトもあるので、同じデータへのアクセスではなく、近くにあるデータにアクセスした場合にもキャッシュ間でのライン移動が生じる可能性があります。
+例えば、longが8バイトだとして、その一次元配列を定義し、その並列に各CPUが異なるインデックスをアクセスした場合、8CPU(64/8)分のデータが同じラインに乗ることになる。
+各CPUがそれぞれのインデクスのデータを書き換えるたびに、ラインの移動が発生し動作が極めて遅くなる。
+このような状況をFalse Sharingと呼ぶ。
+
+キャッシュへのアクセスを最適化するため、Linuxカーネルは各CPU固有のデータ域を作成する「PER CPUメモリ」という機能を持っている
+PER CPUメモリはついとなるCPU自身からしか書き換えないという"お約束"のもとに利用できるカーネルメモリです。
+各CPUを占有することにより、フォールすシェアリングを回避できるとともに、メモリアクセスに置いてロックなどの排他制御が不要になる
+使い方は、まず次のようなオブジェクトを作成する。
+```
+x = aloc_percpu
+```
+this_cpu(x)で各CPUのローカルデータに、またper_cpu(x, cpu)で各CPU固有のデータ息にアクセスする。
+各CPUのデータは、実際にはCPUごとにまとまった個別のメモリ域に配置され、this_cpu()などによってアドレス位置を計算した上でアクセスされる
+
+* PER_CPUカウンタ
+各CPU固有のメモリ域にカウンタを持たせることで、精度を犠牲にしてキャッシュラインの相次ぐ移動を避けてSMP性能を引き上げる機能です。
+```
+int counter;
+per_cpu int pcp_counter;
+```
+各CPUはpcp_counterを更新し、その絶対値が閾値以上になったらcounterに反映します。
+例えば、1ずつカウントアップするcounterにおいて閾値が16ならcounterへのアクセスを1/16に減らすことができる。
+このケースでCPU数が16の場合には、最大で240の誤差がでる。
+/procから読み取れるデータの中には、こうした仕組みで算出されてるものもあるので、値が必ずしも正確とは限らない。
+CPUが多い場合には、OSが見せる細かい数値の「正確さ」にはこだわらないようにしましょう。
+
+
+## リソースコントローラ
+プロセスに割り当てるCPUやメモリの量、I/Oやネットワーク帯域を、ユーザからの指示を受けて制御する機能を「リソースコントローラ」と呼ぶ。
+Linuxカーネルには、プロセス群のリソースを管理する「cgroup」という仕組みが備わっている。
+
+memory cgroup
+ユーザプロセスのメモリやファイルキャッシュ、カーネルメモリの一部などを管理できる。
+各memory cgroupはカウンタを一つ持っている。そして、ページ獲得要求を受けた際のメモリ獲得制限に、そのカウンタの値を使う。
+例えば、memory cgroupのリミットが4Gバイトで、ここに3プロセスが所属していてそれぞれが1Gバイトづつ(合計3Gバイト)利用していたとする。
+この場合、あと1Gバイトのメモリは獲得できる。
+しかし、1Gバイトを超えて獲得しようとした場合には、このmemory cgroupないで保持しているページ(各プロセスのファイルキャッシュやユーザメモリ)からメモリ回収を試みます。
+また、swapも同じmemory cgroupでlimitをかけることができる。
+つまり、最大のlimitは、メモリ + swapのトータルとなる。
+これは、カーネルのメモリ管理機構が行うスワップアウトに干渉しない。(kwsapdなどのシステム全体をメンテナンスするプルグラムの動作には極力干渉しないようにするため)
+
+memory cgroup単位でのメモリ回収と、システム全体でのメモリ回収が両立するように、memory cgroupを組み込んだ場合のメモリ回収用LRU(Least Recentry Used: 最も長期間使われていないプロックを割り出すアルゴリズム)には工夫が凝らされている。
+基本的には、memory cgroup単位にLRUを保持しており、システム全体からメモリ回収を行う場合にあhすべてのmemory cgroupを順番にスキャンする。
+memocy cgroupがある場合は、それらを一つづつ調べて、それぞれのLRUから回収するメモリを見つける。
+そして、各memory cgroupが持つページ数や直近のアクセス動向をベースに、メモリを回収すべきかを決定する。
+memocy cgroupがない場合は、各NUMAノードが持つメモリのLRUリストから回収するメモリを見つける。
+
+カウンタの工夫
+memory cgroupメモリ量を数えるカウンタを持っている。
+普通に数えると、性能のボトルネックになるので、PER CPUカウンタのような作りになっている。
+このため、memory.usageに表示されるメモリ使用量の精度には最大128Kバイトほどの誤差が生じる。
+とはいえ、タスクスイッチ時に誤差を解消するようなコードになってるので、あまり気にする必要はない。
 
 
 
