@@ -345,10 +345,39 @@
 
 
 ## 数量詞
-* a few, a little, much, many, a lot of, most, some, any, enough
+* 数量詞: その語句が名詞の数・量を指定する用法
+    * many students たくさんの学生
+* 代名詞: その語句自体が名詞句として使われる用法
+    * many of the students その学生たちのたくさん(の人)
+
+* all
+* every
+* each
+* both
+* half
+* few
+* a few
+* a little
+* much
+    * 不可算名詞で利用する
+* many
+* more
+* most
+* a lot of
+* most
+* some
+    * 否定文との相性が悪い
+* any
+    * 否定文との相性がいい
+    * 否定文で「どの～も」のようなニュアンスで使う
+    * This apartment does not allow any pets except guide dogs. このアパートは盲導犬を除いてどの犬も許可しない
+* either
+* enough
+
 
 ## 数字
-* one, then, thirty
+* one
+* thirty
 
 ## 配分詞
 * 人や物のグループやグループの中の個人を言及し、グループ内の個人の異なる見方を示し、何がどのように配分され、共有され分割されたかを表します
