@@ -1,8 +1,9 @@
-# Noun
+# Noun(名詞)
 * ヒト・モノ・コトの名称
 
 ## 名詞の見分け方
 * 語尾が特徴なので、推測できるよう覚える
+* また、suffix, prefixなどである程度は何を指しているのかが想像できる
 * -or
     * doctor
 * -er
@@ -66,17 +67,18 @@
 ## 動名詞
 * 動作が行われている様子を概念化し、名詞として使う用法、ing形を用いる
 * 動名詞に限らず「ing」形は「動作が行われている最中」が基本イメージ
-    * この「動作が行われている最中」の様子を状態としてとらえたものの動名詞
+    * この「動作が行われている最中」の様子を状態としてとらえたものが動名詞
     * eating: 食べている最中 -> 食べること
     * working: 働いている最中 -> 働くこと
     * drinking: 飲んでいる最中 -> 飲むこと
     * smoking: 煙草を吸っている最中 -> 煙草を吸うこと
-* I forgot closing the window.
-    * 「窓を閉める一連の動作を行ったという事実」を忘れた -> 窓をしめたことを忘れた
-    * 時制について
-        * 基本的にその文の動詞に一致し、forgotが過去形のため、closing the windowの行為も過去に行われた事実となる
-* My brother denied drinking coffee
-* I enjoyed working with you.
+* Examples
+    * I forgot closing the window.
+        * 「窓を閉める一連の動作を行ったという事実」を忘れた -> 窓をしめたことを忘れた
+        * 時制について
+            * 基本的にその文の動詞に一致し、forgotが過去形のため、closing the windowの行為も過去に行われた事実となる
+    * My brother denied drinking coffee
+    * I enjoyed working with you.
 
 
 ## to 不定詞の名詞的用法
@@ -86,14 +88,15 @@
     * to work: 働く動作に向かっている -> (これから)働くこと
     * to drink: 飲む動作に向かっている -> (これから)飲むこと
     * to smoke: 吸う動作に向かっている -> (これから)吸うこと
-* I forgot to close the window.
-    * 「窓を閉めるという状態に向かう事実」を忘れた -> 窓を閉め忘れた
-    * 時制について
-        * to 不定詞そのものには時制の概念は含まれないが、「対象に向かう」というその時点で未来に向かっている様子が表される
-        * forgotが過去形のため、その過去の時点から見た未来に行うはずだった「窓を閉める」という行為を忘れた、と解釈できる
-* We agree to work together.
-* They decided not to go out tonight.
-* She asked me to explain.
+* Examples
+    * I forgot to close the window.
+        * 「窓を閉めるという状態に向かう事実」を忘れた -> 窓を閉め忘れた
+        * 時制について
+            * to 不定詞そのものには時制の概念は含まれないが、「対象に向かう」というその時点で未来に向かっている様子が表される
+            * forgotが過去形のため、その過去の時点から見た未来に行うはずだった「窓を閉める」という行為を忘れた、と解釈できる
+    * We agree to work together.
+    * They decided not to go out tonight.
+    * She asked me to explain.
 
 
 ## pronoun(代名詞)
@@ -107,7 +110,7 @@
     * he, him, his, his
     * she, her, her, hers
     * it, it, its, 使用されない
-    * they, tyem, their, theirs
+    * they, them, their, theirs
 * 代名詞 It
     * 時間、日時、天候を表現する際、主語にはItが使われる
         * It is 9 o'clock now.
@@ -133,7 +136,7 @@
         * There is an election the month.
     * 数や量を示すこともできる
         * There are twenty of us.
-        * Tere is so much immorality.
+        * There is so much immorality.
 * 指示代名詞 this, that, these, those
     * 人を紹介するとき
         * This is my secretary, Hitomi.
@@ -194,3 +197,176 @@
         * The book itself was really boring.
     * Byとともに使う
         * I designed this T-shirt by myself.
+
+
+## 冠詞(Determiner)
+* 名詞の前に必ず一つ置かれるもの
+    * 定冠詞
+        * the
+    * 不定冠詞
+        * a
+        * an
+    * 無冠詞
+        * 何もつけない
+* 英語でモノを認識する場合には次の3つのどれかです
+    1. 輪郭や形のある1つのモノ(加算名詞)
+        * 不定冠詞にする
+        * I had a chicken. 私は鶏を1羽飼っていた。
+    2. 輪郭や形のある2つ以上のモノ(加算名詞)
+        * 無冠詞で名詞を複数形にする
+        * I had chickens. 私は鶏を(複数)飼っていた。
+    3. 輪郭や形のないモノ(不加算名詞)
+        * 無冠詞にする
+        * I had chicken. 私は鶏肉を食べた。
+    4. すでに述べた何かを再び言及するときは、上記の区別はせずに、theを使う
+        * I had the chicken. 私はその鶏肉を食べた。
+* 加算名詞・不加算名詞の区別
+    * 名詞ごとに数えられる・数えられないかが定まっているわけではなく、ほとんどの名詞はどちらの用法でも使うことができる
+    * つまり、加算名詞は「話し手が数えられるととらえてる名詞」、不加算はその逆ととらえると良い
+    * 加算名詞の単数形の特徴
+        * (本の)輪郭や形がある
+        * (本とそれ以外の)境界線がある
+        * (本を)分割できない、分割すると元の形を失う
+        * (本を)量ではなく数で数える
+    * 加算名詞の複数形の特徴
+        * (本が複数重ねられて)境界線があいまい
+        * (本の)グループとしてとらえる
+        * (本の)の数を増減できる
+    * 不加算名詞の特徴
+        * (水の)境界線があいまい
+        * (水の)構成要素のすべてがその名詞を表す
+        * (水に)単位を付けて量で測る
+* a/anの用法
+    * イメージ
+        * 名詞の境界線を与える
+        * 不特定の一つを取り出す
+    * ルール
+        * aは子音の前に、anは母音の前に
+            * a book
+            * an apple
+    * 加算名詞の単数形と共に用いる
+        * 「名詞に境界線を与える」イメージ
+        * roomに a を付けてa roomとすると、「区切りのある空間」、つまり「部屋」を意味する
+    * 初めて話題に上がる名詞に用いる
+        * 「聞き手が特定できないもの」に使う
+        * a book とすれば、聞き手は世の中にたくさんあるうちの、適当な「本」と想像することになる
+    * 「一つの」を表すa/an
+        * He brought a book. 彼は1冊の本をもってきた。
+        * 実際には、意味を明確にするためにoneが使われることが多い
+            * He brought one book. 彼は1冊の本をもってきた。
+    * 総称用法としての利用
+        * ある名詞の一般論を述べること総称用法と呼ぶ
+        * A child needs love. 子供には愛が必要だ。
+            * 子供に関する一般論として述べている
+            * 世の中にはたくさんの子供がいるが、そのどの子供をとっても愛が必要だと言っている
+    * 固有名詞と共に用いる
+        * Sony cancell the the move's release. ソニーはその映画の公開を取りやめた。
+            * 通常は、固有名詞には無冠詞を用いる
+        * I can't afford to buy a Sony. ソニー製品を買う金銭的な余裕はない。
+            * a/anを使うと、「形のあるモノ」にとらえられる
+    * 物質名詞と共に用いる
+        * You cannot drink tap water in this country. この国では水道水を飲むことはできない
+            * 通常は、液体などは不可算名詞として用いられる
+        * Would you like a coffee? コーヒーはいかがですか？
+            * a は「形のあるモノ、数で数えられる」にするので、「1杯の」ととらえることができる
+            * もっともこれは、a cup ofを省略した形とも解釈できる
+                * Would you like a cup of coffee?
+    * 抽象名詞と共に用いる
+        * We talked for three hours about beauty. 私たちは美について3時間話した。
+            * anger(怒り)などの感情、beauty(美しさ)のような概念、sleep(睡眠)などの行動は抽象名詞と呼ばれ、通常は不可算名詞として使われる。
+        * There was a silence between us. 私たちの間に沈黙があった。
+            * aを付けると、この沈黙は概念ではなく、実際に起こった一定期間の沈黙であることが分かる。
+* 無冠詞の用法
+    * イメージ
+        * 名詞の境界線を外す
+        * 名詞に同一間を与える
+    * 不可算名詞と共に用いる
+        * 名詞の境界線を外す
+        * a chicken
+            * 明確な輪郭をもつ鶏
+        * chicken
+            * 境界線のない鶏肉
+    * 抽象概念
+        * 境界線がなくなることで、名詞は形があいまいになり、より抽象的な意味を持つ
+        * I know what the inside of a prison is like. 私は刑務所の中がどんな感じかわかる。
+        * Prison is an inefficient way to solve social problems. 刑務所は、社会問題を解決するには非効率な方法である。
+    * 固有名詞と共に用いる
+        * 固有名詞とは、人名・地名・国名などの名称を表し、同じ種類の中から一つの事物を区別するために使う言葉である
+        * 世界には国はたくさんあるが、Japanという名称を使うことで他の国々と日本を名確認区別している
+        * 無冠詞には名詞に同一間を与える機能があり、たくさんの国々の中からJapanと結び付けることができる
+        * I am from Japan
+    * 役職に用いる無冠詞
+        * 無冠詞が「その人物=その役職」の同一間を表現する
+        * Director of the program そのプログラムのディレクター
+        * Dr.Joe ジョー博士
+    * 親近感がある名詞に用いる無冠詞
+        * 同一間のイメージは、時間や場所を表現する際に使うことができる
+        * dinner, summer, next week, home などの単語は通常無冠詞で使われる
+            * 話し手が心理的な同一間、言い換えれば親近感を抱いているから
+        * Let's talk after dinner. 夕食の後に話しましょう。
+        * I'll see you next week. 来週会いましょう。
+        * They usually go skiing in winter. 彼らはたいてい冬にスキーに行きます。
+        * He is still at home. 彼はまだ家にいる。
+* 定冠詞theの用法
+    * イメージ
+        * 物事を特定する、あの～
+        * 名詞の性質を説明しない、加算・不加算などは表さない
+    * すでに話題に上がったものを指す
+        * 一度話題に上がったため、話し手と聞き手がともに特定できる名詞には、theをつける
+        * I bought a book yesterday. The book is really interesting. 私は昨日本を買いました。その本はとても面白い。
+    * 常識から特定できるthe
+        * 世の中の常識的に、話し手と聞き手が一つに断定できる名刺には定冠詞theをつける
+            * 世の中に複数存在しえないモノに使うことが多い
+        * the sun
+        * the earth
+        * the moon
+    * 状況から特定できるthe
+        *その名詞が状況的に一つのものに特定できる場合、theをつける
+        * Can you open the window please? 窓を開けてもらっていいですか？
+            * 窓が一つしかない部屋でその部屋について言う場合
+    * 文脈から特定できるthe
+        * その名詞が文脈的に一つのものに特定できる場合、theをつける
+        * I bought a new computer last week. But the mouse got broken yesterday. 私は先週パソコンを買いました。しかし、昨日マウスが壊れました。
+            * パソコンの話をしているところで、マウスと言えば、そのパソコンのマウスであることが特定できる
+    * 名詞の意味を特定するthe
+        * 名詞に前置詞ofや関係代名詞を一緒に使う場合、その名詞の意味を特定するためにtheを使うことがある
+        * the smell of rose バラのにおい
+            * この世には様々なsmellが存在するが、of rosesという形で「バラの匂い」であることを限定している。
+            * したがって、物事を特定するtheが使われる
+    * モノの形から本質を抜き出すthe
+        * 名詞にはその表層的な意味を超えた本質的な意味が存在する。theはそのような「モノの本質」を抜き出して特定することができる。
+        * I played the guitar yesterday. 私は昨日、ギターを弾きました
+            * guitarを演奏するとは単にguitarの音を鳴らすことではなく、guitarは音楽を奏でるための道具であり、これがguitarの持つ本質的な意味である
+                * 「演奏する」という際には、theを使うことでguitarの本質的な機能を指すことができる
+    * 特定のもの・空間・時間にまとまりを与えるthe
+        * 「特定する」イメージで、あるモノ・空間・時間を任意に特定し、それにまとまりを与えることができる
+        * in the morning
+            * 特定の時間を表す名詞にtheを使うことがある
+
+
+## 数量詞
+* a few, a little, much, many, a lot of, most, some, any, enough
+
+## 数字
+* one, then, thirty
+
+## 配分詞
+* 人や物のグループやグループの中の個人を言及し、グループ内の個人の異なる見方を示し、何がどのように配分され、共有され分割されたかを表します
+* グループを表す配分詞
+    * each: グループのメンバを個として見る
+        * each children
+    * every: グループをメンバの一連として見る
+        * every children
+    * all: グループ全体を見る
+        * all children
+    * half: 二つに分解されたグループを述べるために使われる
+        * 不定冠詞(a, an)をつけて測定単位とともに使うこともできる
+            * harl a cup
+        * half the people
+* 一対のものを表す配分詞
+    * both: 一対全体を述べる: one and the otherと同じ
+    * either: 一対のメンバの一つを述べる
+    * neither: 否定で、一対全体を述べる: not one or the otherと同じ
+
+## 前決定詞
+* such, what, rather, quite
