@@ -1,5 +1,26 @@
 # Verb(動詞)
 
+## be動詞
+* 「～である」の意味を持つ
+* 「（何かがどこかに)ある」というイメージ
+* be動詞とto不定詞
+    * toは「対象に向かう」のイメージ
+    * The students are to go to school by 8 o'clock. 学生たちは8時までに学校に行くことになっている。
+        * to go to school by 8'oclock (「学校までに行く」という状態)にある
+* be動詞と進行形(-ing)
+    * ingは「動作の最中」のイメージk
+    * I am eating lunch now. 私は昼食を食べています。
+        * eating lunch now (「昼食を取っている」という状態）にある
+* be動詞と受動態(-ed)
+    * edは「動作の最終段階」の基本イメージ
+    * The door was closed by John. ドアはジョンによって閉められた。
+        * closed by Jhon (「ジョンによって閉められた」という状態)にある
+* be動詞の付加疑問文
+    * Taro is a doctor, isn't he? 太郎は医者ですよね?
+* be動詞の過去分詞形
+    * I have been a pianist for 12 years. 私は12年間ピアニストをやっている。
+        * 過去分詞形は「動作の最終段階」の基本イメージ
+        * ピアニストを開始した段階、4年後、8年後と経て12年目の今この瞬間に焦点を当てている
 
 ## 目的語
 * 動詞の目的となる言葉
