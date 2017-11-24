@@ -349,53 +349,180 @@
     * many students たくさんの学生
 * 代名詞: その語句自体が名詞句として使われる用法
     * many of the students その学生たちのたくさん(の人)
-
 * all
+    * 「すべて」を意味する
+    * グループ全体を見るイメージ
+    * Thank you so much for all the work that you did. あなたが行ったすべての仕事に感謝します。
+        * theや複数形の前に入れる
 * every
-* each
-* both
-* half
-* few
-* a few
-* a little
-* much
-    * 不可算名詞で利用する
-* many
-* more
-* most
-* a lot of
-* most
-* some
-    * 否定文との相性が悪い
-* any
-    * 否定文との相性がいい
-    * 否定文で「どの～も」のようなニュアンスで使う
-    * This apartment does not allow any pets except guide dogs. このアパートは盲導犬を除いてどの犬も許可しない
-* either
-* enough
-
-
-## 数字
-* one
-* thirty
-
-## 配分詞
-* 人や物のグループやグループの中の個人を言及し、グループ内の個人の異なる見方を示し、何がどのように配分され、共有され分割されたかを表します
-* グループを表す配分詞
-    * each: グループのメンバを個として見る
-        * each children
-    * every: グループをメンバの一連として見る
+    * 「どの～も皆」を意味する
+    * グループをメンバの一連として見るイメージ
+    * 3つ以上のモノに1つずつ焦点を当て、結果そのすべてに言及するイメージ
         * every children
-    * all: グループ全体を見る
-        * all children
-    * half: 二つに分解されたグループを述べるために使われる
-        * 不定冠詞(a, an)をつけて測定単位とともに使うこともできる
-            * harl a cup
+        * 単数形の名詞と共に使われる
+            * I dog-eared almost every page. 私はほとんどのページの隅を折った。
+        * 複数形も一つのカタマリととらえることで利用できる
+            * every four days
+                * for days(4日間)を一つのカタマリと捉え、それをeveryで区分している
+* each
+    * 「それぞれ」を意味する
+    * 2つ以上のモノについて、個別的に言及するイメージ
+        * 単数形の名詞と共に使われる
+            * Each book is ... それぞれの本は、...
+* half
+    * 「半分」を意味する
+    * 二つに分解されたグループを述べるために使われる
         * half the people
-* 一対のものを表す配分詞
-    * both: 一対全体を述べる: one and the otherと同じ
-    * either: 一対のメンバの一つを述べる
-    * neither: 否定で、一対全体を述べる: not one or the otherと同じ
-
-## 前決定詞
-* such, what, rather, quite
+        * 不定冠詞(a, an)をつけて測定単位とともに使うこともできる
+            * half a cup
+    * 代名詞としても利用される
+        * half of the revenue 売り上げの半分
+* some, somebody, someone, something, somewhere
+    * sumeは漠然とした数量が「ある」ことを指す語句
+    * 否定文との相性が悪い
+    * テーブルの上に何かが「ある」が、その具体手になモノが分からないというイメージ
+        * There is something on the table. そのテーブルの上に何かがある
+    * 数量詞
+        * I have some money. 私はいくらかのお金を持っている。
+    * 代名詞
+        * We need more water. Could you get some? もっと水が必要だ。いくらかもって来てくれないか？
+    * ヒト
+        * There might be somebody who is available. 手があいている誰かがいるかもしれない。
+    * ヒト
+        * Someone is knocking the door. 誰かがドアをノックしている。
+    * モノ
+        * There is something on the table. テーブルの上に何かがある。
+    * 場所
+        * We need somewhere to keep the inventories. 我々はその在庫を保管するどこかが必要だ。
+* any
+    * anyは漠然とした数量が「不確か」なことを示す語句
+    * 否定文、疑問文との相性がいい
+    * テーブルの上にモノがあるかどうかわからないため、それを訪ねる際にanyを使うことができる
+        * Is there anything on the table? そのテーブルの上に何かありますか？
+    * 否定文で「どの～も」のようなニュアンスで使う
+        * This apartment does not allow any pets except guide dogs. このアパートは盲導犬を除いてどの犬も許可しない
+    * 数量詞
+        * I haven't had any lunch. 私たちは昼食をとっていない。
+    * 代名詞
+        * I don't know any of your friends. 私はあなたの友達を誰も知らない。
+    * ヒト
+        * I don't think anybody is going to join us. 私たちに合流する人がいるとは思わない。
+    * ヒト
+        * Anyone can attend the meeting. そのミーティングにはだれでも出席できる。
+    * モノ
+        * I don't want pizza, but anything else is OK. 私はピザがほしくない、しかしほかなら何でもOK
+    * 場所
+        * We're not going anywhere. 私たちはどこにも行かない
+* many, much, a lot of
+    * many、muchは「たくさんの」を意味する
+    * manyは加算名詞、muchは不可算名詞で利用する
+        * many books たくさんの本
+        * much information たくさんの情報
+    * ofを使うことで代名詞としても使用できる
+        * many of these books これらの本のうちたくさん(の本)
+        * much of the time その時間のうちたくさん(の時間)
+    * a lot ofも「たくさんの」という意味で、これは加算名詞、負加算名詞どちらでも利用できる
+        * a lot of books
+        * a lot of information
+    * of のない a lot 単体は、代名詞として用いる
+        * We ate a lot. 私たちはたくさん食べた。
+    * muchやa lotが比較級を強める語句として利用されることもある
+        * much more difficult よりいっそう難しい
+        * a lot quicker よりいっそう素早い
+* more
+    * 「より多い・より大きい」を意味する
+    * 加算名詞・不加算名詞どちらでも使うことができる
+        * more books より多くの本
+        * more money より大きなお金
+    * 比較級で利用される場合は、形容詞・副詞を修飾する
+        * It is more expensive than I have expected. それは私が期待していたよりも高額だ。
+* most
+    * 「ほとんどの」や「大部分」を意味する
+    * 加算名詞、不可算名詞どちらでも使うことができる
+        * most houses ほとんどの家
+        * most information ほとんどの情報
+    * mostは代名詞としても用いることができる
+        * most of the houses その家の大部分
+        * most of the information その情報の大部分
+    * 熟語
+        * make the most of an opportunity. 機会を最大限に活用する
+    * 比較級で利用される場合は、「最多の・最高の」の意味で形容詞・副詞を修飾する
+        * This is the most expensive diamond in the world.
+* enough
+    * 「十分な」を意味する
+    * 加算名詞・不加算名詞どちらでも使うことができる
+        * enough books 十分な（数の）本
+        * enough information 十分な（量の）情報
+    * 代名詞としても用いることができる
+        * Although Ken says efforts are being made, he is not doing enough. ケンは努力は行われてるというが、かれは十分にそれをやっていない。
+    * enoughは副詞として形容詞の直後に使用することができる
+        * I am old enough to work. 私は働くには十分な年をとっている。
+* few, little
+    * few, littleは「ほとんど～ない」を意味する
+    * fewは加算名詞、littleは不可算名詞で利用される
+        * Few people know the truth. その事実を知っている人はほとんどいない
+        * I have little money. 私はお金をほとんど持っていない
+    * few, littleが単体で使われる場合
+        * fewは数えられる名詞の複数扱いであるため、直後の動詞には三人称単数のsがつかない
+            * Few work more than 16 hours a day.
+            * Few are ...
+        * littleは不可算名詞扱いであるため、空白直後の動詞に三人称単数のsがつく
+            * Little has been known in the field.
+            * Little is ...
+* a few, a little
+    * a few, a littleは「少し～ある」を意味する
+    * a fewは加算名詞、a littleは不可算名詞で利用される
+        * The meeting will begin in a few minutes. ミーティングは数分以内に始まる。
+        * I took a little nap. 私は多少の仮眠をとった。
+    * few/littleとの違い
+        * ここに3割くらい水が入ったコップがあるとする
+        * その3割は言った水の部分に注目して「3割も残っているが」a littleのイメージ
+            * 肯定的なニュアンス
+        * 空になった7割の部分に注目して「7割も減った」がlittleのイメージ
+            * 否定的なニュアンス
+* several
+    * 「いくつかの」を意味する
+        * Sevelal boxes are filled with books. いくつかの箱が本でいっぱいだ
+    * 代名詞としても用いることができる
+        * Several are well-known actors. 数人はよく知られた俳優です。
+        * Sevelal of the members will receive the award. メンバーのうち数人が賞を受賞するでしょう。
+* both
+    * 「両方」を意味する
+    * both単体を主語や目的語として使うこともできる
+        * I took both. 私は両方を取った。
+    * 接続詞として使われることが多い
+        * both football and baseball サッカーと野球の両方
+* either
+    * 「どちらか一方の」を意味する
+    * 接続詞として使われることが多い
+        * You can choose either beer or wine. あなたはビールとワインのどちらかを選べます。
+* neither
+    * 「どちらも～ない」を意味する
+    * 接続詞として使われることが多い
+        * The suggestion is neither practical nor possible. その提案は実用的でも可能でもない。
+* one
+    * 「一つのヒト・モノ」を意味する
+    * one, two, threeと数字を表すのにも使われるが、代名詞としても使われる
+    * another, other, othersとの使い分け
+        * 1つモノがあり、それをoneとさす
+        * 2つモノがあり、1つ目をoneとさし、2つ目をthe other(最後の1つ)とさす
+            * one and the other は、bothと同じ
+        * 3つモノがあり、1つ目をoneとさし、2つ目をanother(oneではない1つ)とさし、3つ目をthe other(最後の1つ)とさす
+        * 5つモノがあり、1つ目をoneとさし、2つ目をanother(oneではない1つ)とさし、4～5つ目をthe others(残りのすべて)とさす
+        * 不特定数のモノがあり、2つ以上のいくつかをsomeとさし、2つ以上のその他をothers(someではないいくつか)とさす
+        * 不特定数のモノがある、2つ以上のいくつかをsomeとさし、2つ以上の残りすべてをthe others(残りのすべて)とさす
+* no, none
+    * no, noneは「少しの～もない」を意味する
+    * noは通常、名詞と共に使う
+        * I have no friends. 私には友達がいない
+    * no one, nobodyなど、漠然としたヒト・モノ・コトを表す語句で利用される
+        * ヒト
+            * There is nobody in the gym. ジムにはだれもいない。
+        * ヒト
+            * There is no one in the gym. ジムにはだれもいない。
+        * モノ
+            * There is nothing in the room. 部屋の中には何もない。
+    * no one, nobody, nothingは単数扱いとなるので、現在形なら動詞に三単現のsをつける
+        * No one wears a shirt and tie.
+    * noneはそれ単体を代名詞として使う
+        * None of my colleagues will attend the seminar. 私の同僚でそのセミナーに参加する人はいない。
