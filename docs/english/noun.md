@@ -480,6 +480,21 @@
             * 肯定的なニュアンス
         * 空になった7割の部分に注目して「7割も減った」がlittleのイメージ
             * 否定的なニュアンス
+* no, none
+    * no, noneは「少しの～もない」を意味する
+    * noは通常、名詞と共に使う
+        * I have no friends. 私には友達がいない
+    * no one, nobodyなど、漠然としたヒト・モノ・コトを表す語句で利用される
+        * ヒト
+            * There is nobody in the gym. ジムにはだれもいない。
+        * ヒト
+            * There is no one in the gym. ジムにはだれもいない。
+        * モノ
+            * There is nothing in the room. 部屋の中には何もない。
+    * no one, nobody, nothingは単数扱いとなるので、現在形なら動詞に三単現のsをつける
+        * No one wears a shirt and tie.
+    * noneはそれ単体を代名詞として使う
+        * None of my colleagues will attend the seminar. 私の同僚でそのセミナーに参加する人はいない。
 * several
     * 「いくつかの」を意味する
         * Sevelal boxes are filled with books. いくつかの箱が本でいっぱいだ
@@ -500,29 +515,3 @@
     * 「どちらも～ない」を意味する
     * 接続詞として使われることが多い
         * The suggestion is neither practical nor possible. その提案は実用的でも可能でもない。
-* one
-    * 「一つのヒト・モノ」を意味する
-    * one, two, threeと数字を表すのにも使われるが、代名詞としても使われる
-    * another, other, othersとの使い分け
-        * 1つモノがあり、それをoneとさす
-        * 2つモノがあり、1つ目をoneとさし、2つ目をthe other(最後の1つ)とさす
-            * one and the other は、bothと同じ
-        * 3つモノがあり、1つ目をoneとさし、2つ目をanother(oneではない1つ)とさし、3つ目をthe other(最後の1つ)とさす
-        * 5つモノがあり、1つ目をoneとさし、2つ目をanother(oneではない1つ)とさし、4～5つ目をthe others(残りのすべて)とさす
-        * 不特定数のモノがあり、2つ以上のいくつかをsomeとさし、2つ以上のその他をothers(someではないいくつか)とさす
-        * 不特定数のモノがある、2つ以上のいくつかをsomeとさし、2つ以上の残りすべてをthe others(残りのすべて)とさす
-* no, none
-    * no, noneは「少しの～もない」を意味する
-    * noは通常、名詞と共に使う
-        * I have no friends. 私には友達がいない
-    * no one, nobodyなど、漠然としたヒト・モノ・コトを表す語句で利用される
-        * ヒト
-            * There is nobody in the gym. ジムにはだれもいない。
-        * ヒト
-            * There is no one in the gym. ジムにはだれもいない。
-        * モノ
-            * There is nothing in the room. 部屋の中には何もない。
-    * no one, nobody, nothingは単数扱いとなるので、現在形なら動詞に三単現のsをつける
-        * No one wears a shirt and tie.
-    * noneはそれ単体を代名詞として使う
-        * None of my colleagues will attend the seminar. 私の同僚でそのセミナーに参加する人はいない。
