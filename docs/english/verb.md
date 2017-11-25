@@ -160,9 +160,46 @@
             * How much exercise do you get each week? どのくらいの運動を毎週行いますか？
 
 
+## 使役動詞
+* 「～させる」の意味で、動作や状態を起こさせる動詞
+    * make, have, let, get, help
+* 使役動詞の文法規則は、大きく次の2つに分かれる
+    * make/have/let型: 使役動詞+対象の名詞+原型不定詞
+    * get型: 使役動詞+対象の名詞+To不定詞
+        * Toはその状態に向かっているイメージなので、make, have, letよりは強制力が弱まる
+    * helpは、どちらの用法でも使うことができる
+* make
+    * makeは「ある動作を行っていない状態」を「ある動作を行っている状態」に変化させるイメージ
+        * My mother made me eat vegetables. 母は私に野菜を食べさせた。
+    * 使役動詞の中で最も意味合いが強い
+* have
+    * haveは、主語が「対象が何かをしている状態を持つ」のニュアンスで、「～させる」の意味で使われる
+        * I had Tom find a restaurant. 私はトムにレストランを探してもらった。
+* let
+    * letは使役動詞として使われることがほとんど
+    * 主語が「対象がある動作を行う状態を許す」のニュアンスで、「～させる」の意味で使われる
+        * I will let them enter my room. 私は彼らが部屋に入ることができるようにします。
+* get
+    * 主語が「対象がある動作を行う状態を得る」のニュアンスで、「～させる」の意味で使われる
+        * I couldn't get the computer to work. 私はそのパソコンを動かすことができなかった。
+* help
+    * 通常の意味でも、使役動詞として使われる場合でも「～を助ける」の意味で使われる
+        * I will help you clean up your room. 私はあなたの部屋の掃除を手伝いましょう。
+            * 原型の場合は、「まだ行われていない」のイメージのため、(まだ行われていない)部屋の掃除そのものを手伝うと言っている
+        * I will help you to clean up your room. 私はあなたの部屋の掃除を手伝いましょう。
+            * To不定詞は「対象に向かう」イメージのため、「部屋の掃除に気持ちを向き合わせるのを手伝った」となる
+* 使役動詞と現在分詞・過去分詞
+    * 使役動詞では基本的には動詞の原形を利用するが、haveは現在分詞・過去分詞を使用することも可能である
+        * I had the audience laughing. 私は聴衆を笑わせた。
+        * I have my homework finished. 私は宿題を終わらせました。
+        * I will have my student email you soon. 私は学生からあなたにすぐにEメールを送らせます。
+    * 厳密な英文法では、分詞と共に使うhaveは使役動詞ではない
+
+
 ## 目的語
 * 動詞の目的となる言葉
 * I watched a movie の a movie
+
 
 ## 自動詞・他動詞
 ### 自動詞
@@ -185,6 +222,34 @@
 * 他動詞と間違われやすい自動詞
     * aggree with, aplogize to A for B, approve of, belong to, complain of/about, get to, graduate from , hope for, object to, refer to
 
+
+## 命令形
+* 話し手が聞き手に対して、命令・指示・提案・依頼などを行う際に使う用法
+* ルール
+    * 原則的に主語が省略される
+        * 聞き手に対して発せられるので、守護を明示する必要がない
+    * 動詞の原形が使われる
+        * すべて命令系は「まだ行われていないこと」にたいして使われる
+* 命令・指示・要求
+    * Keep off the grass. 芝生に入らないでください。
+    * Don't move! 動くな!
+* 依頼・訴え・懇願
+    * Please help me tidy up. 整理するのを手伝ってください。
+    * Open the door, will you? ドアを開けてくれませんか?
+* アドバイス・推奨・警告
+    * Mind the step. 足元に注意してください。
+    * Don't put all your eggs in one basket. すべての卵を一つのかごに入れるな/一つのことにすべてを掛けるな
+* 指示
+    * Insert a cassette as illustrated with its labelled side facing you. 図示されているようにカセットを挿入してください、ラベル側があなたに向いている状態で。
+    * Compare these figures with those shown in Table 1 above. これらの図を上手のテーブル1で示されている図と比較せよ。
+* 勧誘
+    * Have some more soup. もっとスープをお召し上がりください。
+    * Feel free to call in at any time. いつでも気軽に立ち寄ってくださいね。
+* 許可
+    * Take as many as you'd like. あなたがほしい数だけ持って行っていいです。
+    * Come in. お入りください。
+* 容認
+    * Well, tell her if you want to - it's all the same to me. まあ、あなたがそうしたいなら彼女に言えば、私はどちらでも構いません。
 
 ## Obligation(義務)
 * have to
