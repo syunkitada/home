@@ -7,6 +7,7 @@
 | [Adjective(形容詞)](adjective.md) | 名詞を修飾するもの |
 | [Adverb(副詞)](adverb.md) | 名詞以外を修飾するもの |
 | [Verb(動詞)](verb.md) | 動詞 |
+| [Conjunction(接続詞)](conjunction.md) | ある語句や文に他の語句や文を接続する役割を持った言葉 |
 | [Preposition(前置詞)](preposition.md) | 言葉と言葉をつなぐ役割を持った言葉(in, on, at, to, for, from, of, over, through, etc) |
 | [英文の読み方](howtoread.md) | 英文の読み方 |
 | [海外旅行: 飛行機での英語](airplain.md) | 飛行機での英語 |
