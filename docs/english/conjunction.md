@@ -177,6 +177,8 @@
 ## once
 * 「いったん～すれば」を意味する大きな接続詞、時間的な因果関係を表す
     * I went to bed once he had left. 私は布団に入った、彼が去るやいなや。
+* 会話では、文頭で「(過去の)ある時」、以前、昔などの意味で使われる
+    * Once there lived a king and queen. 昔ある時、王様と女王がいました。
 
 ## till/until
 * till/untilは「～まで」を意味する大きな接続詞

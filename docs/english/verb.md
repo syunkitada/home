@@ -251,6 +251,116 @@
 * 容認
     * Well, tell her if you want to - it's all the same to me. まあ、あなたがそうしたいなら彼女に言えば、私はどちらでも構いません。
 
+
+## 時制
+* 時制とは、時間軸と焦点の組み合わせである
+    * 時間軸は、現在と過去のみ
+    * 焦点とは、その時間軸を見るための角度
+        * いま一時的に起こっている出来事と、定期的に行っている動作では、同じ現在といってもそのニュアンスは異なるだろう
+        * 一般、進行、完了、完了進行の4種類が存在する
+* 現在時制
+    * 現在形
+    * 現在進行形
+    * 現在完了形
+    * 現在完了進行形
+* 過去時制
+    * 過去形
+    * 過去進行形
+    * 過去完了形
+    * 過去完了進行形
+* 現在形
+    * 動作のプロセスのどの点に焦点を合わせても、常に同じ結果を得るようなイメージ
+    * 今現在行われている一般形な物事を表現する
+        * I work at an IT company. 私はIT企業で働いています。
+    * 一般的な事実を表現する
+        * Water boils at 100 degree. 水は100度で沸騰する。
+    * 習慣的に行われていることについて表現する
+        * I eat breakfast everyday. わたしは毎日朝食を取る。
+* 現在完了
+    * have/hasに動詞の完了形を組み合わせたもの
+        * haveは「持っている」のイメージ
+        * 完了形は動作のプロセスの最終段階を意味する
+    * 結果を表す
+        * I have finished my homework. わたしは宿題を終えました。
+            * 「宿題を終えたという状態」を私が「持っている」と考える
+    * 経験を表す
+        * We have visited Tokyo before. わたしたちは以前、東京を訪れたことがあります。
+            * 「以前東京を訪れたという状態」を私たちが「持っている」と考える
+    * 未来に視点を置く
+        * I will go to the gym when I finish my homework. わたしはジムに行きます、宿題が終わったら。
+            * 宿題が終わるという動作そのものに焦点を当てている
+        * I will go to the gym when I have finished my homework. わたしはジムに行きます、宿題が終わったら。
+            * Finished my homework をhaveしている状態、すなわち動作の完了を意識している様子がうかがえる
+* 現在進行形
+    * be動詞の現在形に動詞の進行形を組み合わせたもの
+        * be動詞は「～である・～の状態だ」を意味する
+        * 進行形は「動作が今まさに行われている状態」を表す
+    * 動作が今まさに起こっている最中
+        * I am cooking now. 今料理をしている最中です。
+    * 始まりと終わりがある動作
+        * I am working for a Japanese restaurant. 私は日本料理屋で働いている。
+    * 未完了の動作
+        * I am still working on my homework. 私はまだ宿題をやっています。
+    * 近い未来を表す
+        * It is going to rain. 雨が降りそうだ。
+            * 現在進行形を使うことで、もう確定していて、今まさに降りそうだという様子が伝わる
+* 現在完了進行形
+    * have/hasに、完了進行を組み合わせたもの
+        * haveは「持っている」のイメージ
+        * 完了形は動作のプロセスの最終段階
+        * 進行形は「動作が今まさに行われている状態」を表す
+        * 「進行している動作の最終段階をhaveしている」イメージ
+    * 進行中の動作の最終段階
+        * I have been running. ずっと走っています。
+    * 今も進行中の動作を現時点で振り返る
+        * I have been studying English for ten years. 英語を10年間勉強しています。
+* 過去形
+    * 動作のプロセスのどの点に焦点を合わせても、常に同じ結果を得るようなイメージ
+    * 過去の出来事
+        * I went to the gym already. 私はすでにジムに行きました。
+    * 過去に習慣的に行われていた出来事
+        * She usually spent the winter in Nagano. 彼女はたいてい長野で冬を過ごしていた。
+* 過去完了形
+    * hadと動詞の完了形を組み合わせたもの
+        * hadは「持っていた」のイメージ
+        * 完了形は動作のプロセスの最終段階
+        * 「過去のある地点で、動作の最終段階を持っていた」イメージ
+    * 結果を表す
+        * I had already finishied my speech when they arrived at the room. 私はすでにスピーチを終えていた、彼らが部屋についた時には。
+    * 経験を表す
+        * I had never been to a foreign country before I went to the U.S. 私は外国に行ったことがなかった、アメリカに行く前は。
+    * 継続を表す
+        * We had known each other for five years when we got married. 私たちは知り合って5年間になっていた、結婚したときは。
+* 過去進行形
+    * be動詞の過去形と進行形を組み合わせたもの
+        * was/wereは「～だった・～の状態だった」のイメージ
+        * 進行形は「動作が今まさに行われている状態を表す」
+        * 「過去の動作の最中」のイメージ
+    * 過去の動作の最中
+        * I was going to the office. 私は会社に行く最中でした。
+    * 始まりと終わりのある過去の動作
+        * I was staying at London. 私はロンドンに住んでいた。
+    * 動作は未完了
+        * It was 12 o'clock yesterday. Taro was driving home. 昨日の12時だった。太郎が車で帰宅していた。
+* 過去完了進行形
+    * hadに、完了進行を組み合わせたもの
+       * 「進行している動作の最終段階をhadしている」イメージ
+    * 過去に進行中の動作の最終段階
+        * I had been working for three hours when I found it was 10 o'clock. 私は3時間働いていた、10時になっていると気がついた時。
+            * 10時になっていると気が付いた時に動作は最終段階になっている（仕事が終わる）
+    * 過去に進行中だった動作をその時点で振り返る
+        * I had been working for three hours when I found it was 10 o'clock.
+            * 10時になっていると気が付いた時に動作は最終段階になっているとは限らず、10時をすぎてもまだ働くと、とらえる場合もある
+* 時制の一致
+    * 文章内に複数の動詞が使われる場合、結果としてそれらの動詞が同じ時制になること
+        * I think you love him. 私はあなたが彼を愛していると思う。
+        * I thought you loved him. 私はあなたが彼を愛していたと思った。
+        * I think you will miss your flight. 私はあなたが飛行機に乗り遅れると思う。
+    * 時制が一致しないパターン
+        * I think you loved him. 私はあたなが彼を愛していたと思う。
+        * I tought you would miss your flight. 私はあなたが飛行機に乗り遅れるだろうと思った。
+
+
 ## Obligation(義務)
 * have to
     * (話し手の意思ではなく)総合的・客観的に判断して「～しなければならない」
@@ -308,8 +418,15 @@
 
 
 ## 予定を伝える
-* be going to
-* be about to
+* be going toとwill
+    * I will see you at ABC bar. ABCバーで会おうね。
+        * willはその場でしようと決めた未来のことを話す
+    * I'm going to have a drink. 飲みに行くよ。
+        * be going toは話している時点では、すでに決まっている未来のことを話すのに使う
+        * 現在進行形を使うことで、もう確定していて、今まさに飲みに行こうとしている様子が伝わる
+* be abount to
+    * I'm about to clean my room. （今まさに）掃除をするところです。
+        * 「今すぐ～をする」や「まさに～しようとするところ」のようなイメージ
 
 
 ## be supposed to
