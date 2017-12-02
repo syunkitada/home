@@ -361,6 +361,248 @@
         * I tought you would miss your flight. 私はあなたが飛行機に乗り遅れるだろうと思った。
 
 
+* 受動態
+    * be動詞に動詞の完了形を組み合わせることで作ることができる
+    * 一般的な英文では主語が動作を行うのに対し、受動態では主語が動作の対象そのものになる
+        * I lock the gate at 10 o'clock every night. 私はそのゲートを毎晩10時に閉める
+        * The gate is locked at 10 o'clock every night. そのゲートは毎晩10時に閉められる
+    * 以下の場合に受動態が使われることが多い
+        * 動作が行われた対処を協調したい時
+        * その動作を行った自分が誰かわからない時
+        * その動作を行った人物を特定する必要がない時
+        * その動作を行った人物にあえて言及しないことで、客観性のある文を書きたい時
+            * 論文等でよく利用される
+    * 助動詞と共に用いる受動態
+        * The gate can be locked with this special key. ゲートは、この特別な鍵を使って閉めることが可能です。
+        * We won't be beaton. 私たちは負けない。
+    * be動詞の代わりに用いられるget
+        * カジュアルなシーンの話し言葉では、be動詞の代わりに"get"が使われることがある
+        * 意味は同じだが、getのほうがその動作が行われた結果の状態よりも、行う瞬間にフォーカスを当てているようなニュアンスに聞こえる
+        * 例
+            * His car gets cleaned everyday. 彼の車は毎日清掃される。
+            * My wife got injured due to the earthquake. 私の妻は自身によって怪我をした。
+    * 受動態と共に使う前置詞
+        * 動作を引き起こしたのがヒトの場合はby
+            * Athe gate is locked by the guards at 10 o'clock every night. そのゲートはガードマンによって毎晩10時に閉められる。
+        * 動作を引き起こしたのがモノを示す場合はwith
+            * My son was killed with a knife. 私の息子はナイフで殺害された。
+    * 受動態と現在完了が似た形を取る理由
+        * 動詞の完了用法には「動詞の動作の最終段階」という基本イメージがある
+        * 現在完了形の場合は動作の「プロセス」の最終段階を指し、受動態では動詞の「対象の」最終段階、すなわち動作が及ぶ対象のことを指す。
+        * 受動態は動作が行われている対象が主語になっているので、完了の持つイメージがあっている
+            * I have done the research.
+            * The research can be done today.
+
+## 仮定法
+* 事実と異なる仮定の状況を述べる際、それを相手に伝えるための文法
+    * 事実: 機能、高額なバックを買ってしまった。
+    * 仮定: 昨日、高額なバッグを買わなかったとしたら。
+* 仮定法を作るためには動詞の時制を一つ前に戻す
+    * 現在の事実と反することがあれば過去形に、過去の事実に反することであれば過去完了にする
+* 過去形の本質は「距離感」を表す
+    * 時間的な距離感（一般的に言われる過去形）
+    * 相手との距離感（丁寧な表現）
+    * 現実からの距離感（仮定法)
+* 仮定法過去
+    * If I married you, I would buy a house. もし私があなたと結婚したら、きっと家を買います。
+    * I wish I could speak English. 英語を話せたらいいのになぁ。
+        * I wish 「～を願う」
+    * If only they could come with us. 彼らが私たちと一緒に来られさえすれば。
+        * If only 「～でありさえすれば」
+    * He works everyday as if he was a machine. 彼は毎日動く、まるで機械のように。
+        * as if/ as though 「まるで～のように」
+* 仮定法過去完了
+    * If I had known the news, I would have told you. もし私がそのニュースを知っていたら、私はあなたに話していたでしょうに。
+    * I wish I hadn't married her. 彼女と結婚していなければと思う。
+    * If only I had gone with my father. 私が父と行きさえすれば。
+    * He said something as if I had asked a quesion. 彼は何かを言った、まるで私が質問したかのように。
+* 仮定法未来
+    * 英語の時制に未来は存在しないため、通常はwillなどの助動詞を使って、その起こりうる可能性を表す
+    * 仮定法未来は、「仮に未来に起こったら」のイメージで、未来における仮の内容を表現することができる文法
+    * were to
+        * were toはbe toの時制を1つ前に戻したもの
+        * 前置詞toには、「動作がある方向に向かい、そこに到達する」イメージがあるため、be toで未来のことを表現することができる
+            * We are not to talk to strangers. 私たちは見知らぬ人と話さない。
+        * were to
+            * If it were to rain tomorrow. the game would be cancelled. もし明日が雨になるなら、その試合は中止となるだろう。
+                * 仮定法では主語のタイプにかかわらず、wereが使われる
+    * should
+        * shouldはshallの過去形
+        * If a serious crisis should arise, the government would have to take immediate action. もし重大局面が発生するのであれば、政府は直ちに対応しなくてはならない。
+* 仮定法現在
+    * 動詞の原形の基本イメージは「まだ行われていない」であるため、仮定法現在は現時点で行われているべきだが、まだ行われていない状況を表す
+    * ask, demand, request, desire, propose, suggest, require, insistなどの願望・提案・要求などを表す文に仮定法現在が使われることが多い
+    * I suggest that he go to the hospital. 彼は病院に行くべきだと私は提案する。
+        * that節内は三単現であるheが主語であるが、goesではなく原形goが使われている
+        * 提案するということは、その内容はまだ行われていない、動作の原形が持つ「まだ行われていない」のイメージが合うため、goが使われている
+        * しかし、「I suggest that he goes to the hospital. 」としても決しても間違いではない
+    * I suggest that he not go to the hospital. 彼は病院に行くべきでないと私は提案する。
+        * 仮定法現在では、動詞の原形を使うため、notを使って否定を表す場合、同市はnotの後ろに使う。助動詞の後ろに動詞がくる感覚と同じ
+* 仮定法と倒置
+    * if節内でshould, had, wereを使う仮定法では、当地の構造で文を書くことが可能
+    * 意味は同じだが、倒置にすることで、よりフォーマルな文体となる
+    * shouldの倒置
+        * If you should have any further inquiries, please do not hesitate to contact us. もし他の質問があれば、遠慮なく我々に連絡してください。
+        * Should you have any further inquiries, please do not hesitate to contact us. もし他の質問があれば、遠慮なく我々に連絡してください。
+            * 倒置にする場合は、ifを外し、shouldと主語の位置を入れ替える
+            * こちらのほうがフォーマル
+        * 否定形にする場合は、主語の後にnotを入れる
+            * Should you not have, ...
+    * hadの倒置
+        * If they had known, they would have been more surprised. もし彼らがそれを知っていたら、もっと驚いていただろう。
+        * Had they known, they would have been more surprised. もし彼らがそれを知っていたら、もっと驚いていただろう。
+        * 否定の場合は、主語の後にnotを入れる
+            * Had they not known ...
+    * wereの倒置
+        * If the doors were open, I should remain here. もしドアが開いていたら、私はここにとどまったほうがいい。
+        * Were the doors open, I should remain here. もしドアが開いていたら、私はここにとどまったほうがいい。
+        * 否定の場合は、主語の後にnotを入れる
+            * Were the doors not open, ...
+
+
+## 助動詞
+* 助動詞とは断定を避けるために使う語句
+* 助動詞の基本イメージ
+    * will 強い意志
+    * would 控えめな意思
+    * can 実現可能
+    * could 実現可能かわからない
+    * may 妨げるものがない
+    * might あり得る
+    * shall 何かを負っている
+    * should 義務感
+    * must 強制
+* will
+    * 「強い意志」のイメージ
+    * 実現可能性を表す
+        * I will visit Japan next year. 私は来年日本に旅行に行きます。
+            * 「強い意志」のイメージにより、未来の確からしさを話し手が確信している
+        * They won't get sympathy from some particular people. あなたはある特定の人々からシンパシーを感じないだろう。
+            * will notの短縮形はwon't
+    * 依頼・申し出を表す
+        * Will you copy these documents? これらの書類をコピーしてもらってもいい？
+            * 「強い意思」のイメージにより、相手がそれを当然行ってくれると期待する
+            * 上司が部下に何かをお願いするときに使う
+        * Will you leave the room? この部屋を出て行ってくれませんか？
+            * 場合によっては命令形に近い内容になる
+    * willとbe going toの違い
+        * I will see you at ABC bar. ABCバーで会おうね。
+            * willはその場でしようと決めた未来のことを話す
+        * I'm going to have a drink. 飲みに行くよ。
+            * be going toは話している時点では、すでに決まっている未来のことを話すのに使う
+            * 現在進行形を使うことで、もう確定していて、今まさに飲みに行こうとしている様子が伝わる
+    * be abount to
+        * I'm about to clean my room. （今まさに）掃除をするところです。
+            * 「今すぐ～をする」や「まさに～しようとするところ」のようなイメージ
+* would
+    * 「控えめな意思」のイメージ
+    * 謙虚さを表す
+        * I would say no. 違うと思います。
+        * I would prefer a cup of tea. 紅茶をいただきたいです。
+    * 依頼・申し出を表す
+        * Would you like some milk? ミルクは必要ですか？
+        * What would you do? 何をされたいですか？
+    * 願望を表す(would like)
+        * I would like to copy the documents. この書類をコピーしたいのですが。
+        * I would not like to see it. それを見たくはありません。
+    * 過去の習慣を表す
+        * I would often drink in the bar. 私はよくこのバーで飲んでいた。
+    * 仮定法
+        * If I was you, I would work harder. もし私があなたなら、もっと一生懸命働きます。
+* can
+    *「実現可能」のイメージ
+    * 能力を表す
+        * I can cook miso soup. 私は味噌汁を作ることができる。
+        * He cannot drive. 彼は車の運転ができません。
+            * 否定形はcannot(スペースは空けない)とcan'tの両方を使うことができる
+    * 可能性を表す
+        * Working can be a real pleasure. 労働は真の喜びになり得る。
+        * This cannot be the answer. これは解答にはなり得ない。
+    * 許可を表す
+        * 相手に対して「実現可能」のイメージを使うと、それは「許可」を表す
+            * Anyone can bring a bottle of water. 誰もがボトルの水を持ってきてよい。
+            * Students cannot enter this room. 学生はこの部屋に入れません。
+        * 許可を相手に尋ねるには疑問形を使う
+            * Can I enter the building? そのビルに入ってもいいですか？
+    * 依頼を表すcan
+        * 相手に対して「実現可能」のイメージを使うと、それは「依頼」の意味としても使える
+            * Can you pass me the salt? その塩を取ってもらってもいい？
+        * 相手に「実現可能か？」と尋ねるので、直接的な表現となり、親しい間柄でない限り、使用は避けたほうがよい
+    * canとbe able toの違い
+        * canの「実現可能」には身体的能力だけでなく、状況・場面的な可能性も含む
+        * be able to は能力としての可能性に限られる
+        * 基本的にはcanを使う
+        * be able toを使うパターン
+            * 他の助動詞と一緒に使うとき
+            * 不定詞toの後ろで使うとき
+            * 完了形で使うとき
+* could
+    *「実現可能かわからない」のイメージ
+    * 可能性を表す
+        * It could be the reason. それが理由なのかもしれない
+    * 能力を表す
+        * Mayumi could run faster than anyone else. 真由美は誰よりも早く走ることができた。
+        * I couldn't stop laughing. 私たちは笑いを止めることができなかった。
+    * 依頼を表す
+        * 相手に対して「実現可能かわからない」のイメージなので、canよりも丁寧な印象になる
+        * Could you fill in these blanks please? その空白を埋めてもらってもよろしいでしょうか？
+    * 提案を表す
+        * 依頼と同様、canよりも丁寧な印象になる
+        * You could stop by the office now. あなたは今オフィスによることができるでしょう。
+        * Couldn't you stop by the office now? あなたは今オフィスによることができるでしょうか？(オフィスに行ったらいかがでしょうか？)
+    * 仮定法
+        * I couldn't be happier. 私はこれ以上幸せになることができない。
+        * I could have done the assignment. 私はその課題ができたはずなのに。(実際にはできなかった)
+            * 現在完了のhaveを利用すると、「～できたのに」の意味になる
+* may
+    *「さまげるものがない」のイメージ
+    * 可能性を表す
+        * 「さまたげるものがない」ため、可能性があるイメージ
+        * She may help us. 彼女は我々を助けるかもしれない。
+    * 許可を表す
+        * 「さまたげるものがない」ため、物事を行っても良いという許しを得るイメージがある
+        * You may leave the room. 部屋を出てくれて構いません。
+        * You may not speak. あなたは話し手はいけません。
+        * May I have a cookie? クッキーをいただいてもいいですか？
+* might
+    * 「あり得る」のイメージ
+    * 可能性を表す
+        * It might be one of the reasons. それは理由のうちの1つかもしれない。
+    * 提案を表す
+        * mayよりも丁寧
+        * You might want to use "the" instead of "a". あなたはaの代わりにtheを使いたいかもしれない=使ったほうがいいよ
+* shall
+    * 「何かを負っている」のイメージ
+    * 未来を表す
+        * 「何かを負っている」のイメージで、比較的実現可能性の高い未来を示す
+        * This report shall evaluate the current strategies of Japan as a turist destination. このレポートは観光地としての日本の現在の戦略を評価する。
+    * 提案を表す
+        * 「何かを負っているか」を確かめるイメージ
+        * Shall I contact the president? 社長に連絡をしましょうか？
+        * Shall we start cooking? 料理を開始しませんか？
+* should
+    * 「義務感」のイメージ
+    * 見込みを表す
+        * I should arrive by lounch time. ランチタイムまでに到着する見込みです。
+        * That shouldn't be too dificult. それは難しすぎるということはないでしょう。
+    * 助言を表す
+        * You should consult a doctor. あなたは医者に診てもらったほうがいいですよ。
+        * They shouldn't join the party. 彼らはパーティーに参加すべきではない。
+    * 仮定法
+        * If you should need any further information, please do not hesitate to contact me. もしあなたがさらなる情報が必要であれば、どうぞお気軽にご連絡ください。
+        * 現在完了のhaveを用いれば、「～できたのに」の意味になる
+            * I should have noticed it. それに気が付くべきだったのに。(実際には気が付かなかった)
+            * You shouldn't have taken a taxi. あなたはタクシーに乗るべきではなかったのに。（実際には乗った）
+* must
+    * 「強制」のイメージ
+    * 強制を表す
+        * You must study hard. あなたは一生懸命勉強しなくてはならない。
+    * 確からしさを表す
+        * You must be tired. あなたは疲れているに違いない。
+        * 否定の場合は、cannotを使用する
+            * She can't very old. 彼女が年を取っているわけがない
+
+
 ## Obligation(義務)
 * have to
     * (話し手の意思ではなく)総合的・客観的に判断して「～しなければならない」
