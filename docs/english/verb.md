@@ -7,7 +7,7 @@
 | [否定形](#否定形)                 | 文章全体を「～でない」の意味で否定することを指す |
 | [疑問文](#疑問文)                 | 平叙文、付加疑問文、間接疑問文、Yes-No疑問文、選択疑問文、WH疑問文 |
 | [使役動詞](#使役動詞)             | 「～させる」の意味で、動作や状態を起こさせる動詞(make, have, let, get, help) |
-| [自動詞・他動詞](#自動詞・他動詞) | 自動詞(目的語が必須ではない、目的語を持つ場合は前置詞が必須)、他動詞(目的語が必須、前置詞を付けてはいけない) |
+| [自動詞/他動詞](#自動詞/他動詞) | 自動詞(目的語が必須ではない、目的語を持つ場合は前置詞が必須)、他動詞(目的語が必須、前置詞を付けてはいけない) |
 | [命令形](#命令形)                 | 話し手が聞き手に対して、命令・指示・提案・依頼などを行う際に使う用法 |
 | [時制](#時制)                     | 時制とは、時間軸(現在と過去のみ)と焦点の組み合わせ |
 | [受動態](#受動態)                 | 一般的な英文では主語が動作を行うのに対し、受動態では主語が動作の対象そのものになる |
@@ -213,31 +213,27 @@
     * 厳密な英文法では、分詞と共に使うhaveは使役動詞ではない
 
 
-## 目的語
-* 動詞の目的となる言葉
-* I watched a movie の a movie
-
-
-## 自動詞・他動詞
-### 自動詞
-* 目的語が必須ではない
-    * He came.
-* 目的語が続く場合には必ず前置詞が必要になる
-    * He came to my house.
-
-### 他動詞
-* 目的語が必須
-* 意味に「～に」や「～を」が含まれるため前置詞は不要となる(つけてはいけない）
-    * She married him.
-* 目的語を二つもてる他動詞もある
-    * I gave her an apple.
-
-### 自動詞・他動詞の使い分けは慣れ
-* 自動詞としてしか使えないもの、他動詞としてしか使えないもの、またほとんどの動詞が、自動詞としても他動詞としても使えるので慣れが必要
-* 自動詞と間違われやすい他動詞
-    * approach, attend, discuss, enter, marry, mention, obey, oppose, reach, resemble
-* 他動詞と間違われやすい自動詞
-    * aggree with, aplogize to A for B, approve of, belong to, complain of/about, get to, graduate from , hope for, object to, refer to
+## 自動詞/他動詞
+* 目的語
+    * 動詞の目的となる言葉
+    * I watched a movie の a movie
+* 自動詞
+    * 目的語が必須ではない
+        * He came.
+    * 目的語が続く場合には必ず前置詞が必要になる
+        * He came to my house.
+* 他動詞
+    * 目的語が必須
+    * 意味に「～に」や「～を」が含まれるため前置詞は不要となる(つけてはいけない）
+        * She married him.
+    * 目的語を二つもてる他動詞もある
+        * I gave her an apple.
+* 自動詞・他動詞の使い分けは慣れ
+    * 自動詞としてしか使えないもの、他動詞としてしか使えないもの、またほとんどの動詞が、自動詞としても他動詞としても使えるので慣れが必要
+    * 自動詞と間違われやすい他動詞
+        * approach, attend, discuss, enter, marry, mention, obey, oppose, reach, resemble
+    * 他動詞と間違われやすい自動詞
+        * aggree with, aplogize to A for B, approve of, belong to, complain of/about, get to, graduate from , hope for, object to, refer to
 
 
 ## 命令形
@@ -378,7 +374,7 @@
         * I tought you would miss your flight. 私はあなたが飛行機に乗り遅れるだろうと思った。
 
 
-* 受動態
+## 受動態
     * be動詞に動詞の完了形を組み合わせることで作ることができる
     * 一般的な英文では主語が動作を行うのに対し、受動態では主語が動作の対象そのものになる
         * I lock the gate at 10 o'clock every night. 私はそのゲートを毎晩10時に閉める
@@ -620,7 +616,7 @@
             * She can't very old. 彼女が年を取っているわけがない
 
 
-## Obligation(義務)
+## 義務
 * have to
     * (話し手の意思ではなく)総合的・客観的に判断して「～しなければならない」
     * Examples
