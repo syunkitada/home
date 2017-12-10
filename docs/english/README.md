@@ -3,7 +3,7 @@
 ## Contents
 | Link | Description |
 | --- | --- |
-| [Noun(名詞)](noun.md) | 名詞、動名詞、to不定詞、代名詞、限定詞 |
+| [Noun(名詞)](noun.md) | 名詞、動名詞、to不定詞、代名詞、冠詞、数量詞 |
 | [Adjective(形容詞)](adjective.md) | 名詞を修飾するもの |
 | [Adverb(副詞)](adverb.md) | 名詞以外を修飾するもの |
 | [Verb(動詞)](verb.md) | 動詞 |
