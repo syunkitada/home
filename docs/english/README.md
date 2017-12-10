@@ -6,7 +6,7 @@
 | [Noun(名詞)](noun.md) | 名詞、動名詞、to不定詞、代名詞、冠詞、数量詞 |
 | [Adjective(形容詞)](adjective.md) | 名詞を修飾するもの |
 | [Adverb(副詞)](adverb.md) | 名詞以外を修飾するもの |
-| [Verb(動詞)](verb.md) | 動詞 |
+| [Verb(動詞)](verb.md) | be動詞、否定形、疑問文、使役動詞、自動詞と他動詞、命令形、時制、受動態、仮定法、助動詞 |
 | [RelativePronoun(関係代名詞)](relative_pronoun.md) | 名詞の後ろから情報を付け足す語句(that, which, who, whose, what) |
 | [Participle(分詞)](participle.md) | 文章あるいは単語に情報を付け足すパーツ(現在分詞-ing, 過去分詞-ed) |
 | [Conjunction(接続詞)](conjunction.md) | ある語句や文に他の語句や文を接続する役割を持った言葉 |
