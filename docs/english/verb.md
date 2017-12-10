@@ -1,5 +1,22 @@
 # Verb(動詞)
 
+## 目次
+| Link | Description |
+| --- | --- |
+| [be動詞](#be動詞)                 | 「～である」の意味を持つ |
+| [否定形](#否定形)                 | 文章全体を「～でない」の意味で否定することを指す |
+| [疑問文](#疑問文)                 | 平叙文、付加疑問文、間接疑問文、Yes-No疑問文、選択疑問文、WH疑問文 |
+| [使役動詞](#使役動詞)             | 「～させる」の意味で、動作や状態を起こさせる動詞(make, have, let, get, help) |
+| [自動詞・他動詞](#自動詞・他動詞) | 自動詞(目的語が必須ではない、目的語を持つ場合は前置詞が必須)、他動詞(目的語が必須、前置詞を付けてはいけない) |
+| [命令形](#命令形)                 | 話し手が聞き手に対して、命令・指示・提案・依頼などを行う際に使う用法 |
+| [時制](#時制)                     | 時制とは、時間軸(現在と過去のみ)と焦点の組み合わせ |
+| [受動態](#受動態)                 | 一般的な英文では主語が動作を行うのに対し、受動態では主語が動作の対象そのものになる |
+| [仮定法](#仮定法)                 | 事実と異なる仮定の状況を述べる際、それを相手に伝えるための文法 |
+| [助動詞](#助動詞)                 | 助動詞とは断定を避けるために使う語句 |
+| [義務](#義務)                     | have to, need to, must, should, ought to, had better |
+| [予定を伝える](#予定を伝える)     | will, be going to, be about to, be supposed to |
+
+
 ## be動詞
 * 「～である」の意味を持つ
 * 「（何かがどこかに)ある」というイメージ
@@ -669,36 +686,34 @@
 * be abount to
     * I'm about to clean my room. （今まさに）掃除をするところです。
         * 「今すぐ～をする」や「まさに～しようとするところ」のようなイメージ
-
-
-## be supposed to
-* 「～することになっている」「～するはず」
-    * You are supposed to hand in the report by tomorrow.
-        * 明日までにレポートを提出することになっている
-    * You are not supposed to smoke here.
-        * ここでは禁煙です。
-    * Everybody is supposed to wear a tie at the party.
-        * そのパーティーでは全員ネクタイを着用することになっている。
-* 「～することになっている」「～するはず」
-    * She is supposed to be good at cooking
-        * 彼女は料理が上手なはずだ。
-    * What am I supposed to do?
-        * 私はどうすればいいのですか?
-    * I'm supposed to start work here today.
-        * 今日から務めることになっている
-* 「～するはずだった（のにしなかった）」
-    * He was supposed to go there at 7 p.m.
-        * 彼は午後7時にそこに行くはずだった
-    * We were supposed to meet at 9:00.
-        * 9時の約束だぞ。
-* 「～するものである「「～すると予測されている」
-    * This food is supposed to provide all the nutrition you need.
-        * この食べ物は必要な栄養すべてを供給することになっている。
-    * Even a child is supposed to have reason.
-        * 子供でも理性があると考えられている
-    * All you slopes are supposed to be good at math, right?
-        * アジア人は計算が得意だと言われているな。
-            * slopeはアメリカ人がアジア人に軽蔑して言う言葉なので注意（たれ目の傾斜からきている)
-* [～しなくてもよかった」「～してはまずかった」
-    * You were not supposted to hear that.
-        * あなたはそれを聞くべきではなかった
+* be supposed to
+    * 「～することになっている」「～するはず」
+        * You are supposed to hand in the report by tomorrow.
+            * 明日までにレポートを提出することになっている
+        * You are not supposed to smoke here.
+            * ここでは禁煙です。
+        * Everybody is supposed to wear a tie at the party.
+            * そのパーティーでは全員ネクタイを着用することになっている。
+    * 「～することになっている」「～するはず」
+        * She is supposed to be good at cooking
+            * 彼女は料理が上手なはずだ。
+        * What am I supposed to do?
+            * 私はどうすればいいのですか?
+        * I'm supposed to start work here today.
+            * 今日から務めることになっている
+    * 「～するはずだった（のにしなかった）」
+        * He was supposed to go there at 7 p.m.
+            * 彼は午後7時にそこに行くはずだった
+        * We were supposed to meet at 9:00.
+            * 9時の約束だぞ。
+    * 「～するものである「「～すると予測されている」
+        * This food is supposed to provide all the nutrition you need.
+            * この食べ物は必要な栄養すべてを供給することになっている。
+        * Even a child is supposed to have reason.
+            * 子供でも理性があると考えられている
+        * All you slopes are supposed to be good at math, right?
+            * アジア人は計算が得意だと言われているな。
+                * slopeはアメリカ人がアジア人に軽蔑して言う言葉なので注意（たれ目の傾斜からきている)
+    * [～しなくてもよかった」「～してはまずかった」
+        * You were not supposted to hear that.
+            * あなたはそれを聞くべきではなかった
