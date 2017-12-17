@@ -1,5 +1,17 @@
 # カーネル起動時の処理
 
+
+## 目次
+| Link | Description |
+| --- | --- |
+| [/bootの中身](#/bootの中身)                                                                           | Centos7, Ubuntu16の/bootの中身 |
+| [ブートローダの仕組み](#ブートローダの仕組み)                                                         | ブートローダの仕組み |
+| [カーネルモジュール](#カーネルモジュール)                                                             | カーネルモジュールについて、モジュールのロードアンロード |
+| [udevとデバイスの自動認識とモジュールの自動ロード](#udevとデバイスの自動認識とモジュールの自動ロード) | udev、デバイスの自動認識フロー |
+| [lspci](#lspci)                                                                                       | lspciの見方 |
+| [参考](#参考)                                                                                         | 参考 |
+
+
 ## /bootの中身
 * Centos7
     * config-3.10.0-514.10.2.el7.x86_64
@@ -59,6 +71,8 @@
         * initramfsの中のドライバモジュールを使ってルートファイルシステムが入ったディスクを読みこむ
             * ルートファイルシステムがネットワーク上にある場合も、このような仕組みでロードできる
         * 不要になったら、途中で本体のファイルシステムと入れ替えられる
+* カーネルの実行引数: /proc/cmdline
+    * BOOT_IMAGE=/boot/vmlinuz-4.4.0-59-generic root=UUID=c5a29305-9548-4405-a4d2-5687eda29d87 ro hugepagesz=1G hugepages=8 default_hugepagesz=1G quiet splash vt.handoff=7
 
 
 ## カーネルモジュール
@@ -135,13 +149,6 @@ $ lscpi -n
 00:1f.0 0601: 8086:8cc6
 00:1f.2 0106: 8086:8c82
 00:1f.3 0c05: 8086:8ca2
-```
-
-
-## カーネルの実行引数: /proc/cmdline
-```
-$ cat /proc/cmdline
-BOOT_IMAGE=/boot/vmlinuz-4.4.0-59-generic root=UUID=c5a29305-9548-4405-a4d2-5687eda29d87 ro hugepagesz=1G hugepages=8 default_hugepagesz=1G quiet splash vt.handoff=7
 ```
 
 
