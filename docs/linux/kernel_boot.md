@@ -4,7 +4,7 @@
 ## 目次
 | Link | Description |
 | --- | --- |
-| [/bootの中身](#/bootの中身)                                                                           | Centos7, Ubuntu16の/bootの中身 |
+| [bootの中身](#bootの中身)                                                                             | Centos7, Ubuntu16の/bootの中身 |
 | [ブートローダの仕組み](#ブートローダの仕組み)                                                         | ブートローダの仕組み |
 | [カーネルモジュール](#カーネルモジュール)                                                             | カーネルモジュールについて、モジュールのロードアンロード |
 | [udevとデバイスの自動認識とモジュールの自動ロード](#udevとデバイスの自動認識とモジュールの自動ロード) | udev、デバイスの自動認識フロー |
@@ -12,8 +12,8 @@
 | [参考](#参考)                                                                                         | 参考 |
 
 
-## /bootの中身
-* Centos7
+## bootの中身
+* Centos7の/boot
     * config-3.10.0-514.10.2.el7.x86_64
         * Kernelビルド時のオプション
     * initramfs-3.10.0-514.10.2.el7.x86_64.img
@@ -47,7 +47,7 @@
     * vmlinuz-0-rescue-df877a200226bc47d06f26dae0736ec9
     * grub
     * grub2
-* Ubuntu16
+* Ubuntu16の/boot
     * config-4.4.0-59-generic
         * Centosと同上
     * initrd.img-4.4.0-59-generic
