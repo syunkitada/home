@@ -122,6 +122,8 @@ $ cat /proc/self/numa_maps
         * Active, Inactiveには合算されないので、これはこれで見る必要がある
     * SReclaimable: slabの中で、回収可能なメモリ
     * SUnreclaim: slabの中で、回収不可なめもり
+    * CommitLimit: プロセスが確保できるメモリの制限値
+    * Commited_AS: プロセスが割り当て要求の総量(使用量ではない)
 
 * メモリ不足かどうかの判断基準
     * swap in/outが頻発は、性能が大きく低下するのでこれは避けなければならない
