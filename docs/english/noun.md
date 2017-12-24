@@ -9,7 +9,7 @@
 | [to不定詞の名詞的用法](#to不定詞の名詞的用法) | 動作に向かっている様子を概念化し、名詞として使う用法 |
 | [代名詞](#代名詞)                             | 人称代名詞(I, we, you, he, she, it, they)、代名詞(it, there)、指示代名詞(this, that, these, those)、不定代名詞(one, another, other, the other, every-, some-, any-, no-)、再起代名詞(-self) |
 | [冠詞](#冠詞)                                 | 定冠詞(the)、不定冠詞(a, an)、無冠詞、加算名詞、不加算名詞 |
-| [数量詞](#数量詞)                             | all, every, each, half, sume, any, many, much, a lot of, more, most, enough, few, little, a few, a little, no, none, several, both, either, neither |
+| [数量詞](#数量詞)                             | all, every, each, half, some, any, many, much, a lot of, more, most, enough, few, little, a few, a little, no, none, several, both, either, neither |
 
 ## 名詞の見分け方
 * 語尾が特徴なので、推測できるよう覚える
@@ -151,7 +151,7 @@
     * 人を紹介するとき
         * This is my secretary, Hitomi.
     * すでに出てきたモノ・コト・ヒトに言及するとき
-        * I wrote a new book called The Art of Enterpreneurship. This book refrects my experience as a enterpreneur.
+        * I wrote a new book called The Art of Entrepreneurship. This book refrects my experience as a entrepreneur.
         * これは、代名詞というよりかは冠詞の使い方である
 * 不定代名詞 one, another, other, the other
     * one: ある不特定の一つのものを指す、2つ以上ある選択肢の中から、どちらか一つに言及する場合に有効
@@ -270,7 +270,7 @@
             * 子供に関する一般論として述べている
             * 世の中にはたくさんの子供がいるが、そのどの子供をとっても愛が必要だと言っている
     * 固有名詞と共に用いる
-        * Sony cancell the the move's release. ソニーはその映画の公開を取りやめた。
+        * Sony cancell the move's release. ソニーはその映画の公開を取りやめた。
             * 通常は、固有名詞には無冠詞を用いる
         * I can't afford to buy a Sony. ソニー製品を買う金銭的な余裕はない。
             * a/anを使うと、「形のあるモノ」にとらえられる
@@ -373,7 +373,7 @@
             * I dog-eared almost every page. 私はほとんどのページの隅を折った。
         * 複数形も一つのカタマリととらえることで利用できる
             * every four days
-                * for days(4日間)を一つのカタマリと捉え、それをeveryで区分している
+                * four days(4日間)を一つのカタマリと捉え、それをeveryで区分している
 * each
     * 「それぞれ」を意味する
     * 2つ以上のモノについて、個別的に言及するイメージ
@@ -388,7 +388,7 @@
     * 代名詞としても利用される
         * half of the revenue 売り上げの半分
 * some, somebody, someone, something, somewhere
-    * sumeは漠然とした数量が「ある」ことを指す語句
+    * someは漠然とした数量が「ある」ことを指す語句
     * 否定文との相性が悪い
     * テーブルの上に何かが「ある」が、その具体手になモノが分からないというイメージ
         * There is something on the table. そのテーブルの上に何かがある
