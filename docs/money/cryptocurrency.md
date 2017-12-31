@@ -94,7 +94,7 @@ sudo reboot
 * ethminerをダウンロードして以下を実行
 ```
 $ ./ethminer --farm-recheck 200 -U -S asia1.ethermine.org:4444 -FS asia1.ethermine.org:14444 -O [your address]
-
+```
 
 ### おまけ: pinningしてみた
 ```
