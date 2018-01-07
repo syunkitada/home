@@ -1,4 +1,4 @@
-# ハードウェアから見たメモリ
+# メモリ(ハードウェア)
 
 ## 規格
 * [DDR4](https://ja.wikipedia.org/wiki/DDR4_SDRAM)
