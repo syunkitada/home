@@ -3,12 +3,13 @@
 ## Contents
 | Link | Description |
 | --- | --- |
-| [kubeadm](https://kubernetes.io/docs/getting-started-guides/kubeadm/) | 開発用のkubernetesを構築するためのコマンド |
+| [kubeadm](https://kubernetes.io/docs/getting-started-guides/kubeadm/) | 開発用のkubernetesを構築するためのツール |
 | [Helloworld](helloworld.md) | ReplicationController, Serviceを使ってみる |
 | [Resource](resource.md) | KubernetesのResourceに関するメモ |
 | [Architecture](architecture.md) | KubernetesのArchitectureに関するメモ |
 | [Ingress](ingress.md) | L7ロードバランサの機能を提供します |
 | [Helm](helm.md) | Kubernetesのパッケージマネージャ |
+| [Operation](operation.md) | 運用視点でのメモ |
 
 
 ## External Links

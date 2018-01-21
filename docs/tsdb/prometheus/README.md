@@ -60,11 +60,23 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 ```
+* scrapeするtargetのことをinstanceと呼ぶ
+    * instanceは、localhost:9090 のように<host>:<port>で定義される
+* 同タイプのinstanceのコレクションをjobと呼ぶ
+* prometheusは、targetをscrapeするとき、いくつかのラベルを自動で付与する
+    * job_name、instanceのラベルは自動で付与される
+        * up{job="<job-name>", instance="<instance-id>"}: 1
+
+
+## sd_config
+https://github.com/prometheus/docs/blob/master/content/docs/operating/configuration.md#kubernetes_sd_config
 
 
 ## スケーリングとフェデレーション
-* prometheus自体はクラスタなどの機能はなくスケールしない
+* prometheus自体はクラスタなどの機能はなくスケールもしない
 * 複数のprometheusをフェデレーションするprometheusを立てることでスケールさせていく
+
+設定例
 ```
 - scrape_config:
   - job_name: dc_prometheus
@@ -78,6 +90,38 @@ scrape_configs:
         - dc1-prometheus:9090
         - dc2-prometheus:9090
 ```
+* prometheusは/federate エンドピントを提供しており、ここからメトリクスを取得できる
+* match[]: 取得するjobを正規表現で指定する
+* honor_labels: をtrueにすると、ソースサーバから収集したメトリクスのラベルを上書きしないよようになる
+
+
+## 冗長性について
+* メトリクスの収集経路を多重化することで冗長性を確保できる
+* 末端のprometheus slaveがダウンした場合、もう片方のprometheus slaveからメトリクスは収集可能
+* prometheus masterがダウンした場合、もう片方のprometheus masterにuserはアクセスできる
+    * masterが一度ダウンしてしまうと、ダウンした期間のデータは保存できず、歯抜けとなってしまう
+    * 監視用途や数日程度のメトリックス閲覧を目的とした使い方であればよいが、長期的に安定してデータを保持する用途には向かない
+```
+|node-exporter|  ->
+|node-exporter|  -> |prometheus slave|    |prometheus master| - |grafana|
+|node-exporter|  ->                    ->                                  <- |LB| <- user
+|node-exporter|  ->                    ->                                  <- |LB| <- user
+|node-exporter|  -> |prometheus slave|    |prometheus master| - |grafana|
+|node-exporter|  ->
+```
+
+
+## タイムスタンプについて
+* メトリクスのタイムスタンプはメトリクスが保存されるときに決定される
+* exporterや、push時にメトリクスにタイムスタンプを設定することはできない
+
+
+## アグリゲートについて
+* https://prometheus.io/docs/querying/rules/
+* recording rulesを記述することでアグリゲートが可能
+    * 通信トータルから、1分間のrateを計算したり、1分間の合計を計算したりといろいろできる
+* メトリクス名ごとに一つづつ定義しないといけないため、すべてのメトリクスの5分平均だけを保存するとかができない
+
 
 ## Install and Start
 ``` bash
@@ -104,3 +148,8 @@ INFO[0000] Listening on :9090
 
 ## blackbox exporter
 * サービスのヘルスチェックができる
+
+
+## Reference
+* [AbemaTVにおけるモニタリング](https://speakerdeck.com/nghialv/monitoring-at-abematv)
+* [AbemaTVにPrometheusというモニタリングシステムを導入した話](https://developers.cyberagent.co.jp/blog/archives/3814/)

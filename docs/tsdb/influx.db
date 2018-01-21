@@ -1,0 +1,46 @@
+# InfluxDB
+
+```
+$ influx
+
+> create database mydb
+> show databases
+> use mydb
+
+```
+[[inputs.cpu]]
+
+[[inputs.disk]]
+
+[[inputs.diskio]]
+
+[[inputs.mem]]
+
+[[inputs.processes]]
+
+[[inputs.swap]]
+
+[[inputs.system]]
+
+[[inputs.cgroup]]
+
+[[inputs.conntrack]]
+
+[[inputs.interrupts]]
+
+
+[[inputs.interrupts]]
+
+[[inputs.kernel_vmstat]]
+/proc/vmstat
+
+[[inputs.linux_sysctl_fs]]
+
+
+[[inputs.procstat]]
+
+[[inputs.nstat]]
+
+[[inputs.netstat]]
+
+[[inputs.net]]
