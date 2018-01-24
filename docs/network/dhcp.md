@@ -12,7 +12,7 @@
 | [DHCPメッセージ](#DHCPメッセージ)             | |
 | [初回リース時のフロー](#初回リース時のフロー) | |
 | [リース延長時のフロー](#リース延長時のフロー) | |
-| [DHCP Relay](#DHCP Relay)                     | |
+| [DHCPリレー](#DHCPリレー)                     | |
 | [DHCPの冗長化](#DHCPの冗長化)                 | |
 | [参考](#参考)                                 | |
 
@@ -66,7 +66,7 @@
     * 一般的にRebinding Timeは、Address Timeの75%で設定される
 
 
-## DHCP Relay
+## DHCPリレー
 * DHCPを使うには同セグにDHCPサーバを設置する必要があるが、あるセグから他セグのDHCPサーバへDHCPメッセージを仲介する「DHCP Relay」という仕組みがある
 * DHCP Relayはルータがサポートしている場合が多い
 
