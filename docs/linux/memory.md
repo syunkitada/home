@@ -1,5 +1,11 @@
 # メモリ
 
+## コマンド
+```
+# 搭載メモリ情報を表示する
+$ sudo dmidecode -t memory
+```
+
 
 ## ページ/VSS/RSS/PageFault/デマンドページング/SegmentationFault
 * Linuxでは、メモリを「ページ」と呼ばれる単位で管理している

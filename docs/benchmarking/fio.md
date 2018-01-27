@@ -43,3 +43,10 @@ Disk stats (read/write):
 
 
 
+
+
+fio
+-direct write, direct read
+-bs=16k
+-size={10GB*1, 5GB*2, 2.5GB*4, 1.25GB*8, 0.625GB*16, 0.312GB*32}
+-numjobs={1,2,4,8,16,32}
