@@ -35,7 +35,7 @@ $ sysbench --test=cpu run --num-threads=1
 * 実行オプション
     * --cpu-max-prime=N upper limit for primes generator [10000]
 ```
-$ sysbench --num-threads={1,2,4,...,max_cpu_core} cpu run --cpu-max-prime=100000
+$ sysbench --threads={1,2,4,...,max_cpu_core} cpu run --cpu-max-prime=100000
 CPU speed:
     events per second:    50.10
 
@@ -55,6 +55,7 @@ Threads fairness:
     execution time (avg/stddev):   10.0179/0.00
 ```
 
+
 ## threads
 * スケジューラパフォーマンスのベンチマーク
 * sysbenchは、特定数のスレッド(thread-yields)と特定数のmutex(thread-locks)を作成する
@@ -62,6 +63,37 @@ Threads fairness:
 * 実行オプション
     * --thread-yields=N number of yields to do per request [1000]
     * --thread-locks=N  number of locks per thread [8]
+
+```
+$ sysbench --threads=2 threads run --thread-yields=1000 --thread-locks=8
+sysbench 1.0.9 (using system LuaJIT 2.0.4)
+
+Running the test with following options:
+Number of threads: 2
+Initializing random number generator from current time
+
+
+Initializing worker threads...
+
+Threads started!
+
+
+General statistics:
+    total time:                          10.0002s
+    total number of events:              115144
+
+Latency (ms):
+         min:                                  0.14
+         avg:                                  0.17
+         max:                                  9.43
+         95th percentile:                      0.20
+         sum:                              19973.25
+
+Threads fairness:
+    events (avg/stddev):           57572.0000/266.00
+    execution time (avg/stddev):   9.9866/0.00
+```
+
 
 
 ## mutex
@@ -71,6 +103,36 @@ Threads fairness:
     * --mutex-num=N   total size of mutex array [4096]
     * --mutex-locks=N number of mutex locks to do per thread [50000]
     * --mutex-loops=N number of empty loops to do outside mutex lock [10000]
+
+```
+$ sysbench --threads=2 mutex run
+sysbench 1.0.9 (using system LuaJIT 2.0.4)
+
+Running the test with following options:
+Number of threads: 2
+Initializing random number generator from current time
+
+
+Initializing worker threads...
+
+Threads started!
+
+
+General statistics:
+    total time:                          0.1270s
+    total number of events:              2
+
+Latency (ms):
+         min:                                120.75
+         avg:                                122.76
+         max:                                124.77
+         95th percentile:                    125.52
+         sum:                                245.52
+
+Threads fairness:
+    events (avg/stddev):           1.0000/0.00
+    execution time (avg/stddev):   0.1228/0.00
+```
 
 
 ## memory
@@ -84,6 +146,9 @@ Threads fairness:
     * --memory-hugetlb[=on|off]   allocate memory from HugeTLB pool [off]
     * --memory-oper=STRING        type of memory operations {read, write, none} [write]
     * --memory-access-mode=STRING memory access mode {seq,rnd} [seq]
+```
+$ sysbench --threads=2 memory run --memory-oper=write --memory-access-mode=seq
+```
 
 
 ## fileio
@@ -108,48 +173,47 @@ Threads fairness:
     * dsync
     * direct
 * 実行オプション
-  --file-num=N              number of files to create [128]
-  --file-block-size=N       block size to use in all IO operations [16384]
-  --file-total-size=SIZE    total size of files to create [2G]
-  --file-test-mode=STRING   test mode {seqwr, seqrewr, seqrd, rndrd, rndwr, rndrw}
-  --file-io-mode=STRING     file operations mode {sync,async,mmap} [sync]
-  --file-async-backlog=N    number of asynchronous operatons to queue per thread [128]
-  --file-extra-flags=STRING additional flags to use on opening files {sync,dsync,direct} []
-  --file-fsync-freq=N       do fsync() after this number of requests (0 - don't use fsync()) [100]
-  --file-fsync-all[=on|off] do fsync() after each write operation [off]
-  --file-fsync-end[=on|off] do fsync() at the end of test [on]
-  --file-fsync-mode=STRING  which method to use for synchronization {fsync, fdatasync} [fsync]
-  --file-merged-requests=N  merge at most this number of IO requests if possible (0 - don't merge) [0]
-  --file-rw-ratio=N         reads/writes ratio for combined test [1.5]
+    * --file-num=N              number of files to create [128]
+    * --file-block-size=N       block size to use in all IO operations [16384]
+    * --file-total-size=SIZE    total size of files to create [2G]
+    * --file-test-mode=STRING   test mode {seqwr, seqrewr, seqrd, rndrd, rndwr, rndrw}
+    * --file-io-mode=STRING     file operations mode {sync,async,mmap} [sync]
+    * --file-async-backlog=N    number of asynchronous operatons to queue per thread [128]
+    * --file-extra-flags=STRING additional flags to use on opening files {sync,dsync,direct} []
+    * --file-fsync-freq=N       do fsync() after this number of requests (0 - don't use fsync()) [100]
+    * --file-fsync-all[=on|off] do fsync() after each write operation [off]
+    * --file-fsync-end[=on|off] do fsync() at the end of test [on]
+    * --file-fsync-mode=STRING  which method to use for synchronization {fsync, fdatasync} [fsync]
+    * --file-merged-requests=N  merge at most this number of IO requests if possible (0 - don't merge) [0]
+    * --file-rw-ratio=N         reads/writes ratio for combined test [1.5]
 
 ```
-$ sysbench --num-threads=16 --test=fileio --file-total-size=3G --file-test-mode=rndrw prepare
-$ sysbench --num-threads=16 --test=fileio --file-total-size=3G --file-test-mode=rndrw run
-$ sysbench --num-threads=16 --test=fileio --file-total-size=3G --file-test-mode=rndrw cleanup
+$ sysbench --num-threads=2 --test=fileio --file-total-size=3G --file-test-mode=rndrw prepare
+$ sysbench --num-threads=2 --test=fileio --file-total-size=3G --file-test-mode=rndrw run
+$ sysbench --num-threads=2 --test=fileio --file-total-size=3G --file-test-mode=rndrw cleanup
 ```
 
 
 ## oltp
 * データベースパフォーマンスのベンチマーク
-* prepareステージで、以下のデータベースを作成する
-```
- CREATE TABLE `sbtest` (
- `id` int(10) unsigned NOT NULL auto_increment,
- `k` int(10) unsigned NOT NULL default '0',
- `c` char(120) NOT NULL default '',
- `pad` char(60) NOT NULL default '',
- PRIMARY KEY (`id`),
- KEY `k` (`k`));
-```
+* testモードにはoltpという項目はなく、スクリプト(/usr/share/sysbench/oltp_*)を指定して実行する
+* prepareで、以下のようなデータベースを作成し、runでベンチマークを行い、cleanupでtableを削除する
 
-sysbench --db-driver=mysql --mysql-user=root --mysql-password=<pwd> \
-  --mysql-socket=<mysql.sock path> --mysql-db=foo --range_size=100 \
-  --table_size=10000 --tables=2 --threads=1 --events=0 --time=60 \
-  --rand-type=uniform /usr/share/sysbench/oltp_read_only.lua run
+```
+$ sudo yum install mariadb-server
+$ sudo systemctl start mariadb
+$ mysql -uroot -e 'create database sysbench'
+$ mysql -uroot -e "GRANT ALL ON sysbench.* TO 'sysbench'@'%' IDENTIFIED BY 'sysbench'"
 
-oltp_delete.lua            oltp_point_select.lua      oltp_read_write.lua        oltp_update_non_index.lua
-oltp_insert.lua            oltp_read_only.lua         oltp_update_index.lua      oltp_write_only.lua
+$ sysbench --db-driver=mysql --mysql-user=sysbench --mysql-password=sysbench --mysql-socket=/var/lib/mysql/mysql.sock --mysql-db=sysbench --range_size=100   --table_size=10000 --tables=2 --threads=1 --events=0 --time=60   --rand-type=uniform /usr/share/sysbench/oltp_read_write.lua prepare
+$ sysbench --db-driver=mysql --mysql-user=sysbench --mysql-password=sysbench --mysql-socket=/var/lib/mysql/mysql.sock --mysql-db=sysbench --range_size=100   --table_size=10000 --tables=2 --threads=1 --events=0 --time=60   --rand-type=uniform /usr/share/sysbench/oltp_read_write.lua run
+$ sysbench --db-driver=mysql --mysql-user=sysbench --mysql-password=sysbench   --mysql-socket=/var/lib/mysql/mysql.sock --mysql-db=sysbench --range_size=100   --table_size=10000 --tables=2 --threads=1 --events=0 --time=60   --rand-type=uniform /usr/share/sysbench/oltp_read_write.lua cleanup
+
+# ubuntuだとmysqld.sockは以下
+/var/run/mysqld/mysqld.sock
+```
 
 
 ## 参考
 * http://imysql.com/wp-content/uploads/2014/10/sysbench-manual.pdf
+* https://github.com/akopytov/sysbench
