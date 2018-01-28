@@ -1,12 +1,14 @@
 # unixbench
 
 
-## CentOS7
-実行方法
+## CentOS7でのインストール実行方法
 ```
+# インストール
 $ yum -y install perl perl-Time-HiRes make gcc git
 $ git clone https://github.com/kdlucas/byte-unixbench
 $ cd byte-unixbench/UnixBench
+
+# 実行
 $ ./Run
 ```
 
