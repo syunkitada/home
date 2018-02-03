@@ -5,8 +5,8 @@
 | Link | Description |
 | --- | --- |
 | [SMTPとPOP3とIMAP4](#SMTPとPOP3とIMAP4) | STMP, POP3, IMAP4を踏まえ、メール送受信の仕組みについて |
-| [WebメールとIMAP)(#WebメールとIMAP)     | Webメールについて |
-| [用語メモ)(#用語メモ)                   | ただの用語メモ |
+| [WebメールとIMAP](#WebメールとIMAP)     | Webメールについて |
+| [用語メモ](#用語メモ)                   | ただの用語メモ |
 
 
 ## SMTPとPOP3とIMAP4
