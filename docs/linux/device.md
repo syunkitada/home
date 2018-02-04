@@ -1,3 +1,76 @@
+# デバイス
+
+
+## CPUとデバイスのやり取り
+* デバイスコントローラとデバイスドライバ
+    * 各I/O機器はそれぞれデバイスコントローラを持ち、デバイスコントローラとCPUが接続されている
+    * 例外的にいくつかの機器が、ひとつのデバイスコントローラを共有する場合もある(例: SCSI)
+    * デバイスコントローラは、データ用と制御用のいくつかのレジスタを持つ
+    * 各デバイスコントローラに対して、OSはそのI/O機器用のデバイスドライバを持つ
+    * デバイスドライバは、デバイスコントローラのレジスタの読み書きを通して、機器を制御する
+* CPUは、番地(アドレス)を指定して、デバイスへのデータの読み書きする
+* アドレス空間は以下の2種類がある
+    * I/OマップドI/O
+        * アドレス空間=メモリ空間+I/O空間
+        * 物理メモリ空間とは別のI/O空間に割り当てられたポートに対して、CPUのI/O命令を実行してアクセスする
+    * メモリマップドI/O
+        * アドレス空間=メモリ空間
+        * I/Oもメモリの一部として扱い、メモリ空間の番地を割り当てる
+        * 通常のメモリアクセス命令でアクセスする
+* CPUとデバイスは、リード信号線、ライト信号線、データバス、アドレスバスで接続されている
+* CPUがデバイスからデータを読み込む場合
+    * CPUはアドレスバスでアクセスしたいデバイスの番地を指定しておき、リード信号を有効にする
+    * アドレスバスで指定されている番地につながれているデバイスがデータバスにその内容を置く
+    * CPUはリード信号の立ち上がりタイミングでデータバスの内容を取り込む
+* CPUがデバイスにデータを書き込む場合
+    * CPUはアドレスバスでアクセスしたいデバイスの番地を指定しておき、データバスに書き込みたい内容を置き、ライト信号を有効にする
+    * アドレスバスで指定されている番地につながれているデバイスは、ライト信号の立ち上がりでデータバスにその内容をデバイスに取り込む
+
+* 以下のコマンドで、ioportのポートアドレスがわかる
+
+```
+$ cat /proc/ioports
+0000-0cf7 : PCI Bus 0000:00
+  0000-001f : dma1
+  0020-0021 : pic1
+  0040-0043 : timer0
+  0050-0053 : timer1
+  0060-0060 : keyboard
+  0064-0064 : keyboard
+  ...
+```
+
+* 以下のコマンドで、iomemのアドレス範囲がわかる
+
+```
+cat /proc/iomem
+00000000-00000fff : reserved
+00001000-0009d7ff : System RAM
+0009d800-0009ffff : reserved
+000a0000-000bffff : PCI Bus 0000:00
+000c0000-000ce5ff : Video ROM
+000d0000-000d3fff : PCI Bus 0000:00
+000d4000-000d7fff : PCI Bus 0000:00
+000d8000-000dbfff : PCI Bus 0000:00
+000dc000-000dffff : PCI Bus 0000:00
+000e0000-000fffff : reserved
+```
+
+* lspciでそのデバイスのioports、iomem、IRQ番号などを確認できる
+```
+$ lspci -v
+...
+00:19.0 Ethernet controller: Intel Corporation Ethernet Connection (2) I218-V
+        DeviceName:  Onboard LAN
+        Subsystem: ASUSTeK Computer Inc. Ethernet Connection (2) I218-V
+        Flags: bus master, fast devsel, latency 0, IRQ 26
+        Memory at f7100000 (32-bit, non-prefetchable) [size=128K]
+        Memory at f7138000 (32-bit, non-prefetchable) [size=4K]
+        I/O ports at f040 [size=32]
+        Capabilities: <access denied>
+        Kernel driver in use: e1000e
+        Kernel modules: e1000e
+```
 
 
 $ lshw
@@ -132,3 +205,8 @@ SMART Self-test log structure revision number 1
 Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
 # 1  Short offline       Completed without error       00%      4758         -
 ```
+
+
+
+## 参考
+* http://www.cs.gunma-u.ac.jp/~nakano/OS16/io.html
