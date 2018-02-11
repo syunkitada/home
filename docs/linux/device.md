@@ -1,30 +1,54 @@
 # デバイス
 
 
+## デバイスとは
+* デバイスの種類
+    * block-device
+    * character stream device
+    * network device
+    * 時計とタイマ
+* データ転送の種類
+    * Direct Memory Access(DMA)
+        * CPUを使わずにデータ転送
+    * programmed I/O(PIO)
+        * CPUを使ってデータ転送
+
+
 ## CPUとデバイスのやり取り
 * デバイスコントローラとデバイスドライバ
     * 各I/O機器はそれぞれデバイスコントローラを持ち、デバイスコントローラとCPUが接続されている
-    * 例外的にいくつかの機器が、ひとつのデバイスコントローラを共有する場合もある(例: SCSI)
+        * 例外的にいくつかの機器が、ひとつのデバイスコントローラを共有する場合もある(例: SCSI)
     * デバイスコントローラは、データ用と制御用のいくつかのレジスタを持つ
     * 各デバイスコントローラに対して、OSはそのI/O機器用のデバイスドライバを持つ
     * デバイスドライバは、デバイスコントローラのレジスタの読み書きを通して、機器を制御する
 * CPUは、番地(アドレス)を指定して、デバイスへのデータの読み書きする
 * アドレス空間は以下の2種類がある
     * I/OマップドI/O
-        * アドレス空間=メモリ空間+I/O空間
-        * 物理メモリ空間とは別のI/O空間に割り当てられたポートに対して、CPUのI/O命令を実行してアクセスする
-    * メモリマップドI/O
+        * アドレス空間=I/O空間
+        * 物理メモリ空間とは別のデバイスのI/O空間に割り当てられたポートに対して、CPUのI/O命令を実行してアクセスする
+        * ポート(port)とは論理的な通信の接続点
+    * メモリマップドI/O(現在主流)
         * アドレス空間=メモリ空間
         * I/Oもメモリの一部として扱い、メモリ空間の番地を割り当てる
         * 通常のメモリアクセス命令でアクセスする
-* CPUとデバイスは、リード信号線、ライト信号線、データバス、アドレスバスで接続されている
-* CPUがデバイスからデータを読み込む場合
-    * CPUはアドレスバスでアクセスしたいデバイスの番地を指定しておき、リード信号を有効にする
-    * アドレスバスで指定されている番地につながれているデバイスがデータバスにその内容を置く
-    * CPUはリード信号の立ち上がりタイミングでデータバスの内容を取り込む
-* CPUがデバイスにデータを書き込む場合
-    * CPUはアドレスバスでアクセスしたいデバイスの番地を指定しておき、データバスに書き込みたい内容を置き、ライト信号を有効にする
-    * アドレスバスで指定されている番地につながれているデバイスは、ライト信号の立ち上がりでデータバスにその内容をデバイスに取り込む
+* CPUとデバイスは、制御信号線、データバス、アドレスバスで接続されている
+* メモリマップドI/O(あるプロセスが大量のデータを転送する場合の例)
+    * プロセスは転送用のシステムコールを呼ぶと、カーネルモードに移行し、システムコール中でデバイスドライバを開始する
+    * デバイスドライバはメモリ中の送信用メモリに転送データを書き、デバイスコントローラのコントロールレジスタにI/O機器への転送開始命令を書き込んで、システムコール終了
+    * I/O機器のデバイスコントローラは(計算機本体のCPUを使わずに)バスの利用権を獲得し、メモリからデバイスのバッファにデータを取り込む
+    * 終了後、デバイスドライバを(割り込みにて)起動(カーネルモードに移行)
+    * デバイスドライバは次のデータを送信用のメモリに上書きし、デバイスコントローラのコントロールレジスタにI/O機器への転送開始命令を書き込みシステムコール終了
+    * これの繰り返し
+* I/Oの終了のチェック方法
+    * 割り込み
+        * I/O機器が終了を割り込みでCPUに知らせる
+        * 割り込み処理プログラムが起動
+        * 終了報告がある
+    * ポーリング
+        * CPUがI/O機器の状態を定期的にチェックする
+        * I/Oの状態bitをチェックする
+        * 終了を問い合わせる
+
 
 * 以下のコマンドで、ioportのポートアドレスがわかる
 
@@ -40,7 +64,7 @@ $ cat /proc/ioports
   ...
 ```
 
-* 以下のコマンドで、iomemのアドレス範囲がわかる
+* 以下のコマンドで、iomemのアドレスがわかる
 
 ```
 cat /proc/iomem
@@ -73,57 +97,58 @@ $ lspci -v
 ```
 
 
-$ lshw
+## ハードウェア情報を調べる
 ```
+$ sudo lshw
+owner-all-series
+    description: Desktop Computer
+    product: All Series (All)
+    vendor: ASUS
+    version: System Version
+    serial: System Serial Number
+    width: 64 bits
+    capabilities: smbios-2.8 dmi-2.7 vsyscall32
+    configuration: administrator_password=disabled boot=normal chassis=desktop family=ASUS MB frontpanel_password=disabled keyboard_password=disabled power-on_password=disabled sku=All uuid=6000AC1B-DAD7-DD11-928F-08626634CC08
+  *-core
+       description: Motherboard
+       product: H97I-PLUS
+       vendor: ASUSTeK COMPUTER INC.
+       physical id: 0
+       version: Rev X.0x
+...
+```
+
+```
+$ sudo lshw -short
 sudo lshw -short
-H/W path        Device           Class          Description
-===========================================================
-                                 system         All Series (All)
-/0                               bus            H97I-PLUS
-/0/0                             memory         64KiB BIOS
-/0/3c                            memory         16GiB System Memory
-/0/3c/0                          memory         8GiB DIMM DDR3 Synchronous 1333 MHz (0.8 ns)
-/0/3c/1                          memory         8GiB DIMM DDR3 Synchronous 1333 MHz (0.8 ns)
-/0/47                            processor      Intel(R) Pentium(R) CPU G3258 @ 3.20GHz
-/0/47/48                         memory         128KiB L1 cache
-/0/47/49                         memory         512KiB L2 cache
-/0/47/4a                         memory         3MiB L3 cache
-/0/100                           bridge         4th Gen Core Processor DRAM Controller
-/0/100/1                         bridge         Xeon E3-1200 v3/4th Gen Core Processor PCI Express x16 Controller
-/0/100/1/0                       display        NVIDIA Corporation
-/0/100/1/0.1                     multimedia     NVIDIA Corporation
-/0/100/14                        bus            9 Series Chipset Family USB xHCI Controller
-/0/100/14/0     usb4             bus            xHCI Host Controller
-/0/100/14/1     usb3             bus            xHCI Host Controller
-/0/100/16                        communication  9 Series Chipset Family ME Interface #1
-/0/100/19       eth0             network        Ethernet Connection (2) I218-V
-/0/100/1a                        bus            9 Series Chipset Family USB EHCI Controller #2
-/0/100/1a/1     usb1             bus            EHCI Host Controller
-/0/100/1a/1/1                    bus            USB hub
-/0/100/1b                        multimedia     9 Series Chipset Family HD Audio Controller
-/0/100/1d                        bus            9 Series Chipset Family USB EHCI Controller #1
-/0/100/1d/1     usb2             bus            EHCI Host Controller
-/0/100/1d/1/1                    bus            USB hub
-/0/100/1f                        bridge         9 Series Chipset Family H97 Controller
-/0/100/1f.2                      storage        9 Series Chipset Family SATA Controller [AHCI Mode]
-/0/100/1f.3                      bus            9 Series Chipset Family SMBus Controller
-/0/1            scsi0            storage
-/0/1/0.0.0      /dev/sda         disk           256GB TOSHIBA THNSNJ25
-/0/1/0.0.0/1    /dev/sda1        volume         222GiB EXT4 volume
-/0/1/0.0.0/2    /dev/sda2        volume         15GiB Extended partition
-/0/1/0.0.0/2/5  /dev/sda5        volume         15GiB Linux swap / Solaris partition
-/1                               power          To Be Filled By O.E.M.
-/2              tap00163e5111f2  network        Ethernet interface
-/3              veth5ff0278      network        Ethernet interface
-/4              ns-br-local      network        Ethernet interface
+H/W path         Device       Class          Description
+========================================================
+                              system         All Series (All)
+/0                            bus            H97I-PLUS
+/0/0                          memory         64KiB BIOS
+/0/3c                         memory         16GiB System Memory
+/0/3c/0                       memory         8GiB DIMM DDR3 Synchronous 1333 MHz (0.8 ns)
+/0/3c/1                       memory         8GiB DIMM DDR3 Synchronous 1333 MHz (0.8 ns)
+/0/47                         processor      Intel(R) Pentium(R) CPU G3258 @ 3.20GHz
+/0/47/48                      memory         128KiB L1 cache
+/0/47/49                      memory         512KiB L2 cache
+...
 ```
 
+```
+$ sudo fdisk -l
+Disk /dev/ram0: 64 MiB, 67108864 bytes, 131072 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 
 
-
-lshw -short
-
-sudo fdisk -l
+Disk /dev/ram1: 64 MiB, 67108864 bytes, 131072 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+...
+```
 
 ```
 $ sudo hdparm -i /dev/sda1
@@ -205,8 +230,3 @@ SMART Self-test log structure revision number 1
 Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
 # 1  Short offline       Completed without error       00%      4758         -
 ```
-
-
-
-## 参考
-* http://www.cs.gunma-u.ac.jp/~nakano/OS16/io.html
