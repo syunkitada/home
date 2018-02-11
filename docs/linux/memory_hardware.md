@@ -68,6 +68,13 @@ L2キャッシュでのアクセスミスは数10バスクロックのペナル�
     * ビットクロスするのとほぼ同時期に出荷量も逆転し、新旧世代交代となる
 
 
+## コマンド
+```
+# 搭載メモリ情報を表示する
+$ sudo dmidecode -t memory
+```
+
+
 ## 記事
 * 2017/09/29 (サーバー/ハイエンドPCの主記憶を変革するNVDIMM技術](http://pc.watch.impress.co.jp/docs/column/semicon/1083346.html)
 * 2011/11/18 [次世代DRAM規格「DDR4」と新技術規格「3DS」の概要を公表- Server Memory Forum 2011](http://www.kumikomi.net/archives/2011/11/rp49serv.php?page=2)

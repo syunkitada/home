@@ -23,7 +23,7 @@
     * デバイスドライバは、デバイスコントローラのレジスタの読み書きを通して、機器を制御する
 * CPUは、番地(アドレス)を指定して、デバイスへのデータの読み書きする
 * アドレス空間は以下の2種類がある
-    * I/OマップドI/O
+    * I/O(ポート)マップドI/O
         * アドレス空間=I/O空間
         * 物理メモリ空間とは別のデバイスのI/O空間に割り当てられたポートに対して、CPUのI/O命令を実行してアクセスする
         * ポート(port)とは論理的な通信の接続点
@@ -94,6 +94,38 @@ $ lspci -v
         Capabilities: <access denied>
         Kernel driver in use: e1000e
         Kernel modules: e1000e
+```
+
+
+## デバイスドライバ
+* kernelはデバイスのメジャー番号、マイナー番号で必要なドライバを識別してる
+```
+# メジャー番号の確認
+$ cat /proc/devices
+Character devices:
+  1 mem
+  4 /dev/vc/0
+  4 tty
+  4 ttyS
+  5 /dev/tty
+  5 /dev/console
+  5 /dev/ptmx
+  5 ttyprintk
+  6 lp
+  7 vcs
+ 10 misc
+ 13 input
+...
+
+# マイナー番号の確認
+$ cat /proc/misc
+cat /proc/misc
+232 kvm
+235 autofs
+ 56 memory_bandwidth
+ 57 network_throughput
+ 58 network_latency
+...
 ```
 
 

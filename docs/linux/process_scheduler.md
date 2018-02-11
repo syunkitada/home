@@ -249,3 +249,35 @@ all   12.06    0.00   38.19    0.00    0.00    0.00    0.00    0.00    0.00   49
     * ゼロで除算した
     * アクセス許可のないメモリにアクセスしようとした
     * 特権がないのに特権命令を実行した
+
+* 割り込みのカウンタを確認
+```
+$ cat /proc/interrupts
+           CPU0       CPU1
+  0:         18          0   IO-APIC   2-edge      timer
+  1:          2          0   IO-APIC   1-edge      i8042
+  8:          1          0   IO-APIC   8-edge      rtc0
+  9:          0          0   IO-APIC   9-fasteoi   acpi
+ 12:          4          0   IO-APIC  12-edge      i8042
+ 16:         26          3   IO-APIC  16-fasteoi   ehci_hcd:usb1
+```
+
+* 割り込み処理を割り込みハンドラですべて動的に処理すると、遅延してしまうので、実施すべき処理を登録だけしてあとはスケジューラに任せる
+* この登録した処理をsoftirqと呼び、CPUごとにこれを実行するスレッド(ksoftirqd)が用意されている
+$ ps ax | grep ksoftirqd
+    3 ?        S      0:00 [ksoftirqd/0]
+   13 ?        S      0:00 [ksoftirqd/1]
+
+$ cat /proc/softirqs
+                    CPU0       CPU1
+          HI:          3          2
+       TIMER:    1246628    2315450
+      NET_TX:          1      14868
+      NET_RX:      22540     209467
+       BLOCK:      19536     500141
+BLOCK_IOPOLL:          0          0
+     TASKLET:         58        333
+       SCHED:    1240211    2250434
+     HRTIMER:          0          0
+         RCU:     682194    2333117
+```
