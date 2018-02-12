@@ -799,11 +799,12 @@ ibvirt/qemu -realtime mlock=off -smp 2,sockets=1,cores=2,threads=1 -uuid 2c28f6a
 00007f8a34000000   1144K rw---   [ anon ]
 0
 
+
+$ virsh dumpxml xxxx
+<memoryBacking>
+   <hugepages/>
+</memoryBacking>
 ```
-
-
-## hugetlb
-
 
 
 ## /proc/[PID]/smaps
@@ -842,6 +843,12 @@ HugePages_Surp:        0
 
 
 ## malloc()
+
+
+## jemalloc()
+
+
+## tcmalloc()
 
 
 ## kmalloc()

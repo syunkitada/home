@@ -1,4 +1,4 @@
-# Virt
+# virt-install
 
 ## Enable kvm
 ``` bash
