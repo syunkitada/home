@@ -45,6 +45,7 @@
 | [Performance](performance.md)                                            | パフォーマンス          |
 | [Observability tools basic](observability_tools_basic.md)                | 基本的な観測ツール      |
 | [Observability tools intermediate](observability_tools_intermediate.md)  | 特殊な観測ツール        |
+| [Latency](latency.md)                                                    | Latencyいろいろ         |
 
 
 ## その他
