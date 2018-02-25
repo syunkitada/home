@@ -52,3 +52,4 @@
 | Link | Description |
 | --- | --- |
 | [initscript](initscript.md)                                             | initscript          |
+| [strace](strace.md)                                                     | straceいろいろ      |

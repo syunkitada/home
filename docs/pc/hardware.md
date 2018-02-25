@@ -15,13 +15,17 @@
 
 
 ## CPU
-### アーキテクチャ
-* Intel
-    * Nehalem, Sandy-bridge, Ivy-bridge, Haswell, Broadwell, Skylake, Kabylake
-    * [IntelR 64 and IA-32 Architectures Optimization Reference Manual](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf)
-    * ECE 4750 Computer Architecture Intel Skylake]http://www.csl.cornell.edu/courses/ece4750/handouts/ece4750-section-skylake.pdf
-* AMD
-    * EPYC: http://pc.watch.impress.co.jp/docs/column/kaigai/1066385.html
+### Intel
+* 世代: Nehalem, Sandy-bridge, Ivy-bridge, Haswell, Broadwell, Skylake, Kabylake
+* [IntelR 64 and IA-32 Architectures Optimization Reference Manual](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf)
+* ECE 4750 Computer Architecture Intel Skylake]http://www.csl.cornell.edu/courses/ece4750/handouts/ece4750-section-skylake.pdf
+
+
+### AMD
+* 世代: SledgeHammer(K8), Egypt(K8), Bracelona(K10), Istanbul(K10), Magny-Cours(K10), Interlagos(Bulldozer), Naples(Zen)
+* EPYC: http://pc.watch.impress.co.jp/docs/column/kaigai/1066385.html
+* [AMDがISSCCでZENベースSoC「Zeppelin」の詳細を明らかに](https://pc.watch.impress.co.jp/docs/column/kaigai/1107967.html)
+
 
 ### コア間接続
 * CPUのコア間やチップセットはネットワークのように接続されている
