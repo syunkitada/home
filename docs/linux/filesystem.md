@@ -127,7 +127,88 @@ sda  0:0:0:0    disk ATA      TOSHIBA THNSNJ25 0101 sata
     * そして、非同期に書き込んで、その結果(成功、失敗）をシグナルで受け取る
 
 
-## mount
+## マウントしているFSを調べる
+* mount
+
+```
+$ mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,nosuid,relatime,size=8162844k,nr_inodes=2040711,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=1637448k,mode=755)
+/dev/sda1 on / type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+...
+```
+
+* df
+```
+df -a
+Filesystem     1K-blocks      Used Available Use% Mounted on
+sysfs                  0         0         0    - /sys
+proc                   0         0         0    - /proc
+udev             8162844         0   8162844   0% /dev
+devpts                 0         0         0    - /dev/pts
+tmpfs            1637448      9568   1627880   1% /run
+/dev/sda1      229613780 143513692  74413332  66% /
+...
+```
+
+
+## dumpe2fs
+* ext2/ext3/ext4
+```
+$ sudo dumpe2fs /dev/sda1 | less
+Filesystem volume name:   <none>
+Last mounted on:          /
+Filesystem UUID:          c5a29305-9548-4405-a4d2-5687eda29d87
+Filesystem magic number:  0xEF53
+Filesystem revision #:    1 (dynamic)
+Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize
+Filesystem flags:         signed_directory_hash
+Default mount options:    user_xattr acl
+Filesystem state:         clean
+Errors behavior:          Continue
+Filesystem OS type:       Linux
+Inode count:              14589952
+Block count:              58351872
+Reserved block count:     2917593
+Free blocks:              21537480
+Free inodes:              10921380
+First block:              0
+Block size:               4096
+Fragment size:            4096
+Reserved GDT blocks:      1010
+Blocks per group:         32768
+Fragments per group:      32768
+Inodes per group:         8192
+Inode blocks per group:   512
+Flex block group size:    16
+Filesystem created:       Tue May  5 15:48:41 2015
+Last mount time:          Sun Feb 25 20:28:31 2018
+Last write time:          Sun Feb 25 20:28:30 2018
+Mount count:              269
+Maximum mount count:      -1
+Last checked:             Tue May  5 15:48:41 2015
+Check interval:           0 (<none>)
+Lifetime writes:          11 TB
+Reserved blocks uid:      0 (user root)
+Reserved blocks gid:      0 (group root)
+First inode:              11
+Inode size:               256
+Required extra isize:     28
+Desired extra isize:      28
+Journal inode:            8
+First orphan inode:       3686347
+Default directory hash:   half_md4
+Directory Hash Seed:      e8aebce0-015c-4d7c-acac-9ed0558f5452
+Journal backup:           inode blocks
+Journal features:         journal_incompat_revoke
+Journal size:             128M
+Journal length:           32768
+Journal sequence:         0x0048eda4
+Journal start:            8573
+```
 
 
 ## nfs
