@@ -49,6 +49,17 @@ rcv_tcp_congestion cubic
 iperf Done.
 ```
 
+
+## パラメータ
+```
+# メモ
+iperf
+-length 128k
+-parallel {1,2,4,8,16,32}
+-time 30s
+``
+
+
 ## 結果の見方
 * iperfのClient, Serverが性能を出し切れるかによっても結果も異なってくるので注意する
     * -Z: Zerocopyを有効にする

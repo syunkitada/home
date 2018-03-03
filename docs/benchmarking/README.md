@@ -1,5 +1,6 @@
 # Benchmarking
 
+
 ## Benchmarking Tools
 | Link                                                         | Target | Description |
 | --- | --- | --- |
@@ -16,14 +17,8 @@
 | [hdparam]()                                                  | | |
 
 
-
-## 
-BMCで消費電力取りながら、ベンチマークを取る
-CPUをぶん回すと、消費電力は数倍と大きく変わってくる
-
-
-
-iperf
--length 128k
--parallel {1,2,4,8,16,32}
--time 30s
+## Tuning
+| Link                | Desctiption |
+| --- | --- |
+| [Tuningについて](tuning/README.md)  | Tuningについてのうんちく |
+| [IO](tuning/io.md)                  | IO |

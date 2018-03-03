@@ -21,3 +21,6 @@ mysql --help | grep my.cnf
                       order of preference, my.cnf, $MYSQL_TCP_PORT,
 /etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf
 ```
+
+
+https://dev.mysql.com/doc/refman/5.7/en/optimize-overview.html
