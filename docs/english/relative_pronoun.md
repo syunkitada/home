@@ -45,6 +45,8 @@
         * The woman who lives next door is friendly.
     * 目的格の関係代名詞
         * He is the man who I met in the library yesterday.
+        * Those who work hard will succeed
+            * Those whoは～する人々の意味になる
     * whoとwhomの使い分け
         * whoとwhomの意味は同じと思ってよい
         * whomのほうがよりフォーマルな印象を与えるため書き言葉で使われやすい
