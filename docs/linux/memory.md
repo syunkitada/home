@@ -13,6 +13,12 @@
 * SegmentationFault
     * プロセスが仮想アドレスにアクセスしたとき、アクセス先を調べた際に、mmapによって得た仮想アドレスでなかった場合、SegmentationFaultという例外が発生し、OSはプロセスにシグナル(SIGSEGV)を送信する
     * このような状態は、OS側では対応できないので、プロセス側にその後の処理を決めてもらう、たいていのプロセスはこれを受け取ると終了する
+* CPUキャッシュ
+    * CPUは、メモリにアクセスする前に、CPUキャッシュにアクセスする
+    * キャッシュがヒットすれば、そのまま読む
+    * キャッシュがヒットしなければ(ミス)、メモリから読みだしてCPUに供給します
+    * また、次回のアクセス時に利用できるように読みだしたデータをCPUキャッシュ保持します
+    * キャッシュへのアクセスは物理アドレスでアクセスされる
 
 
 ## 仮想アドレスと物理アドレスとページテーブルとTLB
@@ -80,6 +86,36 @@
         * TLBは、仮想アドレスと物理アドレスの1対1の変換表になっている
     * MMUは、仮想アドレスを受け取ると、それに対応する物理アドレスがあるかをTLBを検索して、物理アドレスがあれば(TLBヒット)、その物理アドレスでメモリにアクセスする
     * 見つからない場合は(TLBミス)、ページテーブルを参照してセグメントセレクタを変換し、その結果をTLBに保存する
+    * TLBはコンテキストスイッチの際などにクリアされる
+    * TLBはキャッシュと同様多層化されており、アクセス速度、容量が異なる
+        * Skylake
+            * L1
+                * ITLB: 4KB (128), 2MB/4MB (8/thread) の2種類
+                * DTLB: 4KB (64), 2MB/4MB (32), 1GB (4) の3種類
+            * L2
+                * STLB: 4KB と 2MB/4MB の共有 (1536), 1GB (16) の2種類
+* HugePage
+    * Linuxでは4KBを超えるページをHugePageと呼ぶ(OSによってSuperPage, LargePageと呼ばれることもある)
+    * 参考
+        * https://gist.github.com/shino/5d9aac68e7ebf03d4962a4c07c503f7d
+        * https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/7/html/Virtualization_Tuning_and_Optimization_Guide/sect-Virtualization_Tuning_Optimization_Guide-Memory-Tuning.html
+* THP(Transparent Huge Page)
+    * アプリケーションに対してはページサイズを4Kバイトに見せつつ勝手に(x86-64なら)2Mバイトのページサイズのページテーブルに変換するもの
+    * THPの量は/proc/meminfoに記載されている
+        * AnonHugePages:    274432 kB
+    * ヒープやスタック領域などのAnonに割り当てられる
+    * THPは連続的に使用する論理アドレスがある場合に2Mバイトのページを割り当てるほか、ばらばらの4Kバイトのページが並んでる場合でも整理、並べ替えを行って2Mバイトのページサイズのページテーブルに変換する
+        * カーネルのkhugepagedスレッドが実行時にメモリーを動的に割り当てる
+    * THPのメリット
+        * 2Mのページとなるため、ページテーブルエントリが減り、TLBのヒット率も上がるため、アプリケーションのパフォーマンスが向上する
+    * THPのデメリット
+        * メモリ割り当てが4Kではなく2Mになるため遅い
+        * 小さいメモリで十分な場合にも2Mの割り当てとなるため、メモリの無駄遣いとなる場合がある
+        * メモリをデフラグするため重い
+    * ワークロードによってはTHPは無効のほうがよい
+        * HadoopやCassandraやデータベースなどでは無効にしているケースが多い
+    * HugePageを使えるならTHPはいらない
+        * HugePageを利用できるならTHPを無効にしても、ページテーブルエントリやTLBのメリットを受けることができる
 
 
 ## file mapとanon
@@ -280,52 +316,6 @@ $ cat /proc/self/numa_maps
 * OOM Killerの強制開放後の状況予測が難しいことから、クラスタを組んでる場合には、OOM発生時にOOM Killerをどうさせせずにカーネルパニックを起こすように設定するケースもある
     * 「vm.panic_on_oom」の値を「1」にする
     * OOM Killerで必要なアプリケーションがまともに動作しない状況になる可能性があるなら、システムをカーネルパニックをフェイルオーバーさせたほうがよい
-
-
-## ページとTLB
-* メモリ上のデータ位置はアドレスで示される
-    * メモリーモジュール(DIMM)にアクセスする際のアドレスを物理アドレスと呼ぶ
-* カーネルは、論理アドレスと物理アドレスの対応表であるページテーブルを作成し、それをCPUに伝える
-    * ページサイズはプロセサの仕様で決まる
-    * x86-64系では、4Kバイト、2Mバイト、1Gバイトのサイズのページが利用できる
-* CPUキャッシュ
-    * CPUは、メモリにアクセスする際に、CPUキャッシュにアクセスする
-    * キャッシュがヒットすれば、そのまま読む
-    * キャッシュがヒットしなければ(ミス)、メモリから読みだしてCPUに供給します
-    * また、次回のアクセス時に利用できるように読みだしたデータをCPUキャッシュ保持します
-    * キャッシュへのアクセスは物理アドレスでアクセスされる
-    * ページテーブルの読み出しでもメモリアクセスが3-4回発生する
-        * これがCPUキャッシュにヒットするかどうかも性能に大きく影響する
-* TLB(Translation Lookaside Buffer)
-    * 論理アドレスと物理アドレスの対応表(1対1のハッシュテーブル)を保持する少量の高速キャッシュメモリ
-    * アクセスしようとした論理アドレスがTLBに乗っていれば即座に変換が行われ、CPUキャッシュにアクセスができる
-    * TLBにヒットしなかった場合の処理はCPUに依存する
-        * TLB例外を発行し、指定した論理アドレスに対する物理アドレスの情報(TLBエントリー）を作成するようにOSに依頼する
-        * もしくは、あらかじめOSから渡されたページテーブルをCPUが読み込んで、CPUが自動的にTLBにエントリーを作る
-            * x86は後者の方法を採用している
-    * TLBのエントリ数が512の場合、ページサイズが4Kバイトなら2Mバイトの空間のアドレス変換表を保持できる
-    * 2Mバイトのページなら1Gバイト、1Gバイトのページなら512Gバイトの空間のアドレス変換表をCPUに保持できる
-* Linuxカーネルのカーネル域の一部では1Gバイトのページを使っている
-    * カーネルは全メモリ域を扱うので1Gバイト以上の連続するアドレスを用いることが多い
-
-
-## THP(Transparent Huge Page)
-* アプリケーションに対してはページサイズを4Kバイトに見せつつ勝手に(x86-64なら)2Mバイトのページサイズのページテーブルに変換するもの
-* THPの量は/proc/meminfoに記載されている
-    * AnonHugePages:    274432 kB
-* ヒープやスタック領域などのAnonに割り当てられる
-* THPは連続的に使用する論理アドレスがある場合に2Mバイトのページを割り当てるほか、ばらばらの4Kバイトのページが並んでる場合でも整理、並べ替えを行って2Mバイトのページサイズのページテーブルに変換する
-    * カーネルのkhugepagedスレッドが実行時にメモリーを動的に割り当てる
-* THPのメリット
-    * 2Mのページとなるため、ページテーブルエントリが減り、TLBのヒット率も上がるため、アプリケーションのパフォーマンスが向上する
-* THPのデメリット
-    * メモリ割り当てが4Kではなく2Mになるため遅い
-    * 小さいメモリで十分な場合にも2Mの割り当てとなるため、メモリの無駄遣いとなる場合がある
-    * メモリをデフラグするため重い
-* ワークロードによってはTHPは無効のほうがよい
-    * HadoopやCassandraやデータベースなどでは無効にしているケースが多い
-* HugePageを使えるならTHPはいらない
-    * HugePageを利用できるならTHPを無効にしても、ページテーブルエントリやTLBのメリットを受けることができる
 
 
 ## ダイレクトI/OとCOW
@@ -745,9 +735,9 @@ Address           Kbytes     RSS   Dirty Mode  Mapping
 ...
 ```
 
-## hugepage
-http://dpdk.org/doc/guides-16.04/sample_app_ug/vhost.html
-https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/7/html/Virtualization_Tuning_and_Optimization_Guide/sect-Virtualization_Tuning_Optimization_Guide-Memory-Tuning.html
+## HugePage
+* http://dpdk.org/doc/guides-16.04/sample_app_ug/vhost.html
+* https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/7/html/Virtualization_Tuning_and_Optimization_Guide/sect-Virtualization_Tuning_Optimization_Guide-Memory-Tuning.html
 
 ```
 # デフォルトを確認
