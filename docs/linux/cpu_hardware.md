@@ -146,6 +146,19 @@
             * ユーザモードのときはカーネルのページ部分をアンマップし、カーネルモードになるときにマップする
                 * ページテーブルの切り替えではない？
 
+### 対策コードを無効にする
+* https://access.redhat.com/articles/3311301
+* https://access.redhat.com/ja/articles/3316261
+```
+# CentOS
+$ echo 0 > /sys/kernel/debug/x86/pti_enabled
+$ echo 0 > /sys/kernel/debug/x86/ibpb_enabled
+$ echo 0 > /sys/kernel/debug/x86/ibrs_enabled
+
+# centos6ではdebugfsをマウントする必要がある(centos7ではデフォルトでマウントされている)
+$ mount -t debugfs nodev /sys/kernel/debug
+```
+
 
 ## 参考文献
 * [Intel: トランジスターの仕組み](https://www.intel.co.jp/content/www/jp/ja/innovation/transworks.html)

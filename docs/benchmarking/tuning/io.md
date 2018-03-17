@@ -23,6 +23,10 @@ $ cat /sys/block/sdb/queue/optimal_io_size
 $ sudo dumpe2fs /dev/sdb | grep 'Block size'
 dumpe2fs 1.42.13 (17-May-2015)
 Block size:               4096
+
+$ sudo xf_info /dev/sdb | grep 'bsize'
+
+$ sudo tune2fs -l /dev/vdb | grep 'Block size'
 ```
 
 
