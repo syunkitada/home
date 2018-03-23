@@ -751,7 +751,7 @@ Hugepagesize:       2048 kB
 
 # hugepage を1G * 8page 確保
 $ sudo vim /etc/default/grub
-GRUB_CMDLINE_LINUX="hugepagesz=1G hugepages=8"
+GRUB_CMDLINE_LINUX="default_hugepagesz=1G hugepagesz=1G hugepages=8"
 
 $ sudo grub-mkconfig -o /boot/grub/grub.cfg
 $ reboot
