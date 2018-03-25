@@ -1,5 +1,6 @@
 # Shop
 
+
 ## 2017/09/30: Inspiron 15 5000 【秋の特別感謝モデル】プレミアム・フルHD・SSD・OfficeH&B付
 * 102,398円
 * CPU: Core i5-7200U: Freq=2.50-3.10, C/T=2/4, Cache=3MB, BS=4GT/s OPI, TDP=15W
