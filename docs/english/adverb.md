@@ -136,6 +136,23 @@
     * late(遅く) -> lately(最近)
 
 
+## 単語メモ
+* otherwise
+    * other + wise(方向・関連性・方向)の組み合わせで、「他の方向」のイメージ
+    * 「さもないと」
+        * It was lucky that she arrived 5 minutes earlier. Otherwise, she would have missed the bus.
+            * 彼女が5分早く到着してよかった、さもないと、バスを逃していただろう
+    * wouldと一緒に使用して、「普通なら」「この方法を使用しない場合には」
+        * Apply burst-oriented software optimization techniques to remove operations that would otherwise be unavoidable, such as ring index wrap back management.
+            * バックマネージメントをラップするリングインデックスのような、普通なら避けられない操作を削除するために、バースト指向のソフトウェア最適化技術を適用する
+    * 「その他の点では」
+        * I don't like the color of curtain, otherwise the room is excellent.
+            * カーテンの色は気に食わないけど、その他の点ではその部屋はすばらしい。
+    * 「それとは違ったふうに」、「それとは違った方法で」
+        * She would have said otherwise.
+            * 彼女なら違ったふうに言っただろう
+
+
 ## 参考
 * http://mysuki.jp/english-adjectives-4125
 * http://mysuki.jp/english-adverb-4554

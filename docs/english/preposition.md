@@ -1,5 +1,6 @@
-# Preposition
+# Preposition(前置詞)
 * 言葉と言葉をつなぐ役割を持った言葉
+
 
 ## in
 * 空間の中にいるイメージ
@@ -13,6 +14,7 @@
         * in the morning, in the evening
     * あと数分で着くといった、その数分の中に自分が含まれているという感覚も表現もできる
         * I will arrive there in 10 minutes.
+
 
 ## on
 * 何かの面に接している状態のイメージ
@@ -74,6 +76,7 @@
     * 「目的に向かっている」部分に注目すると、特定の期間を示すことができるようになる
     * I have been studying English for 10 years.
 
+
 ## from
 * 目的から離れていくイメージ(toやforの逆)
 * 目的地から離れていくfrom
@@ -84,6 +87,7 @@
     * 「目的から離れているイメージ」を発展的に解釈し、起源や発祥を示すことができる
     * Hiromi got the idea from her younger brother.
 
+
 ## of
 * 何かの一部分のイメージ
 * 一部分を示すof
@@ -91,6 +95,7 @@
     * The cost of the house is high.
     * We have plenty of time.
     * She is the president of this company.
+
 
 ## over
 * 対象物の上空を超えて反対側に着地するイメージ
@@ -104,6 +109,7 @@
         * 橋を越えた部分に焦点が置かれた様子
     * The king rules over the people in the country.
         * 比喩的に全体に焦点をあてた様子
+
 
 ## through
 * 突き抜けるイメージ、筒のような立体的な物体・空間を突き抜けている感覚がある
@@ -177,6 +183,11 @@
     * insideの逆で、対象物がその容器の外にあるイメージ
         * We heard strange noises outside the house.
 * near
+* against
+    * 「対抗して」のイメージ
+        * He leaned against the wall. 彼は壁にもたれかかっていた。
+        * They fight against the enemy. 彼らは敵と戦う。
+        * The police warned us against pickpockets. 警察は私達にスリに注意するように呼びかけた。
 
 
 ## 参考

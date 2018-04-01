@@ -145,6 +145,11 @@
                 * TLBフラッシュが伴う
             * ユーザモードのときはカーネルのページ部分をアンマップし、カーネルモードになるときにマップする
                 * ページテーブルの切り替えではない？
+* 派生攻撃
+    * BranchScope
+        * BPU(Branch Prediction Unit)の方向予測をターゲットにした攻撃
+        * http://www.itmedia.co.jp/news/articles/1803/28/news062.html
+
 
 ### 対策コードを無効にする
 * https://access.redhat.com/articles/3311301
