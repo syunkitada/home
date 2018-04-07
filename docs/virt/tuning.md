@@ -13,6 +13,68 @@ http://www.slideshare.net/janghoonsim/kvm-performance-optimization-for-ubuntu?qi
 
 
 
+## CPU
+* https://libvirt.org/formatdomain.html#elementsCPUTuning
+
+
+## Disk
+### cachemodeの種類
+| cache mode | host page cache | disk write cache | no flush |
+| --- | --- | --- | --- |
+| directsync   |   |   |   |
+| writethrough | o |   |   |
+| none         |   | o |   |
+| writeback    | o | o |   |
+| unsafe       | o | o | o |
+
+* host page cache
+    * qemuがDiskをopenするときにO_DIRECTフラグをつけるかどうか
+* disk write cache
+    * virtio-blkデバイスの持つcache
+        * 通常のHDDなども32MBや64MBのcacheを持っており、それと同じようなもの
+    * qemuの中では、このキャッシュを使うかどうかでflush(fdatasync)のタイミングが異なる
+        * キャッシュ有効時
+            * 仮想マシンOSからflush要求があった時にqemuがflush(fdatasync)する
+        * キャッシュ無効時
+            * 仮想マシンのdisk writeのたびにqemuがflush(fdatasync)する
+* no flush
+    * cacheをdiskにflushするのを無効化する
+
+
+### cachemodeの選定
+* directsync
+    * 物理環境と同程度の安全性が欲しい場合
+    * データベースシステムなど、ファイルの不整合が許容できないところで利用するのが良い
+    * しかし、IO性能は劣化するためDISK性能を最大限利用したい場合には不向き、またそのようなシステムでVMは利用すべきではない
+* none
+    * メモリ消費量はほどほどに抑え、性能もある程度確保したい場合
+    * 1つHVに大量のVMを集約する場合はこれがよい
+* writeback
+    * 広大なホストのページキャッシュを利用し、性能を出したい場合
+    * 1つのHVに少量のVMを集約し、高性能VMを提供する場合はこれがよい
+
+
+### disk type
+* raw
+    * ただのファイル
+* qcow2
+    * 機能
+        * sparce space
+            * 仮想ディスクが必要とした部分だけ書き込む
+        * snapshot
+        * linked file
+            * ベースファイルをリンクして、追加分だけを書き込む
+        * AES暗号化
+        * 圧縮(zlib)
+
+* https://serverfault.com/questions/677639/which-is-better-image-format-raw-or-qcow2-to-use-as-a-baseimage-for-other-vms
+* https://www.jamescoyle.net/how-to/1810-qcow2-disk-images-and-performance
+
+
+### blkiotune
+* https://libvirt.org/formatdomain.html#elementsBlockTuning
+
+
 ## Network
 
 ### multiqueueのサポート

@@ -45,6 +45,7 @@
             * provided that
             * assuming that
 
+
 ## and
 * 「～と・～もまた」を意味する小さな接続詞
     * 主語の位置
@@ -62,12 +63,14 @@
 * 会話では、文章冒頭にandを使用することもある
     * And I thought he was right. また、私は彼が正しいと思った。
 
+
 ## but
 * 「しかし・～だが」を意味する小さな接続詞
     * 目的語の位置: She is poor but happy. 彼女は貧乏だが幸せだ。
     * 文と文: I went to the gym, but it was closed already. 私はジムに行ったが、すでにしまっていた。
 * 会話では、文章冒頭にbutを使用することもある
     * But he does't like tomatoes. しかし、彼はトマトは嫌いだ。
+
 
 ## or
 * 「～のとちらか」を意味する小さな接続詞
@@ -80,12 +83,14 @@
 * 命令文で使われわれることで「さもなければ」の意味になる
     * Put on your jacket, or you will catch cold. ジャケットを着なさい、さもなければ風邪を引きますよ。
 
+
 ## nor
 * [～またない」を意味する小さな接続詞
 * neither「AとBのどちらでもない」と相性がいい
     * 主語の位置: Neither Ken nore his brother spoke English. ケンと彼の兄はどちらも英語を話さない。
     * 動詞の位置: Sean neither smokes nor drinks. ショーンはタバコも酒もやらない。
     * 目的語の位置: The machine is neither safe nore accurate. その機会は安全でも正確でもない。
+
 
 ## yet
 * 「しかし・～だが」を意味する、小さな接続詞、大きな接続詞両方で使用できる
@@ -97,17 +102,20 @@
 * 副詞として「まだ」を表す用法もある
     * Did my parcel arrive? No, not yet. 私の荷物は届きましたか？まだです。
 
+
 ## after
 * 「～の後」を意味する大きな接続詞
     * After he called the police, what did he do? 彼が警察を呼んだあと、何をしましたか？
 * afterは直後に名詞単体を置く場合、前置詞として分類される
     * I will visit Tokyo after Christmas. 私はクリスマス後に東京に行くでしょう。
 
+
 ## before
 * 「～の前」を意味する大きな接続詞
     * Before you leave, make sure you submit the assignment. 出かける前に課題の提出をしなさいね。
 * beforeは直後に名詞単体を置く場合、前置詞として分類される
     * I will visit Tokyo before Christmas. 私はクリスマス前に東京に行くでしょう。
+
 
 ## when
 * 「～の時」を意味する大きな接続詞
@@ -116,16 +124,23 @@
     * 疑問文: When did you talk to Lisa? リサと話したのはいつ？
     * 副詞: Tell me when to stop. いつ止まるか言ってください。
     * 関係副詞: The conference took place in 2000, when I worked in the advertisement agency. その会議は2000年に行われた、それは私が広告代理店に務めていた時。
+* whenever
+    * 「～するときはいつでも」
+        * Whenever needed, asynchronous communication should be introduced as much as possible through the use of rings.
+            * 必要なときはいつでも、リングを使用することによって可能な限り非同期通信を導入する必要がある。
+
 
 ## while
 * 「～の間」と「～の一方」を意味する大きな接続詞
 * Someone stole my wallet while I was away. 誰かが私の財布を盗んだ、私がいない間に。
 * While I am very tall, my brother is short. 私がとても背が高い一方で、弟は背が低い。
 
+
 ## wherease
 * 「～であるのに」を意味する大きな接続詞
     * The old system is complicated whereas the new one is quite simple. その古いシステムは複雑である、新しいものはシンプルであるのに。
 * whileと似た近い方ができる
+
 
 ## if
 * 「もし～ならば」を意味する大きな接続詞
@@ -134,6 +149,7 @@
     * If I was you, I would not enter the building. もし私があなたなら、その建物には入りません。
         * 仮定法とは、同市の時制を一つ前に戻すことで、現実と離れた仮定の状況を表す用法である
 
+
 ## because
 * 「なぜなら」を意味する大きな接続詞
     * Because he was late, we could not make it. 彼が遅れたため、我々は間に合うことができなかった。
@@ -141,12 +157,14 @@
     * Why are you so tired? なんでそんあにつかれてるんですか?
     * Because I am sick. 病気だからです。
 
+
 ## since
 * 「なぜなら」と「以後」を意味する大きな接続詞
     * Since he was late, we could not make it. 彼が遅れたため、我々は間に合わすことができなかった。
     * I have been living here since I graduated from college. 私はここに住んでいます、大学を卒業して以来。
 * sinceはもともと「以後」だけを表す接続詞だった
     * しかし、「何かが行われれば、そこには新しい別の何かが生まれる」という因果関係が追加的に加わることで、理由を意味するようになった
+
 
 ## although/even though/though
 * 「～にもかかわらず」を意味する大きな接続詞
@@ -159,6 +177,7 @@
     * Kumi was hired in spite of the fact that she had no background in marketing. クミは雇用された、マーケティング経験がないにも関わらず。
     * しかし、これはalthoughなどで一語で言い換えられるため、冗長な印象を与える。
 
+
 ## as
 * 「～なので」や「～の間」などを意味する大きな接続詞
     * As you might suspect, it is going to be a two by two matrix. あなたが想像するかもしれないように、それは2*2の表である。
@@ -170,15 +189,18 @@
     * as a consequence 結果として
     * the same as ～と同じ
 
+
 ## as though/as if
 * 「まるで～のように」を表す大きな接続詞
     * You look tired as if you are sick. あなたは疲れて見える、まるで病気であるかのように。
+
 
 ## once
 * 「いったん～すれば」を意味する大きな接続詞、時間的な因果関係を表す
     * I went to bed once he had left. 私は布団に入った、彼が去るやいなや。
 * 会話では、文頭で「(過去の)ある時」、以前、昔などの意味で使われる
     * Once there lived a king and queen. 昔ある時、王様と女王がいました。
+
 
 ## till/until
 * till/untilは「～まで」を意味する大きな接続詞
@@ -190,32 +212,39 @@
     * I cannot do it until 3 pm. 私はそれを3時までに行うことができない(3時までに開始できない)
     * I cannot do it by 3 pm. 私はそれを3時までに行うことができない(完了しない)
 
+
 ## so
 * 「なので」を意味する大きな接続詞、因果関係を表す
     * He did not show up yesterday, so he got fired. 彼は昨日来ませんでした、なので解雇されました。
 * 会話では、文頭でsoを使って話題の転換を示すことができる
     * So, hou's the dinner? それで、例の夕食はどうだった？
 
+
 ## so that
 * 「なので」を意味する大きな接続詞、因果関係を表す
     * I lowered my voice so that she couldn't hear. 私は声をひそめたため、彼女は聞き取ることができなかった。
 * soよりフォーマルかつ、より因果関係を強調したニュアンスを含む
 
+
 ## in case
 * 「～の場合」を意味する大きな接続詞
     * In case you miss the train, let me know. もし電車を逃した場合、教えてください。
+
 
 ## now that
 * 「～であるので」を意味する大きな接続詞
     * Now that my mother was dead, her sister owned the store. 私の母が亡くなったため、母の姉がお店を持っている。
 
+
 ## provided that
 * 「～という条件で」を意味する大きな接続詞、ifよりも強いニュアンスを含む
     * You can join the party, provided that you pay for your own meal. あなたはパーティーに参加することができます。自分の食事代を支払った時のみに。
 
+
 ## assuming that
 * 「～であるとして」を意味する大きな接続詞、仮定を表す
     * Assuming that our website can enable the publication of magazines, what is the business model? 我々のWebサイトが雑誌の出版を可能とするとすれば、ビジネスモデルはどうなるだろう？
+
 
 ## evenと接続詞
 * even自体は接続詞ではないが、接続詞と一緒に利用されることよくある

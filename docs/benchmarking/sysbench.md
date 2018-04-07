@@ -205,9 +205,9 @@ $ sudo systemctl start mariadb
 $ mysql -uroot -e 'create database sysbench'
 $ mysql -uroot -e "GRANT ALL ON sysbench.* TO 'sysbench'@'%' IDENTIFIED BY 'sysbench'"
 
-$ sysbench --db-driver=mysql --mysql-user=sysbench --mysql-password=sysbench --mysql-socket=/var/lib/mysql/mysql.sock --mysql-db=sysbench --range_size=100   --table_size=10000 --tables=2 --threads=1 --events=0 --time=60   --rand-type=uniform /usr/share/sysbench/oltp_read_write.lua prepare
-$ sysbench --db-driver=mysql --mysql-user=sysbench --mysql-password=sysbench --mysql-socket=/var/lib/mysql/mysql.sock --mysql-db=sysbench --range_size=100   --table_size=10000 --tables=2 --threads=1 --events=0 --time=60   --rand-type=uniform /usr/share/sysbench/oltp_read_write.lua run
-$ sysbench --db-driver=mysql --mysql-user=sysbench --mysql-password=sysbench   --mysql-socket=/var/lib/mysql/mysql.sock --mysql-db=sysbench --range_size=100   --table_size=10000 --tables=2 --threads=1 --events=0 --time=60   --rand-type=uniform /usr/share/sysbench/oltp_read_write.lua cleanup
+$ sysbench --db-driver=mysql --mysql-user=sysbench --mysql-password=sysbench --mysql-socket=/var/lib/mysql/mysql.sock --mysql-db=sysbench --range_size=100   --table_size=10000000 --tables=2 --threads=1 --events=0 --time=60   --rand-type=uniform /usr/share/sysbench/oltp_read_write.lua prepare
+$ sysbench --db-driver=mysql --mysql-user=sysbench --mysql-password=sysbench --mysql-socket=/var/lib/mysql/mysql.sock --mysql-db=sysbench --range_size=100   --table_size=10000000 --tables=2 --threads=1 --events=0 --time=60   --rand-type=uniform /usr/share/sysbench/oltp_read_write.lua run
+$ sysbench --db-driver=mysql --mysql-user=sysbench --mysql-password=sysbench   --mysql-socket=/var/lib/mysql/mysql.sock --mysql-db=sysbench --range_size=100   --table_size=10000000 --tables=2 --threads=1 --events=0 --time=60   --rand-type=uniform /usr/share/sysbench/oltp_read_write.lua cleanup
 
 # ubuntuだとmysqld.sockは以下
 /var/run/mysqld/mysqld.sock
