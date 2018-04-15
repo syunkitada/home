@@ -1,11 +1,13 @@
 # Linux
 
+
 ## Basic Contents
 | Link | Description |
 | --- | --- |
 | [カーネルと起動時の処理](kernel_boot.md)       | カーネルの場所、起動時の流れ |
 | [プロセスとスケジューラ](process_scheduler.md) | プロセス実行の仕組み、スケジューリングの仕組み、割り込み |
-| [ファイルシステム](filesystem.md)              | ブロックデバイス、ファイルシステム |
+| [ファイルシステム](filesystem.md)              | ファイル、ファイルシステム、ブロックデバイス |
+| [デバイス](device.md)                          | デバイス |
 | [メモリ](memory.md)                            | メモリ管理 |
 
 
@@ -37,6 +39,13 @@
 | [Network用語](network_terminology.md)    | ネットワーク用語メモ      |
 | [Networkツール](network_tool.md)         | ネットワークツールメモ    |
 | [iptables](iptables.md)                  | iptablesメモ    |
+
+
+## IO Device
+| Link | Description |
+| --- | --- |
+| [ファイルシステム](filesystem.md)              | ファイル、ファイルシステム、ブロックデバイス |
+| [デバイス](device.md)                          | デバイス |
 
 
 ## モニタリング
