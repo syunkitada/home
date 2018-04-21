@@ -5,7 +5,8 @@
 ## qom/object.c: struct TypeImpl
 * コンストラクタ(instance_init)、デストラクタ(instance_finalize)が定義されており、インスタンス化する(オブジェクトの実態を作成する)ときに利用される
 
-``` c:qom/object.c
+> qom/object.c
+``` c
  42 struct TypeImpl
  43 {
  44     const char *name;
@@ -43,7 +44,8 @@
         * TypeImplをtypeと言いかえるの注意
 * struct Objectは、インスタンス(の雛形)
 
-``` c:include/qom/object.h
+> include/qom/object.h
+``` c
   20 struct TypeImpl;
   21 typedef struct TypeImpl *Type;
   22
@@ -81,11 +83,12 @@
 ```
 
 
-## /qom/object.c: object_new
+## qom/object.c: object_new
 * type_get_by_nameでハッシュテーブルからTypeImplを取得し、object_new_with_typeでTypeのインスタンス(Object)を作成する
     * ハッシュテーブルへのTypeImpleの登録は、後で説明する
 
-``` c:qom/object.c
+> qom/object.c
+``` c
  484 static Object *object_new_with_type(Type type)
  485 {
  486     Object *obj;
@@ -110,7 +113,8 @@
 
 * object_initialize_with_typeで、TypeImplのコンストラクタ(instance_init)でObjectを初期化する
 
-``` c:qom/object.c
+> qom/object.c
+``` c
  346 static void object_init_with_type(Object *obj, TypeImpl *ti)
  347 {
  348     if (type_has_parent(ti)) {
@@ -155,13 +159,13 @@
 ```
 
 
-
 ## クラス(TypeInfo)の定義とTypeImplの登録
 * TypeInfo型でクラス定義する
     * TypeInfoはTypeImplの簡易版で、登録の際にTypeImplに変換される
 * type_register_staticで、TypeImplをハッシュテーブルに登録する
 
-``` c:hw/i386/pc.c
+> hw/i386/pc.c
+``` c
 2405 static const TypeInfo pc_machine_info = {
 2406     .name = TYPE_PC_MACHINE,
 2407     .parent = TYPE_MACHINE,
@@ -185,7 +189,8 @@
 2425 type_init(pc_machine_register_types)
 ```
 
-``` c:qom/object.c
+> qom/object.c
+``` c
   86 static void type_table_add(TypeImpl *ti)
   87 {
   88     assert(!enumerating_types);
