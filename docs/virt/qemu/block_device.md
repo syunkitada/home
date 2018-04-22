@@ -1,0 +1,147 @@
+# block device
+
+```
+ 984 static void virtio_blk_instance_init(Object *obj)
+ 985 {
+ 986     VirtIOBlock *s = VIRTIO_BLK(obj);
+ 987
+ 988     device_add_bootindex_property(obj, &s->conf.conf.bootindex,
+ 989                                   "bootindex", "/disk@0,0",
+ 990                                   DEVICE(obj), NULL);
+ 991 }
+
+1020 static void virtio_blk_class_init(ObjectClass *klass, void *data)
+1021 {
+1022     DeviceClass *dc = DEVICE_CLASS(klass);
+1023     VirtioDeviceClass *vdc = VIRTIO_DEVICE_CLASS(klass);
+1024
+1025     dc->props = virtio_blk_properties;
+1026     dc->vmsd = &vmstate_virtio_blk;
+1027     set_bit(DEVICE_CATEGORY_STORAGE, dc->categories);
+1028     vdc->realize = virtio_blk_device_realize;
+1029     vdc->unrealize = virtio_blk_device_unrealize;
+1030     vdc->get_config = virtio_blk_update_config;
+1031     vdc->set_config = virtio_blk_set_config;
+1032     vdc->get_features = virtio_blk_get_features;
+1033     vdc->set_status = virtio_blk_set_status;
+1034     vdc->reset = virtio_blk_reset;
+1035     vdc->save = virtio_blk_save_device;
+1036     vdc->load = virtio_blk_load_device;
+1037     vdc->start_ioeventfd = virtio_blk_data_plane_start;
+1038     vdc->stop_ioeventfd = virtio_blk_data_plane_stop;
+1039 }
+1040
+1041 static const TypeInfo virtio_blk_info = {
+1042     .name = TYPE_VIRTIO_BLK,
+1043     .parent = TYPE_VIRTIO_DEVICE,
+1044     .instance_size = sizeof(VirtIOBlock),
+1045     .instance_init = virtio_blk_instance_init,
+1046     .class_init = virtio_blk_class_init,
+1047 };
+1048
+1049 static void virtio_register_types(void)
+1050 {
+1051     type_register_static(&virtio_blk_info);
+1052 }
+1053
+1054 type_init(virtio_register_types)
+```
+
+
+
+
+## realize
+```
+ 911 static void virtio_blk_device_realize(DeviceState *dev, Error **errp)
+ 912 {
+ 913     VirtIODevice *vdev = VIRTIO_DEVICE(dev);
+ 914     VirtIOBlock *s = VIRTIO_BLK(dev);
+ 915     VirtIOBlkConf *conf = &s->conf;
+ 916     Error *err = NULL;
+ 917     unsigned i;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> include/qemu/module.h
+```
+ 50 #define block_init(function) module_init(function, MODULE_INIT_BLOCK)
+```
+
+> qcow2.c
+```
+4346 BlockDriver bdrv_qcow2 = {
+4347     .format_name        = "qcow2",
+4348     .instance_size      = sizeof(BDRVQcow2State),
+4349     .bdrv_probe         = qcow2_probe,
+4350     .bdrv_open          = qcow2_open,
+4351     .bdrv_close         = qcow2_close,
+4352     .bdrv_reopen_prepare  = qcow2_reopen_prepare,
+4353     .bdrv_reopen_commit   = qcow2_reopen_commit,
+4354     .bdrv_reopen_abort    = qcow2_reopen_abort,
+4355     .bdrv_join_options    = qcow2_join_options,
+4356     .bdrv_child_perm      = bdrv_format_default_perms,
+4357     .bdrv_create        = qcow2_create,
+4358     .bdrv_has_zero_init = bdrv_has_zero_init_1,
+4359     .bdrv_co_get_block_status = qcow2_co_get_block_status,
+4360
+4361     .bdrv_co_preadv         = qcow2_co_preadv,
+4362     .bdrv_co_pwritev        = qcow2_co_pwritev,
+4363     .bdrv_co_flush_to_os    = qcow2_co_flush_to_os,
+4364
+4365     .bdrv_co_pwrite_zeroes  = qcow2_co_pwrite_zeroes,
+4366     .bdrv_co_pdiscard       = qcow2_co_pdiscard,
+4367     .bdrv_truncate          = qcow2_truncate,
+4368     .bdrv_co_pwritev_compressed = qcow2_co_pwritev_compressed,
+4369     .bdrv_make_empty        = qcow2_make_empty,
+4370
+4371     .bdrv_snapshot_create   = qcow2_snapshot_create,
+4372     .bdrv_snapshot_goto     = qcow2_snapshot_goto,
+4373     .bdrv_snapshot_delete   = qcow2_snapshot_delete,
+4374     .bdrv_snapshot_list     = qcow2_snapshot_list,
+4375     .bdrv_snapshot_load_tmp = qcow2_snapshot_load_tmp,
+4376     .bdrv_measure           = qcow2_measure,
+4377     .bdrv_get_info          = qcow2_get_info,
+4378     .bdrv_get_specific_info = qcow2_get_specific_info,
+4379
+4380     .bdrv_save_vmstate    = qcow2_save_vmstate,
+4381     .bdrv_load_vmstate    = qcow2_load_vmstate,
+4382
+4383     .supports_backing           = true,
+4384     .bdrv_change_backing_file   = qcow2_change_backing_file,
+4385
+4386     .bdrv_refresh_limits        = qcow2_refresh_limits,
+4387     .bdrv_invalidate_cache      = qcow2_invalidate_cache,
+4388     .bdrv_inactivate            = qcow2_inactivate,
+4389
+4390     .create_opts         = &qcow2_create_opts,
+4391     .bdrv_check          = qcow2_check,
+4392     .bdrv_amend_options  = qcow2_amend_options,
+4393
+4394     .bdrv_detach_aio_context  = qcow2_detach_aio_context,
+4395     .bdrv_attach_aio_context  = qcow2_attach_aio_context,
+4396
+4397     .bdrv_reopen_bitmaps_rw = qcow2_reopen_bitmaps_rw,
+4398     .bdrv_can_store_new_dirty_bitmap = qcow2_can_store_new_dirty_bitmap,
+4399     .bdrv_remove_persistent_dirty_bitmap = qcow2_remove_persistent_dirty_bitmap,
+4400 };
+4401
+4402 static void bdrv_qcow2_init(void)
+4403 {
+4404     bdrv_register(&bdrv_qcow2);
+4405 }
+4406
+4407 block_init(bdrv_qcow2_init);
+```

@@ -162,7 +162,7 @@
 ## クラス(TypeInfo)の定義とTypeImplの登録
 * TypeInfo型でクラス定義する
     * TypeInfoはTypeImplの簡易版で、登録の際にTypeImplに変換される
-* type_register_staticで、TypeImplをハッシュテーブルに登録する
+* type_initマクロで、TypeImplをハッシュテーブルに登録する
 
 > hw/i386/pc.c
 ``` c
@@ -189,6 +189,50 @@
 2425 type_init(pc_machine_register_types)
 ```
 
+
+## type_initマクロ
+
+> include/qemu/module.h
+```
+ 35 #define module_init(function, type)                                         \
+ 36 static void __attribute__((constructor)) do_qemu_init_ ## function(void)    \
+ 37 {                                                                           \
+ 38     register_module_init(function, type);                                   \
+ 39 }
+ 40 #endif
+ 41
+ 42 typedef enum {
+ 43     MODULE_INIT_BLOCK,
+ 44     MODULE_INIT_OPTS,
+ 45     MODULE_INIT_QOM,
+ 46     MODULE_INIT_TRACE,
+ 47     MODULE_INIT_MAX
+ 48 } module_init_type;
+ 49
+ 50 #define block_init(function) module_init(function, MODULE_INIT_BLOCK)
+ 51 #define opts_init(function) module_init(function, MODULE_INIT_OPTS)
+ 52 #define type_init(function) module_init(function, MODULE_INIT_QOM)
+```
+
+* register_module_initは、MODULE_INIT_タイプごとに用意されたModuleTypeListにfunctionをModuleTypeEntryとして追加する
+> util/module.c
+``` c
+ 63 void register_module_init(void (*fn)(void), module_init_type type)
+ 64 {
+ 65     ModuleEntry *e;
+ 66     ModuleTypeList *l;
+ 67
+ 68     e = g_malloc0(sizeof(*e));
+ 69     e->init = fn;
+ 70     e->type = type;
+ 71
+ 72     l = find_type(type);
+ 73
+ 74     QTAILQ_INSERT_TAIL(l, e, node);
+ 75 }
+```
+
+* type_newでTypeInfoからTypeを生成し、type_table_addでtype_tableという<型の名前,Type>のハッシュテーブルに登録する
 > qom/object.c
 ``` c
   86 static void type_table_add(TypeImpl *ti)
