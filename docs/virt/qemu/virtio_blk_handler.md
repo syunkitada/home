@@ -1,6 +1,7 @@
+# virtio-blkのハンドラ
 
 
-
+## virtio_blk_handle_vq
 * virtio_blk_handle_outputが、ハンドラ処理で、リクエストを処理する実態はvirtio_blk_submit_multireq
 
 ```

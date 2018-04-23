@@ -2,7 +2,7 @@
 
 
 ## kvm-all
-* MMIOなどが発生するとそれをハンドルするためにVM_EXITされる
+* PIO(Port I/O)、MMIO(Memory-Mapped I/O)などが発生するとそれをハンドルするためにVM_EXITされる
 * QEMUでは、VM_EXITの理由から、適切なエミュレーションを行う
 
 > kvm-all.c
@@ -30,7 +30,7 @@
 1943             break;
 ```
 
-* portio、mmioともに、address_space_rwで、QEMUのaddress_spaceに読み書きを行う
+* PIO、MMIOともに、address_space_rwで、QEMUのaddress_spaceに読み書きを行う
     * 指定されたアドレスに登録されているデバイスを使って読み書きが行われる
 > kvm-all.c
 ``` c
@@ -72,7 +72,7 @@
 ```
 
 * flatview_writeは、flatview_trancelateでFlatViewからMemoryRegionを取得
-* flatview_write_continueで、write処理に入る
+* flatview_write_continueで、MemoryRegionに設定されたMMIOデバイスを利用してwrite処理に入る
 ```
 3008 static MemTxResult flatview_write(FlatView *fv, hwaddr addr, MemTxAttrs attrs,
 3009                                   const uint8_t *buf, int len)
