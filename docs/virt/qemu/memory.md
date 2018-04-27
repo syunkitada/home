@@ -1,4 +1,14 @@
-# Memory
+# MemoryAPI(memory.c)
+* MemoryAPIは、メモリ、I/O bus、QEMU Machineのコントローラの機能を提供する
+    * 基本的なRAM
+    * kvmのためのcoalesce memory(結合メモリ)のセットアップ
+    * kvmのためのioeventfd regionのセットアップ
+* Memoryは、MemoryRegionオブジェクトの非循環グラフ(閉路のない有向グラフ)でモデリングされる
+    * シンク(リーフノード)は、RAM Region、MMIO Regionで、他のノードはバス、メモリコントローラ、及び再ルーティングされたMemoryRegionを表す
+* MemoryAPIは、すべてのルートMemoryRegion、中間MemoryRegionsのためのAddressApaceを提供する
+    * これらは、CPUやデバイスのviewpointから見えるメモリとして表される
+* MemoryRegionには以下のタイプがある
+    * RAM
 
 
 ## Memory data structures
@@ -7,11 +17,11 @@
 
 > memory.c
 ```
-  85 static MemoryRegion *system_memory;
-  86 static MemoryRegion *system_io;
-  87
-  88 AddressSpace address_space_io;
-  89 AddressSpace address_space_memory;
+ 85 static MemoryRegion *system_memory;
+ 86 static MemoryRegion *system_io;
+ 87
+ 88 AddressSpace address_space_io;
+ 89 AddressSpace address_space_memory;
 ```
 
 > include/exec/memory.h
@@ -194,49 +204,3 @@
 ```
 
 
-## 初期化処理
-> vl.c
-```
-3091 int main(int argc, char **argv, char **envp)
-3092 {
-...
-4276     cpu_exec_init_all();
-...
-```
-
-> exec.c
-```
-3263 void cpu_exec_init_all(void)
-3264 {
-3265     qemu_mutex_init(&ram_list.mutex);
-3266     /* The data structures we set up here depend on knowing the page size,
-3267      * so no more changes can be made after this point.
-3268      * In an ideal world, nothing we did before we had finished the
-3269      * machine setup would care about the target page size, and we could
-3270      * do this much later, rather than requiring board models to state
-3271      * up front what their requirements are.
-3272      */
-3273     finalize_target_page_bits();
-3274     io_mem_init();
-3275     memory_map_init();
-3276     qemu_mutex_init(&map_client_list_lock);
-3277 }
-```
-
-> exec.c
-* system_memory用のメモリを確保してMemoryRegionを作成し、これをrootにしてAddressSpaceを作成する
-* system_io用のメモリを確保してMemoryRegionを作成し、これをrootにしてAddressSpaceを作成する
-```
-2793 static void memory_map_init(void)
-2794 {
-2795     system_memory = g_malloc(sizeof(*system_memory));
-2796
-2797     memory_region_init(system_memory, NULL, "system", UINT64_MAX);
-2798     address_space_init(&address_space_memory, system_memory, "memory");
-2799
-2800     system_io = g_malloc(sizeof(*system_io));
-2801     memory_region_init_io(system_io, NULL, &unassigned_io_ops, NULL, "io",
-2802                           65536);
-2803     address_space_init(&address_space_io, system_io, "I/O");
-2804 }
-```

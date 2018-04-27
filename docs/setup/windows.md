@@ -1,16 +1,32 @@
-# Windows
+# Windows Setup Manual (For myself)
 
-## Common software
+
+## Contents
+| Link | Description |
+| --- | --- |
+| [Install common software](#install-common-software) | 基本的なソフトウェアをインストール |
+| [Install cygwin](#install-cygwin)                   | cygwinのインストールとセットアップ |
+| [Setup ssh key](#setup-ssh-key)                     | ssh-keyを作成し、putty-agentで利用できるようにする |
+| [Setup dotfiles](#setup-dotfiles)                   | dotfiles(.vimrcなど)の展開 |
+| [Setup vim](#setup-vim)                             | vim(gvim)の設定 |
+| [Setup RLogin](#setup-rlogin)                       | RLogin(SSHターミナル)の設定 |
+| [Other Setup](#other-setup)                         | その他(デフラグ無効化) |
+
+
+
+## Install common software
+* Install following software
 | Soft | Description |
 | --- | --- |
 | Microsoft Security Essentials (Windows7)            | |
 | Windows Defender (Windows 8, 10: default installed) | |
-| GVIM              | GVIM [KaoriYa](https://www.kaoriya.net/) |
-| Lhaplus           | |
-| Desktops          | |
-| VLC media player  | |
-| TrueCrypt         | |
-| LibreOffice       | |
+| GVIM                                                | GVIM [KaoriYa](https://www.kaoriya.net/) |
+| Lhaplus                                             | |
+| Desktops                                            | |
+| VLC media player                                    | |
+| TrueCrypt                                           | Depricated |
+| LibreOffice                                         | |
+
 
 ## Install cygwin
 * Install position: ~/Desktop/cygwin/cygwin64
@@ -30,7 +46,8 @@ Install cygwin package is
 | Utils  | tmux |
 | Web    | wget      |
 
-## Change home directory
+Change home directory
+
 ``` bash
 # $ mkpasswd -l > /etc/passwd
 #
@@ -44,11 +61,12 @@ cd ~
 source .bash_profile
 ```
 
-## cygwin options
+Set cygwin options
 * Looks > Transparency: Medium
 * Text > Font: MSゴシック
 
-## Setup git
+Setup git
+
 ``` bash
 $ git config --global user.name "syunkitada"
 $ git config --global user.email "syun.kitada@gmail.com"
@@ -79,6 +97,7 @@ And, create following shortcut.
 pagent.exe C:\Users\<username>\.ssh\id_rsa.ppk
 ```
 
+
 ## Setup dot files
 ``` bash
 # In cygwin
@@ -92,6 +111,7 @@ Run setup_win.bat by admin.
 setu_win.bat create symbolic link from dot files to home directory.
 Edit .bashrc or .zshrc, and setup path plink.exe.
 
+
 ## Setup vim
 * Run vim on cygwin. First, install plugins by dein.
 * Add path of cygwin/bin to PATH of env. for GVIM.
@@ -104,5 +124,32 @@ Edit .bashrc or .zshrc, and setup path plink.exe.
 $ easy_install pip
 ```
 
-## Disable deflag if ssd
-* Disable by "ドライブのデフラグと最適化"
+
+## Setup RLogin
+* Download
+    * https://github.com/kmiya-culti/RLogin/releases/
+* default設定用の接続先を作成する
+    * コピペ用のショートカット設定
+        * キーボード
+            * Key Code: INSERT + Shift
+            * Assign String: $EDIT_PASTE
+    * 接続先のホストを表示する
+        * カラー > 背景設定
+            * 「バックグランド画像にテキストを追加」にチェック
+    * SSH設定
+        * 通信共有
+            * 「接続が切れてもウィンドウを閉じない」にチェック
+        * プロトコル
+            * 「エージェント転送を有効にする」にチェック
+            * 「KeepAliveパケットの送信間隔(sec) 300」にチェック
+    * tmux経由のコピペをできるようにする
+        * クリップボード > 制御コードによるクリップボード操作
+            * 「クリップボードの読み込みを許可」にチェック
+            * 「クリップボードの書き込みを許可」にチェック
+* default設定を右クリックオプションから、「標準の設定にする」をクリック
+* 以降のサーバ設定は、「サーバ」の項目の「このページ以外のオプションは標準の設定を使用します」にチェックを入れる
+
+
+## Other setup
+* Disable deflag if ssd
+    * Disable by "ドライブのデフラグと最適化"

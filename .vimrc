@@ -64,6 +64,9 @@ set fileformat=unix
 set encoding=utf-8
 set fileencodings=utf-8
 
+" disable beep sound
+set vb t_vb=
+
 " setting syntax color
 syntax on
 " colorscheme molokai
