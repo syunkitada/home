@@ -7,7 +7,7 @@
 | [Install common software](#install-common-software) | 基本的なソフトウェアをインストール |
 | [Install cygwin](#install-cygwin)                   | cygwinのインストールとセットアップ |
 | [Setup ssh key](#setup-ssh-key)                     | ssh-keyを作成し、putty-agentで利用できるようにする |
-| [Setup dotfiles](#setup-dotfiles)                   | dotfiles(.vimrcなど)の展開 |
+| [Setup dot files](#setup-dot-files)                   | dotfiles(.vimrcなど)の展開 |
 | [Setup vim](#setup-vim)                             | vim(gvim)の設定 |
 | [Setup RLogin](#setup-rlogin)                       | RLogin(SSHターミナル)の設定 |
 | [Other Setup](#other-setup)                         | その他(デフラグ無効化) |
@@ -15,7 +15,8 @@
 
 
 ## Install common software
-* Install following software
+Install following software
+
 | Soft | Description |
 | --- | --- |
 | Microsoft Security Essentials (Windows7)            | |
@@ -106,23 +107,15 @@ $ cd home
 $ ./setup_win_clone_neobundle.sh
 ```
 
-# In exploler
-Run setup_win.bat by admin.
-setu_win.bat create symbolic link from dot files to home directory.
-Edit .bashrc or .zshrc, and setup path plink.exe.
+In exploler
+* Run setup_win.bat by admin.
+    * setu_win.bat create symbolic link from dot files to home directory.
+* Edit .bashrc or .zshrc, and setup path plink.exe.
 
 
 ## Setup vim
 * Run vim on cygwin. First, install plugins by dein.
 * Add path of cygwin/bin to PATH of env. for GVIM.
-
-## Setup python
-1. Install [setuptools](https://pypi.python.org/pypi/setuptools)
-  * Download [ez_setup.py](https://bootstrap.pypa.io/ez_setup.py) and execute "$ python ez_setup.py".
-2. install pip
-``` bash
-$ easy_install pip
-```
 
 
 ## Setup RLogin
