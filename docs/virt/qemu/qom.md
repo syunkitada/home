@@ -2,7 +2,16 @@
 * QEMU独自のオブジェクト指向を実現するための機構
 
 
-## qom/object.c: struct TypeImpl
+## Contents
+| Link | Description |
+| --- | --- |
+| [struct TypeImpl](#struct-typeimpl)                             | コンストラクタ(instance_init)、デストラクタ(instance_finalize)が宣言されており、各Classはこの雛形に沿って定義を行う |
+| [struct ObjectClass and Object](#struct-objectclass-and-object) | ObjectClassはすべてのClassの親となるClass、Objectはインスタンスの雛形 |
+| [object_new](#object_new)                                       | object_new(const char *typename)によって、事前登録されたTypeImplのハッシュテーブルから名前で検索して、そのTypeImplでインスタンス(Object)を作成する |
+| [TypeInfoの定義とTypeImplの登録](#define-typeinfo)              | TypeInfoはTypeImplの簡易版で、これを定義しておき、type_registerを利用してTypeInfoをTypeImpleに変換し、TypeImplのハッシュテーブルに登録できる |
+
+
+## struct TypeImpl
 * コンストラクタ(instance_init)、デストラクタ(instance_finalize)が定義されており、インスタンス化する(オブジェクトの実態を作成する)ときに利用される
 
 > qom/object.c
@@ -38,7 +47,7 @@
 ```
 
 
-## include/qom/object.h: struct ObjectClass, struct Object
+## struct ObjectClass and Object
 * struct ObjectClassは、すべてのクラスの親となるルートクラス
     * Type typeは、TypeImplを指すポインタで、これでコンストラクタ、デストラクタを持っている状態になる
         * TypeImplをtypeと言いかえるの注意
@@ -83,7 +92,7 @@
 ```
 
 
-## qom/object.c: object_new
+## object_new
 * type_get_by_nameでハッシュテーブルからTypeImplを取得し、object_new_with_typeでTypeのインスタンス(Object)を作成する
     * ハッシュテーブルへのTypeImpleの登録は、後で説明する
 
@@ -159,6 +168,7 @@
 ```
 
 
+<a name="define-typeinfo"></a>
 ## クラス(TypeInfo)の定義とTypeImplの登録
 * TypeInfo型でクラス定義する
     * TypeInfoはTypeImplの簡易版で、登録の際にTypeImplに変換される
@@ -190,8 +200,7 @@
 ```
 
 
-## type_initマクロ
-
+* type_initマクロ
 > include/qemu/module.h
 ```
  35 #define module_init(function, type)                                         \

@@ -11,6 +11,55 @@
     * RAM
 
 
+作成されたMemoryRegionは、AddressSpaceかContainerに追加される
+memory_region_add_subregion
+
+owner objectが死んだ時に、MemoryRegionもなくなる
+
+
+
+* Guestがメモリにアクセスしたとき、以下のルールでメモリを選択する
+    * root Regionのすべての直接的なSubRegionは、そのアドレスに対して照合される
+        * そのアドレスがそのSubRegionのオフセットサイズ外にある場合、そのSubRegionは破棄されている
+        * そのSubRegionがleaf(RAM or MMIO)なら、その検索は終了し、leaf Regionを返す
+        * そのSubRegionがContainerなら、(そのアドレスがSubRegionのOffsetによって調整された後に)再帰的に同じアルゴリズムで探索する
+        * そのSubRegionがAliasなら、(そのアドレスがSubRegionのOffsetによって調整された後に)その検索はAliasをターゲットとして再帰的に続けられる
+        * ContainerやAlias Subregionにおいて再帰的な検索でマッチしない場合(Containerのカバレッジのholeのため)、
+            * もしこれが、CotainerやRAMバッキングを持つContainerである場合、検索を終了し、Conteiner自体を返す
+            * そうでなければ、優先順位にしたがって次のSubRegionの検索を続ける
+    * SubRegionがそのアドレスに一致しない場合は、no match foundとして検索を終了する
+
+```
+Example memory map
+------------------
+
+system_memory: container@0-2^48-1
+ |
+ +---- lomem: alias@0-0xdfffffff ---> #ram (0-0xdfffffff)
+ |
+ +---- himem: alias@0x100000000-0x11fffffff ---> #ram (0xe0000000-0xffffffff)
+ |
+ +---- vga-window: alias@0xa0000-0xbffff ---> #pci (0xa0000-0xbffff)
+ |      (prio 1)
+ |
+ +---- pci-hole: alias@0xe0000000-0xffffffff ---> #pci (0xe0000000-0xffffffff)
+
+pci (0-2^32-1)
+ |
+ +--- vga-area: container@0xa0000-0xbffff
+ |      |
+ |      +--- alias@0x00000-0x7fff  ---> #vram (0x010000-0x017fff)
+ |      |
+ |      +--- alias@0x08000-0xffff  ---> #vram (0x020000-0x027fff)
+ |
+ +---- vram: ram@0xe1000000-0xe1ffffff
+ |
+ +---- vga-mmio: mmio@0xe2000000-0xe200ffff
+```
+
+
+
+
 ## Memory data structures
 * AddressSpaceが、全メモリの管理単位
     * システム用のaddress_spaceと、ioポート用のaddress_spaceの2つが定義されている

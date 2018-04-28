@@ -1,8 +1,17 @@
 # 仮想CPUのrealize
 
 
+## Contents
+| Link | Description |
+| --- | --- |
+| [仮想CPUの初期化処理の開始場所](#vcpu-init-start)        | MachineClassの初期化時に仮想CPUも初期化(インスタンス化とrealize)をしている |
+| [DeviceClassとrealizeについて](#deviceclass-and-realize) | 仮想CPUはDeviceClassとして定義されており、そのrealizeの仕組みについて |
+| [仮想CPUのrealize](#vcpu-realize)                        | 仮想CPUのrealize内での処理について(vcpuスレッドは起動するが、他のデバイスが準備できるまでは待機する) |
+
+
+<a name="vcpu-init-start"></a>
 ## 仮想CPUの初期化処理の開始場所
-* MachineClassの初期化時に、仮想CPUも初期化する
+* MachineClassの初期化時に、仮想CPUも初期化(インスタンス化とrealize)をしている
 
 > hw/i386/pc_piix.c
 ``` c
@@ -56,6 +65,8 @@
 1152 }
 ```
 
+
+<a name="deviceclass-and-realize"></a>
 ## DeviceClassとrealizeについて
 * DeviceClassのインスタンスのrealizeプロパティに値を設定すると、そのClassのrealize関数が呼ばれる
 
@@ -179,6 +190,7 @@
 ```
 
 
+<a name="vcpu-realize"></a>
 ## 仮想CPUのrealize
 * realizeの実態はx86_cpu_realizefn
 > target/i386/cpu.c

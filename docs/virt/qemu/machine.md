@@ -14,7 +14,7 @@
 4260                           OBJECT_CLASS(machine_class))));
 ```
 
-* select_machineで、引数をパースしてMachineClassを取得する
+* select_machineで、引数をパースしてMachineClassを取得する処理
 > vl.c
 ```
 2735  static MachineClass *machine_parse(const char *name)
@@ -78,7 +78,7 @@
 ```
 
 
-## MachineClassの登録処理
+## MachineClassの事前登録処理
 * DEFINE_I440FX_MACHINEで、MachineClassを登録します
 * MachinClass->initには、pc_init_##suffixが設定され、この中ではpc_init1を呼び出している
     * このpc_init1が実質的な初期化処理を行っている
@@ -137,9 +137,9 @@
 ```
 
 
-## pc_init1
-* Machineの初期化処理
-* CPUやハードウェアの初期化もこの中でおこなう
+## pc_init1による初期化処理
+* main関数内で、MachineClassがnewされてインスタンス化されるときに、pc_init1により初期化処理が行われる
+* CPUやハードウェアの初期化(インスタンス化とrealize)もこの中でおこなう
 > hw/i386/pc_piix.c
 ``` c
  66 /* PC hardware initialisation */
@@ -166,7 +166,7 @@
  87     MemoryRegion *rom_memory;
  88     ram_addr_t lowmem;
  ...
- 151     pc_cpus_init(pcms);
+ 151     pc_cpus_init(pcms);  // vcpuのrealize
  ...
  157     if (pcmc->pci_enabled) {
  158         pci_memory = g_new(MemoryRegion, 1);

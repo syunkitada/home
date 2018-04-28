@@ -1,21 +1,29 @@
 # Main
 
 
+## Contents
+| Link | Description |
+| --- | --- |
+| [vl.c](#vl.c) | main関数が定義されてるファイル |
+
+
+## vl.c
+> vl.c
 ``` c
 3091 int main(int argc, char **argv, char **envp)
 3092 {
 ...
-4220     machine_class = select_machine();
+4220     machine_class = select_machine();  // 起動オプションをパースしてMachineClassを選択
 4221
 4222     set_memory_options(&ram_slots, &maxram_size, machine_class);
 4223
 4224     os_daemonize();
 4225     rcu_disable_atfork();
 ...
-4259     current_machine = MACHINE(object_new(object_class_get_name(
+4259     current_machine = MACHINE(object_new(object_class_get_name(  // MachineClassのインスタンス化
 4260                           OBJECT_CLASS(machine_class))));
 ...
-4276     cpu_exec_init_all();
+4276     cpu_exec_init_all();  # AddressSpaceの初期化
 ...
 4608     cpu_ticks_init();
 ...
