@@ -6,7 +6,8 @@
 | --- | --- |
 | [QCOW2について](#qcow2)                          | QCOW2について     |
 | [BlockDriverの定義と登録](#blockdriver-register) | BlockDriverの定義 |
-| [co_pwritev](#co_pwritev)                        | write処理         |
+| [bdrv_co_writev](#bdrv_co_writev)                | write処理         |
+| [bdrv_co_flush](#bdrv_co_flush)                  | flush処理         |
 
 
 <a name="qcow2"></a>
@@ -86,7 +87,7 @@
 ```
 
 
-## co_pwritev
+## bdrv_co_writev
 > block/qcow2.c
 ```
 1897 static coroutine_fn int qcow2_co_pwritev(BlockDriverState *bs, uint64_t offset,
@@ -122,4 +123,33 @@
 2043
 2044     return ret;
 2045 }
+```
+
+
+## bdrv_co_flush
+> block/qcow2.c
+```
+3645 static coroutine_fn int qcow2_co_flush_to_os(BlockDriverState *bs)
+3646 {
+3647     BDRVQcow2State *s = bs->opaque;
+3648     int ret;
+3649
+3650     qemu_co_mutex_lock(&s->lock);
+3651     ret = qcow2_cache_write(bs, s->l2_table_cache);
+3652     if (ret < 0) {
+3653         qemu_co_mutex_unlock(&s->lock);
+3654         return ret;
+3655     }
+3656
+3657     if (qcow2_need_accurate_refcounts(s)) {
+3658         ret = qcow2_cache_write(bs, s->refcount_block_cache);
+3659         if (ret < 0) {
+3660             qemu_co_mutex_unlock(&s->lock);
+3661             return ret;
+3662         }
+3663     }
+3664     qemu_co_mutex_unlock(&s->lock);
+3665
+3666     return 0;
+3667 }
 ```

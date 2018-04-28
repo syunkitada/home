@@ -342,7 +342,8 @@
 
 * io requestを処理するcorutine(スレッド)を作成し、BlockCompletionFunc *cbをセットする
     * io処理はこのcorutineが行い、complete時に*cbが呼ばれる
-        * qcow2であればqcow2_co_pwritevが実態
+        * corutineでは、BlockDriverのbdrv_co_writev(qcow2であればqcow2_co_pwritev)を実行する
+        * また、cacheが無効(direct_syncなど)であれば、その後すぐにBlockDriverのbdrv_co_flush(qcow2であればqcow2_co_flush_to_os)も実行する
 > block/block_backend.c
 ```
 1277 static BlockAIOCB *blk_aio_prwv(BlockBackend *blk, int64_t offset, int bytes,
