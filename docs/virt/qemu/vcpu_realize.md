@@ -4,15 +4,14 @@
 ## Contents
 | Link | Description |
 | --- | --- |
-| [仮想CPUの初期化処理の開始場所](#vcpu-init-start)        | MachineClassの初期化時に仮想CPUも初期化(インスタンス化とrealize)をしている |
+| [仮想CPUの初期化処理の起点](#vcpu-init-start)            | MachineClassの初期化時に仮想CPUも初期化(インスタンス化とrealize)をしている |
 | [DeviceClassとrealizeについて](#deviceclass-and-realize) | 仮想CPUはDeviceClassとして定義されており、そのrealizeの仕組みについて |
 | [仮想CPUのrealize](#vcpu-realize)                        | 仮想CPUのrealize内での処理について(vcpuスレッドは起動するが、他のデバイスが準備できるまでは待機する) |
 
 
 <a name="vcpu-init-start"></a>
-## 仮想CPUの初期化処理の開始場所
+## 仮想CPUの初期化処理の起点
 * MachineClassの初期化時に、仮想CPUも初期化(インスタンス化とrealize)をしている
-
 > hw/i386/pc_piix.c
 ``` c
  66 /* PC hardware initialisation */
@@ -28,7 +27,7 @@
 * pc_new_cpuで、CPUのインスタンスを作成し、cpuにrealizedプロパティにtrueを設定している
     * このとき、CPUのrealizeが実行される
 > hw/i386/pc.c
-```
+``` c
 1094 static void pc_new_cpu(const char *typename, int64_t apic_id, Error **errp)
 1095 {
 1096     Object *cpu = NULL;
@@ -166,6 +165,7 @@
 499     .class_init = cpu_class_init,
 500 };
 ```
+
 > target/i386/cpu.c
 ``` c
 4626 static void x86_cpu_common_class_init(ObjectClass *oc, void *data)
@@ -194,7 +194,7 @@
 ## 仮想CPUのrealize
 * realizeの実態はx86_cpu_realizefn
 > target/i386/cpu.c
-```
+``` c
 4054 static void x86_cpu_realizefn(DeviceState *dev, Error **errp)
 4055 {
 4056     CPUState *cs = CPU(dev);
@@ -216,8 +216,10 @@
 ```
 
 * VCPUスレッドを開始します
+* address_space_initで、cpu->asがなければ、cpu->memoryをrootとしてAddressSpaceを作成して初期化を行っている
+
 > cpus.c
-```
+``` c
 1739 static void qemu_kvm_start_vcpu(CPUState *cpu)
 1740 {
 1741     char thread_name[VCPU_THREAD_NAME_SIZE];
@@ -320,7 +322,7 @@
 * kvm_cpu_execで、kvmによるマシンコードの実行が行われる
 * VM_EXITのreasonにより、適切なエミュレーションを行う
 > accel/kvm/kvm-all.c
-```
+``` c
 1848 int kvm_cpu_exec(CPUState *cpu)
 1849 {
 1850     struct kvm_run *run = cpu->kvm_run;

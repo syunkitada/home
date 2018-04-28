@@ -202,7 +202,7 @@
 
 * type_initマクロ
 > include/qemu/module.h
-```
+``` c
  35 #define module_init(function, type)                                         \
  36 static void __attribute__((constructor)) do_qemu_init_ ## function(void)    \
  37 {                                                                           \

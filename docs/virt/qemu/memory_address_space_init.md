@@ -1,7 +1,19 @@
-# memory_region
+# AddressSpaceの初期化
 
 
-## MemoryRegionの初期化
+## Contents
+| Link | Description |
+| --- | --- |
+| [AddressSpaceの初期化](#starting-point-address-space-init)          | main関数が定義されてるファイル   |
+| [PIO用のMemoryRegionの初期化](#io-mem-init)                         | PIO用のMemoryRegionの初期化処理  |
+| [AddressSpaceの初期化](address-space-init)                          | AddressSpaceの初期化処理         |
+| [address_space_update_topology](#address_space_update_topology)     | AddressSpaceのトポロジを初期化   |
+| [address_space_update_ioeventfds](#address_space_update_ioeventfds) | AddressSpaceのioeventfdsを初期化 |
+
+
+<a name="starting-point-address-space-init"></a>
+## AddressSpaceの初期化処理の起点
+* systemのAddressSpaceの初期化は、main関数内のcpu_exec_init_all()で行われる
 > vl.c
 ```
 3091 int main(int argc, char **argv, char **envp)
@@ -11,7 +23,7 @@
 ...
 ```
 
-* cpu_exec_init_allで、PIO用のMemoryRegionの初期化、MemorySpaceの初期化を行う
+* cpu_exec_init_allで、PIO用のMemoryRegionの初期化、AdressSpaceの初期化を行う
 > exec.c
 ```
 3263 void cpu_exec_init_all(void)
@@ -67,7 +79,6 @@
 
 
 ## AddressSpaceの初期化
-> exec.c
 * system用のメモリ(system_memory)をmallocして、MemoryRegionとして初期化し、これをrootにしてAddressSpaceを作成する
 * system_io用のメモリ(system_io)をmallocして、PIO用のMemoryRegionとして初期化し、これをrootにしてAddressSpaceを作成する
 > exec.c
@@ -92,8 +103,6 @@
 2804 }
 ```
 
-
-## AddressSpaceの初期化 Internal
 > memory.c
 ```
   2772 void address_space_init(AddressSpace *as, MemoryRegion *root, const char *name)
@@ -111,7 +120,8 @@
   2784 }
 ```
 
-## address_space_update_topology(as)
+
+## address_space_update_topology
 * flat_views(FlatTableのGHashTable)を初期化
 * AddressSpaceのTopologyを作成
 > memory.c
@@ -183,10 +193,10 @@
 ```
 
 
-
-
-
 ## address_space_update_ioeventfds(as)
+* AddressSpaceからFlatViewを取得
+* FlatViewを探索し、MemoryRegionのioeventfdを利用する場合は、address_space_add_del_ioeventfdsを実行
+    * このなかでMemoryのListenerのeventfd_addを行う
 ```
    870 static void address_space_update_ioeventfds(AddressSpace *as)
    871 {
@@ -221,4 +231,59 @@
    900     as->ioeventfd_nb = ioeventfd_nb;
    901     flatview_unref(view);
    902 }
+```
+
+```
+ 806 static void address_space_add_del_ioeventfds(AddressSpace *as,
+ 807                                              MemoryRegionIoeventfd *fds_new,
+ 808                                              unsigned fds_new_nb,
+ 809                                              MemoryRegionIoeventfd *fds_old,
+ 810                                              unsigned fds_old_nb)
+ 811 {
+ 820     iold = inew = 0;
+ 821     while (iold < fds_old_nb || inew < fds_new_nb) {
+ 822         if (iold < fds_old_nb
+ ...
+ 835         } else if (inew < fds_new_nb
+ 836                    && (iold == fds_old_nb
+ 837                        || memory_region_ioeventfd_before(fds_new[inew],
+ 838                                                          fds_old[iold]))) {
+ ...
+ 845             MEMORY_LISTENER_CALL(as, eventfd_add, Reverse, &section,
+ 846                                  fd->match_data, fd->data, fd->e);
+ 847             ++inew;
+ 848         } else {
+ 849             ++iold;
+ 850             ++inew;
+ 851         }
+ 852     }
+ 853 }
+```
+
+```
+ 130 #define MEMORY_LISTENER_CALL(_as, _callback, _direction, _section, _args...) \
+ 131     do {                                                                \
+ 132         MemoryListener *_listener;                                      \
+ 133         struct memory_listeners_as *list = &(_as)->listeners;           \
+ 134                                                                         \
+ 135         switch (_direction) {                                           \
+ 136         case Forward:                                                   \
+ 137             QTAILQ_FOREACH(_listener, list, link_as) {                  \
+ 138                 if (_listener->_callback) {                             \
+ 139                     _listener->_callback(_listener, _section, ##_args); \
+ 140                 }                                                       \
+ 141             }                                                           \
+ 142             break;                                                      \
+ 143         case Reverse:                                                   \
+ 144             QTAILQ_FOREACH_REVERSE(_listener, list, memory_listeners_as, \
+ 145                                    link_as) {                           \
+ 146                 if (_listener->_callback) {                             \
+ 147                     _listener->_callback(_listener, _section, ##_args); \
+ 148                 }                                                       \
+ 149             }                                                           \
+ 150             break;                                                      \
+ 151         default:                                                        \
+ 152             abort();                                                    \
+ 153         }                                                               \
+ 154     } while (0)
 ```

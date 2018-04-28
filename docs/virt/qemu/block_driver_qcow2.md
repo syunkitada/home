@@ -1,86 +1,25 @@
-# block device
-
-```
- 984 static void virtio_blk_instance_init(Object *obj)
- 985 {
- 986     VirtIOBlock *s = VIRTIO_BLK(obj);
- 987
- 988     device_add_bootindex_property(obj, &s->conf.conf.bootindex,
- 989                                   "bootindex", "/disk@0,0",
- 990                                   DEVICE(obj), NULL);
- 991 }
-
-1020 static void virtio_blk_class_init(ObjectClass *klass, void *data)
-1021 {
-1022     DeviceClass *dc = DEVICE_CLASS(klass);
-1023     VirtioDeviceClass *vdc = VIRTIO_DEVICE_CLASS(klass);
-1024
-1025     dc->props = virtio_blk_properties;
-1026     dc->vmsd = &vmstate_virtio_blk;
-1027     set_bit(DEVICE_CATEGORY_STORAGE, dc->categories);
-1028     vdc->realize = virtio_blk_device_realize;
-1029     vdc->unrealize = virtio_blk_device_unrealize;
-1030     vdc->get_config = virtio_blk_update_config;
-1031     vdc->set_config = virtio_blk_set_config;
-1032     vdc->get_features = virtio_blk_get_features;
-1033     vdc->set_status = virtio_blk_set_status;
-1034     vdc->reset = virtio_blk_reset;
-1035     vdc->save = virtio_blk_save_device;
-1036     vdc->load = virtio_blk_load_device;
-1037     vdc->start_ioeventfd = virtio_blk_data_plane_start;
-1038     vdc->stop_ioeventfd = virtio_blk_data_plane_stop;
-1039 }
-1040
-1041 static const TypeInfo virtio_blk_info = {
-1042     .name = TYPE_VIRTIO_BLK,
-1043     .parent = TYPE_VIRTIO_DEVICE,
-1044     .instance_size = sizeof(VirtIOBlock),
-1045     .instance_init = virtio_blk_instance_init,
-1046     .class_init = virtio_blk_class_init,
-1047 };
-1048
-1049 static void virtio_register_types(void)
-1050 {
-1051     type_register_static(&virtio_blk_info);
-1052 }
-1053
-1054 type_init(virtio_register_types)
-```
+# BlockDriver:QCOW2
 
 
+## Contents
+| Link | Description |
+| --- | --- |
+| [QCOW2について](#qcow2)                          | QCOW2について     |
+| [BlockDriverの定義と登録](#blockdriver-register) | BlockDriverの定義 |
+| [co_pwritev](#co_pwritev)                        | write処理         |
 
 
-## realize
-```
- 911 static void virtio_blk_device_realize(DeviceState *dev, Error **errp)
- 912 {
- 913     VirtIODevice *vdev = VIRTIO_DEVICE(dev);
- 914     VirtIOBlock *s = VIRTIO_BLK(dev);
- 915     VirtIOBlkConf *conf = &s->conf;
- 916     Error *err = NULL;
- 917     unsigned i;
-```
+<a name="qcow2"></a>
+## QCOW2について
+* 公式を参照
+    * https://github.com/qemu/qemu/blob/master/docs/interop/qcow2.txt
+    * https://github.com/qemu/qemu/blob/master/docs/qcow2-cache.txt
+        * L2-tablesについての課題と設定値について
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-> include/qemu/module.h
-```
- 50 #define block_init(function) module_init(function, MODULE_INIT_BLOCK)
-```
-
-> qcow2.c
+<a name="blockdriver-register"></a>
+## BlockDriverの定義
+> block/qcow2.c
 ```
 4346 BlockDriver bdrv_qcow2 = {
 4347     .format_name        = "qcow2",
@@ -144,4 +83,43 @@
 4405 }
 4406
 4407 block_init(bdrv_qcow2_init);
+```
+
+
+## co_pwritev
+> block/qcow2.c
+```
+1897 static coroutine_fn int qcow2_co_pwritev(BlockDriverState *bs, uint64_t offset,
+1898                                          uint64_t bytes, QEMUIOVector *qiov,
+1899                                          int flags)
+1900 {
+1901     BDRVQcow2State *s = bs->opaque;
+1902     int offset_in_cluster;
+1903     int ret;
+1904     unsigned int cur_bytes; /* number of sectors in current iteration */
+1905     uint64_t cluster_offset;
+1906     QEMUIOVector hd_qiov;
+1907     uint64_t bytes_done = 0;
+1908     uint8_t *cluster_data = NULL;
+1909     QCowL2Meta *l2meta = NULL;
+1910
+1911     trace_qcow2_writev_start_req(qemu_coroutine_self(), offset, bytes);
+1912
+1913     qemu_iovec_init(&hd_qiov, qiov->niov);
+1914
+1915     s->cluster_cache_offset = -1; /* disable compressed cache */
+1916
+1917     qemu_co_mutex_lock(&s->lock);
+1918
+1919     while (bytes != 0) {
+...
+
+2038     qemu_co_mutex_unlock(&s->lock);
+2039
+2040     qemu_iovec_destroy(&hd_qiov);
+2041     qemu_vfree(cluster_data);
+2042     trace_qcow2_writev_done_req(qemu_coroutine_self(), ret);
+2043
+2044     return ret;
+2045 }
 ```

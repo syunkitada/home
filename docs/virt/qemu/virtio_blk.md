@@ -1,8 +1,128 @@
-# virtio-blkのハンドラ
+# virtio-blk
 
 
-## virtio_blk_handle_vq
-* virtio_blk_handle_outputが、ハンドラ処理で、リクエストを処理する実態はvirtio_blk_submit_multireq
+## Contents
+| Link | Description |
+| --- | --- |
+| [TypeInfoの定義と登録](#init-kvm-start)               | virtio-blkのデバイス定義 |
+| [realize](#realize)                                   | realize処理、ここでvirtioのキューに対してハンドラを設定する |
+| [virtio_blk_handle_output](#virtio_blk_handle_output) | ハンドラ内の処理、IOリクエストの数だけcorutineでドライバ(qcow2など)を使ってIOし、完了したらゲストに通知する |
+
+
+## TypeInfoの定義と登録
+* いつもの
+> hw/block/virtio-blk.c
+```
+  1020 static void virtio_blk_class_init(ObjectClass *klass, void *data)
+  1021 {
+  1022     DeviceClass *dc = DEVICE_CLASS(klass);
+  1023     VirtioDeviceClass *vdc = VIRTIO_DEVICE_CLASS(klass);
+  1024
+  1025     dc->props = virtio_blk_properties;
+  1026     dc->vmsd = &vmstate_virtio_blk;
+  1027     set_bit(DEVICE_CATEGORY_STORAGE, dc->categories);
+  1028     vdc->realize = virtio_blk_device_realize;
+  1029     vdc->unrealize = virtio_blk_device_unrealize;
+  1030     vdc->get_config = virtio_blk_update_config;
+  1031     vdc->set_config = virtio_blk_set_config;
+  1032     vdc->get_features = virtio_blk_get_features;
+  1033     vdc->set_status = virtio_blk_set_status;
+  1034     vdc->reset = virtio_blk_reset;
+  1035     vdc->save = virtio_blk_save_device;
+  1036     vdc->load = virtio_blk_load_device;
+  1037     vdc->start_ioeventfd = virtio_blk_data_plane_start;
+  1038     vdc->stop_ioeventfd = virtio_blk_data_plane_stop;
+  1039 }
+  1040
+  1041 static const TypeInfo virtio_blk_info = {
+  1042     .name = TYPE_VIRTIO_BLK,
+  1043     .parent = TYPE_VIRTIO_DEVICE,
+  1044     .instance_size = sizeof(VirtIOBlock),
+  1045     .instance_init = virtio_blk_instance_init,
+  1046     .class_init = virtio_blk_class_init,
+  1047 };
+  1048
+  1049 static void virtio_register_types(void)
+  1050 {
+  1051     type_register_static(&virtio_blk_info);
+  1052 }
+  1053
+  1054 type_init(virtio_register_types)
+```
+
+
+## realize
+* サポートするqueueの数だけ、virtio_add_queueでqueueを作成する
+    * queue作成時に、ハンドラvirtio_blk_handle_outputをセットしている
+    * 実際の書き込みリクエストがあると、ハンドラvirtio_blk_handle_output呼び出され、書き込み処理を担当する
+> hw/block/virtio-blk.c
+```
+911 static void virtio_blk_device_realize(DeviceState *dev, Error **errp)
+912 {
+913     VirtIODevice *vdev = VIRTIO_DEVICE(dev);
+914     VirtIOBlock *s = VIRTIO_BLK(dev);
+915     VirtIOBlkConf *conf = &s->conf;
+916     Error *err = NULL;
+917     unsigned i;
+...
+932     blkconf_serial(&conf->conf, &conf->serial);
+933     blkconf_apply_backend_options(&conf->conf,
+934                                   blk_is_read_only(conf->conf.blk), true,
+935                                   &err);
+...
+940     s->original_wce = blk_enable_write_cache(conf->conf.blk);
+941     blkconf_geometry(&conf->conf, NULL, 65535, 255, 255, &err);
+...
+946     blkconf_blocksizes(&conf->conf);
+947
+948     virtio_init(vdev, "virtio-blk", VIRTIO_ID_BLOCK,
+949                 sizeof(struct virtio_blk_config));
+950
+951     s->blk = conf->conf.blk;
+952     s->rq = NULL;
+953     s->sector_mask = (s->conf.conf.logical_block_size / BDRV_SECTOR_SIZE) - 1;
+954
+955     for (i = 0; i < conf->num_queues; i++) {
+956         virtio_add_queue(vdev, 128, virtio_blk_handle_output);
+957     }
+958     virtio_blk_data_plane_create(vdev, conf, &s->dataplane, &err);
+...
+965     s->change = qemu_add_vm_change_state_handler(virtio_blk_dma_restart_cb, s);
+966     blk_set_dev_ops(s->blk, &virtio_block_ops, s);
+967     blk_set_guest_block_size(s->blk, s->conf.conf.logical_block_size);
+968
+969     blk_iostatus_enable(s->blk);
+970 }
+```
+
+>hw/virtio/virtio.c
+```
+1574 VirtQueue *virtio_add_queue(VirtIODevice *vdev, int queue_size,
+1575                             VirtIOHandleOutput handle_output)
+1576 {
+1577     int i;
+1578
+1579     for (i = 0; i < VIRTIO_QUEUE_MAX; i++) {
+1580         if (vdev->vq[i].vring.num == 0)
+1581             break;
+1582     }
+1583
+1584     if (i == VIRTIO_QUEUE_MAX || queue_size > VIRTQUEUE_MAX_SIZE)
+1585         abort();
+1586
+1587     vdev->vq[i].vring.num = queue_size;
+1588     vdev->vq[i].vring.num_default = queue_size;
+1589     vdev->vq[i].vring.align = VIRTIO_PCI_VRING_ALIGN;
+1590     vdev->vq[i].handle_output = handle_output;
+1591     vdev->vq[i].handle_aio_output = NULL;
+1592
+1593     return &vdev->vq[i];
+1594 }
+```
+
+
+## virtio_blk_handle_output
+* virtio_blk_handle_outputがハンドラとして登録している関数で、リクエストを処理する実態はvirtio_blk_submit_multireq
 
 ```
    595 bool virtio_blk_handle_vq(VirtIOBlock *s, VirtQueue *vq)
@@ -220,7 +340,9 @@
  127 }
 ```
 
-* io requestを処理するcorutineを作成し、BlockCompletionFunc *cbをセットする
+* io requestを処理するcorutine(スレッド)を作成し、BlockCompletionFunc *cbをセットする
+    * io処理はこのcorutineが行い、complete時に*cbが呼ばれる
+        * qcow2であればqcow2_co_pwritevが実態
 > block/block_backend.c
 ```
 1277 static BlockAIOCB *blk_aio_prwv(BlockBackend *blk, int64_t offset, int bytes,
@@ -262,7 +384,12 @@
 1398     return blk_aio_prwv(blk, offset, qiov->size, qiov,
 1399                         blk_aio_write_entry, flags, cb, opaque);
 1400 }
+```
 
+
+* BlockAIOCBの取得
+> block/block_backend.c
+```
 1869 void *blk_aio_get(const AIOCBInfo *aiocb_info, BlockBackend *blk,
 1870                   BlockCompletionFunc *cb, void *opaque)
 1871 {
@@ -270,6 +397,57 @@
 1873 }
 ```
 
+> util/aiocb.c
+``` c
+ 28 void *qemu_aio_get(const AIOCBInfo *aiocb_info, BlockDriverState *bs,
+ 29                    BlockCompletionFunc *cb, void *opaque)
+ 30 {
+ 31     BlockAIOCB *acb;
+ 32
+ 33     acb = g_malloc(aiocb_info->aiocb_size);
+ 34     acb->aiocb_info = aiocb_info;
+ 35     acb->bs = bs;
+ 36     acb->cb = cb;
+ 37     acb->opaque = opaque;
+ 38     acb->refcnt = 1;
+ 39     return acb;
+ 40 }
+```
+
+
+* BlockDriverのcoroutineに入る
+> block.c
+```
+4670 void bdrv_coroutine_enter(BlockDriverState *bs, Coroutine *co)
+4671 {
+4672     aio_co_enter(bdrv_get_aio_context(bs), co);
+4673 }
+```
+
+> util/async.c
+```
+472 void aio_co_enter(AioContext *ctx, struct Coroutine *co)
+473 {
+474     if (ctx != qemu_get_current_aio_context()) {
+475         aio_co_schedule(ctx, co);
+476         return;
+477     }
+478
+479     if (qemu_in_coroutine()) {
+480         Coroutine *self = qemu_coroutine_self();
+481         assert(self != co);
+482         QSIMPLEQ_INSERT_TAIL(&self->co_queue_wakeup, co, co_queue_next);
+483     } else {
+484         aio_context_acquire(ctx);
+485         qemu_aio_coroutine_enter(ctx, co);
+486         aio_context_release(ctx);
+487     }
+488 }
+```
+
+
+* blk_aio_write_entry
+    * corutineの実行本体
 > block/block_backend.c
 ```
 1320 static void blk_aio_write_entry(void *opaque)
@@ -314,7 +492,7 @@
 1138 }
 ```
 
-> io.c
+> block/io.c
 ```
 1602 /*
 1603  * Handle a write request in coroutine context
@@ -333,54 +511,87 @@
 1737 }
 ```
 
-
-
-> util/aiocb.c
+> block/io.c
 ``` c
- 28 void *qemu_aio_get(const AIOCBInfo *aiocb_info, BlockDriverState *bs,
- 29                    BlockCompletionFunc *cb, void *opaque)
- 30 {
- 31     BlockAIOCB *acb;
- 32
- 33     acb = g_malloc(aiocb_info->aiocb_size);
- 34     acb->aiocb_info = aiocb_info;
- 35     acb->bs = bs;
- 36     acb->cb = cb;
- 37     acb->opaque = opaque;
- 38     acb->refcnt = 1;
- 39     return acb;
- 40 }
+1414 static int coroutine_fn bdrv_aligned_pwritev(BdrvChild *child,
+1415     BdrvTrackedRequest *req, int64_t offset, unsigned int bytes,
+1416     int64_t align, QEMUIOVector *qiov, int flags)
+1417 {
+...
+1450
+1451     ret = notifier_with_return_list_notify(&bs->before_write_notifiers, req);
+...
+1462     if (ret < 0) {
+...
+1469     } else if (bytes <= max_transfer) {
+1470         bdrv_debug_event(bs, BLKDBG_PWRITEV);
+1471         ret = bdrv_driver_pwritev(bs, offset, bytes, qiov, flags);
+1472     } else {
+...
+1497     }
+...
+1510     return ret;
+1511 }
 ```
 
-> block.c
+> block/io.c
+``` c
+ 897 static int coroutine_fn bdrv_driver_pwritev(BlockDriverState *bs,
+ 898                                             uint64_t offset, uint64_t bytes,
+ 899                                             QEMUIOVector *qiov, int flags)
+ 900 {
+ 901     BlockDriver *drv = bs->drv;
+ 902     int64_t sector_num;
+ 903     unsigned int nb_sectors;
+ 904     int ret;
+ 905
+ 906     assert(!(flags & ~BDRV_REQ_MASK));
+ 907
+ 908     if (!drv) {
+ 909         return -ENOMEDIUM;
+ 910     }
+ 911
+ 912     if (drv->bdrv_co_pwritev) {
+ 913         ret = drv->bdrv_co_pwritev(bs, offset, bytes, qiov,
+ 914                                    flags & bs->supported_write_flags);
+ 915         flags &= ~bs->supported_write_flags;
+ 916         goto emulate_flags;
+ 917     }
+ 918
+ 919     sector_num = offset >> BDRV_SECTOR_BITS;
+ 920     nb_sectors = bytes >> BDRV_SECTOR_BITS;
+ 921
+ 922     assert((offset & (BDRV_SECTOR_SIZE - 1)) == 0);
+ 923     assert((bytes & (BDRV_SECTOR_SIZE - 1)) == 0);
+ 924     assert((bytes >> BDRV_SECTOR_BITS) <= BDRV_REQUEST_MAX_SECTORS);
+ 925
+ 926     if (drv->bdrv_co_writev_flags) {
+ 927         ret = drv->bdrv_co_writev_flags(bs, sector_num, nb_sectors, qiov,
+ 928                                         flags & bs->supported_write_flags);
+ 929         flags &= ~bs->supported_write_flags;
+ 930     } else if (drv->bdrv_co_writev) {
+ 931         assert(!bs->supported_write_flags);
+ 932         ret = drv->bdrv_co_writev(bs, sector_num, nb_sectors, qiov);
+ 933     } else {
+ 934         BlockAIOCB *acb;
+ 935         CoroutineIOCompletion co = {
+ 936             .coroutine = qemu_coroutine_self(),
+ 937         };
+ 938
+ 939         acb = bs->drv->bdrv_aio_writev(bs, sector_num, qiov, nb_sectors,
+ 940                                        bdrv_co_io_em_complete, &co);
+ 941         if (acb == NULL) {
+ 942             ret = -EIO;
+ 943         } else {
+ 944             qemu_coroutine_yield();
+ 945             ret = co.ret;
+ 946         }
+ 947     }
+ ...
+ 950     if (ret == 0 && (flags & BDRV_REQ_FUA)) {
+ 951         ret = bdrv_co_flush(bs);  // flushするcolutinを返す
+ 952     }
+ 953
+ 954     return ret;
+ 955 }
 ```
-4670 void bdrv_coroutine_enter(BlockDriverState *bs, Coroutine *co)
-4671 {
-4672     aio_co_enter(bdrv_get_aio_context(bs), co);
-4673 }
-```
-
-> util/async.c
-```
-472 void aio_co_enter(AioContext *ctx, struct Coroutine *co)
-473 {
-474     if (ctx != qemu_get_current_aio_context()) {
-475         aio_co_schedule(ctx, co);
-476         return;
-477     }
-478
-479     if (qemu_in_coroutine()) {
-480         Coroutine *self = qemu_coroutine_self();
-481         assert(self != co);
-482         QSIMPLEQ_INSERT_TAIL(&self->co_queue_wakeup, co, co_queue_next);
-483     } else {
-484         aio_context_acquire(ctx);
-485         qemu_aio_coroutine_enter(ctx, co);
-486         aio_context_release(ctx);
-487     }
-488 }
-```
-
-
-
-

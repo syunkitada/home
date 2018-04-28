@@ -1,6 +1,14 @@
 # Machine
 
 
+## Contents
+| Link | Description |
+| --- | --- |
+| [MachineClassの取得とインスタンス化](#select-machine-class-and-new) | main関数内で、引数をパースして対象のMachineClassを取得し、インスタンス化する |
+| [MachineClassの事前登録処理](#register-machine-class)               | QOMによってMachineClassは事前に定義、登録しておく |
+
+
+<a name="select-machine-class-and-new"></a>
 ## MachineClassの取得とインスタンス化
 * main内で引数をパースして、対象のMachineClassを取得し、インスタンス化する
 > vl.c
@@ -77,11 +85,12 @@
 2868 }
 ```
 
-
+<a name="register-machine-class"></a>
 ## MachineClassの事前登録処理
 * DEFINE_I440FX_MACHINEで、MachineClassを登録します
 * MachinClass->initには、pc_init_##suffixが設定され、この中ではpc_init1を呼び出している
     * このpc_init1が実質的な初期化処理を行っている
+    * インスタンス化の時点ではこれは呼び出されない
 > hw/i386/pc_piix.c
 ``` c
  413 #define DEFINE_I440FX_MACHINE(suffix, name, compatfn, optionfn) \
@@ -134,62 +143,4 @@
 1001         type_register(&pc_machine_type_##suffix); \
 1002     } \
 1003     type_init(pc_machine_init_##suffix)
-```
-
-
-## pc_init1による初期化処理
-* main関数内で、MachineClassがnewされてインスタンス化されるときに、pc_init1により初期化処理が行われる
-* CPUやハードウェアの初期化(インスタンス化とrealize)もこの中でおこなう
-> hw/i386/pc_piix.c
-``` c
- 66 /* PC hardware initialisation */
- 67 static void pc_init1(MachineState *machine,
- 68                      const char *host_type, const char *pci_type)
- 69 {
- 70     PCMachineState *pcms = PC_MACHINE(machine);
- 71     PCMachineClass *pcmc = PC_MACHINE_GET_CLASS(pcms);
- 72     MemoryRegion *system_memory = get_system_memory();
- 73     MemoryRegion *system_io = get_system_io();
- 74     int i;
- 75     PCIBus *pci_bus;
- 76     ISABus *isa_bus;
- 77     PCII440FXState *i440fx_state;
- 78     int piix3_devfn = -1;
- 79     qemu_irq *i8259;
- 80     qemu_irq smi_irq;
- 81     GSIState *gsi_state;
- 82     DriveInfo *hd[MAX_IDE_BUS * MAX_IDE_DEVS];
- 83     BusState *idebus[MAX_IDE_BUS];
- 84     ISADevice *rtc_state;
- 85     MemoryRegion *ram_memory;
- 86     MemoryRegion *pci_memory;
- 87     MemoryRegion *rom_memory;
- 88     ram_addr_t lowmem;
- ...
- 151     pc_cpus_init(pcms);  // vcpuのrealize
- ...
- 157     if (pcmc->pci_enabled) {
- 158         pci_memory = g_new(MemoryRegion, 1);
- 159         memory_region_init(pci_memory, NULL, "pci", UINT64_MAX);
- 160         rom_memory = pci_memory;
- 161     } else {
- 162         pci_memory = NULL;
- 163         rom_memory = system_memory;
- 164     }
- ...
- 177     /* allocate ram and load rom/bios */
- 178     if (!xen_enabled()) {
- 179         pc_memory_init(pcms, system_memory,
- 180                        rom_memory, &ram_memory);
- 181     } else if (machine->kernel_filename != NULL) {
- ...
- 184     }
- ...
- 238     /* init basic PC hardware */
- 239     pc_basic_device_init(isa_bus, pcms->gsi, &rtc_state, true,
- 240                          (pcms->vmport != ON_OFF_AUTO_ON), pcms->pit, 0x4);
- 241
- 242     pc_nic_init(isa_bus, pci_bus);
- ...
- 305 }
 ```
