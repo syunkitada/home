@@ -1,5 +1,9 @@
 # tuning
 
+これは雑多すぎて、参考にしないほうがいい
+そのうちまとめる
+
+
 ## Redhat tuning
 https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/index.html
 https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/7/html/Performance_Tuning_Guide/index.html

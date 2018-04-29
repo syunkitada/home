@@ -62,3 +62,15 @@
 | --- | --- |
 | [initscript](initscript.md)                                             | initscript          |
 | [strace](strace.md)                                                     | straceいろいろ      |
+
+
+## References
+* kernel全般
+    * [kernel_map](http://www.makelinux.net/kernel_map/)
+    * [Linux perf tools](http://www.brendangregg.com/Perf/linuxperftools.png)
+* NetworkStack
+    * [Network data flow](https://mwiki.static.linuxfound.org/images/1/1c/Network_data_flow_through_kernel.png)
+    * [Netfilter packet flow](https://upload.wikimedia.org/wikipedia/commons/3/37/Netfilter-packet-flow.svg)
+* StorageStack
+    * [Linux Storage Stack Diagram](https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram)
+    * [Linux Multi-Queue Block IO Queueing Mechanism (blk-mq)](https://www.thomas-krenn.com/en/wiki/Linux_Multi-Queue_Block_IO_Queueing_Mechanism_(blk-mq))

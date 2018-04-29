@@ -1,5 +1,6 @@
 # virt-install
 
+
 ## Enable kvm
 ``` bash
 % sudo modprobe kvm
@@ -105,49 +106,3 @@ $ sudo virt-install \
 
 参考
 * http://blog.oddbit.com/2015/03/10/booting-cloud-images-with-libvirt/
-
-
-## XXX Add bridge
-
-``` bash
-% sudo brctl addbr mybr
-
-# 無線LANはL2レイヤーレベルでの転送をサポートしていない
-% sudo brctl addif mybr wlan0
-can't add wlan0 to bridge mybr: Operation not supported
-
-# 以下のように、無理やり対応しようとしたが無線がブツブツとぎれるようになった。
-
-# パケットフォワワーディングを有効
-% sudo sysctl net.ipv4.ip_forward=1
-
-# wlan0に飛んできたarpをbr0にも転送する
-% sudo apt-get install parprouted
-% sudo parprouted wlan0 br0
-
-# mybrから飛んできたブロードキャストをwlan0に転送する
-% sudo apt-get install bcrelay
-% sudo bcrelay -d -i br0 -o wlan0
-
-% sudo ip link set mybr up
-```
-
-## Setup nat to ssh VM
-``` bash
-# 192.168.122.0/24へのアクセスを許可する
-sudo iptables -R FORWARD 1 -o virbr0 -s 0.0.0.0/0 -d 192.168.122.0/255.255.255.0 -j ACCEPT
-
-# 10022ポートへのアクセスを192.168.122.156:22 へ転送する
-sudo iptables -t nat -A PREROUTING -p tcp --dport 10022 -j DNAT --to 192.168.122.156:22
-
-sudo iptables -L -t nat
-sudo iptables -L
-
-# TODO サーバ起動時にiptablesを反映させる
-```
-
-## Virsh commands
-``` bash
-# Autostart VM
-$ sudo virsh autostart testvm
-```
