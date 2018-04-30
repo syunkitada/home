@@ -3,6 +3,7 @@
 使用感はabに似ている。
 また、abよりも高い(倍以上の）rpsを叩き出せ、cpuもいい感じに使い切れる。
 
+
 ## Install
 ```
 wget https://github.com/wg/wrk/archive/4.0.2.tar.gz && \
@@ -14,7 +15,7 @@ sudo mv wrk /usr/local/bin/
 
 ## Run wrk
 ```
-./wrk -c 2 -t 2 -d 10 http://127.0.0.1/
+./wrk -c 1 -t 1 --latency -d 10 http://127.0.0.1/
 
 ./wrk -h
 ./wrk: invalid option -- 'h'
@@ -37,79 +38,103 @@ Usage: wrk <options> <url>
 
 ## Run wrk
 ```
-./wrk -c 2 -t 2 -d 10 http://127.0.0.1/
-Running 10s test @ http://127.0.0.1/
-  2 threads and 2 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    32.42us   57.97us   4.30ms   99.71%
-    Req/Sec    31.99k     2.64k   43.81k    96.52%
-  639972 requests in 10.10s, 7.01GB read
-Requests/sec:  63368.94
-Transfer/sec:    710.69MB
-```
-
-## rpsを最大化するためのoption最適化
-* -c, -t はある程度上げるとよい
-* ベンチマークの際にmpstatを投げておいて、CPUを使い切ってるか確認するとよい
-
-```
-./wrk -c 1 -t 1 -d 10 http://127.0.0.1/
-Running 10s test @ http://127.0.0.1/
+./wrk -c 1 -t 1 --latency -d 10 http://127.0.0.1:1323
+Running 10s test @ http://127.0.0.1:1323
   1 threads and 1 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    25.11us   83.12us   5.13ms   99.83%
-    Req/Sec    42.99k     3.33k   44.38k    97.03%
-  431855 requests in 10.10s, 4.73GB read
-Requests/sec:  42762.71
-Transfer/sec:    479.59MB
+    Latency    23.54us   43.66us   3.05ms   97.79%
+    Req/Sec    49.94k     4.58k   51.66k    96.00%
+  Latency Distribution
+     50%   18.00us
+     75%   21.00us
+     90%   25.00us
+     99%  184.00us
+  497098 requests in 10.00s, 61.63MB read
+Requests/sec:  49700.22
+Transfer/sec:      6.16MB
+```
 
-./wrk -c 2 -t 2 -d 10 http://127.0.0.1/
-Running 10s test @ http://127.0.0.1/
-  2 threads and 2 connections
+## 測定時の注意事項
+* -c, -t はある程度上げるとよい(上げすぎてもだめ)
+* ベンチマークの際にmpstatで、CPUを使い切ってるか確認するとよい
+    * 基本的にはCPU性能でサチることが多い
+    * $ mpstat -P ALL 1
+* 99% Latencyが大きなったらパフォーマンスが劣化してる(サーバ側 or クライアント側でCPUがサチるなど原因があるはず)
+
+```
+# 1スレッドでwrkを実行
+./wrk -c 1 -t 1 --latency -d 10 http://127.0.0.1:1323
+Running 10s test @ http://127.0.0.1:1323
+  1 threads and 1 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    32.51us   53.70us   3.99ms   99.53%
-    Req/Sec    31.71k     2.88k   33.63k    96.04%
-  637048 requests in 10.10s, 6.98GB read
-Requests/sec:  63077.58
-Transfer/sec:    707.43MB
+    Latency    23.54us   43.66us   3.05ms   97.79%
+    Req/Sec    49.94k     4.58k   51.66k    96.00%
+  Latency Distribution
+     50%   18.00us
+     75%   21.00us
+     90%   25.00us
+     99%  184.00us
+  497098 requests in 10.00s, 61.63MB read
+Requests/sec:  49700.22
+Transfer/sec:      6.16MB
 
-./wrk -c 4 -t 4 -d 10 http://127.0.0.1/
-Running 10s test @ http://127.0.0.1/
+
+# 2スレッドでwrkを実行
+# 2CPUなのでここでCPUがサチる
+# 99%のLatencyが大きめに出てるが、この辺が妥当
+$ ./wrk -c 2 -t 2 --latency -d 10 http://127.0.0.1:1323
+Running 10s test @ http://127.0.0.1:1323
+  2 threads and 2 connections
+
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    69.34us  322.05us   7.59ms   97.53%
+    Req/Sec    41.03k     4.29k   44.90k    92.50%
+  Latency Distribution
+     50%   21.00us
+     75%   23.00us
+     90%   28.00us
+     99%    1.85ms
+  816289 requests in 10.00s, 101.20MB read
+Requests/sec:  81620.81
+Transfer/sec:     10.12MB
+
+
+# 4スレッドでwrkを実行
+# 2CPUなのでここでCPUがサチり、Latencyも明らかに劣化している
+# Request/secは、2スレッド時よりも出て入るが、Latencyも跳ねているのでSLA的にアウト
+$ ./wrk -c 4 -t 4 --latency -d 10 http://127.0.0.1:1323
+Running 10s test @ http://127.0.0.1:1323
   4 threads and 4 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   473.04us  782.80us  11.95ms   82.08%
-    Req/Sec    19.57k    11.27k   42.99k    65.59%
-  780995 requests in 10.10s, 8.55GB read
-Requests/sec:  77331.61
-Transfer/sec:    867.29MB
+    Latency     2.32ms    5.82ms  58.35ms   88.41%
+    Req/Sec    21.73k     9.27k   49.12k    69.83%
+  Latency Distribution
+     50%   29.00us
+     75%   94.00us
+     90%    9.67ms
+     99%   28.25ms
+  867198 requests in 10.10s, 107.51MB read
+Requests/sec:  85894.12
+Transfer/sec:     10.65MB
+```
 
-./wrk -c 8 -t 8 -d 10 http://127.0.0.1/
-Running 10s test @ http://127.0.0.1/
-  8 threads and 8 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     1.00ms    1.78ms  34.23ms   85.54%
-    Req/Sec    10.00k     1.84k   37.17k    82.71%
-  800270 requests in 10.10s, 8.76GB read
-Requests/sec:  79236.80
-Transfer/sec:      0.87GB
+* このサーバの最大性能としては以下が妥当
+    * 実際のRPSとしてはlocalhostからのデータではなく、別サーバからの測定データを利用する
 
-./wrk -c 16 -t 16 -d 10 http://127.0.0.1/
-Running 10s test @ http://127.0.0.1/
-  16 threads and 16 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     2.81ms    4.38ms  42.10ms   82.35%
-    Req/Sec     5.12k     1.13k   30.70k    95.32%
-  816928 requests in 10.10s, 8.95GB read
-Requests/sec:  80888.72
-Transfer/sec:      0.89GB
+```
+$ ./wrk -c 2 -t 2 --latency -d 10 http://127.0.0.1:1323
+Running 10s test @ http://127.0.0.1:1323
+  2 threads and 2 connections
 
-./wrk -c 32 -t 32 -d 10 http://127.0.0.1/
-Running 10s test @ http://127.0.0.1/
-  32 threads and 32 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     7.50ms   10.99ms  95.39ms   80.73%
-    Req/Sec     2.53k   597.41     9.55k    92.72%
-  808858 requests in 10.09s, 8.86GB read
-Requests/sec:  80129.79
-Transfer/sec:      0.88GB
+    Latency    69.34us  322.05us   7.59ms   97.53%
+    Req/Sec    41.03k     4.29k   44.90k    92.50%
+  Latency Distribution
+     50%   21.00us
+     75%   23.00us
+     90%   28.00us
+     99%    1.85ms
+  816289 requests in 10.00s, 101.20MB read
+Requests/sec:  81620.81
+Transfer/sec:     10.12MB
 ```

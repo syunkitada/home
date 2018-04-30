@@ -158,7 +158,7 @@ alias tl='tmux ls'
 ### Prompt ###
 tmp_prompt="
 %{${fg[cyan]}%}%T [%?] %n@%M:%~%{${reset_color}%}
-%# "
+\$ "
 tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
 tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
 
@@ -228,7 +228,9 @@ fh() {
   eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
 }
 
-source ~/.zsh/*.zsh
+source ~/.zsh/fabkit.zsh
+source ~/.zsh/go.zsh
+
 
 # -------------------------------------------------------------
 # end .zshrc
