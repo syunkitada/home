@@ -20,5 +20,6 @@
 | Kubernetes   | | | |
 |              | [公式ブログ](https://kubernetes.io/blog/)                                      | ブログ      | Kubernetesネタ用               |
 |              | [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md) | ReleaseNote | 新しいリリースが出たらチェック |
+|              | [Kubernetes Podcast](https://kubernetespodcast.com/)                           | Podcast     | GoogleのKubernetes Podcast     |
 | QEMU         | | | |
 |              | [CHANGELOG](https://wiki.qemu.org/ChangeLog)                                   | ReleaseNote | 新しいリリースが出たらチェック |

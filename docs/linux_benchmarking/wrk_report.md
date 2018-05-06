@@ -17,8 +17,14 @@
 $ ./wrk -c 1 -t 1 --latency -d 10 [target]
 ```
 
-| Target   | RPS   | 50% Latency[us] | 99% Latency[us] |
-| --- | --- | --- |
-| nginx    | 47356 | 20              | 104             |
-| echo(go) | 49700 | 18              | 184             |
-| gin(go)  | 27901 | 34              | 173             |
+| Target                           | RPS   | 50% Latency[us] | 99% Latency[us] |
+| --- | --- | --- | --- |
+| nginx                            | 47356 | 20              | 104             |
+| go:net/http                      | 50031 | 18              | 188             |
+| go:chi                           | 50780 | 18              | 198             |
+| go:echo                          | 49700 | 18              | 184             |
+| go:gin                           | 27901 | 34              | 173             |
+| uwsgi + python:raw-wsgi          | 2820  | 61              | 193             |
+| nginx + uwsgi + python:raw-wsgi  | 23988 | 39              | 188             |
+| nginx + uwsgi + python:django2.0 | 3960  | 236             | 614             |
+| nginx + uwsgi + python:flask     | 5475  | 170             | 526             |
