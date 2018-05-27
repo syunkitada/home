@@ -1,16 +1,10 @@
 # English
-* 英語の勉強法
-    * まずは文法を学び、あとは語彙力をひたすら鍛え、たまに文法を復習する
-    * 語彙力は基本的にリスニングで伸ばす
-        * 音も一緒に覚えないと使い物にならない(Readingでしか使えない)
-        * youtubeの字幕表示はとてもいい教材
-        * 自分でも口に出してみるとなおよい
-    * リーディング力はとにかく早く読む癖をつける、だらだら読まない
 
 
 ## Contents
 | Link | Description |
 | --- | --- |
+| [How to](howto.md)                                 | 英語の勉強法、英語ドキュメントの読み方 |
 | [Noun(名詞)](noun.md)                              | 名詞、動名詞、to不定詞、代名詞、冠詞、数量詞 |
 | [Adjective(形容詞)](adjective.md)                  | 名詞を修飾するもの |
 | [Adverb(副詞)](adverb.md)                          | 名詞以外を修飾するもの |
@@ -20,13 +14,16 @@
 | [Conjunction(接続詞)](conjunction.md)              | ある語句や文に他の語句や文を接続する役割を持った言葉 |
 | [Preposition(前置詞)](preposition.md)              | 言葉と言葉をつなぐ役割を持った言葉(in, on, at, to, for, from, of, over, through, etc) |
 | [Comparative(比較級)](comparative.md)              | 物事の比較を行うために英語の文章に変化を加えること |
-| [英文の読み方](howtoread.md)                       | 英文の読み方 |
-| [海外旅行: 飛行機での英語](airplain.md)            | 飛行機での英語 |
-| [海外旅行: 飛行場での英語](airport.md)             | 飛行場での英語 |
 | [TOEIC](toeic.md)                                  | TOEICの準備、試験対策など |
+| [単語帳: 海外旅行](travel/README.md)               | 海外旅行系の英語 |
+| [単語帳: 会社](words_company.md)                   | 会社系の英語 |
+| [単語帳: 技術](words_teck.md)                      | 技術系の英語 |
 
 
 ## Links
 | Link | Description |
 | --- | --- |
-| [english-test](http://www.english-test.net/) | 英語の問題がいろいろ用意されてる |
+| [weblio](https://www.weblio.jp/)                                                     | 辞書                 |
+| [Google翻訳](https://translate.google.co.jp/?hl=ja&tab=TT)                           | 英文の翻訳は一番強い |
+| [english-test](http://www.english-test.net/)                                         | 英語の問題がいろいろ用意されてる  |
+| [TOEIC Practice](http://vu.flare.hiroshima-u.ac.jp/english/TOEIC_project/index2.cgi) | TOEICの自作練習問題が用意されてる |

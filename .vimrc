@@ -91,7 +91,7 @@ au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
 au WinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
 
 " visualize tab
-highlight Tab ctermbg=236
+highlight Tab ctermfg=236 ctermbg=234
 au BufWinEnter * let w:m1 = matchadd("Tab", '\t')
 au WinEnter * let w:m1 = matchadd("Tab", '\t')
 
@@ -115,6 +115,7 @@ autocmd! FileType yaml setlocal tabstop=2 shiftwidth=2
 autocmd! FileType html setlocal tabstop=2 shiftwidth=2
 autocmd! FileType ruby setlocal tabstop=2 shiftwidth=2
 autocmd! FileType make setlocal noexpandtab
+autocmd! FileType go   setlocal noexpandtab
 
 " search
 set hlsearch

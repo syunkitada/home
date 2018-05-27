@@ -2,11 +2,20 @@
 
 
 * 注文
+    * テーブルごとにウェイターがついてることが多い
+        * 注文もこの人だけにする
+        * チップもこの人に払われる
     * I'll have the steak sandwitch.
     * Could I get the steak sandwitch.
 * おすすめを聞く
     * What's your most popular dish?
     * What do you recomend?
+* メニューの見方
+    * 前菜: Appetizer, Starter
+    * 量: 1pounds=1lb=453.492gram
+        * 料理の説明に量として1lb, 2lbとか表記されている
+        * 1ポンドの表記がlb(Libra)なので注意
+            * 古代メソポタミアで、lbはラテン語の量を測る表記だったが、英語になったときにごちゃまぜになったらしい
 * 会計
     * お会計お願いします
         * Can I get the check?
