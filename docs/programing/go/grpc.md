@@ -8,6 +8,8 @@
     * Unary RPCを試してみる
 * https://grpc.io/docs/tutorials/basic/go.html
     * Goのチュートリアル
+* https://github.com/grpc/grpc-go/blob/master/Documentation/gomock-example.md
+    * Gomockを使ったテスト
 
 
 ## Install

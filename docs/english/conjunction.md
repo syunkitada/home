@@ -196,10 +196,14 @@
 
 
 ## once
-* 「いったん～すれば」を意味する大きな接続詞、時間的な因果関係を表す
-    * I went to bed once he had left. 私は布団に入った、彼が去るやいなや。
+* 「いったん～すれば」「～の後するぐに」を意味する大きな接続詞、時間的な因果関係を表す
+    * I went to bed once he had left.
+        * 彼が去るとすぐに、私は布団に入った
+    * Once the client has finished writing the messages, it waits for the server to read them all and return its response.
+        * クライアントがメッセージを書いたあと、クライアントはサーバがそれらすべてを読み、レスポンスを返すのを待ちます
 * 会話では、文頭で「(過去の)ある時」、以前、昔などの意味で使われる
-    * Once there lived a king and queen. 昔ある時、王様と女王がいました。
+    * Once there lived a king and queen.
+        * 昔ある時、王様と女王がいました。
 
 
 ## till/until
