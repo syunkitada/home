@@ -23,3 +23,10 @@
 |              | [Kubernetes Podcast](https://kubernetespodcast.com/)                           | Podcast     | GoogleのKubernetes Podcast     |
 | QEMU         | | | |
 |              | [CHANGELOG](https://wiki.qemu.org/ChangeLog)                                   | ReleaseNote | 新しいリリースが出たらチェック |
+| Teckブログ   | | | |
+|              | [Google Developers](https://developers.googleblog.com/)                        | ブログ | Google       |
+|              | [Facebook Engineering Blog](https://code.facebook.com/posts/)                  | ブログ | Facebook     |
+|              | [Yahoo! JAPAN Teck Blog](https://techblog.yahoo.co.jp/)                        | ブログ | Yahoo! JAPAN |
+|              | [クックパッド開発者ブログ](https://techlife.cookpad.com/)                      | ブログ | cookpad      |
+|              | [CyberAgent | DEvelopers Blog](https://developers.cyberagent.co.jp/blog/)      | ブログ | CyberAgent   |
+|              | [Tower of Engineers](https://toe.bbtower.co.jp/)                               | ブログ | BBT          |
