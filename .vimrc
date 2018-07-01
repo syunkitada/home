@@ -1,3 +1,6 @@
+" Requirements
+" Vim-7.4, git
+
 if len($H)
   let g:home = expand('$H')
   set runtimepath-=~/.vim
@@ -88,7 +91,7 @@ au BufWinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
 au WinEnter * let w:m1 = matchadd("WhitespaceEOL", '[ \t]\+$')
 
 " visualize tab
-highlight Tab ctermbg=236
+highlight Tab ctermfg=236 ctermbg=234
 au BufWinEnter * let w:m1 = matchadd("Tab", '\t')
 au WinEnter * let w:m1 = matchadd("Tab", '\t')
 
@@ -112,6 +115,7 @@ autocmd! FileType yaml setlocal tabstop=2 shiftwidth=2
 autocmd! FileType html setlocal tabstop=2 shiftwidth=2
 autocmd! FileType ruby setlocal tabstop=2 shiftwidth=2
 autocmd! FileType make setlocal noexpandtab
+autocmd! FileType go   setlocal noexpandtab
 
 " search
 set hlsearch
@@ -174,10 +178,22 @@ set ttymouse=xterm2
 " t_ut 端末オプションで、現在の背景色を使って端末の背景をクリアする
 set t_ut=
 
+
+" For makefile
 let _currentfile=expand("%:r")
 if _currentfile == 'Makefile'
   set noexpandtab
 endif
+
+
+" For golang
+" vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 
 set rtp+=~/.fzf

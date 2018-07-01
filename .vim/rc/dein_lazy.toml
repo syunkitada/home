@@ -1,3 +1,8 @@
 [[plugins]]
 repo  = 'https://github.com/mattn/emmet-vim.git'
 on_ft = ['html']
+
+[[plugins]]
+repo  = 'https://github.com/fatih/vim-go.git'
+rev = 'v1.15'
+on_ft = ['go']

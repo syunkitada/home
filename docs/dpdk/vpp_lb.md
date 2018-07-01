@@ -48,3 +48,20 @@ $ sudo vppctl show lb vip verbose
   #as:1
     172.16.100.131 1024 buckets   0 flows  dpo:10 used
 ```
+
+
+```
+$ sudo vppctl lb vip 172.16.100.150/32 encap l3dsr dscp 1
+$ sudo vppctl lb as 172.16.100.150/32 172.16.100.131
+$ sudo vppctl show lb vip verbose
+ ip4-l3dsr [0] 172.16.100.150/32
+  new_size:1024
+  dscp:1
+  counters:
+    packet from existing sessions: 0
+    first session packet: 0
+    untracked packet: 0
+    no server configured: 0
+  #as:1
+    172.16.100.131 1024 buckets   0 flows  dpo:10 used
+```

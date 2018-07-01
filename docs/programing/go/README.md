@@ -1,31 +1,12 @@
 # Go
 
-## Install
-```
-$ wget https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz
-$ sudo tar -C /usr/local -xzf go1.7.5.linux-amd64.tar.gz
-$ export PATH=$PATH:/usr/local/go/bin
-```
 
-## Hello world
-```
-$ mkdir $HOME/work
-$ cd work
-
-$ vim hello.go
-package main
-
-import "fmt"
-
-func main() {
-    fmt.Printf("Hello, world.\n")
-}
-
-$ go build
-
-$ ls
-hello*  hello.go
-
-$ ./hello
-hello, world
-```
+## Contents
+| Link | Description |
+| --- | --- |
+| [How to](howto.md)                        | GoについてのHow toメモ |
+| [Project Bootstrap](project_bootstrap.md) | Project Bootstrap      |
+| [Go with GAE](go_with_gae.md)             | GAEでGo使うときのメモ  |
+| [Web Application Flamework](waf.md)       | GoのWAFについてメモ    |
+| [WAF - echo](waf_echo.md)                 | WAFのechoについてメモ  |
+| [WAF - gin](waf_gin.md)                   | WAFのginについてメモ   |
