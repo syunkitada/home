@@ -8,7 +8,7 @@
 
 
 ## 限定の形容詞
-* 例: catの前に形容詞を置くと、どんな名詞の「猫」か限定される
+* 例: catの前に形容詞を置くと、どんな名詞(猫)か限定される
     * a white cat
     * a cute cat
     * a young cat
@@ -16,7 +16,7 @@
     * 基本的な順番
     * 名詞の位置に遠いほうから主観的な単語で、その次に客観的な事実を延べ、本質に近いもの、物質的な要素が名詞の近くに配置される
         1. 限定詞(determiner): a, my, this, first
-        2. 意見・乾燥・評価(opinion): lovely, beautiful
+        2. 意見・感想・評価(opinion): lovely, beautiful
         3. 大きさ(size): big, small, tall
         4. 新しさ・古さ(age): young, old, new
         5. 形(shape): triangular, square
