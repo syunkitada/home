@@ -89,8 +89,10 @@
         * 「窓を閉める一連の動作を行ったという事実」を忘れた -> 窓をしめたことを忘れた
         * 時制について
             * 基本的にその文の動詞に一致し、forgotが過去形のため、closing the windowの行為も過去に行われた事実となる
-    * My brother denied drinking coffee
+    * My brother denied drinking coffee.
+        * 私の弟は「コーヒを飲むこと」を断った
     * I enjoyed working with you.
+        * 「あなたと働いる時」は楽しかった
 
 
 ## to不定詞の名詞的用法
@@ -107,8 +109,11 @@
             * to 不定詞そのものには時制の概念は含まれないが、「対象に向かう」というその時点で未来に向かっている様子が表される
             * forgotが過去形のため、その過去の時点から見た未来に行うはずだった「窓を閉める」という行為を忘れた、と解釈できる
     * We agree to work together.
+        * 私達は(これから)一緒に働くことに同意した
     * They decided not to go out tonight.
+        * 彼らは今夜(これから)外出しないことにした
     * She asked me to explain.
+        * 彼女は私木(これから)説明するように訪ねた
 
 
 ## 代名詞
@@ -129,8 +134,10 @@
         * It is raining now.
     * to 不定詞(名詞的用法)を表すIt
         * It is easy for me to learn English.
+        * I found it hard to walk in the deep snow.
     * that 以下を表すIt
-        * It pleases me that he should want to talk about his work.
+        * It is certain that he will succeed.
+        * He made it clear that everyone objected to the plan.
 * 代名詞 There
     * ～があると訳すことが多い
         * 聞き手にその情景を思い浮かばせる効果がある
@@ -156,6 +163,7 @@
         * I wrote a new book called The Art of Entrepreneurship. This book refrects my experience as a entrepreneur.
         * これは、代名詞というよりかは冠詞の使い方である
 * 不定代名詞 one, another, other, the other
+    * 不定代名詞とは特定の物を指さず、漠然と不定の人や事物、数量などを表す代名詞
     * one: ある不特定の一つのものを指す、2つ以上ある選択肢の中から、どちらか一つに言及する場合に有効
         * Which one do you prefer?
         * I like this one.
