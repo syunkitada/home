@@ -74,7 +74,7 @@ openssl x509 -days 365 -req -signkey server.key -in server.csr -out server.crt
 * ルートCA証明書を作り、サーバ証明書をルートCA証明書で認可できるようにする
 ``` bash
 $ openssl genrsa -out ca-key.pem 4096
-$ openssl req -x509 -new -nodes -key ca-key.pem -days 365 -out ca.pem -subj "/CN=*.example.co.jp"
+$ openssl req -x509 -new -nodes -key ca-key.pem -days 365 -out ca.pem -subj "/CN=localhost"
 ```
 
 
@@ -90,12 +90,11 @@ basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName = @alt_names
 [alt_names]
-DNS.1 = *.hoge.co.jp
-DNS.2 = *.piyo.co.jp
+DNS.1 = localhost
 EOS
 
 $ openssl genrsa -out apiserver-key.pem 4096
-$ openssl req -new -key apiserver-key.pem -out apiserver.csr -subj "/CN=*.example.co.jp" -config openssl.cnf
+$ openssl req -new -key apiserver-key.pem -out apiserver.csr -subj "/CN=localhost" -config openssl.cnf
 $ openssl x509 -req -in apiserver.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out apiserver.pem -days 365 -extensions v3_req -extfile openssl.cnf
 ```
 

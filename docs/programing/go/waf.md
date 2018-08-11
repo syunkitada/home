@@ -29,6 +29,9 @@
         * xorm
     * マイグレーションツール
         * https://qiita.com/nownabe/items/1acce9f6b9f14f74c965
+* セキュリティ
+    * 参考
+        * [Quick security wins in Golang (Part 1)](https://blog.rapid7.com/2016/07/13/quick-security-wins-in-golang/)
 
 
 ## ルータメモ
