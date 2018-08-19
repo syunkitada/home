@@ -19,57 +19,32 @@ sudo npm install -g yarn
 ```
 
 
-## Start Project
+## Initializing Git repository
+
 ```
 git init
-echo node_modules >> .gitignore
 
-cat <<EOS > package.json
-{
-  "name": "web-samples",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
-}
+cat << EOS > .gitignore
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 EOS
-
-yarn add webpack webpack-cli webpack-dev-server style-loader css-loader --dev
-mkdir src
-mkdir dist
-
-cat <<EOS > webpack.config.js
-module.exports = {
-  mode: 'development',
-  // mode: 'production',
-
-  entry: \`./src/index.js\`,
-
-  // ファイルの出力設定
-  output: {
-    //  出力ファイルのディレクトリ名
-    path: \`\${__dirname}/dist\`,
-    // 出力ファイル名
-    filename: 'main.js'
-  },
-
-  devServer: {
-    host: '0.0.0.0',
-    port: '9090',
-    contentBase: 'dist',
-  },
-};
-EOS
-```
-
-
-## 手動ビルド
-```
-npx webpack
-```
-
-## 開発サーバ
-* ファイル変更時に自動ビルド、ブラウザの自動リロードを行う
-* ビルド結果はメモリ上に保存されるだけ
-```
-npx webpack-dev-server
 ```
