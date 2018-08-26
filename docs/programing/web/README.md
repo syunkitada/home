@@ -99,6 +99,12 @@
     * Webpack
         * モジュールバンドラの中堅、他にもparcel, rollup, browserifyなどがあるがトレンドはWebpackが一番使われてそう
         * タスクランナーのような機能もあるのでWebpackだけで完結する場合もあるが、GruntやGulpなどでないと利用できない機能・資産がある場合は併用して使う
+* マテリアルデザイン
+    * グーグルが提唱しているデザインガイドライン
+    * UIを作る場合は、マテリアルデザインで実装されたライブラリが多数あるのでこれを利用すると楽できる
+        * Material-UI
+            * https://material-ui.com/
+            * Reactコンポーネントを使って、マテリアルデザインを利用できる
 * キャッシュ
     * LastModified
     * ETag
@@ -116,3 +122,4 @@
 * 参考
     * [イマドキのJavaScriptの書き方2018](https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9)
     * [Vue.js: 他のフレームワークとの比較](https://jp.vuejs.org/v2/guide/comparison.html)
+    * [React Redux の SPA を運用して得られた知見と実装例、開発フローもあるよ！](https://qiita.com/numanomanu/items/af97312f34cf1388cee6)
