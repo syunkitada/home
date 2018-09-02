@@ -31,3 +31,16 @@ yarn start
 * https://github.com/facebook/react-devtools
 * https://github.com/pangloss/vim-javascript
 * https://github.com/ReactTraining/react-router
+
+
+
+## 型チェック
+* TypeScript
+    * コンパイル時に型チェックが行われる、トランスコンパイル言語
+* Flow、
+    * Facebookが作成した、JavaScript の構文を拡張して静的型解析機能を提供する
+    * トランスコンパイル言語ではないので、拡張された構文だけを取り除くツールが必要だが、自動化ツールを使えばよい
+* prop-typesを利用して型チェックする方法
+    * https://reactjs.org/docs/typechecking-with-proptypes.html
+    * コンポーネントにpropTypesプロパティをセットすることで、動的に型チェックを行える
+    * パフォーマンスの理由から開発モードでのみ動作する
