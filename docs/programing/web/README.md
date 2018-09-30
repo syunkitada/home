@@ -1,5 +1,12 @@
 # Web開発
-* https://github.com/syunkitada/web-samples
+
+
+## Basic Contents
+| Link | Description |
+| --- | --- |
+| [Web Samples](https://github.com/syunkitada/web-samples) | JavaScriptのツールやライブラリの使い方をまとめたサンプル集 |
+| [スタータ](starter.md)                                   | Webプロジェクトのスタータ                                  |
+| [セキュリティ](security.md)                              | Webセキュリティまわりのメモ                                |
 
 
 ## 用語メモ
@@ -122,9 +129,19 @@
     * マルチデバイス対応について評価されるようになった
         * PC画面だけでなく、スマートフォンでも見れないと、評価が下がったり、そもそも検索結果にでないようになった
         * URLも統一し、レスポンシブなデザインにする必要がある
+* JavaScriptでの型チェック
+    * TypeScript
+        * コンパイル時に型チェックが行われる、トランスコンパイル言語
+    * Flow
+        * Facebookが作成した、JavaScript の構文を拡張して静的型解析機能を提供する
+        * トランスコンパイル言語ではないので、拡張された構文だけを取り除くツールが必要だが、自動化ツールを使えばよい
+    * prop-types
+        * https://reactjs.org/docs/typechecking-with-proptypes.html
+        * コンポーネントにpropTypesプロパティをセットすることで、動的に型チェックを行える
+        * パフォーマンスの理由から開発モードでのみ動作する
 
 
-* 参考
+## 参考
     * [イマドキのJavaScriptの書き方2018](https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9)
     * [Vue.js: 他のフレームワークとの比較](https://jp.vuejs.org/v2/guide/comparison.html)
     * [React Redux の SPA を運用して得られた知見と実装例、開発フローもあるよ！](https://qiita.com/numanomanu/items/af97312f34cf1388cee6)
