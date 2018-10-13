@@ -284,6 +284,11 @@ $ dep ensure
 ```
 
 
+## Task Runnerの利用
+* godoというTaskRunnerを利用すると、 ファイルが変更検知と再リロードを自動で行うことができるので便利
+* [利用例](https://github.com/syunkitada/go-samples/godo-sample)
+
+
 ## Vim environments
 * vim-go
     * シンタックスハイライト

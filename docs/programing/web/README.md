@@ -5,7 +5,6 @@
 | Link | Description |
 | --- | --- |
 | [Web Samples](https://github.com/syunkitada/web-samples) | JavaScriptのツールやライブラリの使い方をまとめたサンプル集 |
-| [スタータ](starter.md)                                   | Webプロジェクトのスタータ                                  |
 | [セキュリティ](security.md)                              | Webセキュリティまわりのメモ                                |
 
 
@@ -139,6 +138,11 @@
         * https://reactjs.org/docs/typechecking-with-proptypes.html
         * コンポーネントにpropTypesプロパティをセットすることで、動的に型チェックを行える
         * パフォーマンスの理由から開発モードでのみ動作する
+* PWA(Progressive Web App)
+    * GoogleやMozillaが推奨しているWebアプリに必要な技術
+    * レスポンシブデザイン: 他端末対応
+    * Service Workers: オフライン対応、プッシュ通知
+    * Web App Manifest: ホーム画面に追加
 
 
 ## 参考

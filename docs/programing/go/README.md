@@ -4,9 +4,7 @@
 ## Contents
 | Link | Description |
 | --- | --- |
-| [How to](howto.md)                        | GoについてのHow toメモ |
-| [Project Bootstrap](project_bootstrap.md) | Project Bootstrap      |
-| [Go with GAE](go_with_gae.md)             | GAEでGo使うときのメモ  |
-| [Web Application Flamework](waf.md)       | GoのWAFについてメモ    |
-| [WAF - echo](waf_echo.md)                 | WAFのechoについてメモ  |
-| [WAF - gin](waf_gin.md)                   | WAFのginについてメモ   |
+| [Go Samples](https://github.com/syunkitada/go-samples) | Goのツールやライブラリの使い方をまとめたサンプル集 |
+| [Goの始め方](howto.md)                                 | Goの始め方、学び方       |
+| [WAFについてのメモ](waf.md)                            | WAFについてのメモ        |
+| [GAE](go_wit_gae.md)                                   | GAEの利用についてのメモ  |
