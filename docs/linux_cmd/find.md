@@ -3,5 +3,5 @@
 
 ## findしてrenameする
 ```
-$ find ./ -iname *hoge* | xargs rename 's/hoge/piyo/g'
+$ find ./ -iname '*hoge*' | xargs rename 's/hoge/piyo/g'
 ```
