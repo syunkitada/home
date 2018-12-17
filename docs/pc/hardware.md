@@ -18,15 +18,48 @@
 
 ## CPU
 ### Intel
-* 世代: Nehalem, Sandy-bridge, Ivy-bridge, Haswell, Broadwell, Skylake, Kabylake
-* [IntelR 64 and IA-32 Architectures Optimization Reference Manual](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf)
-* ECE 4750 Computer Architecture Intel Skylake]http://www.csl.cornell.edu/courses/ece4750/handouts/ece4750-section-skylake.pdf
+* 世代
+    * Nehalem
+    * Sandy-bridge
+    * Ivy-bridge
+    * Haswell
+    * Broadwell
+    * Skylake
+        * 2015年, 14nm
+        * [ECE 4750 Computer Architecture Intel Skylake](http://www.csl.cornell.edu/courses/ece4750/handouts/ece4750-section-skylake.pdf)
+    * Kaby Lake
+        * 2016年, 14nm+
+    * Coffee Lake
+        * 2017年, 14nm++
+    * Coffee Refresh
+        * 2018年, 14nm++
+    * Sunny Cove
+        * 2019年, 10nm
+    * Willow Cove
+        * 2020年?
+    * Golden Cove
+        * 2021年?
+* Foveros
+    * 3Dパッケージング技術
+    * I/OとCPU(チップレット)を分割する
+        * AMDもEpic用のアーキテクチャ「Rome」で分離するとすでに発表しているのでIntelが追従？する形となる
+    * 大きなシリコン台にI/Oやメモリを乗せ、さらにその上にComputeチップレットを乗せる
 
 
 ### AMD
-* 世代: SledgeHammer(K8), Egypt(K8), Bracelona(K10), Istanbul(K10), Magny-Cours(K10), Interlagos(Bulldozer), Naples(Zen)
-* EPYC: http://pc.watch.impress.co.jp/docs/column/kaigai/1066385.html
-* [AMDがISSCCでZENベースSoC「Zeppelin」の詳細を明らかに](https://pc.watch.impress.co.jp/docs/column/kaigai/1107967.html)
+* 世代
+    * SledgeHammer(K8)
+    * Egypt(K8)
+    * Bracelona(K10)
+    * Istanbul(K10)
+    * Magny-Cours(K10)
+    * Interlagos(Bulldozer)
+    * Naples(Zen)
+        * [AMDがサーバー向けCPU「EPYC 7000」ファミリを正式発表](http://pc.watch.impress.co.jp/docs/column/kaigai/1066385.html)
+        * [AMDがISSCCでZENベースSoC「Zeppelin」の詳細を明らかに](https://pc.watch.impress.co.jp/docs/column/kaigai/1107967.html)
+    * Rome(Zen2)
+        * [AMD Discloses Initial Zen 2 Details](https://fuse.wikichip.org/news/1815/amd-discloses-initial-zen-2-details/)
+        * [第3世代Ryzenで採用されるAMDの次世代アーキテクチャ「Zen 2」についてWikiChipが解説](https://gigazine.net/news/20181120-amd-zen-2/)
 
 
 ### コア間接続
