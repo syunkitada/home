@@ -14,4 +14,5 @@
 
 
 ## 小ネタ リンク集
+* [Submarine Cable Map](https://www.submarinecablemap.com/)
 * [DeNA ライブ配信を支える技術と知識](https://engineer.dena.jp/2018/12/knowledge-for-livestreaming.html)
