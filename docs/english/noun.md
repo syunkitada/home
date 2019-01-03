@@ -128,6 +128,14 @@
     * she, her, her, hers
     * it, it, its, 使用されない
     * they, them, their, theirs
+* thou(なんじ)
+    * 古い言い回しでyouのわかりに用いられる代名詞、ファンタジー小説などで使われることがある
+    * thou(主格), thee(目的格), thy(所有格), thine(所有代名詞), ye(複数)
+    * これに続く動詞は現在および過去の両方の時制における直接法において一般的に -(e)stで終わる
+    * 例外として、以下のような変化もある
+        * are -> art
+        * have -> hast
+        * shall -> shalt
 * 代名詞 It
     * 時間、日時、天候を表現する際、主語にはItが使われる
         * It is 9 o'clock now.
