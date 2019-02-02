@@ -1,10 +1,12 @@
 #!/bin/sh
 
+XDG_CONFIG_HOME=${HOME}/.config
+mkdir -p ${XDG_CONFIG_HOME}
+
 bin=`pwd`/bin
 local_bin=${HOME}/.local/bin
 mkdir -p $local_bin
 cp -f bin/* $local_bin/
-XDG_CONFIG_HOME=${HOME}/.config
 
 bash_profile=`pwd`/.bash_profile
 zshrc=`pwd`/.zshrc
