@@ -22,7 +22,7 @@ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 " dein.vim がなければ github から落としてくる
 if &runtimepath !~# '/dein.vim'
   if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+    execute '!git clone https://github.com/Shougo/dein.vim -b v1.5' s:dein_repo_dir
   endif
   if has("gui_running") && has('win32')
     execute 'set runtimepath^=' . s:dein_repo_dir
