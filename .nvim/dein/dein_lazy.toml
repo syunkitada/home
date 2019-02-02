@@ -1,0 +1,7 @@
+[[plugins]]
+repo  = 'https://github.com/mattn/emmet-vim.git'
+on_ft = ['html']
+
+[[plugins]]
+repo  = 'https://github.com/fatih/vim-go.git'
+on_ft = ['go']

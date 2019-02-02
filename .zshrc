@@ -8,6 +8,7 @@ export KCODE=u           # KCODEにUTF-8を設定
 export TZ=Asia/Tokyo
 export TERM='xterm-256color'
 export PATH=$HOME/.local/bin:$PATH
+export XDG_CONFIG_HOME=$HOME/.config
 
 
 # for cygwin on windows

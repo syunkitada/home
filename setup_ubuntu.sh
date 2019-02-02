@@ -4,6 +4,7 @@ bin=`pwd`/bin
 local_bin=${HOME}/.local/bin
 mkdir -p $local_bin
 cp -f bin/* $local_bin/
+XDG_CONFIG_HOME=${HOME}/.config
 
 bash_profile=`pwd`/.bash_profile
 zshrc=`pwd`/.zshrc
@@ -16,6 +17,7 @@ vimrc=`pwd`/.vimrc
 gvimrc=`pwd`/.gvimrc
 vimshrc=`pwd`/.vimshrc
 vim=`pwd`/.vim
+nvim=`pwd`/.nvim
 vrapperrc=`pwd`/.vrapperrc
 
 ln_bash_profile=${HOME}/.bash_profile
@@ -30,6 +32,7 @@ ln_gvimrc=${HOME}/.gvimrc
 ln_vimshrc=${HOME}/.vimshrc
 ln_vim=${HOME}/.vim
 ln_vrapperrc=${HOME}/.vrapperrc
+ln_nvim=${HOME}/.config/nvim
 
 rm -f $ln_bash_profile
 rm -f $ln_zshrc
@@ -43,6 +46,7 @@ rm -f $ln_gvimrc
 rm -f $ln_vimshrc
 rm -f $ln_vim
 rm -f $ln_vrapperrc
+rm -f $ln_nvim
 
 ln -s $bash_profile $ln_bash_profile
 ln -s $zshrc $ln_zshrc
@@ -56,8 +60,18 @@ ln -s $gvimrc $ln_gvimrc
 ln -s $vim $ln_vim
 ln -s $vimshrc $ln_vimshrc
 ln -s $vrapperrc $ln_vrapperrc
+ln -s $nvim $ln_nvim
 
-sudo apt-get install git zsh build-essential vim ncurses-dev -y
+sudo apt-get update -y
+sudo apt-get install git zsh tmux build-essential vim ncurses-dev -y
+
+# install neovim
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository -y ppa:neovim-ppa/unstable
+sudo apt-get update -y
+sudo apt-get install -y neovim
+
+sudo apt-get install -y python3-dev python3-pip
 
 # install fzf
 if [ ! -e ~/.fzf ]; then
