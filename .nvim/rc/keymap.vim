@@ -10,10 +10,10 @@ nnoremap <S-r> <C-r>
 " プラグイン
 nmap <Space>f [vimfiler]
 nmap <Space>u [unite]
-nmap <Space>h [vimshell]
 nmap <Space>r [quickrun]
 nmap <Space>e [emmet]
 nmap <Space>g [git]
+nmap <Space>v [vimgo]
 nmap <Space>y [yank_to_teraterm]
 nmap <Space>t [tasklist]
 nmap <Space>o [tagbar]

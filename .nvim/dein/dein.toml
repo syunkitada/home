@@ -65,3 +65,7 @@ repo = 'https://github.com/tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'https://github.com/gregsexton/gitv.git'
+
+
+[[plugins]]
+repo = 'https://github.com/ctrlpvim/ctrlp.vim.git'

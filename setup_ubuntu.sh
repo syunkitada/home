@@ -10,6 +10,7 @@ sudo apt-get update -y
 sudo apt-get install -y neovim
 
 sudo apt-get install -y python3-dev python3-pip
+sudo pip install neovim
 
 # install fzf
 if [ ! -e ~/.fzf ]; then
