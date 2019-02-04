@@ -16,6 +16,7 @@ let g:go_metalinter_autosave = 1 " ファイル保存時にmetalinterを実行�
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck'] " :GoMetaLinter実行時に実行されるlintを設定できる
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck'] " ファイル保存時に実行されるlintを設定できる
 let g:go_metalinter_deadline = "5s" " metalinterの実行時間が長い時は指定した時間でキャンセルする
+let g:go_metalinter_command = "gometalinter --config=" . $HOME . "/.config/gometalinter/config.json"
 
 
 " -------------------------

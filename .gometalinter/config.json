@@ -1,0 +1,3 @@
+{
+  "Exclude": ["don't use an underscore in package name"]
+}

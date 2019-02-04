@@ -21,6 +21,7 @@ vimshrc=`pwd`/.vimshrc
 vim=`pwd`/.vim
 nvim=`pwd`/.nvim
 vrapperrc=`pwd`/.vrapperrc
+gometalinter=`pwd`/.gometalinter
 
 ln_bash_profile=${HOME}/.bash_profile
 ln_zshrc=${HOME}/.zshrc
@@ -35,6 +36,7 @@ ln_vimshrc=${HOME}/.vimshrc
 ln_vim=${HOME}/.vim
 ln_vrapperrc=${HOME}/.vrapperrc
 ln_nvim=${HOME}/.config/nvim
+ln_gometalinter=${HOME}/.config/gometalinter
 
 rm -f $ln_bash_profile
 rm -f $ln_zshrc
@@ -49,6 +51,7 @@ rm -f $ln_vimshrc
 rm -f $ln_vim
 rm -f $ln_vrapperrc
 rm -f $ln_nvim
+rm -f $ln_gometalinter
 
 ln -s $bash_profile $ln_bash_profile
 ln -s $zshrc $ln_zshrc
@@ -63,3 +66,4 @@ ln -s $vim $ln_vim
 ln -s $vimshrc $ln_vimshrc
 ln -s $vrapperrc $ln_vrapperrc
 ln -s $nvim $ln_nvim
+ln -s $gometalinter $ln_gometalinter
