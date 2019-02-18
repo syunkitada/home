@@ -80,6 +80,7 @@ syntax on
 " let g:lucius_high_contrast = "0"
 " colorscheme lucius
 colorscheme hybrid
+set background=dark
 
 " show status line
 set laststatus=2

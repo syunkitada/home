@@ -4,4 +4,5 @@ on_ft = ['html']
 
 [[plugins]]
 repo  = 'https://github.com/fatih/vim-go.git'
+rev = 'v1.18'
 on_ft = ['go']
