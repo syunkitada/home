@@ -31,3 +31,16 @@
     * この転送の仕組みはglb-redirect iptables moduleで実現している
         * GUEヘッダ、Foo-over-UDPという技術を使ってる
         * https://github.com/github/glb-director/blob/master/docs/development/gue-header.md
+
+
+## SRLB
+* https://www.thomasclausen.net/wp-content/uploads/2017/05/camera-ready-ieeepdfexpress.pdf
+
+
+## LINEのSWLB
+* https://www.slideshare.net/linecorp/ss-116879618
+* Stateless L3DSR
+    * L3DSRはDSCPを利用した方式
+* VerdaのLBaaSとして利用されてる?
+    * データプレーンはC(XDP)で800行
+    * コントロールプレーンはPythonで14000行

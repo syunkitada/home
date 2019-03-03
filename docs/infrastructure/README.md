@@ -5,6 +5,7 @@
 | Link | Description |
 | --- | --- |
 | [Datacenter](datacenter.md)         | データセンタ |
+| [DNS](dns.md)                       | DNSについて |
 | [DHCP](dhcp.md)                     | DHCPの仕組み(DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK, DHCPNAK, DHCPRELEASE) |
 | [SMTP, POP, IMAP](smtp_pop_imap.md) | STMP, POP, IMAPを踏まえ、メール送受信の仕組みについて |
 | [TLS](tls.md)                       | TLSについて、TLSの作り方 |
