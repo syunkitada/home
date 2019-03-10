@@ -10,6 +10,7 @@
 | [SMTP, POP, IMAP](smtp_pop_imap.md) | STMP, POP, IMAPを踏まえ、メール送受信の仕組みについて |
 | [TLS](tls.md)                       | TLSについて、TLSの作り方 |
 | [Loadbalancer](loadbalancer.md)     | ロードバランサについて |
+| [ネットワークのBonding](bonding.md) | ネットワークのBonding、Channelingについて |
 | [電話網](telephone_network.md)      | 電話網について |
 | [Words](words.md)                   | ネットワーク用語のメモ用 |
 
