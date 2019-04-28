@@ -69,10 +69,29 @@
         * マイクロソフトによって開発されたトランスコンパイル言語
         * 静的型付けで、JavaやC#にインスパイアされた文法
         * 人気が高い
+        * AngularもTypeScriptで書かれてる
     * Babel
         * ESを各Editionに変換するトランスコンパイラ
     * SASS
         * CSS用のトランスコンパイル言語
+* ESLint
+    * JavaScriptのLinter
+    * TypeScript用のTSLintというのもあるが、TypeScriptチームがESLintに切り替えていく
+    * Vimで利用する場合は、systasticと一緒に使うと良い
+    * エディタでチェックせず、タスクランナーなどで実行するのもあり
+        * create-react-appすると、[ES|TS]Lintの設定も自動で入ってる
+* Prettier
+    * gofmtのようなコードの整形ツール
+    * 以下の形式をサポートしている
+        * JavaScript（ES2017も含む）
+        * JSX
+        * Flow
+        * TypeScript
+        * CSS, Less, and SCSS
+        * JSON
+    * Vimで利用する場合は、https://github.com/prettier/vim-prettier を使うと良い
+    * インストール
+        * yarn global add prettier prettier/vim-prettier
 * Node.js
     * V8 JavaScript エンジンで動作する JavaScript 環境
     * サーバ用途としても使えるが、Webフロントエンド開発ツール(タスクランナーやSassやTypeScriptなど)のためによく利用される

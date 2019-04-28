@@ -231,6 +231,7 @@ fh() {
 
 source ~/.zsh/fabkit.zsh
 source ~/.zsh/go.zsh
+source ~/.zsh/js.zsh
 
 
 # -------------------------------------------------------------
