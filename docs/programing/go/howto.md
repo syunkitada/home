@@ -4,16 +4,18 @@
 ## Contents
 | Link | Description |
 | --- | --- |
-| [はじめに](#はじめに)                       | |
-| [Install packages](#install_packages)       | |
-| [Export environments](#export_environments) | |
-| [Workspace design](#workspace-design)       | |
-| [How to develop](#how-to-develop)           | |
-| [Vim environments](#vim-environments)       | |
+| [はじめに](#はじめに)                                                     | |
+| [Install packages](#install_packages)                                     | |
+| [Export environments](#export_environments)                               | |
+| [Workspace design](#workspace-design)                                     | |
+| [How to develop](#how-to-develop)                                         | |
+| [Package dependency management tool](#Package-dependency-management-tool) | |
+| [Task Runner](#Task-Runner)                                               | |
+| [Vim environments](#vim-environments)                                     | |
 
 
 ## はじめに
-* 公式がとても充実してるので、基本的にこれだけ見ておけばOK
+* Go初めての人は、公式がとても充実してるので基本的にこれだけ見ておけばOK
     * https://golang.org/doc/
     * Goを始める前に最低限見るべきもの
         * [A Tour of Go](https://tour.golang.org/)
@@ -21,16 +23,23 @@
     * Goに少しなれてきたら見るべきもの
         * [Effective Go](https://golang.org/doc/effective_go.html)
         * [Diagnostics](https://golang.org/doc/diagnostics.html)
+* 追加で学習するとよいこと
+    * goroutine, channelまわりの実装
+      * [Go の channel 処理パターン集](https://hori-ryota.com/blog/golang-channel-pattern/)
+    * プロファイリング、goroutineによるメモリリークについて
+      * [goで書いたコードがヒープ割り当てになるかを確認する方法](https://hnakamur.github.io/blog/2018/01/30/go-heap-allocations/)
+      * [Allocation efficiency in high-performance Go services](https://segment.com/blog/allocation-efficiency-in-high-performance-go-services/)
+      * [Go 言語のプロファイル機能とネットワークコネクションにまつわるトラブルシューティング](https://techblog.yahoo.co.jp/programming/troubleshooting-many-connections/)
 
 
 ## Install packages
 * [Downloads](https://golang.org/dl/)から、ダウンロードして展開する
 ```
-$ wget https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz
-$ sudo tar -C /usr/local -xzf go1.10.1.linux-amd64.tar.gz
+$ wget https://dl.google.com/go/go1.12.5.linux-amd64.tar.gz
+$ sudo tar -C /usr/local -xzf go1.12.5.linux-amd64.tar.gz
 ```
 
-* その他必須ツールもインストールしておく
+* その他依存ツールもインストールしておく
 ``` bash
 # for ubuntu
 $ sudo apt-get install git mercurial
@@ -52,6 +61,7 @@ $ sudo apt-get install git mercurial
 ``` bash
 export PATH=$PATH:/usr/local/go/bin
 export PATH=${PATH}:/usr/local/go/bin:/${GOPATH}/bin
+export GO111MODULE=on
 ```
 
 
@@ -206,10 +216,45 @@ $ $GOPATH/bin/go-hello
 
 
 ## Package dependency management tool
-* go getで、依存パッケージも一緒にcloneできるのだが、パッケージのバージョンを指定できないため、別途依存管理用のツールが必要になる
-* 今までは、いくつかの候補があったが、公式がdepを出したのでこれで決定と思われる(2018/05/06時点では、まだOfficialではなくExperimental)
-    * https://github.com/golang/dep
-    * https://golang.github.io/dep/docs/introduction.html
+* goで依存パッケージを管理する場合、go getで依存パッケージも一緒にcloneできるが、パッケージのバージョンを指定できないため、別途依存管理用のツールが必要になる
+* goでは、$GOPATH/src/プロジェクト/vendorが存在する場合、そこを優先して見てくれる
+* このため、パッケージ管理用のサードパーティツールでは、このvendorに依存パッケージをダウンロードして管理している
+* 2017年頃、サードパーティツールが乱立してきたところで、に公式から実験的なツールとしてdepが登場した
+  * https://github.com/golang/dep
+  * https://golang.github.io/dep/docs/introduction.html
+* 2018年頃、go1.11でgomoduleが導入された
+* 特にこだわりがなければgomoduleを利用すれば良さそう
+
+### gomodule
+
+```
+# gomoduleの有効化
+export GO111MODULE=on
+
+# プロジェクトの初期化
+# プロジェクトのルートディレクトリで以下を実行する
+# すでにdepを使っていて、Gopkg.lockがあればそれを引き継いでgo.modを作成してくれる
+$ go mod init
+
+$ cat go.mod
+module github.com/syunkitada/goapp
+
+go 1.12
+
+require (
+        github.com/BurntSushi/toml v0.3.1
+        github.com/MichaelTJones/walk v0.0.0-20161122175330-4748e29d5718 // indirect
+        github.com/alecthomas/gometalinter v3.0.0+incompatible // indirect
+        github.com/davidrjenni/reftools v0.0.0-20190411195930-981bbac422f8 // indirect
+...
+
+# 依存パッケージはrunやbuild時に、自動で$GOPATH/pkg/mod/にダウンロードされる
+$ ls $GOPATH/pkg/mod/
+9fans.net/  cloud.google.com/  golang.org/         gopkg.in/   mvdan.cc/
+cache/      github.com/        google.golang.org/  honnef.co/  sourcegraph.com/
+```
+
+### dep
 
 ``` sh
 # Install into your $GOPATH/bin
@@ -284,7 +329,7 @@ $ dep ensure
 ```
 
 
-## Task Runnerの利用
+## Task Runner
 * godoというTaskRunnerを利用すると、 ファイルが変更検知と再リロードを自動で行うことができるので便利
 * [利用例](https://github.com/syunkitada/go-samples/tree/master/godo-sample)
 
@@ -292,27 +337,6 @@ $ dep ensure
 ## Vim environments
 * vim-go
     * シンタックスハイライト
-    * ファイル保存時にgo fmtが実行され、コードが自動整形される
-
-> dein_lazy.toml
-```
-[[plugins]]
-repo  = 'https://github.com/fatih/vim-go.git'
-rev = 'v1.15'
-on_ft = ['go']
-```
-
-> .vimrc
-```
-" For golang
-" vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-```
-
-* vim-goの初期設定として、vim起動後に以下のコマンドを実行して、vim-goが依存してるパッケージをインストールする
-> vim
-```
-:GoInstallBinaries
-```
+    * ファイル保存時にの自動フォーマット
+    * Lintチェック
+      * Lintチェックについては、若干処理が重くエディタ側の邪魔してしまうので別途Task Runnerに任せるのもあり

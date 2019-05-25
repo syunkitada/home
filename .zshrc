@@ -1,8 +1,8 @@
 # ------------------------------
 # General Settings
 # ------------------------------
-export EDITOR=vim        # エディタをvimに設定
-export VISUAL=vim        # lessから使うエディタをvimに設定
+export EDITOR=nvim        # エディタをvimに設定
+export VISUAL=nvim        # lessから使うエディタをvimに設定
 export LANG=ja_JP.UTF-8  # 文字コードをUTF-8に設定
 export KCODE=u           # KCODEにUTF-8を設定
 export TZ=Asia/Tokyo
@@ -127,9 +127,9 @@ local DEFAULT=$'%{\e[1;m%}'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias vimsh='vim -c :VimShell'
-alias vimf='vim -c :VimFiler'
-alias doc='cd ~/home/docs && vim -c "VimFiler"'
+alias vim='nvim'
+alias vimf='nvim -c :VimFiler'
+alias doc='cd ~/home/docs && nvim -c "VimFiler"'
 alias motd_s='cat ~/home/motd/linux_system'
 
 # alias for misc

@@ -1,1 +1,1 @@
-export PATH=${PATH}:${HOME}/.yarn/bin
+export PATH=${PATH}:${HOME}/.yarn/bin:/usr/local/node/bin/

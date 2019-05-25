@@ -14,9 +14,19 @@ let g:go_fmt_command = "goimports"
 
 let g:go_metalinter_autosave = 1 " ファイル保存時にmetalinterを実行する
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck'] " :GoMetaLinter実行時に実行されるlintを設定できる
-let g:go_metalinter_autosave_enabled = ['vet', 'golint'] " ファイル保存時に実行されるlintを設定できる、errcheckは実行に時間がかかるため無効にする
+let g:go_metalinter_autosave_enabled = ['vet'] " ファイル保存時に実行されるlintを設定できる、golint, errcheckは実行に時間がかかるため無効にする
 let g:go_metalinter_deadline = "10s" " metalinterの実行時間が長い時は指定した時間でキャンセルする
-let g:go_metalinter_command = "gometalinter --config=" . $HOME . "/.config/gometalinter/config.json"
+" lintチェックは、別でやったほうが良さそう
+" let g:go_metalinter_command = "gometalinter --config=" . $HOME . "/.config/gometalinter/config.json"
+" let g:go_metalinter_command = "gometalinter --config=/home/owner/.config/gometalinter/config.json"
+" let g:go_metalinter_options = "--config=/home/owner/.config/gometalinter/config.json"
+" let g:ale_go_gometalinter_options = "--config=/home/owner/.config/gometalinter/config.json"
+" let g:ale_go_gometalinter_executable = 'gometalinter'
+" let g:go_metalinter_command = "golangci-lint"
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+" let g:syntastic_go_checkers = ['golint', 'govet', 'gometalinter']
+" " let g:syntastic_go_gometalinter_args = ['--config=/home/owner/.config/gometalinter/config.json']
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 
 " -------------------------

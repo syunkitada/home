@@ -66,4 +66,4 @@ ln -s $vim $ln_vim
 ln -s $vimshrc $ln_vimshrc
 ln -s $vrapperrc $ln_vrapperrc
 ln -s $nvim $ln_nvim
-ln -s $gometalinter $ln_gometalinter
+cp -r $gometalinter $ln_gometalinter

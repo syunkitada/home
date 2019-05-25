@@ -1,6 +1,16 @@
 # mysql
 
 
+## User
+```
+# ユーザ作成と権限付与
+CREATE USER IF NOT EXISTS 'hoge'@'%' IDENTIFIED BY 'hogepass'; GRANT ALL ON *.* TO 'hoge'@'%'; FLUSH PRIVILEGES;
+
+# MySQL8から、GRANT時のIDENTIFIED BYでのパスワードは設定できなくなった
+# GRANT ALL ON *.* TO 'hoge'@'%' IDENTIFIED BY 'hogepass';
+```
+
+
 ## GTID Master-Slave 構成
 ``` reqlication user
 SLAVE_USER=slave
