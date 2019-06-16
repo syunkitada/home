@@ -1,0 +1,161 @@
+# WEB 用語
+
+- ECMAScript
+  - JavaScript 標準化の規格、ES6 以降は、
+  - 各 Edition の概要(6th edition から edition 名ではなく年号付きの仕様書名で呼ばれることが推奨される)
+    - ES1
+      - 1997 年、初版
+    - ES5、ES5.1
+      - 2009 年、2011 年公開
+      - "strict モード"、初期化時に発生しがちなエラーを回避するための追加仕様の追加
+      - 多くの曖昧な部分、および仕様に準拠しつつも現実世界の実装の融通の利く振る舞いを明確にした
+      - いくらかの新機能、getter や setter、JSON ライブラリのサポート、より完全なオブジェクトの属性のリフレクション
+    - ES6(ES2015)
+      - 2015 年公開
+      - クラス、モジュール、イテレータ、for/of ループ、Python スタイルのジェネレータ、アロー関数、2 進数および 8 進数の整数リテラル
+      - Map、Set、WeakMap、WeakSet、プロキシ、テンプレート文字列、let、const、型付き配列、デフォルト引数、Symbol、Promise、分割代入、可変長引数
+    - ES2016
+      - 冪乗演算子、Array.prototype.includes
+    - ES2017
+      - 非同期関数 (async/await)、SharedArrayBuffer と Atomics、String.padStart/padEnd、Object.values/entries、Object.getOwnPropertyDescriptors、関数の引数における末尾のカンマ許容
+    - ES2018
+- JavaScript ライブラリ
+  - jQuery
+    - ブラウザ互換性があり、便利関数モリモリの古参
+    - jQuery に依存したライブラリも多々あり、なんだかんだで使ってしまう
+  - Angular
+    - 2009 年 初版
+    - 提供元: Google 及びコミュニティ
+  - React
+    - 2011 年 初版
+    - 提供元: Facebook 及びコミュニティ
+  - Vue.js
+    - 2014 年 初版
+    - 提供元: 元 Google の AngularJS 開発チームだった Evan You さん(中国人)及びコミュニティ
+  - どれを使うべきか?
+    - jQuery は、一番シンプルでやりたいことを愚直にできる。しかし、コードの規模が大きくなってくると保守性や可読性が落ちてくるため、他のライブラリを選定する人が多い印象
+    - Angular と Vue では、Vue が Angular のいいとこを取って作られたため、Vue のほうが良さげな印象、最初の学習コストも低く、導入がしやすい
+    - React は、前提知識、導入コストが多少求められるが、大規模になってきたときの保守性は一番よい
+    - 簡単にやるなら Vue がよく、最初ちょっとしんどいけど将来性みこすなら React かなという印象
+- SPA
+  - Single Page Application、単一ページで構成される Web アプリケーション
+  - JavaScript で DOM を操作しページを切り替える
+  - Ajax や WebSocket を使用してサーバとデータのやりとりを行う
+- Flux、Redux
+  - SPA では、非同期処理、状態管理、レンダリングをうまくコントロールする必要がり、規模が大きくなると複雑になる
+  - Flux は、このような複雑化するアプリの破綻を避け、管理するためのアーキテクチャであり、Facebook が開発している JavaScript ライブラリである
+  - Redux
+    - Flux アーキテクチャを参考に作られた JavaScript ライブラリ
+    - 名前の由来は、Reducer + Flux
+    - React と一緒に使われる（React 以外でも一応使える）
+    - 本家 Flux より Redux のほうが人気
+- トランスパイル
+  - ある言語で書いたソースコードを別の言語のそれに変換する機能
+  - JavaScript を生で書くと、様々な記法があり JavaScript の悪手をする恐れがあり、基本的に別の言語で書いて、JavaScript に変換して利用することが多い
+  - CoffeeScript
+    - トランスコンパイル言語
+    - 動的型付けで、Ruby と Python にインスパイアされた文法
+    - 2015 年までは人気だったが、ES への対応が遅れたことで、今は人気は冷めている
+  - TypeScript
+    - マイクロソフトによって開発されたトランスコンパイル言語
+    - 静的型付けで、Java や C#にインスパイアされた文法
+    - 人気が高い
+    - Angular も TypeScript で書かれてる
+  - Babel
+    - ES を各 Edition に変換するトランスコンパイラ
+  - SASS
+    - CSS 用のトランスコンパイル言語
+- ESLint
+  - JavaScript の Linter
+  - TypeScript 用の TSLint というのもあるが、TypeScript チームが ESLint に切り替えていく
+  - Vim で利用する場合は、systastic と一緒に使うと良い
+  - エディタでチェックせず、タスクランナーなどで実行するのもあり
+    - create-react-app すると、[ES|TS]Lint の設定も自動で入ってる
+- Prettier
+  - gofmt のようなコードの整形ツール
+  - 以下の形式をサポートしている
+    - JavaScript（ES2017 も含む）
+    - JSX
+    - Flow
+    - TypeScript
+    - CSS, Less, and SCSS
+    - JSON
+  - Vim で利用する場合は、https://github.com/prettier/vim-prettier を使うと良い
+  - インストール
+    - yarn global add prettier prettier/vim-prettier
+- Node.js
+  - V8 JavaScript エンジンで動作する JavaScript 環境
+  - サーバ用途としても使えるが、Web フロントエンド開発ツール(タスクランナーや Sass や TypeScript など)のためによく利用される
+  - パッケージマネージャ
+    - npm
+      - Node.js 用のパッケージマネージャ
+    - Yarn
+      - Facebook が公開した npm に互換性のあるパッケージマネージャ
+      - npm よりもインストールが高速で、バージョン固定もより厳密にできる
+      - 後発だけあって、npm も良いらしい
+      - TypeScript や Google のスターターキットでも Yarn が使われている
+        - https://github.com/google/web-starter-kit
+        - https://github.com/Microsoft/TypeScript-Vue-Starter#typescript-vue-starter
+- タスクランナー
+  - 開発時において必要な処理を自動化するためのツール
+    - ファイルの変更時に、TypeScript や Saas などをコンパイルしたり、Web ページを自動リロードしたりする
+    - タスクランナー自体は、イベントの監視とタスクの実行を行い、タスク自体はプラグインで拡張する
+    - 最近のモジュールバンドラにはタスクランナーのような機能があるため必ずしも必須ではなくなった
+  - Grunt
+    - 2010 年 初版
+    - Node.js の登場と共に現れたタスクランナー
+    - 並列処理ができず、重い
+  - gulp
+    - 2014 年 初版
+    - 並列処理ができ、Grunt よりも早い
+    - Grunt の代わりによく使われている
+- モジュールバンドラ
+  - CSS や JavaScript、画像など Web コンテンツを構成するあらゆるファイル(アセット)を「モジュール」という単位で取り扱い、「バンドル」という１つのファイルに最適な形で変換するためのツール
+    - モジュールの依存管理なども行う
+  - Webpack
+    - モジュールバンドラの中堅、他にも parcel, rollup, browserify などがあるがトレンドは Webpack が一番使われてそう
+    - タスクランナーのような機能もあるので Webpack だけで完結する場合もあるが、Grunt や Gulp などでないと利用できない機能・資産がある場合は併用して使う
+- マテリアルデザイン
+  - グーグルが提唱しているデザインガイドライン
+  - UI を作る場合は、マテリアルデザインで実装されたライブラリが多数あるのでこれを利用すると楽できる
+    - Material-UI
+      - https://material-ui.com/
+      - React コンポーネントを使って、マテリアルデザインを利用できる
+- リアクティブプログラミング(RP)
+  - 時間とともに変化していくデータ(ストリーム)同士の関連性と操作を宣言的に記述するプログラミングの手法
+  - RP ではデータを「ストリーム」として捉え、その「流れてくるデータ」を受け取ったタイミングで処理を行う
+  - ストリームには、ユーザの入力や、ネットワーク通信、キャッシュやファイル入出力など様々なものがある
+  - ストリームから送られてきたデータに反応して処理するので「リアクティブ」と呼ばれる
+- キャッシュ
+  - LastModified
+  - ETag
+- WebP
+  - Google がつくった新しい画像フォーマット
+  - jpeg や ping より軽く、画像には WebP を使うのがよい
+- SEO
+  - 高速性について評価されるようになった
+    - キャッシュや WebP を使ってると評価があがる
+  - マルチデバイス対応について評価されるようになった
+    - PC 画面だけでなく、スマートフォンでも見れないと、評価が下がったり、そもそも検索結果にでないようになった
+    - URL も統一し、レスポンシブなデザインにする必要がある
+- JavaScript での型チェック
+  - TypeScript
+    - コンパイル時に型チェックが行われる、トランスコンパイル言語
+  - Flow
+    - Facebook が作成した、JavaScript の構文を拡張して静的型解析機能を提供する
+    - トランスコンパイル言語ではないので、拡張された構文だけを取り除くツールが必要だが、自動化ツールを使えばよい
+  - prop-types
+    - https://reactjs.org/docs/typechecking-with-proptypes.html
+    - コンポーネントに propTypes プロパティをセットすることで、動的に型チェックを行える
+    - パフォーマンスの理由から開発モードでのみ動作する
+- PWA(Progressive Web App)
+  - Google や Mozilla が推奨している Web アプリに必要な技術
+  - レスポンシブデザイン: 他端末対応
+  - Service Workers: オフライン対応、プッシュ通知
+  - Web App Manifest: ホーム画面に追加
+
+## 参考
+
+- [イマドキの JavaScript の書き方 2018](https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9)
+- [Vue.js: 他のフレームワークとの比較](https://jp.vuejs.org/v2/guide/comparison.html)
+- [React Redux の SPA を運用して得られた知見と実装例、開発フローもあるよ！](https://qiita.com/numanomanu/items/af97312f34cf1388cee6)
