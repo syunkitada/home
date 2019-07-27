@@ -1,8 +1,9 @@
 # qemu
 
+## 最小限の QEMU
 
-## 最小限のQEMU
-* http://manual.geeko.cpon.org/ja/cha.qemu.monitor.html
+- http://manual.geeko.cpon.org/ja/cha.qemu.monitor.html
+
 ```
 sudo qemu-system-x86_64 --enable-kvm -m 512 -nographic -monitor telnet::4444,server,nowait
 SeaBIOS (version rel-1.11.0-0-g63451fca13-prebuilt.qemu-project.org)
@@ -78,6 +79,45 @@ XMM06=00000000000000000000000000000000 XMM07=00000000000000000000000000000000
 
 qemu-io [device] "[command]"
 
+--trace-backend=ftrace
+-trace events=/home/eiichi/events
 
- --trace-backend=ftrace
- -trace events=/home/eiichi/events
+## network option
+
+```
+https://www.qemu.org/2018/05/31/nic-parameter/
+
+-nic [tap|bridge|user|l2tpv3|vde|vhost-user|socket][,option][,...][mac=macaddr]
+                initialize an on-board / default host NIC (using MAC address
+                macaddr) and connect it to the given host network backend
+
+$ qemu-system-x86_64 -nic help
+Available netdev backend types:
+socket
+hubport
+tap
+user
+l2tpv3
+vde
+bridge
+vhost-user
+
+$ qemu-system-x86_64 -nic model=help
+qemu: Supported NIC models: e1000,e1000-82544gc,e1000-82545em,e1000e,i82550,i82551,i82557a,i82557b,i82557c,i82558a,i82558b,i82559a,i82559b,i82559c,i82559er,i82562,i82801,ne2k_pci,pcnet,pvrdma,rocker,rtl8139,virtio-net-pci,virtio-net-pci-non-transitional,virtio-net-pci-transitional,vmxnet3
+```
+
+## cloud イメージの利用
+
+- cloudinit
+  - クラウドプロバイダなしでの利用
+    - https://cloudinit.readthedocs.io/en/latest/topics/datasources/nocloud.html
+    - cidata のラベルを付けてイメージを作成する
+    - sudo genisoimage -o config.img -V cidata -r -J user-data meta-data
+    - 以下のようなオプションで disk をアタッチする
+    - qemu-system-x86_64 ... -drive file=config.img,format=raw,if=none,id=drive-ide0-1-0,readonly=on -device ide-cd,bus=ide.1,unit=0,drive=drive-ide0-1-0,id=ide0-1-0
+
+## Examples
+
+```
+qemu-system-x86_64 -m 2048 -drive file=vm.img,if=virtio -monitor telnet::4444,server,nowait -nographic -serial telnet:localhost:4321,server,nowait -drive file=config.img,format=raw,if=none,id=drive-ide0-1-0,readonly=on -device ide-cd,bus=ide.1,unit=0,drive=drive-ide0-1-0,id=ide0-1-0 -nic tap,ifname=tap0,br=vm-br,model=virtio-net-pci,mac=02:ca:83:1b:4d:f1,script=no,script=no,downscript=no
+```
