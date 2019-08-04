@@ -64,3 +64,53 @@ $ sudo iptables -P FORWARD ACCEPT
 sudo iptables -t nat -A POSTROUTING -s 192.168.50.2 -j MASQUERADE
 sudo iptables -t nat -A POSTROUTING -s 192.168.50.3 -j MASQUERADE
 ```
+
+### Setup netsted netns
+
+```
+sudo ip netns add testnsvm
+
+sudo ip link add testnsvm-ex type veth peer name testnsvm-in
+sudo ip link set testnsvm-in netns testnsvm
+sudo ip netns exec testnsvm ip link set testnsvm-in up
+sudo ip netns exec testnsvm ip link set lo up
+sudo ip netns exec testnsvm ip addr add 192.168.60.1/32 dev testnsvm-in
+sudo ip netns exec testnsvm ip route add 169.254.1.1 dev testnsvm-in
+sudo ip netns exec testnsvm ip route add default via 169.254.1.1
+
+sudo ip link set testnsvm-ex netns testns
+sudo ip netns exec testns ip link set testnsvm-ex up
+sudo ip netns exec testns sysctl -w net.ipv4.conf.testnsvm-ex.proxy_arp=1
+sudo ip netns exec testns sysctl -w net.ipv4.conf.testnsvm-ex.forwarding=1
+sudo ip netns exec testns sysctl -w net.ipv4.conf.testns-in.proxy_arp=1
+sudo ip netns exec testns sysctl -w net.ipv4.conf.testns-in.forwarding=1
+
+sudo ip netns exec testns ip route add 192.168.60.1 dev testnsvm-ex
+sudo ip route add 192.168.60.1 dev testns-ex
+
+sudo iptables -t nat -A POSTROUTING -s 192.168.60.1 -j MASQUERADE
+```
+
+```
+sudo ip netns add testnsvm2
+
+sudo ip link add testnsvm2-ex type veth peer name testnsvm2-in
+sudo ip link set testnsvm2-in netns testnsvm2
+sudo ip netns exec testnsvm2 ip link set testnsvm2-in up
+sudo ip netns exec testnsvm2 ip link set lo up
+sudo ip netns exec testnsvm2 ip addr add 192.168.60.2/32 dev testnsvm2-in
+sudo ip netns exec testnsvm2 ip route add 169.254.1.1 dev testnsvm2-in
+sudo ip netns exec testnsvm2 ip route add default via 169.254.1.1
+
+sudo ip link set testnsvm2-ex netns testns2
+sudo ip netns exec testns2 ip link set testnsvm2-ex up
+sudo ip netns exec testns2 sysctl -w net.ipv4.conf.testnsvm2-ex.proxy_arp=1
+sudo ip netns exec testns2 sysctl -w net.ipv4.conf.testnsvm2-ex.forwarding=1
+sudo ip netns exec testns2 sysctl -w net.ipv4.conf.testns2-in.proxy_arp=1
+sudo ip netns exec testns2 sysctl -w net.ipv4.conf.testns2-in.forwarding=1
+
+sudo ip netns exec testns2 ip route add 192.168.60.2 dev testnsvm2-ex
+sudo ip route add 192.168.60.2 dev testns2-ex
+
+sudo iptables -t nat -A POSTROUTING -s 192.168.60.2 -j MASQUERADE
+```
