@@ -37,6 +37,9 @@ set ttymouse=xterm2
 
 set clipboard=unnamed,autoselect
 
+" disable backup
+set nobackup
+
 " 英語メニューにする
 source $VIMRUNTIME/delmenu.vim 
 set langmenu=none 
