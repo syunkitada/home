@@ -1,7 +1,9 @@
 # Observability tools intermediate
 
 ## strace
-* システムコールをトレースする
+
+- システムコールをトレースする
+
 ```
 $ sudo strace -tttT -p 12010
 Process 12010 attached
@@ -44,24 +46,25 @@ strace: Process 21479 attached
 ------ ----------- ----------- --------- --------- ----------------
 100.00    0.000000                     9           total
 ```
+
 プロセスが呼び出すシステムコールをトレースする。
 このときシステムコールがエラーになる箇所を探すと、不具合の手掛かりになる。
 
-
 ## ltrace
-* 共有ライブラリの関数呼び出しをトレースする
-* 仕組み
-    * 環境変数PATHをたどって実行バイナリの絶対パスを調べる
-    * バイナリと依存しているすべての共有ライブラリを elfutils を用いて読み込み、関数のシンボル名とその PLT 内のアドレスのリストを取得する
-    * fork して子プロセス内で ptrace(PTRACE_TRACEME, ...) をセットし、それからバイナリを実行する
-        * ptraceは、実行中のプロセスに対して、レジスタの書き換えやメモリ上のデータの書き換えといった操作ができるシステムコール
-    * wait() で待っている親プロセスに SIGTRAP が伝わる
-    * 親プロセスでは先ほど作っておいたリストを元に、各関数の PLT の該当アドレスにブレークポイント命令 (i386 では 0xcc) を書き込む 。このとき、書き換える前の値を保存しておく
-    * これにより子プロセスが共有ライブラリの関数を呼び出すたびに SIGTRAP が発生するので、親プロセスはループ内で wait で SIGTRAP を待って適宜ブレークポイントしつつ、子プロセスが終了するまでループを回す
-    * PLT (Procedure Linkage Table) には ELF の共有ライブラリの関数を呼び出すときに必ず経由するコードが各関数ごとに用意されています。
-        * ltrace はこの PLT にブレークポイントを書き込むことによって、共有ライブラリの関数呼び出しをフックしています。
 
-``` bash
+- 共有ライブラリの関数呼び出しをトレースする
+- 仕組み
+  - 環境変数 PATH をたどって実行バイナリの絶対パスを調べる
+  - バイナリと依存しているすべての共有ライブラリを elfutils を用いて読み込み、関数のシンボル名とその PLT 内のアドレスのリストを取得する
+  - fork して子プロセス内で ptrace(PTRACE_TRACEME, ...) をセットし、それからバイナリを実行する
+    - ptrace は、実行中のプロセスに対して、レジスタの書き換えやメモリ上のデータの書き換えといった操作ができるシステムコール
+  - wait() で待っている親プロセスに SIGTRAP が伝わる
+  - 親プロセスでは先ほど作っておいたリストを元に、各関数の PLT の該当アドレスにブレークポイント命令 (i386 では 0xcc) を書き込む 。このとき、書き換える前の値を保存しておく
+  - これにより子プロセスが共有ライブラリの関数を呼び出すたびに SIGTRAP が発生するので、親プロセスはループ内で wait で SIGTRAP を待って適宜ブレークポイントしつつ、子プロセスが終了するまでループを回す
+  - PLT (Procedure Linkage Table) には ELF の共有ライブラリの関数を呼び出すときに必ず経由するコードが各関数ごとに用意されています。
+    - ltrace はこの PLT にブレークポイントを書き込むことによって、共有ライブラリの関数呼び出しをフックしています。
+
+```bash
 # コマンドをトレースする
 $ sudo ltrace wget http://127.0.0.1/
 
@@ -69,9 +72,10 @@ $ sudo ltrace wget http://127.0.0.1/
 $ sudo ltrace -o log.txt wget http://127.0.0.1/
 ```
 
-
 ## lsof
+
 ファイルディスクリプタを使っているプロセスを調べる
+
 ```
 $ sudo lsof -i:80
 COMMAND   PID   USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
@@ -84,15 +88,17 @@ httpd   12014 apache    4u  IPv6  31227      0t0  TCP *:http (LISTEN)
 
 ```
 
-
 ## sar
+
 System Activity Reporter
-``` bash
+
+```bash
 $ sar -n TCP,ETCP,DEV 1
 ```
 
 ## iotop
-``` bash
+
+```bash
 $ sudo iotop
 Total DISK READ :       0.00 B/s | Total DISK WRITE :       0.00 B/s
 Actual DISK READ:       0.00 B/s | Actual DISK WRITE:       0.00 B/s
@@ -105,9 +111,11 @@ Actual DISK READ:       0.00 B/s | Actual DISK WRITE:       0.00 B/s
 ```
 
 ## slabtop
-* スラブアロケータのメモリ利用量
-* https://www.ibm.com/developerworks/jp/linux/library/l-linux-slab-allocator/
-``` bash
+
+- スラブアロケータのメモリ利用量
+- https://www.ibm.com/developerworks/jp/linux/library/l-linux-slab-allocator/
+
+```bash
 $ slabtop
 Active / Total Objects (% used)    : 772062 / 781600 (98.8%)
  Active / Total Slabs (% used)      : 15524 / 15524 (100.0%)
@@ -132,12 +140,13 @@ Active / Total Objects (% used)    : 772062 / 781600 (98.8%)
   7462   7462 100%    0.57K    533       14      4264K radix_tree_node
 ```
 
-
 ## pcstat
-* https://github.com/tobert/pcstat
-* ページキャッシュ統計を表示する
-* データベースなどのパフォーマンス分析で使える
-``` bash
+
+- https://github.com/tobert/pcstat
+- ページキャッシュ統計を表示する
+- データベースなどのパフォーマンス分析で使える
+
+```bash
 curl -L -o pcstat https://github.com/tobert/pcstat/raw/2014-05-02-01/pcstat.x86_64
 chmod 755 pcstat
 $ ~/pcstat data*
@@ -151,12 +160,14 @@ $ ~/pcstat data*
 ```
 
 ## tiptop
-* VMでは利用できない（PMCs が enabledである必要がある)
-* Mcycle: CPU cycles
-* Minst: Instructions
-* IPC(Instructions Per Clock cycle): Executed instructions per cycle
-* %MISS: Cache miss per instructions (in %)
-* %BMIS: Branch misprediction per instruction (in %)
+
+- VM では利用できない（PMCs が enabled である必要がある)
+- Mcycle: CPU cycles
+- Minst: Instructions
+- IPC(Instructions Per Clock cycle): Executed instructions per cycle
+- %MISS: Cache miss per instructions (in %)
+- %BMIS: Branch misprediction per instruction (in %)
+
 ```
 $ tiptop
 tiptop -                                                        [root]
@@ -167,10 +178,11 @@ Tasks: 241 total,   2 displayed                                                 
  2386+   0.5   0.0    0     0.24     0.09  0.38   8.95   1.11   0.3 mysqld
 ```
 
-
 ## atop
-* topライクなツールだが、topよりも細かいシステム情報がわかる
-* cpuのirqやmemory, disk, networkの利用量まで見れる
+
+- top ライクなツールだが、top よりも細かいシステム情報がわかる
+- cpu の irq や memory, disk, network の利用量まで見れる
+
 ```
 $ atop
 ATOP - benchmark-1-hostname                                                        2017/03/27  03:32:38                                                        -----------                                                        10s elapsed
@@ -189,9 +201,10 @@ NET | eth0    ---- |  pcki       6 |              |  pcko       1 | si    0 Kbps
     1                -             0.00s             0.00s                0K                 0K            root                root                   1             --              -            S              0%            systemd
 ```
 
-
 ## dstat
-* dstatはpythonで書かれており、pythonでプラグインも組み込むことができる
+
+- dstat は python で書かれており、python でプラグインも組み込むことができる
+
 ```
 # 表示オプション
 # -t: タイムスタンプ
@@ -258,14 +271,14 @@ internal:
         top-childwait, top-cpu, top-cpu-adv, top-cputime, top-cputime-avg, top-int, top-io, top-io-adv, top-latency, top-latency-avg, top-mem, top-oom, utmp, vm-memctl, vmk-hba, vmk-int, vmk-nic, vz-cpu, vz-io, vz-ubc, wifi
 ```
 
-
 ## blktrace
-* blktraceはブロックI/Oレイヤの入口と出口, そして内部でのI/Oリクエストの状態をトレースすることができる
-* I/Oリクエストは以下のようなパスを通りデバイスへたどり着きます
-    * アプリケーション -> [ファイルシステム -> ページキャッシュ -> ブロックI/Oレイヤ -> デバイスドライバ] -> デバイス
-* I/OスケジューラによりI/Oリクエストの並び換えや連接ブロックへのI/Oリクエストのマージ等が行われているため、ブロックI/Oレイヤの入口と出口ではI/Oリクエストの順番が異なります
 
-``` bash
+- blktrace はブロック I/O レイヤの入口と出口, そして内部での I/O リクエストの状態をトレースすることができる
+- I/O リクエストは以下のようなパスを通りデバイスへたどり着きます
+  - アプリケーション -> [ファイルシステム -> ページキャッシュ -> ブロック I/O レイヤ -> デバイスドライバ] -> デバイス
+- I/O スケジューラにより I/O リクエストの並び換えや連接ブロックへの I/O リクエストのマージ等が行われているため、ブロック I/O レイヤの入口と出口では I/O リクエストの順番が異なります
+
+```bash
 # デバイスをトレースする
 $ sudo blktrace -d /dev/sda -o test
 
@@ -273,16 +286,19 @@ $ sudo blktrace -d /dev/sda -o test
 $ blkparse -i test.blktrace.0
 ```
 
+## /proc
 
-# /proc
 Many raw kernel counters
-``` bash
+
+```bash
 
 ```
 
 ## perf
-* 参考: [perf Examples](http://www.brendangregg.com/perf.html)
-* 様々なイベントをトレースできる
+
+- 参考: [perf Examples](http://www.brendangregg.com/perf.html)
+- 様々なイベントをトレースできる
+
 ```
 # システムのプロファイル
 $ perf top
@@ -323,14 +339,44 @@ $ sudo perf stat -a
        2.277409566 seconds time elapsed
 ```
 
-
 ## numastat
-* 参考: [numastat](https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/7/html/Performance_Tuning_Guide/sect-Red_Hat_Enterprise_Linux-Performance_Tuning_Guide-Tool_Reference-numastat.html)
-* NUMAノードベースでオペレーティングシステムとプロセッサーのメモリー統計情報 (割り当てヒットとミスなど) を表示する
-* numactlで管理者は指定したスケジュールまたはメモリー配置ポリシーでプロセスを実行することができる。
-* numactl は共有メモリーセグメントやファイルに永続的なポリシーを設定したり、プロセスのプロセッサー親和性やメモリー親和性を設定することもできる。
 
+- 参考: [numastat](https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/7/html/Performance_Tuning_Guide/sect-Red_Hat_Enterprise_Linux-Performance_Tuning_Guide-Tool_Reference-numastat.html)
+- NUMA ノードベースでオペレーティングシステムとプロセッサーのメモリー統計情報 (割り当てヒットとミスなど) を表示する
+- numactl で管理者は指定したスケジュールまたはメモリー配置ポリシーでプロセスを実行することができる。
+- numactl は共有メモリーセグメントやファイルに永続的なポリシーを設定したり、プロセスのプロセッサー親和性やメモリー親和性を設定することもできる。
 
-# SystemTap
-* SystemTap は、実行している Linux カーネルで簡易情報を取得できるようにするツール
-* パフォーマンスまたは機能（バグ）の問題に関する情報を取得するために使用する
+## CPU の周波数を確認
+
+```
+$ cat /proc/cpuinfo | egrep "processor|cpu MHz"
+processor       : 0
+cpu MHz         : 1375.675
+processor       : 1
+cpu MHz         : 1379.284
+processor       : 2
+cpu MHz         : 1443.587
+processor       : 3
+cpu MHz         : 1454.012
+processor       : 4
+cpu MHz         : 1545.231
+processor       : 5
+cpu MHz         : 1438.988
+processor       : 6
+cpu MHz         : 1546.319
+processor       : 7
+cpu MHz         : 1450.727
+processor       : 8
+cpu MHz         : 1544.963
+processor       : 9
+cpu MHz         : 1523.568
+processor       : 10
+cpu MHz         : 1545.989
+processor       : 11
+cpu MHz         : 1546.597
+```
+
+## SystemTap
+
+- SystemTap は、実行している Linux カーネルで簡易情報を取得できるようにするツール
+- パフォーマンスまたは機能（バグ）の問題に関する情報を取得するために使用する

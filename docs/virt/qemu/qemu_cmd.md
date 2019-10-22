@@ -119,5 +119,5 @@ qemu: Supported NIC models: e1000,e1000-82544gc,e1000-82545em,e1000e,i82550,i825
 ## Examples
 
 ```
-qemu-system-x86_64 -m 2048 -drive file=vm.img,if=virtio -monitor telnet::4444,server,nowait -nographic -serial telnet:localhost:4321,server,nowait -drive file=config.img,format=raw,if=none,id=drive-ide0-1-0,readonly=on -device ide-cd,bus=ide.1,unit=0,drive=drive-ide0-1-0,id=ide0-1-0 -nic tap,ifname=tap0,br=vm-br,model=virtio-net-pci,mac=02:ca:83:1b:4d:f1,script=no,script=no,downscript=no
+qemu-system-x86_64 -m 2048 -drive file=vm.img,if=virtio -monitor telnet::4444,server,nowait -nographic -serial telnet:localhost:4321,server,nowait -drive file=config.img,format=raw,if=none,id=drive-ide0-1-0,readonly=on -device ide-cd,bus=ide.1,unit=0,drive=drive-ide0-1-0,id=ide0-1-0 -nic tap,ifname=tap0,model=virtio-net-pci,mac=02:ca:83:1b:4d:f1,script=no,script=no,downscript=no
 ```
