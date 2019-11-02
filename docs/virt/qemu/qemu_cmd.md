@@ -121,3 +121,55 @@ qemu: Supported NIC models: e1000,e1000-82544gc,e1000-82545em,e1000e,i82550,i825
 ```
 qemu-system-x86_64 -m 2048 -drive file=vm.img,if=virtio -monitor telnet::4444,server,nowait -nographic -serial telnet:localhost:4321,server,nowait -drive file=config.img,format=raw,if=none,id=drive-ide0-1-0,readonly=on -device ide-cd,bus=ide.1,unit=0,drive=drive-ide0-1-0,id=ide0-1-0 -nic tap,ifname=tap0,model=virtio-net-pci,mac=02:ca:83:1b:4d:f1,script=no,script=no,downscript=no
 ```
+
+## grub の設定
+
+```
+sed -i 's/GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="default_hugepagesz=1G hugepagesz=1G hugepages=16 transparent_hugepage=never amd_iommu=on"/g' /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+cat /boot/grub/grub.cfg | grep vmlinuz
+```
+
+- crashkernel \* https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/kernel_administration_guide/kernel_crash_dump_guide
+- iommu(intel\*iommu or amd_iommu)
+  - pci パススルーを利用するのに必要
+    \_ https://access.redhat.com/documentation/ja-jp/red_hat_virtualization/4.1/html/installation_guide/appe-configuring_a_hypervisor_host_for_pci_passthrough
+- transparent\*hugepage=never
+  - ページウォークが減るが、大きめのページサイズを確保するためメモリ確保のレイテンシが上がる
+  - 利用はケースバイケース
+
+## CPU
+
+- https://qemu.weilnetz.de/doc/qemu-doc.html#index-_002dmachine
+- cpu-hotplug について
+  - https://github.com/qemu/qemu/blob/master/docs/cpu-hotplug.rst
+  - http://events17.linuxfoundation.org/sites/events/files/slides/CPU%20Hot-plug%20support%20in%20QEMU.pdf
+  - kvm はサポートされてない
+
+```
+qemu ...
+  -enable-kvm -machine q35,accel=kvm
+```
+
+## メモリ
+
+- hotplug について
+  - https://github.com/qemu/qemu/blob/master/docs/memory-hotplug.txt
+
+```
+qemu ...
+    -m slots=64,maxmem=64G \
+    -object memory-backend-file,id=mem1,size=2G,mem-path=/dev/hugepages \
+    -device pc-dimm,id=dimm1,memdev=mem1 \
+```
+
+## ディスク
+
+- オンラインリサイズについて
+
+## パススルー
+
+```
+
+-device amd-iommu/intel-iommu
+```
