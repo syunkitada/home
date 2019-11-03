@@ -145,10 +145,25 @@ cat /boot/grub/grub.cfg | grep vmlinuz
   - https://github.com/qemu/qemu/blob/master/docs/cpu-hotplug.rst
   - http://events17.linuxfoundation.org/sites/events/files/slides/CPU%20Hot-plug%20support%20in%20QEMU.pdf
   - kvm はサポートされてない
+- cpu のモデルについて
+  - http://events19.linuxfoundation.org/wp-content/uploads/2017/12/Kashyap-Chamarthy_Effective-Virtual-CPU-Configuration-OSS-EU2018.pdf
+- cpu の脆弱性について
+  - https://www.qemu.org/2018/02/14/qemu-2-11-1-and-spectre-update/
+- smp [cpus=]n[,cores=cores][,threads=threads][,dies=dies][,sockets=sockets][,maxcpus=maxcpus]
+  - the number of cores per die, the number of threads per cores, the number of dies per packages
+    - dies、sockets は numa を増やしてエミュレートしたい場合に利用する
+    - threads は intel などの HT をエミュレートしたい場合に利用する
+      - スレッドをうまく pinning すると、VM 側でも HT を意識できるかも?
+  - pinning は qemu の機能としては提供されていないので、起動後に cgroup の機能を使って設定する
+  - maxcpus は、cpu の hotplug を利用する場合に必要だが、kvm は cpu の hutplug はサポートされてない
 
 ```
 qemu ...
   -enable-kvm -machine q35,accel=kvm
+```
+
+```
+-smp sockets=1,cores=4,threads=1 \
 ```
 
 ## メモリ
@@ -173,3 +188,7 @@ qemu ...
 
 -device amd-iommu/intel-iommu
 ```
+
+## Persistent Memory
+
+- https://docs.pmem.io/getting-started-guide/creating-development-environments/virtualization/qemu
