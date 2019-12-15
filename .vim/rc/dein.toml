@@ -7,8 +7,8 @@ repo = 'https://github.com/Shougo/unite.vim'
 [[plugins]]
 repo = 'https://github.com/Shougo/vimfiler.vim'
 
-[[plugins]]
-repo = 'https://github.com/scrooloose/nerdtree'
+# [[plugins]]
+# repo = 'https://github.com/scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'https://github.com/Shougo/neocomplete'
