@@ -4,7 +4,8 @@
 
 | Link                                               | Description                                                                                                                                            |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [How to](howto.md)                                 | 英語の勉強法、英語ドキュメントの読み方                                                                                                                 |
+| [How to](howto.md)                                 | 英語の勉強法                                                                                                                                           |
+| [Pronunciation(発音)](pronunciation.md)            | 発音について                                                                                                                                           |
 | [Noun(名詞)](noun.md)                              | 名詞、動名詞、to 不定詞、代名詞、冠詞、数量詞                                                                                                          |
 | [Adjective(形容詞)](adjective.md)                  | 名詞を修飾するもの                                                                                                                                     |
 | [Adverb(副詞)](adverb.md)                          | 名詞以外を修飾するもの                                                                                                                                 |
@@ -20,9 +21,11 @@
 
 ## Links
 
-| Link                                                                                 | Description                        |
-| ------------------------------------------------------------------------------------ | ---------------------------------- |
-| [weblio](https://www.weblio.jp/)                                                     | 辞書                               |
-| [Google 翻訳](https://translate.google.co.jp/?hl=ja&tab=TT)                          | 英文の翻訳は一番強い               |
-| [english-test](http://www.english-test.net/)                                         | 英語の問題がいろいろ用意されてる   |
-| [TOEIC Practice](http://vu.flare.hiroshima-u.ac.jp/english/TOEIC_project/index2.cgi) | TOEIC の自作練習問題が用意されてる |
+| Link                                                                                                         | Description                        |
+| ------------------------------------------------------------------------------------------------------------ | ---------------------------------- |
+| [weblio](https://www.weblio.jp/)                                                                             | 辞書                               |
+| [Google 翻訳](https://translate.google.co.jp/?hl=ja&tab=TT)                                                  | 英文の翻訳は一番強い               |
+| [english-test](http://www.english-test.net/)                                                                 | 英語の問題がいろいろ用意されてる   |
+| [TOEIC Practice](http://vu.flare.hiroshima-u.ac.jp/english/TOEIC_project/index2.cgi)                         | TOEIC の自作練習問題が用意されてる |
+| [あいうえおフォニックス](https://aiueophonics.com/)                                                          | 発音の基礎                         |
+| [【全てに音声付き】英語の発音を良くしたいなら「発音記号」を覚えよう](https://atsueigo.com/phonetics-basics/) | 発音記号が音声付きでまとまってる   |
