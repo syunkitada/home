@@ -307,6 +307,11 @@ nmap [tasklist] <plug>TaskList
 " -------------------------
 " Tagbar
 " https://github.com/majutsushi/tagbar/wiki
+"
+" Required ctags
+" sudo apt-get install exuberant-ctags
+" typescriptを使う場合は以下も必要
+" curl https://raw.githubusercontent.com/jb55/typescript-ctags/master/.ctags > ~/.ctags
 " -------------------------
 nmap [tagbar] :TagbarToggle<CR>
 let g:tagbar_type_typescript = {

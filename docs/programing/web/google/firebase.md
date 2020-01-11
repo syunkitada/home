@@ -39,3 +39,13 @@ This domain (xxxx) is not authorized to run this operation. Add it to the OAuth 
 ```
 
 - セキュリティルールはしっかり設定すること
+
+## TypeScript で Firebase SDK を利用する
+
+- パッケージ
+  - https://www.npmjs.com/package/firebase
+
+```
+import * as firebase from 'firebase';
+var app = firebase.initializeApp({ ... });
+```
