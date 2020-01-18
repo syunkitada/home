@@ -8,6 +8,13 @@ repo = 'https://github.com/Shougo/unite.vim'
 repo = 'https://github.com/Shougo/vimfiler.vim'
 
 [[plugins]]
+repo = 'https://github.com/Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo ='https://github.com/junegunn/fzf.vim'
+
+[[plugins]]
 repo = 'https://github.com/scrooloose/nerdtree'
 
 [[plugins]]

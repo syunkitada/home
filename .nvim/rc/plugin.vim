@@ -494,3 +494,13 @@ nmap [srcexpl]u :call g:SrcExpl_UpdateTags()<CR>
 nmap [srcexpl]a :call g:SrcExpl_UpdateAllTags()<CR>
 nmap [srcexpl]n :call g:SrcExpl_NextDef()<CR>
 nmap [srcexpl]p :call g:SrcExpl_PrevDef()<CR>
+
+
+"
+" fzf
+" Require fzf, silversearcher-ag
+"
+nmap [fzf]a :Ag<CR>
+nmap [fzf]f :FZF<CR>
+nmap [fzf]l :Lines<CR>
+nmap [fzf]b :BLines<CR>

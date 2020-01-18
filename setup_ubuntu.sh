@@ -22,3 +22,5 @@ if [ ! -e ~/.fzf ]; then
     git clone https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
 fi
+
+sudo apt install -y silversearcher-ag

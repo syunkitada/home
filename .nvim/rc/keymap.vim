@@ -10,7 +10,7 @@ nnoremap <S-r> <C-r>
 " プラグイン
 nmap <Space>f [vimfiler]
 nmap <Space>u [unite]
-nmap <Space>r [quickrun]
+nmap <Space>a [fzf]
 nmap <Space>e [emmet]
 nmap <Space>g [git]
 nmap <Space>v [vimgo]
