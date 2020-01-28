@@ -1,5 +1,5 @@
 export GOPATH=${HOME}/go
-export GO111MODULE=on
+export GO111MODULE=off
 export PATH=${PATH}:/usr/local/go/bin:/${GOPATH}/bin
 
 # The next line updates PATH for the Google Cloud SDK.

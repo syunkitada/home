@@ -8,6 +8,13 @@ repo = 'https://github.com/Shougo/unite.vim'
 repo = 'https://github.com/Shougo/vimfiler.vim'
 
 [[plugins]]
+repo = 'https://github.com/Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo ='https://github.com/junegunn/fzf.vim'
+
+[[plugins]]
 repo = 'https://github.com/scrooloose/nerdtree'
 
 [[plugins]]
@@ -72,5 +79,16 @@ repo = 'https://github.com/gregsexton/gitv.git'
 [[plugins]]
 repo = 'https://github.com/ctrlpvim/ctrlp.vim.git'
 
+
+# Syntax highlighting for JSX in Typescript.(required by vim-jsx-typescript)
 [[plugins]]
 repo = 'https://github.com/leafgarland/typescript-vim.git'
+
+# Syntax highlighting for JSX in Typescript.
+[[plugins]]
+repo = 'https://github.com/peitalin/vim-jsx-typescript.git'
+
+# AutoCompletion
+[[plugins]]
+repo = 'https://github.com/neoclide/coc.nvim'
+rev = 'release'
