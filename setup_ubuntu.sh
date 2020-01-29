@@ -24,3 +24,5 @@ if [ ! -e ~/.fzf ]; then
 fi
 
 sudo apt install -y silversearcher-ag
+sudo apt-get install -y nodejs npm
+sudo npm install --global yarn

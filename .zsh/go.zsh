@@ -1,6 +1,7 @@
-export GOPATH=${HOME}/go
+export GOENV_ROOT=$HOME/.goenv
+export PATH=$GOENV_ROOT/bin:$PATH
+eval "$(goenv init -)"
 export GO111MODULE=off
-export PATH=${PATH}:/usr/local/go/bin:/${GOPATH}/bin
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/owner/google-cloud-sdk/path.zsh.inc' ]; then source '/home/owner/google-cloud-sdk/path.zsh.inc'; fi
