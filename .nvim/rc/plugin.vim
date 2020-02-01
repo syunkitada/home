@@ -504,3 +504,27 @@ nmap [fzf]a :Ag<CR>
 nmap [fzf]f :FZF<CR>
 nmap [fzf]l :Lines<CR>
 nmap [fzf]b :BLines<CR>
+
+
+"
+" coc
+" Require node, yarn
+" mkdir -p ~/.config/coc/extensions
+"
+nmap [coc]f :call CocAction('format')<CR>
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+" CocList extensions
+call coc#add_extension(
+  \ 'coc-prettier',
+  \ 'coc-json',
+  \ 'coc-yaml',
+  \ 'coc-tsserver',
+  \ 'coc-python',
+  \ 'coc-go',
+  \)
+
+
+" Format before saving
+autocmd BufWritePre *.go,*.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html :call CocAction('format')

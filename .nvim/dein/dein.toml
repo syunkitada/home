@@ -41,8 +41,8 @@ repo = 'https://github.com/thinca/vim-quickrun'
 [[plugins]]
 repo = 'https://github.com/tpope/vim-surround.git'
 
-[[plugins]]
-repo = 'https://github.com/scrooloose/syntastic.git'
+# [[plugins]]
+# repo = 'https://github.com/scrooloose/syntastic.git'
 
 [[plugins]]
 repo = 'https://github.com/vim-scripts/TaskList.vim'
@@ -59,8 +59,8 @@ repo = 'https://github.com/itchyny/lightline.vim.git'
 [[plugins]]
 repo = 'https://github.com/wesleyche/SrcExpl'
 
-[[plugins]]
-repo = 'https://github.com/prettier/vim-prettier.git'
+# [[plugins]]
+# repo = 'https://github.com/prettier/vim-prettier.git'
 
 # git
 [[plugins]]

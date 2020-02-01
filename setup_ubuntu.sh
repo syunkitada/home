@@ -26,3 +26,26 @@ fi
 sudo apt install -y silversearcher-ag
 sudo apt-get install -y nodejs npm
 sudo npm install --global yarn
+
+yarn global add prettier
+
+# これがないとcoc extensionsがインストールできない
+mkdir -p ~/.config/coc/extensions
+
+# Setup golang environment
+if [ ! -e ~/.goenv ]; then
+    git clone https://github.com/syndbg/goenv.git
+    source ~/.zsh/go.zsh
+    goenv install 1.12.15
+    goenv global 1.12.15
+
+    # https://github.com/go-godo/godo
+    go get -u gopkg.in/godo.v2/cmd/godo
+
+    # https://github.com/golang/tools/blob/master/gopls/doc/user.md
+    # goplsはgoimportsが使えない?ので利用を止める
+    # go get -u golang.org/x/tools/gopls
+
+    # https://github.com/sourcegraph/go-langserver
+    go get -u github.com/sourcegraph/go-langserver
+fi
