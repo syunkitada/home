@@ -1,13 +1,11 @@
 {
+  "suggest.noselect": false,
+  "suggest.preferCompleteThanJumpPlaceholder": true,
   "languageserver": {
     "golang": {
-      "command": "go-langserver",
-      "filetypes": ["go"],
-      "initializationOptions": {
-        "funcSnippetEnabled": true,
-        "gocodeCompletionEnabled": true,
-        "lintTool": "golint"
-      }
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
     },
     "ccls": {
       "command": "ccls",

@@ -16,7 +16,7 @@ nmap <Space>g [git]
 nmap <Space>v [vimgo]
 nmap <Space>y [yank_to_teraterm]
 nmap <Space>t [tasklist]
-nmap <Space>o [tagbar]
+nmap <Space>o [outline]
 nmap <Space>s [srcexpl]
 nmap <Space>d [coc]
 

@@ -499,7 +499,8 @@ nmap [fzf]b :BLines<CR>
 " Require node, yarn
 " mkdir -p ~/.config/coc/extensions
 "
-nmap [coc]f :call CocAction('format')<CR>
+nmap [coc]d :call CocAction('jumpDefinition', 'tab drop')<CR>
+nmap [outline] :CocList outline<CR>
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
@@ -515,7 +516,7 @@ call coc#add_extension(
 
 
 " Format before saving
-autocmd BufWritePre *.go,*.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html :call CocAction('format')
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html :call CocAction('format')
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -548,41 +549,3 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-
-" -------------------------
-" vista.vim
-" https://github.com/liuchengxu/vista.vim
-" -------------------------
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc 
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-let g:vista_default_executive = 'coc'
-nmap [tagbar] :Vista!!<CR>
-
-" How each level is indented and what to prepend.
-" This could make the display more compact or more spacious.
-" e.g., more compact: ["▸ ", ""]
-" Note: this option only works the LSP executives, doesn't work for `:Vista ctags`.
-let g:vista_icon_indent = ["╰▸ ", "├▸ "]
-
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
-set statusline+=%{NearestMethodOrFunction()}
-
-" To enable fzf's preview window set g:vista_fzf_preview.
-" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
-" For example:
-let g:vista_fzf_preview = ['right:50%']
-" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
-let g:vista#renderer#enable_icon = 1
-
-" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }

@@ -88,7 +88,7 @@ repo = 'https://github.com/leafgarland/typescript-vim.git'
 [[plugins]]
 repo = 'https://github.com/peitalin/vim-jsx-typescript.git'
 
-# AutoCompletion
+# For LanguageServer
 [[plugins]]
 repo = 'https://github.com/neoclide/coc.nvim'
 rev = 'release'
