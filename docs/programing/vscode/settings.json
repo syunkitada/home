@@ -1,0 +1,43 @@
+{
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.shell.windows": "/bin/zsh",
+    "terminal.integrated.rendererType": "dom",
+    "editor.formatOnSave": true,
+    "git.autofetch": true,
+    "vim.sneak": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.hlsearch": true,
+    "vim.easymotion": true,
+    "vim.leader": "<space>",
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "s"
+            ],
+            "after": [
+                "leader",
+                "leader",
+                "s"
+            ]
+        }
+    ],
+    "go.gopath": "/home/owner/go/1.12.15",
+    "go.toolsGopath": "/home/owner/go/1.12.15",
+    "go.toolsEnvVars": {
+        "GO111MODULE": "off"
+    },
+    "go.useLanguageServer": true,
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "gopls": {
+        "usePlaceholders": true, // add parameter placeholders when completing a function
+        // Experimental settings
+        "completeUnimported": true, // autocomplete unimported packages
+        "deepCompletion": true // enable deep completion
+    }
+}
