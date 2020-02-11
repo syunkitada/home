@@ -83,6 +83,10 @@
 - AMD: Infinity Fabric
   - EPYC で、オンダイ、オンパッケージ、パッケージ間のすべての接続に使われてる
 
+### Turbo Boost
+
+- [なぜ同じ CPU でも性能差が出るのか? 新 VAIO TruePerformance が教えてくれるノート PC 設計の難しさ](https://pc.watch.impress.co.jp/docs/column/ubiq/1230738.html)
+
 ## メモリ
 
 - [DDR4](https://ja.wikipedia.org/wiki/DDR4_SDRAM)
