@@ -142,9 +142,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # arias for screen and tmux
-alias s='screen'
-alias sa='screen -r'
-alias sl='screen -ls'
+alias st='ssh-agent tmux'
 alias t='tmux'
 alias ta='tmux a'
 alias tl='tmux ls'

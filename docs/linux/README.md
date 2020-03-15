@@ -17,6 +17,8 @@
 | [カーネル](kernel.md)                        | カーネルメモ             |
 | [カーネルデバイスドライバ](kernel_driver.md) | カーネルデバイスドライバ |
 | [カーネルパニック](kernel_panic.md)          | カーネルパニック         |
+| [デバッグ](debugging.md)                     |                          |
+| [テスト](testing.md)                         |                          |
 
 ## CPU
 
@@ -67,8 +69,18 @@
 ## References
 
 - kernel 全般
+  - [Linux Kernel Teaching](https://linux-kernel-labs.github.io/refs/heads/master/index.html)
+  - [The Linux Kernel documentation v4.15](https://www.kernel.org/doc/html/v4.15/index.html)
   - [kernel_map](http://www.makelinux.net/kernel_map/)
   - [Linux perf tools](http://www.brendangregg.com/Perf/linuxperftools.png)
+- Linux Advent Calendar
+  - [2013](https://qiita.com/advent-calendar/2013/linux)
+  - [2014](https://qiita.com/advent-calendar/2014/linux)
+  - [2015](https://qiita.com/advent-calendar/2015/linux)
+  - [2016](https://qiita.com/advent-calendar/2016/linux)
+  - [2017](https://qiita.com/advent-calendar/2017/linux)
+  - [2018](https://qiita.com/advent-calendar/2018/linux)
+  - [2019](https://qiita.com/advent-calendar/2019/linux)
 - NetworkStack
   - [Network data flow](https://mwiki.static.linuxfound.org/images/1/1c/Network_data_flow_through_kernel.png)
   - [Netfilter packet flow](https://upload.wikimedia.org/wikipedia/commons/3/37/Netfilter-packet-flow.svg)

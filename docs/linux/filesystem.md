@@ -155,6 +155,8 @@ sda  0:0:0:0    disk ATA      TOSHIBA THNSNJ25 0101 sata
 - LBA(Logical Block Addresing)
   - CHS に対して、一意のブロック番号をマッピングし、ブロック番号からセクタを特定できるようにする
   - OS はこのブロック番号を使ってデバイスにアクセスする
+- 参考リンク
+  - [HDD の構造と消耗、高密度プラッタが復旧難易度を上げてしまう理由](https://pc.watch.impress.co.jp/docs/column/storage/1231038.html)
 
 ## SSD とアドレッシング
 

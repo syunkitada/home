@@ -83,7 +83,7 @@ colorscheme hybrid
 set background=dark
 
 " show status line
-set laststatus=2
+set laststatus=1
 
 " visualize eol of space and tab
 set list

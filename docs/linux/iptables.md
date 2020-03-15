@@ -107,9 +107,7 @@ $ iptables [-t テーブル] コマンド [マッチ][ターゲット/ジャン�
 # ホスト上のローカルネットワークからNATして外部と通信する例
 sudo iptables -t nat -A POSTROUTING -p TCP -s 172.16.100.0/24 ! -d 172.16.100.0/24 -j MASQUERADE --to-ports 30000-40000
 sudo iptables -t nat -A POSTROUTING -p UDP -s 172.16.100.0/24 ! -d 172.16.100.0/24 -j MASQUERADE --to-ports 30000-40000
-sudo iptables -t nat -A POSTROUTING -s 172.16.100.0/24 ! -d 172.16.100.0/24 -j MASQUERADE
 sudo iptables -t nat -A POSTROUTING -s 172.16.100.0/24 -d 255.255.255.255 -j RETURN
-sudo iptables -t nat -A POSTROUTING -s 172.16.100.0/24 -d base-address.mcast.net/24 -j RETURN
 ```
 
 ## Note
