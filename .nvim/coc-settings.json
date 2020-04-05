@@ -7,14 +7,6 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     },
-    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
-      "rootPatterns": ["compile_commands.json", ".ccls", ".root", ".git/"],
-      "initializationOptions": {
-        "cacheDirectory": "/tmp/ccls"
-      }
-    },
     "bash": {
       "command": "bash-language-server",
       "filetypes": ["sh"],

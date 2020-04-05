@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sudo apt-get update -y
-sudo apt-get install git zsh tmux build-essential vim ncurses-dev -y
+sudo apt-get install git zsh tmux build-essential vim ncurses-dev snapd -y
 
 # install neovim
 sudo apt-get install -y software-properties-common
@@ -23,11 +23,27 @@ if [ ! -e ~/.fzf ]; then
     ~/.fzf/install
 fi
 
-sudo apt install -y silversearcher-ag
-sudo apt-get install -y nodejs npm
-sudo npm install --global yarn
+if [ ! -e ~/.ccls ]; then
+    cd /tmp
+    sudo apt install -y clangd-9
+    # sudo ln -s /usr/bin/clangd-9 /usr/bin/clangd
+    # sudo apt install snapd cmake -y
+    wget https://github.com/MaskRay/ccls/archive/0.20190823.5.tar.gz
+    tar xf 0.20190823.5.tar.gz
+    cd ccls-0.20190823.5
+    exec "$HOME/src/ccls/Release/ccls" "$@"
+    cd -
+fi
 
-yarn global add prettier
+if [ ! -e /usr/local/bin/node ]; then
+    sudo apt install -y silversearcher-ag
+    sudo apt install -y nodejs npm
+    sudo npm install --global n
+    sudo n stable
+    sudo apt-get remove nodejs npm
+    sudo npm install --global yarn
+    yarn global add prettier prettier/vim-prettier
+fi
 
 # これがないとcoc extensionsがインストールできない
 mkdir -p ~/.config/coc/extensions

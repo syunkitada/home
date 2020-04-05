@@ -142,6 +142,11 @@ In exploler
 * default設定を右クリックオプションから、「標準の設定にする」をクリック
 * 以降のサーバ設定は、「サーバ」の項目の「このページ以外のオプションは標準の設定を使用します」にチェックを入れる
 
+## Setup WSL(Ubuntu 18.04)
+
+* オプションを開き、Ctrl+Shift+C/V によるコピペを有効にする
+* [Ubuntu](ubuntu.md)
+
 
 ## Other setup
 * Disable deflag if ssd

@@ -313,27 +313,21 @@ nmap [tasklist] <plug>TaskList
 " typescriptを使う場合は以下も必要
 " curl https://raw.githubusercontent.com/jb55/typescript-ctags/master/.ctags > ~/.ctags
 " -------------------------
-" nmap [tagbar] :TagbarToggle<CR>
-" let g:tagbar_type_typescript = {
-"   \ 'ctagstype': 'typescript',
-"   \ 'kinds': [
-"     \ 'c:classes',
-"     \ 'n:modules',
-"     \ 'f:functions',
-"     \ 'v:variables',
-"     \ 'v:varlambdas',
-"     \ 'm:members',
-"     \ 'i:interfaces',
-"     \ 'e:enums',
-"   \ ]
-" \ }
+nmap  [outline] :TagbarToggle<CR>
+let g:tagbar_type_typescript = {
+  \ 'ctagstype': 'typescript',
+  \ 'kinds': [
+    \ 'c:classes',
+    \ 'n:modules',
+    \ 'f:functions',
+    \ 'v:variables',
+    \ 'v:varlambdas',
+    \ 'm:members',
+    \ 'i:interfaces',
+    \ 'e:enums',
+  \ ]
+\ }
 
-
-" -------------------------
-" TagList
-" -------------------------
-" let Tlist_Use_Right_Window = 1
-" nmap [tagbar] :TlistToggle<CR>
 
 
 " -------------------------
@@ -495,28 +489,32 @@ nmap [fzf]b :BLines<CR>
 
 
 "
-" coc
-" Require node, yarn
-" mkdir -p ~/.config/coc/extensions
+" coc.nvim https://github.com/neoclide/coc.nvim
+"
+" You should install node, and npm.
+"
+" You should make directory before run vim
+" $ mkdir -p ~/.config/coc/extensions
+"
+" If you failed install extensions by below message,
+" > [coc.nvim] Error on install coc-xxx: Error: coc-xxx y.y.y requires coc.nvim >= z.z.z, prease update coc.nvim
+" You shoud manually install extensions beloc commands.
+" $ cd ~/.config/coc/extensions
+" $ yarn add coc-json coc-yaml coc-clangd coc-tsserver coc-python coc-go
 "
 nmap [coc]d :call CocAction('jumpDefinition', 'tab drop')<CR>
-nmap [outline] :CocList outline<CR>
+" nmap [outline] :CocList outline<CR>
 
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-" CocList extensions
+" Default extensions
+" If you want to check extensions, execute this command ':CocList extensions'
 call coc#add_extension(
-  \ 'coc-prettier',
   \ 'coc-json',
   \ 'coc-yaml',
+  \ 'coc-clangd',
   \ 'coc-tsserver',
   \ 'coc-python',
   \ 'coc-go',
   \)
-
-
-" Format before saving
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html :call CocAction('format')
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -549,3 +547,14 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+
+
+" Show CocConfig
+" :CocConfig
+
+
+" language servers
+" c言語
+" clangd(clangd-9) は、macroや、型定義の補完がうまくいかないので利用を止める
+" cclsが良いらしいが、インストールがうまくできないので諦める
