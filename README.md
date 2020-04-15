@@ -18,3 +18,4 @@ Keybind managed by [autohotkey](https://github.com/syunkitada/autohotkey).
 
 ![mycheatsheet](http://dl.dropboxusercontent.com/u/29431105/shed/cheatsheats/mycheatsheet.png)
 ![mycheatsheet](http://dl.dropboxusercontent.com/u/29431105/shed/cheatsheats/mycheatsheet.png)
+![mycheatsheet](http://dl.dropboxusercontent.com/u/29431105/shed/cheatsheats/mycheatsheet.png)

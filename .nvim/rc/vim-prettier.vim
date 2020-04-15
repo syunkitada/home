@@ -1,9 +1,6 @@
 " vim-prettier
 " https://github.com/prettier/vim-prettier
 
-" coc-prettier is not working as well
-" https://github.com/neoclide/coc-prettier
-
 " # Prepare requirements
 " $ yarn global add prettier prettier/vim-prettier
 "

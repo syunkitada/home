@@ -41,8 +41,8 @@ repo = 'https://github.com/thinca/vim-quickrun'
 [[plugins]]
 repo = 'https://github.com/tpope/vim-surround.git'
 
-# [[plugins]]
-# repo = 'https://github.com/scrooloose/syntastic.git'
+[[plugins]]
+repo = 'https://github.com/scrooloose/syntastic.git'
 
 [[plugins]]
 repo = 'https://github.com/vim-scripts/TaskList.vim'
@@ -88,11 +88,6 @@ repo = 'https://github.com/leafgarland/typescript-vim.git'
 [[plugins]]
 repo = 'https://github.com/peitalin/vim-jsx-typescript.git'
 
-# For LanguageServer
+# Formatter for clang
 [[plugins]]
-repo = 'https://github.com/neoclide/coc.nvim'
-rev = 'v0.0.74'
-
-# Viewer & Finder for LSP symbols and tags
-# [[plugins]]
-# repo = 'https://github.com/liuchengxu/vista.vim'
+repo = 'https://github.com/rhysd/vim-clang-format.git'
