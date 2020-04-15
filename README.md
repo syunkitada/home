@@ -13,9 +13,3 @@ This is my dot files, and other setting files.
 For Windows7/10, and JIS keyboard.
 
 Keybind managed by [autohotkey](https://github.com/syunkitada/autohotkey).
-
-### Cheatsheat
-
-![mycheatsheet](http://dl.dropboxusercontent.com/u/29431105/shed/cheatsheats/mycheatsheet.png)
-![mycheatsheet](http://dl.dropboxusercontent.com/u/29431105/shed/cheatsheats/mycheatsheet.png)
-![mycheatsheet](http://dl.dropboxusercontent.com/u/29431105/shed/cheatsheats/mycheatsheet.png)
