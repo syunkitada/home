@@ -1,6 +1,6 @@
 # worker_thread_barrier
 
-- main thread は、worker thread との競合を避けるため、lock することがある
+- main thread は、worker thread との競合を避けるため、メモリ書き込み時に worker thread を lock することがある
 
 ## lock される側(worker thread)
 

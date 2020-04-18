@@ -492,3 +492,6 @@ nmap [fzf]b :BLines<CR>
 " clang format
 "
 autocmd BufWritePre *.c,*.h ClangFormat
+g:clang_format#code_style = "google"
+let g:clang_format#style_options = {
+            \ "ColumnLimit": 120}
