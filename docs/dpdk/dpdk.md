@@ -1,34 +1,37 @@
 # DPDK
 
-
 ## メモ
-* Driver
-    * UIO
-        * ユーザスペースにドライバを作成するための機能
-        * ユーザスペースのメモリでデバイスとDMAする
-            * 従来のKernelドライバでパケットを受けとってから、ユーザスペースにコピーするということがない
-        * DMA用に割り当てるメモリは、Hugepageを使うのが一般的
-            * 割り当てられたメモリでリングバッファ(mbuf)を作る
-                * ロックレス
-            * Hugepageも使うので、TLBのヒット率も高い
-    * VFIO
-        * cat /proc/cpuinfo |grep -E "vmx|svm"
-        * GRUBでiommuを有効にする必要がる
-            * iommu=pt intel_iommu=on
-* PMD
-    * Poll Mode Driver
-    * CPUがドライバをポーリングするために使用するドライバ
-    * PMD Threadは、CPU pinningし、Kernelからはisolするのが一般的
-        * Context Switchを抑制し、TLB・キャッシュのヒット率が高くなる
-    * Pollせずに、Interuptするオプションもある
-        * NAPIみたいなこともできる？
-* 参考
-    * [Understanding DPDK](https://www.slideshare.net/garyachy/dpdk-44585840)
 
+- Driver
+  - UIO
+    - ユーザスペースにドライバを作成するための機能
+    - ユーザスペースのメモリでデバイスと DMA する
+      - 従来の Kernel ドライバでパケットを受けとってから、ユーザスペースにコピーするということがない
+    - DMA 用に割り当てるメモリは、Hugepage を使うのが一般的
+      - 割り当てられたメモリでリングバッファ(mbuf)を作る
+        - ロックレス
+      - Hugepage も使うので、TLB のヒット率も高い
+  - VFIO
+    - cat /proc/cpuinfo |grep -E "vmx|svm"
+    - GRUB で iommu を有効にする必要がる
+      - iommu=pt intel_iommu=on
+- PMD
+  - Poll Mode Driver
+  - CPU がドライバをポーリングするために使用するドライバ
+  - PMD Thread は、CPU pinning し、Kernel からは isol するのが一般的
+    - Context Switch を抑制し、TLB・キャッシュのヒット率が高くなる
+  - Poll せずに、Interupt するオプションもある
+    - NAPI みたいなこともできる？
+- 参考
+  - [DPDK documentation](https://doc.dpdk.org/guides-20.02/)
+  - [Understanding DPDK](https://www.slideshare.net/garyachy/dpdk-44585840)
 
 ## Ubuntu16(VM)
+
 ### Reserve hugepages
-* 簡易的にhugepage 2Mを512用意する
+
+- 簡易的に hugepage 2M を 512 用意する
+
 ```
 $ sudo sh -c 'echo 512 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages'
 $ mkdir -p /mnt/huge
@@ -41,7 +44,8 @@ HugePages_Surp:        0
 Hugepagesize:       2048 kB
 ```
 
-### dpdkをコンパイル・インストールする
+### dpdk をコンパイル・インストールする
+
 ```
 $ sudo apt-get install libnuma-dev make gcc
 $ wget https://fast.dpdk.org/rel/dpdk-17.11.1.tar.xz
@@ -61,7 +65,8 @@ $ sudo modprobe uio
 $ sudo insmod x86_64-native-linuxapp-gcc/kmod/igb_uio.ko
 ```
 
-### helloworldを動かしてみる
+### helloworld を動かしてみる
+
 ```
 # ビルド用の環境変数をセットする
 $ export RTE_SDK=$HOME/dpdk-stable-17.11.1
@@ -101,7 +106,7 @@ hello from core 3
 hello from core 0
 ```
 
-### NICをDPDKにバインドする
+### NIC を DPDK にバインドする
 
 ```
 # 初期状態を確認する
@@ -163,8 +168,8 @@ $ ip a
     link/ether 00:16:3e:51:91:65 brd ff:ff:ff:ff:ff:ff
 ```
 
-
 ### testpmd
+
 ```
 # -i で対話モードになる
 $ sudo ./x86_64-native-linuxapp-gcc/build/app/test-pmd/testpmd -- -i
@@ -279,7 +284,7 @@ Done.
 testpmd> quit
 ```
 
-* start tx_first 中にtopを見るとcpuが100%に張り付くのがわかる
+- start tx_first 中に top を見ると cpu が 100%に張り付くのがわかる
 
 ```
 $ top

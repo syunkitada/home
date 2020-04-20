@@ -313,27 +313,21 @@ nmap [tasklist] <plug>TaskList
 " typescriptを使う場合は以下も必要
 " curl https://raw.githubusercontent.com/jb55/typescript-ctags/master/.ctags > ~/.ctags
 " -------------------------
-" nmap [tagbar] :TagbarToggle<CR>
-" let g:tagbar_type_typescript = {
-"   \ 'ctagstype': 'typescript',
-"   \ 'kinds': [
-"     \ 'c:classes',
-"     \ 'n:modules',
-"     \ 'f:functions',
-"     \ 'v:variables',
-"     \ 'v:varlambdas',
-"     \ 'm:members',
-"     \ 'i:interfaces',
-"     \ 'e:enums',
-"   \ ]
-" \ }
+nmap  [outline] :TagbarToggle<CR>
+let g:tagbar_type_typescript = {
+  \ 'ctagstype': 'typescript',
+  \ 'kinds': [
+    \ 'c:classes',
+    \ 'n:modules',
+    \ 'f:functions',
+    \ 'v:variables',
+    \ 'v:varlambdas',
+    \ 'm:members',
+    \ 'i:interfaces',
+    \ 'e:enums',
+  \ ]
+\ }
 
-
-" -------------------------
-" TagList
-" -------------------------
-" let Tlist_Use_Right_Window = 1
-" nmap [tagbar] :TlistToggle<CR>
 
 
 " -------------------------
@@ -491,61 +485,29 @@ nmap [srcexpl]p :call g:SrcExpl_PrevDef()<CR>
 nmap [fzf]a :Ag<CR>
 nmap [fzf]f :FZF<CR>
 nmap [fzf]l :Lines<CR>
+
+" :Buffers
+" バッファで開いてるファイルを検索してジャンプする
+
+" :BLines
+" バッファで開いてるファイルから全行を対象に検索してジャンプする
 nmap [fzf]b :BLines<CR>
 
+let g:fzf_layout = { 'down': '~90%' }
+
+
+" :History
+
+
+" :Marks
+" マーク一覧をファイル名で検索してジャンプできる
+
+
 
 "
-" coc
-" Require node, yarn
-" mkdir -p ~/.config/coc/extensions
+" clang format
 "
-nmap [coc]d :call CocAction('jumpDefinition', 'tab drop')<CR>
-nmap [outline] :CocList outline<CR>
-
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-" CocList extensions
-call coc#add_extension(
-  \ 'coc-prettier',
-  \ 'coc-json',
-  \ 'coc-yaml',
-  \ 'coc-tsserver',
-  \ 'coc-python',
-  \ 'coc-go',
-  \)
-
-
-" Format before saving
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html :call CocAction('format')
-
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+autocmd BufWritePre *.c,*.h ClangFormat
+g:clang_format#code_style = "google"
+let g:clang_format#style_options = {
+            \ "ColumnLimit": 120}

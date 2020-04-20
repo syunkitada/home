@@ -178,9 +178,16 @@ qemu ...
     -device pc-dimm,id=dimm1,memdev=mem1 \
 ```
 
+- virtio baloon driver
+  - ゲストのメモリを動的に増減する(memory ballooning)ためもの
+  - https://kvm.hatenadiary.org/entry/20081016/1224171825
+  - -device virtio-balloon-pci,id=baloon1
+
 ## ディスク
 
 - オンラインリサイズについて
+- IO throttling
+  - https://github.com/qemu/qemu/blob/master/docs/throttle.txt
 
 ## パススルー
 
