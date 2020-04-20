@@ -485,7 +485,23 @@ nmap [srcexpl]p :call g:SrcExpl_PrevDef()<CR>
 nmap [fzf]a :Ag<CR>
 nmap [fzf]f :FZF<CR>
 nmap [fzf]l :Lines<CR>
+
+" :Buffers
+" バッファで開いてるファイルを検索してジャンプする
+
+" :BLines
+" バッファで開いてるファイルから全行を対象に検索してジャンプする
 nmap [fzf]b :BLines<CR>
+
+let g:fzf_layout = { 'down': '~90%' }
+
+
+" :History
+
+
+" :Marks
+" マーク一覧をファイル名で検索してジャンプできる
+
 
 
 "
