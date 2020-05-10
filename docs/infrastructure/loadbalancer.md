@@ -33,6 +33,12 @@
     - GUE ヘッダ、Foo-over-UDP という技術を使ってる
     - https://github.com/github/glb-director/blob/master/docs/development/gue-header.md
 
+## VPP
+
+- https://github.com/FDio/vpp
+- VPP 自体はユーザランドで動くパケットプロセッサ
+- LB プラグインを利用することで Maglev ライクな LB を実現できる
+
 ## SRLB
 
 - https://www.thomasclausen.net/wp-content/uploads/2017/05/camera-ready-ieeepdfexpress.pdf
@@ -40,8 +46,9 @@
 ## LINE の SWLB
 
 - https://www.slideshare.net/linecorp/ss-116879618
-- Stateless L3DSR
+- XDP を利用した Stateless L3DSR
   - L3DSR は DSCP を利用した方式
+  - ICMP により L3DSR のヘルスチェックをしている
 - Verda の LBaaS として利用されてる?
   - データプレーンは C(XDP)で 800 行
   - コントロールプレーンは Python で 14000 行

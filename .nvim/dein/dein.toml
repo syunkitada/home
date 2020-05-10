@@ -1,64 +1,86 @@
+# colorscheme
 [[plugins]]
 repo = 'https://github.com/w0ng/vim-hybrid'
 
+# colorscheme: hybridよりもおとなしい色合い(言い方を変えると色のメリハリが弱い
+[[plugins]]
+repo = 'https://github.com/cocopon/iceberg.vim'
+
+# unite is plugin to create user interface
+# this is requried by several plugins
 [[plugins]]
 repo = 'https://github.com/Shougo/unite.vim'
 
 [[plugins]]
+repo = 'https://github.com/Shougo/neomru.vim'
+
+# filer
+[[plugins]]
 repo = 'https://github.com/Shougo/vimfiler.vim'
 
+# required by vimfiler
 [[plugins]]
 repo = 'https://github.com/Shougo/vimproc.vim'
 build = 'make'
 
+# nerdtree is filer, but vimfiler is better than this
+# [[plugins]]
+# repo = 'https://github.com/scrooloose/nerdtree'
+
+# fzf is finder for file, text, buffer
 [[plugins]]
 repo ='https://github.com/junegunn/fzf.vim'
 
-[[plugins]]
-repo = 'https://github.com/scrooloose/nerdtree'
+# ctrlp is plugin is finder, but fzf is better than this
+# [[plugins]]
+# repo = 'https://github.com/ctrlpvim/ctrlp.vim.git'
 
+# deoplete is asynchronous completion framework for neovim/Vim8
 [[plugins]]
-repo = 'https://github.com/Shougo/neocomplete'
+repo = 'https://github.com/Shougo/deoplete.nvim'
 
-[[plugins]]
-repo = 'https://github.com/Shougo/neomru.vim'
-
-[[plugins]]
-repo = 'https://github.com/tacroe/unite-mark'
-
-[[plugins]]
-repo = 'https://github.com/vim-scripts/tComment'
-
+# vim-signature is plugin to extend mark
 [[plugins]]
 repo = 'https://github.com/kshenoy/vim-signature'
 
+# vim-bookmarks is plugin to extend mark like bookmark
+# this plugin occur errors
+# [[plugins]]
+# repo = 'https://github.com/MattesGroeger/vim-bookmarks'
+
+# vim-easymotion is plugin to extend motion
 [[plugins]]
 repo = 'https://github.com/Lokaltog/vim-easymotion'
 
-[[plugins]]
-repo = 'https://github.com/thinca/vim-quickrun'
+# vim-surround is plugin to surround parentheses, brackets, quotes
+# disable this plugin, because of I don't use this plugin recently.
+# [[plugins]]
+# repo = 'https://github.com/tpope/vim-surround.git'
 
-[[plugins]]
-repo = 'https://github.com/tpope/vim-surround.git'
+# tComment is plugin for comment out
+# disable this plugin, because of I don't use this plugin recently.
+# [[plugins]]
+# repo = 'https://github.com/vim-scripts/tComment'
 
+# syntastic is plugin for syntax check
 [[plugins]]
 repo = 'https://github.com/scrooloose/syntastic.git'
 
-[[plugins]]
-repo = 'https://github.com/vim-scripts/TaskList.vim'
-
-[[plugins]]
-repo = 'https://github.com/kchmck/vim-coffee-script.git'
-
+# tagbar is plugin to display tag list in side bar
+# this plugin require ctags
 [[plugins]]
 repo = 'https://github.com/majutsushi/tagbar.git'
 
-[[plugins]]
-repo = 'https://github.com/itchyny/lightline.vim.git'
-
+# SrcExpl is plugin to display definitions and declarations
+# this plugin require ctags
 [[plugins]]
 repo = 'https://github.com/wesleyche/SrcExpl'
 
+# lightline is plugin to configure statusline/tabline
+[[plugins]]
+repo = 'https://github.com/itchyny/lightline.vim.git'
+
+# formater for js, tsx, md, and others
 [[plugins]]
 repo = 'https://github.com/prettier/vim-prettier.git'
 
@@ -74,20 +96,3 @@ repo = 'https://github.com/tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'https://github.com/gregsexton/gitv.git'
-
-
-[[plugins]]
-repo = 'https://github.com/ctrlpvim/ctrlp.vim.git'
-
-
-# Syntax highlighting for JSX in Typescript.(required by vim-jsx-typescript)
-[[plugins]]
-repo = 'https://github.com/leafgarland/typescript-vim.git'
-
-# Syntax highlighting for JSX in Typescript.
-[[plugins]]
-repo = 'https://github.com/peitalin/vim-jsx-typescript.git'
-
-# Formatter for clang
-[[plugins]]
-repo = 'https://github.com/rhysd/vim-clang-format.git'

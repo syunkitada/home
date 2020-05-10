@@ -74,16 +74,12 @@ set vb t_vb=
 
 " setting syntax color
 syntax on
-" colorscheme molokai
-" colorscheme twilight
-" let g:lucius_style = "dark"
-" let g:lucius_high_contrast = "0"
-" colorscheme lucius
 colorscheme hybrid
+" colorscheme iceberg
 set background=dark
 
-" show status line
-set laststatus=1
+" show status line for lightline
+set laststatus=2
 
 " visualize eol of space and tab
 set list
@@ -186,6 +182,10 @@ let _currentfile=expand("%:r")
 if _currentfile == 'Makefile'
   set noexpandtab
 endif
+
+
+" Enable python3 provider
+let g:python3_host_prog = substitute(system('which python3'),"\n","","")
 
 
 set rtp+=~/.fzf
