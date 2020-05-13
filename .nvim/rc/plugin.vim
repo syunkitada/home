@@ -155,23 +155,13 @@ let g:EasyMotion_use_smartsign_jp = 1 " JP layout
 
 
 " -------------------------
-" gitv, vim-fugitive
+" git: agit, vim-gitgutter, vim-fugitive
 
-" Gitv
-" コミットログをブラウザモードで表示
-" <CR>
-" O  opens in new tab
-" l  open
-" <C-space> next commit
-" <C-p> previos commit
-" all refs
-nmap [git]l :Gitv<CR>
-nmap [git]la :Gitv --all<CR>
-" コミットログをファイルモードで表示
-" <CR>             | コミット次のファイルを表示
-" D                | 表示中のファイルと選択されたファイルの差分を表示
-" ハイライトしてD  | 一番上と一番下のコミットの差分を表示
-nmap [git]f :Gitv!<CR>
+" show git log
+nmap [git]l :Agit<CR>
+
+" vim-gitgutter
+nmap [git]g :GitGutterToggle<CR>
 
 " vim-fugitive
 " gitの基本機能
@@ -182,10 +172,6 @@ nmap [git]b :Gblame<CR>
 nmap [git]d :Gdiff<CR>
 nmap [git]p :Gpull<CR>
 nmap [git]pu :Gpush<CR>
-
-" vim-merginal
-" ブランチの管理(一覧、作成、切替、削除)と、ブランチ間のマージ(およびコンフリクトの解消)
-nmap [git]m :Merginal<CR>
 
 
 " -------------------------

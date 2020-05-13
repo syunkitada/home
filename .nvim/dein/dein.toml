@@ -7,10 +7,11 @@ repo = 'https://github.com/w0ng/vim-hybrid'
 repo = 'https://github.com/cocopon/iceberg.vim'
 
 # unite is plugin to create user interface
-# this is requried by several plugins
+# display bookmark, buffer, etc
 [[plugins]]
 repo = 'https://github.com/Shougo/unite.vim'
 
+# display history files on unite
 [[plugins]]
 repo = 'https://github.com/Shougo/neomru.vim'
 
@@ -42,11 +43,6 @@ repo = 'https://github.com/Shougo/deoplete.nvim'
 # vim-signature is plugin to extend mark
 [[plugins]]
 repo = 'https://github.com/kshenoy/vim-signature'
-
-# vim-bookmarks is plugin to extend mark like bookmark
-# this plugin occur errors
-# [[plugins]]
-# repo = 'https://github.com/MattesGroeger/vim-bookmarks'
 
 # vim-easymotion is plugin to extend motion
 [[plugins]]
@@ -85,14 +81,14 @@ repo = 'https://github.com/itchyny/lightline.vim.git'
 repo = 'https://github.com/prettier/vim-prettier.git'
 
 # git
-[[plugins]]
-repo = 'https://github.com/cohama/agit.vim'
-
-[[plugins]]
-repo = 'https://github.com/idanarye/vim-merginal'
-
+# basic plugin
 [[plugins]]
 repo = 'https://github.com/tpope/vim-fugitive'
 
+# git log viewer
 [[plugins]]
-repo = 'https://github.com/gregsexton/gitv.git'
+repo = 'https://github.com/cohama/agit.vim'
+
+# show git diff marker
+[[plugins]]
+repo = 'https://github.com/airblade/vim-gitgutter'

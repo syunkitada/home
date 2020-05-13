@@ -65,6 +65,8 @@ $ find ./ -type f | xargs sed -i 's/\t/        /g'
   - ip_adjacency_t は、パケットフォワードに必要なデータを含む(これは arp_entry_t によって提供される)
 - fib(forwarding infrmatin base)
   - prefix により dpo の選択をする処理で使われる
+    - lb プラグインでは、fib に vip の prefix および自 node へのパス(dpo)を登録するとこで、ip4-lookup node によりフォワーディングされる
+    - また、lb プラグインでは vip のメンバへパケットを送り出すときも fib にメンバ IP への dpo を事前に登録しておき、そこへフォワーディングする
   - prefix
     - 1.1.1.1 This is an address since it has no associated mask
     - 1.1.1.0/24 This is a prefix.
