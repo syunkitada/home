@@ -82,6 +82,9 @@ nnoremap <silent> [unite]u :Unite file_mru buffer<CR>
 nnoremap <silent> [unite]b :Unite bookmark<CR>
 " ブックマーク追加
 nnoremap <silent> [unite]a :UniteBookmarkAdd<CR>
+" ブックマークの削除
+" d でカーソル位置のブックマークを削除
+
 
 
 " ファイル一覧時の動作
@@ -100,31 +103,6 @@ au FileType unite inoremap <silent> <buffer> <expr> t unite#do_action('tabopen')
 " vimshell, vimfilerからuniteを起動して移動した時にvimshell, vimfilerへ移動する
 " for Unite bookmark
 autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
-
-
-" -------------------------
-"  neomru.vim
-"
-" 最近利用したファイルをuniteで表示
-" unite で利用
-" nnoremap <silent> [unite]u :Unite file_mru buffer<CR>
-" -------------------------
-
-
-" -------------------------
-" unite-outline
-"
-" ファイルを解析し、アウトラインをuniteで表示する
-" -------------------------
-nnoremap <silent> [unite]o :Unite -no-quit -vertical -winwidth=70 outline<CR>
-
-
-" -------------------------
-"  unite-mark
-"
-"  マークの一覧をuniteで表示する
-" -------------------------
-nnoremap [unite]m :Unite mark<CR>
 
 
 " -------------------------
@@ -175,87 +153,15 @@ let g:EasyMotion_smartcase = 1
 let g:EasyMotion_use_smartsign_jp = 1 " JP layout
 
 
-" -------------------------
-" tComment
-"
-" Ctrl + / でコメントアウト
-" -------------------------
-
 
 " -------------------------
-" vimshell
-"
-" vim上でshellを使えるようにします
-" Tabで補完
-" C-uで履歴表示(autohotkey)
-" sudo実行に関して、毎回paswordを入力する必要がある（仕様です）
-" -------------------------
-nmap [vimshell] :VimShell<CR>
-nmap [vimshell]h :VimShellCreate<CR>
-nmap [vimshell]t :VimShellTab<CR>
-nmap [vimshell]p :VimShellPop<CR>
-nmap [vimshell]s :VimShellCreate -split-command=split<CR>
-nmap [vimshell]v :VimShellCreate -split-command=vsplit<CR>
-nmap [vimshell]w :VimFiler<CR>:VimShellCreate -split-command=split<CR><Esc>:VimShellCreate -split-command=vsplit<CR>
+" git: agit, vim-gitgutter, vim-fugitive
 
-" プロンプトの設定
-let g:vimshell_prompt = '$ '
-let username = system("whoami")
-let g:vimshell_user_prompt = '"(".strftime("%H:%M:%S").") [".hostname().":".getcwd()."]"'
+" show git log
+nmap [git]l :Agit<CR>
 
-
-" -------------------------
-"  neocomplcache
-" -------------------------
-let g:neocomplcache_enable_at_startup = 1
-
-" -------------------------
-"  quickrun
-"
-"  ,r で一番下にウィンドウを分割させて高さ8spで実行結果を表示する
-" -------------------------
-nmap [quickrun] :QuickRun -outputter/buffer/split "botright 8sp"<CR>
-
-
-" -------------------------
-" sudo.vim
-"
-" root権限で、ファイルを編集したい場合、
-" 通常のsudo vim を利用するとユーザのvimrcを読み込んでくれない。
-" 以下のように、呼び出すとユーザのvimrcを読み込んで編集できる。
-" $ vim sudo:filename
-" :e sudo:filename
-" :e sudo:%
-" -------------------------
-
-" -------------------------
-" emmet
-"
-" ,e でemmet補完
-" visualモード時に,e で Wrap with Abbreviation
-" -------------------------
-nmap <silent> [emmet] <C-y>,
-vmap <silent> [emmet] <C-y>,
-
-
-" -------------------------
-" gitv, vim-fugitive
-
-" Gitv
-" コミットログをブラウザモードで表示
-" <CR>
-" O  opens in new tab
-" l  open
-" <C-space> next commit
-" <C-p> previos commit
-" all refs
-nmap [git]l :Gitv<CR>
-nmap [git]la :Gitv --all<CR>
-" コミットログをファイルモードで表示
-" <CR>             | コミット次のファイルを表示
-" D                | 表示中のファイルと選択されたファイルの差分を表示
-" ハイライトしてD  | 一番上と一番下のコミットの差分を表示
-nmap [git]f :Gitv!<CR>
+" vim-gitgutter
+nmap [git]g :GitGutterToggle<CR>
 
 " vim-fugitive
 " gitの基本機能
@@ -267,25 +173,6 @@ nmap [git]d :Gdiff<CR>
 nmap [git]p :Gpull<CR>
 nmap [git]pu :Gpush<CR>
 
-" vim-merginal
-" ブランチの管理(一覧、作成、切替、削除)と、ブランチ間のマージ(およびコンフリクトの解消)
-nmap [git]m :Merginal<CR>
-
-
-
-" -------------------------
-" vcscommand
-" git, svnなどいろいろなvcsを同じコマンドで扱える
-" <leader>cd diff
-" default leader = \
-" -------------------------
-" nmap [vcs]l :VCSLog<CR>
-" nmap [vcs]d :VCSDiff<CR>
-" nmap [vcs]b :VCSBlame<CR>
-" nmap [vcs]a :VCSAdd<CR>
-" nmap [vcs]c :VCSCommit<CR>
-
-
 
 " -------------------------
 " syntastic
@@ -296,12 +183,6 @@ let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_css_checkers = ['csslint']
 let g:syntastic_javascript_checkers = ['eslint']  "eslint require: $ yarn global add eslint
 
-
-" -------------------------
-" tasklist
-" TODO機能
-" -------------------------
-nmap [tasklist] <plug>TaskList
 
 
 " -------------------------
@@ -503,11 +384,16 @@ let g:fzf_layout = { 'down': '~90%' }
 " マーク一覧をファイル名で検索してジャンプできる
 
 
+" deoplete
+" https://github.com/Shougo/deoplete.nvim
+" Require Run `:UpdateRemotePlugins`
+let g:deoplete#enable_at_startup = 1
+
 
 "
 " clang format
 "
 autocmd BufWritePre *.c,*.h ClangFormat
-g:clang_format#code_style = "google"
+let g:clang_format#code_style = "google"
 let g:clang_format#style_options = {
             \ "ColumnLimit": 120}
