@@ -35,12 +35,10 @@
 
 ## Network
 
-| Link                                   | Description            |
-| -------------------------------------- | ---------------------- |
-| [Network](network.md)                  | ネットワークについて   |
-| [Network 用語](network_terminology.md) | ネットワーク用語メモ   |
-| [Network ツール](network_tool.md)      | ネットワークツールメモ |
-| [iptables](iptables.md)                | iptables メモ          |
+| Link                    | Description          |
+| ----------------------- | -------------------- |
+| [Network](network.md)   | ネットワークについて |
+| [iptables](iptables.md) | iptables メモ        |
 
 ## IO Device
 
@@ -50,21 +48,12 @@
 | [ブロックデバイス](blockdevice.md) | ブロックデバイス                             |
 | [デバイス](device.md)              | デバイス                                     |
 
-## モニタリング
-
-| Link                                                                    | Description        |
-| ----------------------------------------------------------------------- | ------------------ |
-| [Performance](performance.md)                                           | パフォーマンス     |
-| [Observability tools basic](observability_tools_basic.md)               | 基本的な観測ツール |
-| [Observability tools intermediate](observability_tools_intermediate.md) | 特殊な観測ツール   |
-| [Latency](latency.md)                                                   | Latency いろいろ   |
-
 ## その他
 
-| Link                        | Description     |
-| --------------------------- | --------------- |
-| [initscript](initscript.md) | initscript      |
-| [strace](strace.md)         | strace いろいろ |
+| Link                  | Description     |
+| --------------------- | --------------- |
+| [systemd](systemd.md) | systemd         |
+| [strace](strace.md)   | strace いろいろ |
 
 ## References
 

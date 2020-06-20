@@ -1,7 +1,9 @@
 # Network tools
 
 ## ping
-* レイテンシを確認する
+
+- レイテンシを確認する
+
 ```
 $ ping google.co.jp
 PING google.co.jp (216.58.197.195) 56(84) bytes of data.
@@ -10,15 +12,19 @@ PING google.co.jp (216.58.197.195) 56(84) bytes of data.
 ```
 
 ## traceroute
-* 通信経路を確認する
-* レイテンシを確認する
+
+- 通信経路を確認する
+- レイテンシを確認する
+
 ```
 $ traceroute google.co.jp
 ```
 
 ## mtr
-* mtrは連続でtracerouteし、その結果を描画し続けます
-* 通信経路のレイテンシやLoss率を見たい場合に利用します
+
+- mtr は連続で traceroute し、その結果を描画し続けます
+- 通信経路のレイテンシや Loss 率を見たい場合に利用します
+
 ```
 # loss率などがわかる
 $ mtr  192.168.122.102
@@ -27,8 +33,8 @@ $ mtr  192.168.122.102
  1. 192.168.122.102                                                                                                                                                                                0.0%     2    0.6   0.5   0.4   0.6   0.0
 ```
 
-
 ## tcpdump
+
 ```
 $ sudo tcpdump -i eth0 -w /tmp/out.tcpdump
 
@@ -37,6 +43,7 @@ $ sudo tcpdump -i [device] -X
 ```
 
 ## netstat
+
 ```
 # ネットワークコネクションをすべて表示する
 $ netstat -an
@@ -77,7 +84,9 @@ $ netstat -p
 ```
 
 ## ss
-* socket statistics
+
+- socket statistics
+
 ```
 # -m: show socket memory usage
 # -o: show timer information
@@ -108,9 +117,8 @@ INET      10        6         4
 FRAG      0         0         0
 ```
 
-
-
 ## ip
+
 ```
 # ルーティングテーブルの確認
 $ ip route
@@ -121,8 +129,10 @@ default via 192.168.122.1 dev eth0
 ```
 
 ## arp
-* arpテーブルの確認に利用します
-* L2の通信ができない場合や、L2に他IPが存在しないことを確認するために利用します
+
+- arp テーブルの確認に利用します
+- L2 の通信ができない場合や、L2 に他 IP が存在しないことを確認するために利用します
+
 ```
 # arpテーブルのキャッシュ確認
 $ arp
@@ -154,9 +164,10 @@ Address                  HWtype  HWaddress           Flags Mask            Iface
 192.168.122.103          ether   00:16:3e:25:a0:c6   C                     eth0
 ```
 
-
 ## nicstat
-* rpmなし(野良rpmはある）
+
+- rpm なし(野良 rpm はある）
+
 ```
 $ nicstat 1
     Time      Int   rKB/s   wKB/s   rPk/s   wPk/s    rAvs    wAvs %Util    Sat
@@ -167,10 +178,11 @@ $ nicstat 1
 13:34:49       lo    0.00    0.00    0.00    0.00    0.00    0.00  0.00   0.00
 ```
 
-
 ## iptraf
-コマンドライン上でGUIみたいなインターフェイスで統計が見れる
-``` bash
+
+コマンドライン上で GUI みたいなインターフェイスで統計が見れる
+
+```bash
 $ iptraf-ng
  iptraf-ng 1.1.4
 l TCP Connections (Source Host:Port) qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq Packets qqqqqqqqqqqqqqqqqqqqqqqqqq Bytes qqqqqqqqqqq Flag qqqqqqqqq Iface qqqqqqqqqqqqqqqqqqqqqqk
@@ -180,10 +192,10 @@ xl192.168.122.1:53068                                                           
 ...
 ```
 
-
-
 ## ethtool
+
 Mostly interface tuning; som stats
+
 ```
 $ sudo ethtool eth0
 Settings for eth0:
