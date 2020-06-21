@@ -119,6 +119,10 @@
     - Hadoop や Cassandra やデータベースなどでは無効にしているケースが多い
   - HugePage を使えるなら THP はいらない
     - HugePage を利用できるなら THP を無効にしても、ページテーブルエントリや TLB のメリットを受けることができる
+  - /sys/kernel/mm/transparent_hugepage/enabled
+    - always: 有効
+    - madvise: アプリケーションが明示的に要求した場合に THP を利用する
+    - never: 無効
 
 ## file map と anon
 
@@ -619,17 +623,18 @@ vm.overcommit_ratio=80
 # 仮想メモリ割り当てをメモリサイズ + スワップ領域のサイズ * 80%にする
 
 vm.min_free_kbytes=524288
-# デフォルト(動的に算出される)より大きめに設定して余裕をもってページ回収する
+# デフォルト(動的に算出される)より大きめに設定して余裕をもってページ回収するようにできる
 # 512MB に設定すると、空きメモリが640MB(low pages)を下回ると kswapd がページ回収を開始し、768MB(high pages)を超えるとやめる
 # 空きメモリが 512MB を下回るとプロセスがメモリ要求時に同期でページ回収が実行される(direct reclaim)。
 
 vm.extra_free_kbytes=1048576
 # kernel 3.5以降
-# low pages、high pages に 1GB 加算し direct reclaim が発生しにくくする
+# low pages、high pages に 1GB 加算し direct reclaim を発生しにくくする
 # メモリ使用率監視閾値(アラート)が 90% なら、low pages がメモリの 10%+a くらいにすると良さげ
 
-vm.zone_reclaim_mode = 0
-# numaノードごとでkswapdが動作する
+vm.zone_reclaim_mode = 1
+# numaノードごとでkswapdが動作するようになる
+# アプリケーションのメモリを特定numaノードからしかアサインしないようにしている場合は1にすべき
 ```
 
 - dirty 関連
@@ -806,6 +811,10 @@ HugePages_Surp:        0
 ```
 
 ## kswapd
+
+## kcompactd
+
+## khugepaged
 
 ## malloc()
 

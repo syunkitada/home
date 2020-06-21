@@ -62,6 +62,8 @@
   - [The Linux Kernel documentation v4.15](https://www.kernel.org/doc/html/v4.15/index.html)
   - [kernel_map](http://www.makelinux.net/kernel_map/)
   - [Linux perf tools](http://www.brendangregg.com/Perf/linuxperftools.png)
+  - [Understanding the Linux Virtual Memory Manager](https://www.kernel.org/doc/gorman/html/understand/)
+  - [openSUSE: System Analysis and Tuning Guide](https://doc.opensuse.org/documentation/leap/archive/42.3/tuning/html/book.sle.tuning/book.sle.tuning.html)
 - Linux Advent Calendar
   - [2013](https://qiita.com/advent-calendar/2013/linux)
   - [2014](https://qiita.com/advent-calendar/2014/linux)
@@ -76,3 +78,8 @@
 - StorageStack
   - [Linux Storage Stack Diagram](https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram)
   - [Linux Multi-Queue Block IO Queueing Mechanism (blk-mq)](<https://www.thomas-krenn.com/en/wiki/Linux_Multi-Queue_Block_IO_Queueing_Mechanism_(blk-mq)>)
+- Tuning
+  - [openSUSE: Part V Kernel Tuning](https://doc.opensuse.org/documentation/leap/archive/42.3/tuning/html/book.sle.tuning/part.tuning.kernel.html)
+- CaseStudy
+  - Memory
+    - [Linkedin: Optimizing Linux Memory Management for Low-latency / High-throughput Databases](https://engineering.linkedin.com/performance/optimizing-linux-memory-management-low-latency-high-throughput-databases)
