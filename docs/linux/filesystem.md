@@ -567,6 +567,17 @@ tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=1611440k,mode=755)
 ...
 ```
 
+## seq ファイルシステム
+
+- /proc などに代表される仮想ファイルのためのフレームワーク的なファイルシステム
+- seq ファイルシステムを利用した特殊なファイルに対して read システムコールを実行した際、通常はカーネル側で確保された PAGE_SIZE(基本は 4K)と同じ容量のバッファを経由して、read システムコールに指定されたユーザー空間側のバッファ領域にデータをコピーする
+- /proc/net/tcp などのデータ量が多くなりがちなファイルを読もうとすると read を何度も実行することになる
+  - strace /proc/net/tcp などするとその様子を見ることができる
+  - このため、ss コマンドなどはネットワークの情報を取るときには netlink を利用している
+- 参考
+  - [netstat コマンドを高速化する](https://qiita.com/mutz0623/items/7b000a6ac0f75df5dafd)
+  - [seq ファイルシステムについて](https://qiita.com/akachochin/items/98085494081b8bc39cbb)
+
 ## nfs
 
 ## iscsi

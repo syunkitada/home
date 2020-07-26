@@ -14,6 +14,31 @@
 
 ## 基幹系
 
+- コアネットワーク、基幹通信網、バックボーン
+  - 通信網の中核にあたる部分を示す言葉
+- 携帯網
+  - 基地局
+    - 携帯と直接通信する無線通信装置
+    - 基地局から MME、SGW などへ転送される
+    - 基地局は以下のようなところに設置される
+      - 鉄塔の上、ビルやマンションの屋上に設置する広範囲タイプ
+      - 電柱に設置するタイプ、地下施設に設置する小規模タイプ
+      - 車、船、ドローンなどに設置されるタイプもある
+    - NB(Node B)
+      - 3G の一方式である W-CDMA の基地局のこと
+    - eNB(evolved Node B)
+      - LTE 基地局のこと
+  - MME(Mobility Management Entity)
+    - LTE の場合、携帯電話の制御信号のゲートウェイ
+  - SGW(Service Gateway)
+    - ユーザのデータそのもののゲートウェイ
+  - PGW(Packet data network Gateway)
+    - 外部であるインターネットに接続するためのゲートウェイ
+  - HSS(Home Subscriber Server)
+    - ユーザ情報のデータベース
+    - SIM の認証に利用される
+  - PCRF(Policy and Charging Rules Function)
+    - ネットワークポリシーや課金のルールをもつデータベース
 - TDM(Time Division Multiplexing)
   - 時分割多重
   - 複数の異なるデジタル信号を時間的に配列して、一つの伝送路で伝送を行うことができるようにする多重化の一方式

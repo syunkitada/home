@@ -157,6 +157,20 @@ Byte Queue Limits
     - このため、デフォルトゲートウェイ以外の NIC への ARP は、ただしく解決できない
   - ARP Filter が 1 の場合、ARP を受信した NIC から応答するようになる
 
+## netlink
+
+- Linux カーネルのサブシステムの名称で、このサブシステムと、ユーザ空間のアプリケーションがやり取りするためのソケットベースの IPC が定義されている
+- アプリケーションはソケット通信によって、Linux カーネル管理下のネットワーク関連リソースを操作したり、その状態を取得することができる
+- ip コマンドや、ss コマンドもこの netlink を利用して、リソース情報を取得したり、操作を行っている
+- 参考
+  - [Netlink IPC を使って Linux カーネルのネットワーク情報にアクセスする](http://ilyaletre.hatenablog.com/entry/2019/09/01/205432)
+  - [Kernel Korner - Why and How to Use Netlink Socket](https://www.linuxjournal.com/article/7356)
+  - [Go による実装 2: docker.libcontainer](https://github.com/docker-archive/libcontainer/blob/master/netlink/netlink_linux.go)
+    - container 用の必要最低限の実装なのでわかりやすい
+  - [Go による実装 1: netlink](https://github.com/vishvananda/netlink)
+    - もともとは libcontainer の netlink 機能をフォークしたものだがほぼ別物
+    - netlink に絞ったもりもりの実装
+
 ## Refarence
 
 - [Linux カーネルメモ 送受信](http://wiki.bit-hive.com/linuxkernelmemo/pg/%C1%F7%BC%F5%BF%AE)
