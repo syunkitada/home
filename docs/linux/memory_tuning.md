@@ -1,13 +1,16 @@
 # memory tuning
 
-http://www.slideshare.net/janghoonsim/kvm-performance-optimization-for-ubuntu?qid=fb99f565-8ae4-44d3-9b58-8d8487197566&v=&b=&from_search=3
+- https://doc.opensuse.org/documentation/leap/archive/42.3/tuning/html/book.sle.tuning/cha.tuning.memory.html
+- http://www.slideshare.net/janghoonsim/kvm-performance-optimization-for-ubuntu?qid=fb99f565-8ae4-44d3-9b58-8d8487197566&v=&b=&from_search=3
 
 ## THP
+
 ### Paging level
-| Platform | Page size | Address bit used | Paging levels | splitting |
-| --- | --- | --- | --- | --- |
-| x86_64 | 4KB(default) | 48 | 4 | 9+9+9+9+12 |
-| x86_64 | 2MB(THP)     | 48 | 3 | 9+9+9+21   |
+
+| Platform | Page size    | Address bit used | Paging levels | splitting  |
+| -------- | ------------ | ---------------- | ------------- | ---------- |
+| x86_64   | 4KB(default) | 48               | 4             | 9+9+9+9+12 |
+| x86_64   | 2MB(THP)     | 48               | 3             | 9+9+9+21   |
 
 ```
 # THPが有効かどうか調べる
@@ -42,9 +45,15 @@ thp_zero_page_alloc_failed 0
 
 ```
 
-# ksm
+## ksm
+
+```
 KSM (kernel samepage merging)
 echo "1" > /sys/kernel/mm/ksm/run
+```
 
-# for numa
+## for numa
+
+```
 /sys/kernel/mm/ksm/merge_across_nodes
+```

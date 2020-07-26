@@ -1,6 +1,6 @@
 # カーネルデバイスドライバ
 
-``` bash
+```bash
 $ sudo yum install make gcc kernel kernel-devel kernel-headers
 
 $ sudo reboot
@@ -18,6 +18,7 @@ $ uname -r
 ```
 
 hello.c
+
 ```
 /**
  * @file    hello.c
@@ -71,6 +72,7 @@ module_exit(helloBBB_exit);
 ```
 
 Makefile
+
 ```
 obj-m+=hello.o
 
@@ -128,4 +130,5 @@ $ lsmod  | grep hello
 ```
 
 # Refereces
-* [Writing a Linux Kernel Module ? Part 1: Introduction](http://derekmolloy.ie/writing-a-linux-kernel-module-part-1-introduction/)
+
+- [Writing a Linux Kernel Module ? Part 1: Introduction](http://derekmolloy.ie/writing-a-linux-kernel-module-part-1-introduction/)
