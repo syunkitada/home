@@ -4,6 +4,7 @@
 
 | Link                                           | Description                                              |
 | ---------------------------------------------- | -------------------------------------------------------- |
+| [OS History](os_history)                       | OS の歴史について                                        |
 | [カーネルと起動時の処理](kernel_boot.md)       | カーネルの場所、起動時の流れ                             |
 | [プロセスとスケジューラ](process_scheduler.md) | プロセス実行の仕組み、スケジューリングの仕組み、割り込み |
 | [ファイルシステム](filesystem.md)              | ファイル、ファイルシステム、ブロックデバイス             |
@@ -35,10 +36,12 @@
 
 ## Network
 
-| Link                    | Description          |
-| ----------------------- | -------------------- |
-| [Network](network.md)   | ネットワークについて |
-| [iptables](iptables.md) | iptables メモ        |
+| Link                                  | Description                               |
+| ------------------------------------- | ----------------------------------------- |
+| [Network Hostory](network_history.md) | ネットワークの歴史について                |
+| [Network Basic](network_basic.md)     | ネットワークの基礎知識、OSI とか TCP とか |
+| [Network](network.md)                 | ネットワークについて                      |
+| [iptables](iptables.md)               | iptables メモ                             |
 
 ## IO Device
 

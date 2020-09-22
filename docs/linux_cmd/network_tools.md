@@ -33,15 +33,6 @@ $ mtr  192.168.122.102
  1. 192.168.122.102                                                                                                                                                                                0.0%     2    0.6   0.5   0.4   0.6   0.0
 ```
 
-## tcpdump
-
-```
-$ sudo tcpdump -i eth0 -w /tmp/out.tcpdump
-
-
-$ sudo tcpdump -i [device] -X
-```
-
 ## netstat
 
 ```
@@ -117,14 +108,131 @@ INET      10        6         4
 FRAG      0         0         0
 ```
 
-## ip
+## ip -a
+
+```bash
+$ ip a show dev enp31s0
+2: enp31s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 70:85:c2:b7:a2:b6 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.10.121/24 brd 192.168.10.255 scope global noprefixroute enp31s0
+     valid_lft forever preferred_lft forever
+```
+
+- mtu 1500
+  - 最大の IP パケットサイズ
+  - これにフレームヘッダ(14 bytes)と FCS(4 byte)が加算されてフレームが完成
+- qdisc fq_codel
+  - qdisc は Queueing Discipline の略
+  - fq_codel は、スケジューリング方式の一つ
+    - Fair/Flow Queueing + Codel の略
+    - https://www.bufferbloat.net/projects/codel/wiki/
+  - tc コマンドで変更可能
+- qlen 1000
+  - 送信キューの長さ
+  - 大きくしすぎる bufferbloat などの問題が発生するので注意
+    - bufferbloat とは送信パケットを過剰にバッファリングするとその分パケットが遅延しやすくなる問題
+    - 優先度の高い通信は送信バッファを小さくするという対策もある
+
+## ip -s link
+
+```bash
+$ ip -s link
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+RX: bytes  packets  errors  dropped overrun mcast
+1866314030 4034006  0       0       0       0
+TX: bytes  packets  errors  dropped carrier collsns
+1866314030 4034006  0       0       0       0
+2: enp31s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+link/ether 70:85:c2:b7:a2:b6 brd ff:ff:ff:ff:ff:ff
+RX: bytes  packets  errors  dropped overrun mcast
+2457569    6821     0       0       0       2186
+TX: bytes  packets  errors  dropped carrier collsns
+1049875    4730     0       0       0       0
+```
+
+- errors
+  - Ethernet の CRC エラーなど、NIC 上で処理できなかったパケット数
+  - ケーブルの破損等
+- dropped
+  - 意図的なドロップ
+  - サポートしてないフレーム(IPv6 をを無効化している状態でやってきた IPv6 パケットなど)
+- overrun
+  - RX ring buffer の容量が足りずに破棄されたパケット数
+- mcast
+  - マルチキャスト通信を正常に受信した数
+- carrier
+  - NIC 毎で何らかの問題（ケーブルの接触不良）が生じて送信できなかったパケット数
+- collsns
+  - コリジョンを検知した（ジャム信号を送った）回数
+
+## ip rule
+
+- ポリシールール
+  - RPDB(routing policy database)によって管理され、ルーティングに利用される
+  - ポリシールールは、セレクタとアクションからなる
+    - セレクタ: アクションを実施したいパケットの条件を記述する
+    - アクション: 実行したいことを記述する
+      - 特定の table から経路情報御を lookup したり、NAT を実施することもできる
+  - ルーティングの流れ
+    - 優先度(priority)の小さい順で、RPDB 内のポリシールールを一つづつ見ていく
+    - ルールのセレクタにパケットが合致する場合、アクションを実施する
+    - アクションの実行に成功(例えば経路情報を取得）できれば、RPDB の lookup は終了
+    - セレクタに合致しないか、アクションの実行に失敗すれば、次のポリシールールを見る
 
 ```
-# ルーティングテーブルの確認
-$ ip route
-default via 192.168.122.1 dev eth0
-192.168.122.0/24 dev eth0  proto kernel  scope link  src 192.168.122.102
+$ ip rule
+0:      from all lookup local
+32766:  from all lookup main
+32767:  from all lookup default
 
+```
+
+## ip route
+
+```
+# routingテーブルの確認
+$ ip route show
+default via 192.168.10.1 dev enp31s0 proto static metric 100
+169.254.0.0/16 dev enp31s0 scope link metric 1000
+169.254.32.1 dev com-0-ex scope link
+169.254.32.2 dev com-1-ex scope link
+
+
+# 特定ポリシールールのrouteの確認
+$ ip route show table 0
+default via 192.168.10.1 dev enp31s0 proto static metric 100
+169.254.0.0/16 dev enp31s0 scope link metric 1000
+
+
+# 全ポリシーのroute を確認
+$ ip route show table 0
+default via 192.168.10.1 dev enp31s0 proto static metric 100
+169.254.0.0/16 dev enp31s0 scope link metric 1000
+
+
+# 特定IP宛てのルートを取得する
+$ ip route get 192.168.101.4
+192.168.101.4 dev com-3-ex src 192.168.10.121 uid 1000
+    cache
+
+```
+
+## ip neigh
+
+```
+$ ip neigh
+192.168.10.1 dev enp31s0 lladdr c0:25:a2:dd:db:b8 STALE
+192.168.101.4 dev com-3-ex lladdr 0e:3f:7a:f1:ef:9d STALE
+169.254.32.4 dev com-3-ex lladdr 0e:3f:7a:f1:ef:9d STALE
+192.168.100.2 dev com-0-ex lladdr b6:b6:3e:42:b2:0e STALE
+169.254.32.5 dev com-4-ex lladdr 9a:34:89:fe:f2:03 STALE
+169.254.32.3 dev com-2-ex lladdr 46:b4:3b:3e:d0:f7 STALE
+169.254.32.1 dev com-0-ex lladdr b6:b6:3e:42:b2:0e STALE
+192.168.10.101 dev enp31s0 lladdr 94:65:9c:6e:fd:39 DELAY
+192.168.101.3 dev com-4-ex lladdr 9a:34:89:fe:f2:03 STALE
+192.168.101.2 dev com-2-ex lladdr 46:b4:3b:3e:d0:f7 STALE
+fe80::10ff:fe02:208b dev enp31s0 lladdr 02:00:10:02:20:8b router STALE
 
 ```
 
@@ -164,23 +272,9 @@ Address                  HWtype  HWaddress           Flags Mask            Iface
 192.168.122.103          ether   00:16:3e:25:a0:c6   C                     eth0
 ```
 
-## nicstat
-
-- rpm なし(野良 rpm はある）
-
-```
-$ nicstat 1
-    Time      Int   rKB/s   wKB/s   rPk/s   wPk/s    rAvs    wAvs %Util    Sat
-13:34:48     eth0    3.51    0.35    2.49    1.75  1443.7   205.8  0.00   0.50
-13:34:48       lo    0.00    0.00    0.01    0.01   105.2   105.2  0.00   0.00
-    Time      Int   rKB/s   wKB/s   rPk/s   wPk/s    rAvs    wAvs %Util    Sat
-13:34:49     eth0    0.06    0.10    1.00    1.00   66.00   102.0  0.00   0.00
-13:34:49       lo    0.00    0.00    0.00    0.00    0.00    0.00  0.00   0.00
-```
-
 ## iptraf
 
-コマンドライン上で GUI みたいなインターフェイスで統計が見れる
+- コマンドライン上で GUI みたいなインターフェイスで統計が見れる
 
 ```bash
 $ iptraf-ng
@@ -194,7 +288,7 @@ xl192.168.122.1:53068                                                           
 
 ## ethtool
 
-Mostly interface tuning; som stats
+- Mostly interface tuning; som stats
 
 ```
 $ sudo ethtool eth0
@@ -222,4 +316,19 @@ Settings for eth0:
         Current message level: 0x00000007 (7)
                                drv probe link
         Link detected: yes
+```
+
+## lsof -i
+
+- lsof 自体はプロセスが開いているファイル情報を収集するためのツール
+- -i オプションでソケットの情報を表示することができる
+
+```
+$ sudo lsof -i
+[sudo] password for owner:
+COMMAND     PID            USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+systemd-r   490 systemd-resolve   12u  IPv4   18977      0t0  UDP localhost:domain
+systemd-r   490 systemd-resolve   13u  IPv4   18978      0t0  TCP localhost:domain (LISTEN)
+cupsd       740            root    6u  IPv6   27913      0t0  TCP ip6-localhost:ipp (LISTEN)
+cupsd       740            root    7u  IPv4   27914      0t0  TCP localhost:ipp (LISTEN)
 ```

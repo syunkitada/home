@@ -25,7 +25,9 @@
 | ------------------------------------------------------------------------------------------------------------ | ---------------------------------- |
 | [weblio](https://www.weblio.jp/)                                                                             | 辞書                               |
 | [Google 翻訳](https://translate.google.co.jp/?hl=ja&tab=TT)                                                  | 英文の翻訳は一番強い               |
+| [DeepL](https://www.deepl.com/en/translator)                                                                 | 英文の翻訳                         |
 | [english-test](http://www.english-test.net/)                                                                 | 英語の問題がいろいろ用意されてる   |
 | [TOEIC Practice](http://vu.flare.hiroshima-u.ac.jp/english/TOEIC_project/index2.cgi)                         | TOEIC の自作練習問題が用意されてる |
 | [あいうえおフォニックス](https://aiueophonics.com/)                                                          | 発音の基礎                         |
 | [【全てに音声付き】英語の発音を良くしたいなら「発音記号」を覚えよう](https://atsueigo.com/phonetics-basics/) | 発音記号が音声付きでまとまってる   |
+| [おさんぽ英語](https://osanpo-english.com/)                                                                  | 絵で英語を覚える                   |

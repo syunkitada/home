@@ -90,3 +90,7 @@
 ## メモリ
 
 - [DDR4](https://ja.wikipedia.org/wiki/DDR4_SDRAM)
+
+## GPU
+
+- [NVIDIA の新アーキテクチャ GPU「GeForce RTX 30」シリーズ](https://pc.watch.impress.co.jp/docs/column/kaigai/1275220.html)
