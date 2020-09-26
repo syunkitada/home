@@ -8,7 +8,7 @@
 | [DNS](dns.md)                        | DNS について                                                                       |
 | [DHCP](dhcp.md)                      | DHCP の仕組み(DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK, DHCPNAK, DHCPRELEASE) |
 | [SMTP, POP, IMAP](smtp_pop_imap.md)  | STMP, POP, IMAP を踏まえ、メール送受信の仕組みについて                             |
-| [TLS](tls.md)                        | TLS について、TLS の作り方                                                         |
+| [Security](security/README.md)       | セキュリティについて                                                               |
 | [Loadbalancer](loadbalancer.md)      | ロードバランサについて                                                             |
 | [ネットワークの Bonding](bonding.md) | ネットワークの Bonding、Channeling について                                        |
 | [電話網](telephone_network.md)       | 電話網について                                                                     |
