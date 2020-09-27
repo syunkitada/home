@@ -72,6 +72,9 @@
   - Rome(Zen2)
     - [AMD Discloses Initial Zen 2 Details](https://fuse.wikichip.org/news/1815/amd-discloses-initial-zen-2-details/)
     - [第 3 世代 Ryzen で採用される AMD の次世代アーキテクチャ「Zen 2」について WikiChip が解説](https://gigazine.net/news/20181120-amd-zen-2/)
+    - [AMD が ISSCC で発表した Zen2 プロセッサの CPU コアとチップレットの技術](https://pc.watch.impress.co.jp/docs/column/semicon/1236258.html)
+    - [AMD が Zen 2 で採用した現在最強の分岐予測「TAGE」](https://pc.watch.impress.co.jp/docs/column/kaigai/1192296.html)
+    - [縮小し続ける AMD の高性能 CPU コア](https://pc.watch.impress.co.jp/docs/column/kaigai/1231477.html)
 
 ### コア間接続
 
@@ -94,3 +97,7 @@
 ## GPU
 
 - [NVIDIA の新アーキテクチャ GPU「GeForce RTX 30」シリーズ](https://pc.watch.impress.co.jp/docs/column/kaigai/1275220.html)
+
+## その他
+
+- [半導体メーカーのテストをすり抜ける「潜在不良」](https://pc.watch.impress.co.jp/docs/column/semicon/1252403.html)

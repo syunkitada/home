@@ -20,3 +20,5 @@
   - [about](https://speed.cloudflare.com/about/)
 - [Submarine Cable Map](https://www.submarinecablemap.com/)
 - [DeNA ライブ配信を支える技術と知識](https://engineer.dena.jp/2018/12/knowledge-for-livestreaming.html)
+- [The adj acency table Forwarding Information Base FIB](https://www.ccexpert.us/traffic-share/the-adj-acency-table-forwarding-information-base-fib.html)
+- [Forwarding Hardware](https://null.53bits.co.uk/index.php?page=forwarding-hardware)
