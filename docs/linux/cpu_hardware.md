@@ -167,6 +167,21 @@ $ echo 0 > /sys/kernel/debug/x86/ibrs_enabled
 $ mount -t debugfs nodev /sys/kernel/debug
 ```
 
+## Microcode
+
+- CPU を外部から制御する場合の命令単位をインストラクションと呼ぶ
+- ある命令を実行するために必要な手続きがマイクロコードとして実装されている
+- Microcode は CPU 内部のメモリに保存されている
+- MCU(Microcode Update)
+  - Microcode を修正するためのコード
+  - 各 CPU にあわせて作成される
+  - BIOS および OS に保存される
+    - マシンのブート時に BIOS 内の MCU が CPU にロードされ、OS 起動時に BIOS の MCU より新しい revision が OS 内にあればそれをロードする
+  - MCU は、マザーボード・OS ベンダーに配布され、BIOS や OS に組み込まれた状態でエンドユーザにに提供される
+- 参考
+  - [Intel Microcode の基礎](http://datyotosanpo.blog.fc2.com/blog-entry-180.html)
+  - [Linux カーネルが x86 microcode を扱う処理について](https://qiita.com/akachochin/items/ae91efec12297fd05c0b)
+
 ## 参考文献
 
 - [Intel: トランジスターの仕組み](https://www.intel.co.jp/content/www/jp/ja/innovation/transworks.html)

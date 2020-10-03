@@ -73,6 +73,8 @@
     - 不要になったら、途中で本体のファイルシステムと入れ替えられる
 - カーネルの実行引数: /proc/cmdline
   - BOOT_IMAGE=/boot/vmlinuz-4.4.0-59-generic root=UUID=c5a29305-9548-4405-a4d2-5687eda29d87 ro hugepagesz=1G hugepages=8 default_hugepagesz=1G quiet splash vt.handoff=7
+- 参考
+  - [initramfs について](https://qiita.com/akachochin/items/d38b538fcabf9ff80531)
 
 ## カーネルモジュール
 

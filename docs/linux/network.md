@@ -6,11 +6,9 @@
 - ネットワークインタフェースで受信したパケットは、デバイスドライバの H/W 割り込み処理処理で刈り取られる。
 - ハードウェア割り込みが発生すると、H/W 割り込みを禁止してポーリング処理によってデバイスの受信バッファからパケットを取り出していく。
 - バッファが空になって受信処理が完了すると、割り込みを再度許可状態にして、次の受信が発生するのを待つようにしている。
-
-参考
-
-- http://wiki.bit-hive.com/linuxkernelmemo/pg/%C1%F7%BC%F5%BF%AE
-- http://syuu1228.hatenablog.com/entry/20101015/1287095708
+- 参考
+  - http://wiki.bit-hive.com/linuxkernelmemo/pg/%C1%F7%BC%F5%BF%AE
+  - http://syuu1228.hatenablog.com/entry/20101015/1287095708
 
 ## ソケットインタフェース
 
@@ -19,6 +17,8 @@
 - 下位層のプロトコルが再送をサポートしていれば、ECONNREFUSED は無視され、リトライが成功するかもしれません。
 - net.core.somaxconn は、TCP ソケットが受け付けた接続要求を格納する、キューの最大長です。
 - backlog > net.core.somaxconn のとき、キューの大きさは暗黙に net.core.somaxconn に切り詰められます。
+- 参考
+  - [listen backlog](http://wiki.bit-hive.com/linuxkernelmemo/pg/listen%20backlog%20%A1%DA3.6%A1%DB)
 
 ```
 # backlogの最大値
@@ -45,30 +45,86 @@ TcpExt:
     107708 SYNs to LISTEN sockets dropped
 ```
 
-参考
-
-- http://wiki.bit-hive.com/linuxkernelmemo/pg/listen%20backlog%20%A1%DA3.6%A1%DB
-
-プロトコルスタック
-ネットワークデバイス
-netfilter
-コネクション
-るーてキング
-パケットスケジューラー
-3 ウェイハンドシェイク
-ルーティングテーブル
-FIB
-RIB
-トライ木
-bufferbloat
-busypool
-
 ## TCP
 
 ```
+# sysctlの各種パラメータの詳細はmanで調べるとよい
+$ man tcp 7
+
 # TIME_WAIT状態がタイムアウトする時間
 net.ipv4.tcp_fin_timeout = 30
+
+# [low, pressure, high] からなるベクトル値(単位はページ: 通常は4k）
+# アロケートしたページがlow以下であれば、メモリアロケーションは調整しない
+# pressureを超えると、TCPはメモリ消費を調整するようになる
+# highはアロケートできる最大値
+net.ipv4.tcp_mem = 383457       511277  766914
+
+# 単位はバイト
+net.ipv4.tcp_rmem = 4096        131072  6291456
+net.ipv4.tcp_wmem = 4096        16384   4194304
 ```
+
+## stat
+
+#### /proc/net/protocols
+
+- 各プロトコルが memory pressure モードであるかを確認する
+- press が yes となってれば pressure モードとなっているので注意
+- memory が実際にアロケートしているページ数
+- memory が、tcp_mem の pressure を超えると pressure モードとなり、以下の処理をする
+  - TCP ソケットの送信・受信バッファのサイズを制限する
+  - 受信の TCP ウィンドウサイズを小さくする（もしくは ZeroWindow にする)
+  - 受信キューに入ったセグメントから重複したシーケンス番号をもつセグメントをマージして、空きメモリの確保を試みる(collapse 処理）
+  - シーケンス番号順に受信できなかったセグメントを保持する Ouf of Order キューに入った SACK 済みセグメントを破棄して空きメモリを確保する（prune 処理）
+  - 受信スロースタートの閾値を制限する
+- memory が、tcp_mem の high を超える以下の処理を行う
+  - セグメントの受信処理で、新規に受信したセグメントを破棄する（Drop）
+  - セグメントの送信処理で、メモリを確保できるまでプロセスをブロックして待機させる
+  - セグメント受信処理で、Ouf of Order キューのセグメントを破棄して空きを確保しようとする(SACK renege)
+  - 一部の TCP のタイマー処理をやり直す
+  - 送信バッファに一定量のデータをもったままのソケットを close すると TCP oom を起こす
+    - TCP oom では、RST を送信してコネクションをクローズさせ、dmesg に TCP oom のログを出す
+
+```
+$ cat /proc/net/protocols
+protocol  size sockets  memory press maxhdr  slab module     cl co di ac io in de sh ss gs se re sp bi br ha uh gp em
+PACKET    1408      2      -1   NI       0   no   kernel      n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n
+PINGv6    1136      0      -1   NI       0   yes  kernel      y  y  y  n  n  y  n  n  y  y  y  y  n  y  y  y  y  y  n
+RAWv6     1136      2      -1   NI       0   yes  kernel      y  y  y  n  y  y  y  n  y  y  y  y  n  y  y  y  y  n  n
+UDPLITEv6 1280      0       1   NI       0   yes  kernel      y  y  y  n  y  y  y  n  y  y  y  y  n  n  n  y  y  y  n
+UDPv6     1280      2       1   NI       0   yes  kernel      y  y  y  n  y  y  y  n  y  y  y  y  n  n  n  y  y  y  n
+TCPv6     2304      2      36   yes    304   yes  kernel      y  y  y  y  y  y  y  y  y  y  y  y  y  n  y  y  y  y  y
+XDP        960      0      -1   NI       0   no   kernel      n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n
+UNIX      1024    111      -1   NI       0   yes  kernel      n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n
+UDP-Lite  1088      0       1   NI       0   yes  kernel      y  y  y  n  y  y  y  n  y  y  y  y  y  n  n  y  y  y  n
+PING       928      0      -1   NI       0   yes  kernel      y  y  y  n  n  y  n  n  y  y  y  y  n  y  y  y  y  y  n
+RAW        936      0      -1   NI       0   yes  kernel      y  y  y  n  y  y  y  n  y  y  y  y  n  y  y  y  y  n  n
+UDP       1088      4       1   NI       0   yes  kernel      y  y  y  n  y  y  y  n  y  y  y  y  y  n  n  y  y  y  n
+TCP       2144     28      36   yes👈  304   yes  kernel      y  y  y  y  y  y  y  y  y  y  y  y  y  n  y  y  y  y  y
+NETLINK   1064     15      -1   NI       0   no   kernel      n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n
+
+```
+
+#### /proc/net/netstat
+
+- netstat: TCPMemoryPressures
+  - memory pressure モードに入ると 1 インクリメントされる
+- netstat: TCPMemoryPressuresChrono
+  - memory pressure モードであった時間が加算される
+- netstat: OfoPruned
+  - Ofo は Ouf of Order の略で、TCP の Ouf of Order キューを指す
+  - memory pressure モードで Ofo キューのパケットを破棄すると 1 インクリメントされる
+- netstat: TCPAbortOnMemory
+  - TCP oom が発生すると 1 インクリメントされる
+- netstat: PruneCalled, RcvPrune
+  - net.ipv4.tcp_mem の high を超えていて、受信キューの collapse 処理と Ofo キューのパケットを破棄(Drop)を行ってもなお、空きメモリが確保できないと、1 インクリメントされる
+- netstat: TCPRcvQDrop
+  - net.ipv4.tcp_mem の high を超えていて、受信したパケットをドロップした際に 1 インクリメントされる
+- netstat: TCPAbortFailed
+  - TCP oom が発生すると該当のソケットで RST を送りコネクションを切断する
+  - この際に、ソケットバッファの割り当てに失敗すると、1 インクリメントされる
+    - ソケットバッファの割り当て失敗は、TCP クォータの制限による失敗ではなく、Slab アロケータによる割り当て失敗が原因となる
 
 ## DDOS 対策
 
@@ -87,20 +143,6 @@ net.ipv4.icmp_echo_ignore_broadcasts = 1
 # ICMPエラー無視
 net.ipv4.icmp_ignore_bogus_error_responses = 1
 ```
-
-| Aplications |
-
-| System Call Interface |
-
-| SocketInterface |
-
-| ProtocolStuck | Netfilter |
-
-| NetDevice (Driver を抽象化した Device) |
-
-| Device Drivers |
-
-| NetworkDevice(NIC)
 
 ## Bufferbloat
 
@@ -175,3 +217,17 @@ Byte Queue Limits
 
 - [Linux カーネルメモ 送受信](http://wiki.bit-hive.com/linuxkernelmemo/pg/%C1%F7%BC%F5%BF%AE)
 - [ネットワーク関係記事まとめ 2013/06](http://syuu1228.hatenablog.com/entry/20130603/1370300554)
+- [ペパボ トラブルシュート伝 - TCP: out of memory -- consider tuning tcp_mem の dmesg から辿る 詳解 Linux net.ipv4.tcp_mem](https://tech.pepabo.com/2020/06/26/kernel-dive-tcp_mem/)
+
+## メモ
+
+- プロトコルスタック
+- ネットワークデバイス
+- netfilter
+- コネクション
+- パケットスケジューラー
+- ルーティングテーブル
+- FIB
+- RIB
+- トライ木
+- busypool
