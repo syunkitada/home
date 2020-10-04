@@ -62,6 +62,7 @@
 ## References
 
 - kernel 全般
+  - [GeeksforGeeks: The Linux Kernel](https://www.geeksforgeeks.org/the-linux-kernel/)
   - [Linux Kernel Teaching](https://linux-kernel-labs.github.io/refs/heads/master/index.html)
   - [The Linux Kernel documentation v4.15](https://www.kernel.org/doc/html/v4.15/index.html)
   - [kernel_map](http://www.makelinux.net/kernel_map/)
