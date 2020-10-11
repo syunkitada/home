@@ -36,3 +36,17 @@ strace -f [command]
 ```
 strace -y [command]
 ```
+
+```
+$ strace -v -s 1024 -e trace=uname -C  uname -a
+uname({sysname="Linux", nodename="owner-desktop", release="5.4.0-48-generic", version="#52~18.04.1-Ubuntu SMP Thu Sep 10 12:50:22 UTC 2020", machine="x86_64", domainname="(none)"}) = 0
+uname({sysname="Linux", nodename="owner-desktop", release="5.4.0-48-generic", version="#52~18.04.1-Ubuntu SMP Thu Sep 10 12:50:22 UTC 2020", machine="x86_64", domainname="(none)"}) = 0
+uname({sysname="Linux", nodename="owner-desktop", release="5.4.0-48-generic", version="#52~18.04.1-Ubuntu SMP Thu Sep 10 12:50:22 UTC 2020", machine="x86_64", domainname="(none)"}) = 0
+Linux owner-desktop 5.4.0-48-generic #52~18.04.1-Ubuntu SMP Thu Sep 10 12:50:22 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
++++ exited with 0 +++
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+  0.00    0.000000           0         3           uname
+  ------ ----------- ----------- --------- --------- ----------------
+  100.00    0.000000                     3           total
+```

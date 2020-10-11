@@ -4,6 +4,7 @@
 
 | Link                                           | Description                                              |
 | ---------------------------------------------- | -------------------------------------------------------- |
+| [OS History](os_history)                       | OS の歴史について                                        |
 | [カーネルと起動時の処理](kernel_boot.md)       | カーネルの場所、起動時の流れ                             |
 | [プロセスとスケジューラ](process_scheduler.md) | プロセス実行の仕組み、スケジューリングの仕組み、割り込み |
 | [ファイルシステム](filesystem.md)              | ファイル、ファイルシステム、ブロックデバイス             |
@@ -35,10 +36,13 @@
 
 ## Network
 
-| Link                    | Description          |
-| ----------------------- | -------------------- |
-| [Network](network.md)   | ネットワークについて |
-| [iptables](iptables.md) | iptables メモ        |
+| Link                                  | Description                               |
+| ------------------------------------- | ----------------------------------------- |
+| [Network Hostory](network_history.md) | ネットワークの歴史について                |
+| [Network Basic](network_basic.md)     | ネットワークの基礎知識、OSI とか TCP とか |
+| [Network](network.md)                 | ネットワークについて                      |
+| [iptables](iptables.md)               | iptables メモ                             |
+| [xdp](xdp.md)                         | xdp メモ                                  |
 
 ## IO Device
 
@@ -58,6 +62,7 @@
 ## References
 
 - kernel 全般
+  - [GeeksforGeeks: The Linux Kernel](https://www.geeksforgeeks.org/the-linux-kernel/)
   - [Linux Kernel Teaching](https://linux-kernel-labs.github.io/refs/heads/master/index.html)
   - [The Linux Kernel documentation v4.15](https://www.kernel.org/doc/html/v4.15/index.html)
   - [kernel_map](http://www.makelinux.net/kernel_map/)

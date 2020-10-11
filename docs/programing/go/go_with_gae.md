@@ -1,12 +1,12 @@
 # Go with Google App Engine
 
-
 ## チュートリアル
-* https://cloud.google.com/appengine/docs/standard/go/quickstart?hl=ja
-* https://cloud.google.com/appengine/docs/standard/go/building-app/?hl=ja
 
+- https://cloud.google.com/appengine/docs/standard/go/quickstart?hl=ja
+- https://cloud.google.com/appengine/docs/standard/go/building-app/?hl=ja
 
 ## .zshrc
+
 ```
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=${HOME}/go
@@ -18,22 +18,22 @@ if [ -f '/home/owner/google-cloud-sdk/path.zsh.inc' ]; then source '/home/owner/
 if [ -f '/home/owner/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/owner/google-cloud-sdk/completion.zsh.inc'; fi
 ```
 
-
 ## Go Runtime Environment
-* https://cloud.google.com/appengine/docs/standard/go/runtime
 
-* Goのアプリケーションコードは、セキュアサンドボックス環境(コンテナ?)でビルドされ実行される
-* GAEはGo http packageに似たインターフェイスを提供し、GAE appsはスタンドアローンのGo web serverに似ている
+- https://cloud.google.com/appengine/docs/standard/go/runtime
 
-* デプロイの流れ(憶測、Kubernetesっぽい)
-    * File upload done.
-        * Google Cloud Storageにファイルをアップロード
-    * Updating service [default]...done.
-        * アップロードされたファイルをセキュアサンドボックス環境(コンテナ?)でビルドし、実行する
-    * Setting traffic split for service [default]...done.
-        * サービスVIPのトラフィックを新しいバージョンに切り替える
-    * Deployed service
-        * 完了
+- Go のアプリケーションコードは、セキュアサンドボックス環境(コンテナ?)でビルドされ実行される
+- GAE は Go http package に似たインターフェイスを提供し、GAE apps はスタンドアローンの Go web server に似ている
+
+- デプロイの流れ(憶測、Kubernetes っぽい)
+  - File upload done.
+    - Google Cloud Storage にファイルをアップロード
+  - Updating service [default]...done.
+    - アップロードされたファイルをセキュアサンドボックス環境(コンテナ?)でビルドし、実行する
+  - Setting traffic split for service [default]...done.
+    - サービス VIP のトラフィックを新しいバージョンに切り替える
+  - Deployed service
+    - 完了
 
 ```
 $ gloud app deploy

@@ -167,6 +167,62 @@ $ echo 0 > /sys/kernel/debug/x86/ibrs_enabled
 $ mount -t debugfs nodev /sys/kernel/debug
 ```
 
+## Microcode
+
+- CPU を外部から制御する場合の命令単位をインストラクションと呼ぶ
+- ある命令を実行するために必要な手続きがマイクロコードとして実装されている
+- Microcode は CPU 内部のメモリに保存されている
+- MCU(Microcode Update)
+  - Microcode を修正するためのコード
+  - 各 CPU にあわせて作成される
+  - BIOS および OS に保存される
+    - マシンのブート時に BIOS 内の MCU が CPU にロードされ、OS 起動時に BIOS の MCU より新しい revision が OS 内にあればそれをロードする
+  - MCU は、マザーボード・OS ベンダーに配布され、BIOS や OS に組み込まれた状態でエンドユーザにに提供される
+- 参考
+  - [Intel Microcode の基礎](http://datyotosanpo.blog.fc2.com/blog-entry-180.html)
+  - [Linux カーネルが x86 microcode を扱う処理について](https://qiita.com/akachochin/items/ae91efec12297fd05c0b)
+
+## CPU の仕様書・設計 IP・製品について
+
+- 仕様書
+  - ISA(Instruction Set Architecture: 命令仕様)のこと
+  - x86
+    - クロスライセンス契約により Intel, AMD のみ利用可能
+  - ARMv7, ARMv8
+    - これを直接利用するためには ARM からアーキテクチャライセンスを購入する必要がある
+  - RISC-V
+    - オープンソースで誰でも利用可能
+- IP(Intellectual Property)
+  - 仕様書をもとに作成された回路設計データのこと
+    - ARM などはこのデータを半導体メーカに提供し、ライセンス料をもらう事で商売をしている
+  - x86
+    - Intel, AMD がそれぞれ独自に所持している
+  - ARM
+    - Arm 社の Cortex シリーズ
+      - これを利用するためには、ARM からプロセッサライセンスを購入する必要がある
+    - Qualcomm 社の Kryo シリーズ
+    - Apple 社の A シリーズに搭載されている SoC など
+- 製品
+  - IP をもとに製造された製品の事
+  - x86
+    - Intel, AMD がそれぞれ独自に CPU を製造している
+  - ARM
+    - Qualcomm 社の Snapdragon シリーズ
+    - Apple 社の A シリーズ
+- x86 のライセンスについて
+  - 初期の Intel は自社だけでは CPU を安定供給できない状況から、他の半導体メーカにも製造してもらうためにセカンドソース契約を結んでいた
+    - ライセンス料の代わりに、設計データや製造に必要な情報を渡して、他社にも自社の CPU を製造できるようにする契約
+    - Intel は、8086/8088 では、AMD/米 Harris/独シーメンス/NEC/日立などとセカンドソース契約を結んでいた
+  - 初期の Intel は、セカンドソースを利用していたが、1985 年にその供給と止めると発表した
+  - そこから Intel 他者を敵に回し、特に AMD とは激しい訴訟合戦が始まる
+  - 1994 年に両者がクロスライセンス契約を結ぶことで合意した(2001 年に締結）
+    - クロスライセンスとは、両社が必要とする技術を含んだ特許を交換し、持ちあうというもの
+    - また AMD は、クロスライセンス契約の締結をただ待つのではなく、独自に x86 互換の CPU を製造するようになった
+  - このような経緯から、x86 を製造できるのは Intel と AMD のみとなっている
+  - 2009 年に AMD が製造部門を分離して「Global Foundries」を設立したため、Intel がこれを訴て、また一波乱あった
+- 参考
+  - [半導体業界における「IP」とは何なのかを説明したい](https://msyksphinz.hatenablog.com/entry/2020/10/04/040000)
+
 ## 参考文献
 
 - [Intel: トランジスターの仕組み](https://www.intel.co.jp/content/www/jp/ja/innovation/transworks.html)
