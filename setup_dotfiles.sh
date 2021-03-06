@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -xe
 
 XDG_CONFIG_HOME=${HOME}/.config
 mkdir -p ${XDG_CONFIG_HOME}
@@ -17,11 +17,8 @@ screenrc=`pwd`/.screenrc
 tmuxconf=`pwd`/.tmux.conf
 vimrc=`pwd`/.vimrc
 gvimrc=`pwd`/.gvimrc
-vimshrc=`pwd`/.vimshrc
 vim=`pwd`/.vim
 nvim=`pwd`/.nvim
-vrapperrc=`pwd`/.vrapperrc
-gometalinter=`pwd`/.gometalinter
 
 ln_bash_profile=${HOME}/.bash_profile
 ln_zshrc=${HOME}/.zshrc
@@ -32,11 +29,8 @@ ln_screenrc=${HOME}/.screenrc
 ln_tmuxconf=${HOME}/.tmux.conf
 ln_vimrc=${HOME}/.vimrc
 ln_gvimrc=${HOME}/.gvimrc
-ln_vimshrc=${HOME}/.vimshrc
 ln_vim=${HOME}/.vim
-ln_vrapperrc=${HOME}/.vrapperrc
 ln_nvim=${HOME}/.config/nvim
-ln_gometalinter=${HOME}/.config/gometalinter
 
 rm -f $ln_bash_profile
 rm -f $ln_zshrc
@@ -47,11 +41,8 @@ rm -f $ln_screenrc
 rm -f $ln_tmuxconf
 rm -f $ln_vimrc
 rm -f $ln_gvimrc
-rm -f $ln_vimshrc
 rm -f $ln_vim
-rm -f $ln_vrapperrc
 rm -f $ln_nvim
-rm -f $ln_gometalinter
 
 ln -s $bash_profile $ln_bash_profile
 ln -s $zshrc $ln_zshrc
@@ -63,7 +54,4 @@ ln -s $tmuxconf $ln_tmuxconf
 ln -s $vimrc $ln_vimrc
 ln -s $gvimrc $ln_gvimrc
 ln -s $vim $ln_vim
-ln -s $vimshrc $ln_vimshrc
-ln -s $vrapperrc $ln_vrapperrc
 ln -s $nvim $ln_nvim
-cp -r $gometalinter $ln_gometalinter

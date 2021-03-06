@@ -122,32 +122,6 @@ local BLUE=$'%{\e[1;34m%}'
 local DEFAULT=$'%{\e[1;m%}'
 
 
-### Aliases ###
-# for interactive operation
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias vim='nvim'
-alias vimf='nvim -c :VimFiler'
-alias doc='cd ~/home/docs && nvim -c "VimFiler"'
-alias motd_s='cat ~/home/motd/linux_system'
-
-# alias for misc
-alias grep='grep --color'
-
-# alias for some shortcuts for different directory listings
-alias ls='ls -hF --color=always --show-control-chars'
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-
-# arias for screen and tmux
-alias st='ssh-agent tmux'
-alias t='tmux'
-alias ta='tmux a'
-alias tl='tmux ls'
-
-
 # cdコマンド実行後、lsを実行する
 #function cd() {
 #  builtin cd $@ && ls;
@@ -206,36 +180,11 @@ function rprompt-git-current-branch {
 RPROMPT='`rprompt-git-current-branch`'
 setopt transient_rprompt  # コピペしやすいようにコマンド実行後は右プロンプトを消す
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-fe() {
-  local file
-  file=$(fzf --query="$1" --select-1 --exit-0)
-  [ -n "$file" ] && ${EDITOR:-vim} "$file"
-}
-
-# fd - cd to selected directory
-fd() {
-  local dir
-  dir=$(find ${1:-*} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
-
-# fh - repeat history
-fh() {
-  eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
-}
-
+# load plugins
+source ~/.zsh/aliases.zsh
 source ~/.zsh/fabkit.zsh
 source ~/.zsh/go.zsh
 source ~/.zsh/js.zsh
-
-
-# -------------------------------------------------------------
-# end .zshrc
-#
-# if you want to add your settings, please describe below.
-# -------------------------------------------------------------
-
-
+source ~/.zsh/cmds.zsh
+source ~/.zsh/extensions.zsh
