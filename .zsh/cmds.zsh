@@ -9,6 +9,14 @@ function _tmux_split_cmd() {
     tmux split-window "bash --rcfile <(echo '$*')"
 }
 
+function tx() {
+    for i in {2..$1}
+    do
+        tmux split-window "zsh"
+    done
+    tmux select-layout tiled
+}
+
 #
 # ssh, scp helpers
 #

@@ -6,6 +6,8 @@ Read [aliases.zsh](./aliases.zsh)
 
 ## Commands
 
+Read [cmds.zsh](./cmds.zsh)
+
 | command              | description                                        |
 | -------------------- | -------------------------------------------------- |
 | mssh [file]          | ssh to multi hosts on new tmux window              |

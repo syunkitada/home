@@ -29,7 +29,13 @@ if [ ! -e /usr/local/bin/node ]; then
     sudo npm install --global n
     sudo n stable
     sudo apt-get remove nodejs npm
-    sudo npm install --global yarn
+
+    # sudo npm install --global yarn
+    # yarn global add prettier prettier/vim-prettier
+
+    mkdir -p "${HOME}/.npm-packages"
+    npm config set prefix "${HOME}/.npm-packages"
+    npm install --global yarn
     yarn global add prettier prettier/vim-prettier
 fi
 
