@@ -19,6 +19,10 @@
   - コンピュータサイエンス系の学習コンテンツが豊富
 - [Algorithm Visualizer](https://algorithm-visualizer.org/)
   - アルゴリズムの学習用
+- OSSU(Open Source Society)
+  - 独学用にフリーの教材をまとめたもの
+  - [Computer Science](https://github.com/ossu/computer-science)
+  - [Data Science](https://github.com/ossu/data-science)
 
 ## News Contents
 
