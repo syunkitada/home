@@ -294,51 +294,6 @@ Many raw kernel counters
 
 ```
 
-## perf
-
-- 参考: [perf Examples](http://www.brendangregg.com/perf.html)
-- 様々なイベントをトレースできる
-
-```
-# システムのプロファイル
-$ perf top
-Samples: 544  of event 'cpu-clock', Event count (approx.): 39421099
-Overhead  Shared Object                       Symbol
-   9.44%  [kernel]                            [k] _raw_spin_unlock_irqrestore
-   4.81%  perf                                [.] perf_evsel__parse_sample
-   4.50%  libslang.so.2.2.4                   [.] SLsmg_write_chars
-   3.30%  perf                                [.] symbols__insert
-   3.24%  [kernel]                            [k] __do_softirq
-   3.00%  [kernel]                            [k] finish_task_switch
-
-# トレースできるイベント一覧を表示
-$ perf list
-
-# イベントを記録する(ローカルにperf.dataというバイナリで保存される)
-$ perf record -e block:block_rq_issue -ag
-$ ls -l perf.data
--rw-------. 1 root root 316332  4譛・ 2 12:50 perf.data
-
-# 記録した結果を表示する
-$ perf report
-
-# パフォーマンスカウンタを記録し、表示する
-$ sudo perf stat -a
-^C
- Performance counter stats for 'system wide':
-
-       2277.468427      task-clock (msec)         #    1.000 CPUs utilized
-               119      context-switches          #    0.052 K/sec
-                 0      cpu-migrations            #    0.000 K/sec
-                 4      page-faults               #    0.002 K/sec
-   <not supported>      cycles
-   <not supported>      instructions
-   <not supported>      branches
-   <not supported>      branch-misses
-
-       2.277409566 seconds time elapsed
-```
-
 ## numastat
 
 - 参考: [numastat](https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/7/html/Performance_Tuning_Guide/sect-Red_Hat_Enterprise_Linux-Performance_Tuning_Guide-Tool_Reference-numastat.html)
