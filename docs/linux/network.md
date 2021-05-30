@@ -231,3 +231,22 @@ Byte Queue Limits
 - RIB
 - トライ木
 - busypool
+
+## 仮想ネットワークデバイス
+
+- ipvlan
+  - 親のネットワークデバイスから派生する子デバイス
+  - 親デバイスは L2 と L3 を持ち、子デバイスは L3 のみを持つ
+  - L2 の処理を親デバイスに任せる(L2 モード)
+  - 一つのネットワークデバイスに複数の L3 アドレスを割り振るではダメなのか？
+  - デバイスそのものをわけて使いたい場合がある
+- bridge
+- bonded interface
+- team device
+- vlan
+- vxlan
+- macvlan
+
+## Refarences
+
+- [Introduction to Linux interfaces for virtual networking](https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking/)

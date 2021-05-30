@@ -1,24 +1,13 @@
 # Linux Commands
 
-## Basic Contents
+- Linux で利用できるコマンドや、ツール類についてまとめる
 
-| Link              | Description            |
-| ----------------- | ---------------------- |
-| [apt](apt.md)     | apt                    |
-| [yum](yum.md)     | yum                    |
-| [grep](grep.md)   | grep, grep して sed    |
-| [find](find.md)   | find, find して rename |
-| [rsync](rsync.md) | rsync                  |
-| [git](git.md)     | git                    |
-| [patch](patch.md) | patch                  |
+## Contents
 
-## Observation
-
-| Link                                                                  | Description                              |
-| --------------------------------------------------------------------- | ---------------------------------------- |
-| [observation](observation.md)                                         | パフォーマンスの観測について             |
-| [latency](observation_latency.md)                                     | Latency の参考                           |
-| [observation tools](observation_tools_basic.md)                       | 観測ツールについて                       |
-| [observation tools (intermediate)](observation_tools_intermediate.md) | 観測ツールについて(中級)                 |
-| [network tools](network_tools.md)                                     | ネットワーク観測ツールについて           |
-| [network tcpdump & tshark](network_tcpdump_tshark.md)                 | ネットワークパケットの観測ツールについて |
+| Link                                   | Description                          |
+| -------------------------------------- | ------------------------------------ |
+| [Basic](basic/README.md)               | 基本的なコマンド集                   |
+| [Network](network/README.md)           | ネットワーク関連のコマンドやツール類 |
+| [CI/CD](cicd/README.md)                | CI/CD 関連のコマンドやツール類       |
+| [Observation](observation/README.md)   | 観測について                         |
+| [Benchmarking](benchmarking/README.md) | ベンチマークついて                   |
