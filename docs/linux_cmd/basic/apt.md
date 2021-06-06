@@ -28,9 +28,9 @@ $ less /var/log/apt/history.log
 ## Disable downloading translations
 
 ```
-$ cat <<EOF | dd of=/etc/apt/apt.conf.d/99translations
+$ cat <<EOS | dd of=/etc/apt/apt.conf.d/99translations
 Acquire::Languages "none";
-EOF
+EOS
 ```
 
 ## Auto upgrades
@@ -51,7 +51,7 @@ Unattended-Upgrade::Package-Blacklist {
 ## Add repository
 
 ```
-$ cat <<EOF | dd of=/etc/apt/sources.list.d/syunkitada-aptrepo.list
+$ cat <<EOS | dd of=/etc/apt/sources.list.d/syunkitada-aptrepo.list
 deb [trusted=yes] http://hogepiyo/hoge/amd64/ ./
-EOF
+EOS
 ```

@@ -313,6 +313,30 @@ RCU: 682194 2333117
     - マスク可能な通常のデバイスから割り込みに用いられる
     - NMI はハードウェア障害の通知などの特殊な用途に用いられる
 
-```
+## Isol
 
 ```
+isolcpus=1-3
+```
+
+## Pinning
+
+```
+taskset
+
+numactl
+```
+
+## smp_affinity
+
+```
+$ cat /proc/irq/default_smp_affinity
+ffff
+
+$ cat /proc/irq/0/smp_affinity
+ffff
+```
+
+## References
+
+- [Core Partitioning Technique on Multicore Linux Systems](https://elinux.org/images/0/03/Core-Partitioning-Technique-on-Multicore-Linux-system.pdf)
