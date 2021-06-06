@@ -339,4 +339,5 @@ ffff
 
 ## References
 
+- [Tuning the Task Scheduler](https://doc.opensuse.org/documentation/leap/archive/42.1/tuning/html/book.sle.tuning/cha.tuning.taskscheduler.html)
 - [Core Partitioning Technique on Multicore Linux Systems](https://elinux.org/images/0/03/Core-Partitioning-Technique-on-Multicore-Linux-system.pdf)
