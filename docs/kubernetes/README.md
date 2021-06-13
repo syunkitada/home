@@ -1,5 +1,11 @@
 # Kubernetes
 
+## 学び方
+
+- [概要](https://kubernetes.io/ja/docs/concepts/overview/)は最低限読む
+- [コンセプト](https://kubernetes.io/ja/docs/concepts/)もある程度読む
+- [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) をやる
+
 ## Contents
 
 | Link                                                                  | Description                                 |
@@ -14,10 +20,8 @@
 
 ## External Links
 
-| Link                                                                                                                | Description                                            |
-| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| [リファレンス](https://kubernetes.io/docs/reference/)                                                               | リファレンス                                           |
-| [アーキテクチャ](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md) | Kubernetes architecture                                |
-| [CoreOS + Kubernetes Step By Step](https://coreos.com/kubernetes/docs/latest/getting-started.html)                  | 手作業で Kubernetes をインストールする場合に参考になる |
-| [Qiita tags/kubernetes](http://qiita.com/tags/kubernetes)                                                           | やってみた系の記事や、機能のまとめなどが参考になる     |
-| [Kubernetes で cgroup がどう利用されているか](https://valinux.hatenablog.com/entry/20210114)                        |                                                        |
+| Link                                                                                         | Description                                        |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| [リファレンス](https://kubernetes.io/docs/reference/)                                        | リファレンス                                       |
+| [Qiita tags/kubernetes](http://qiita.com/tags/kubernetes)                                    | やってみた系の記事や、機能のまとめなどが参考になる |
+| [Kubernetes で cgroup がどう利用されているか](https://valinux.hatenablog.com/entry/20210114) |                                                    |
