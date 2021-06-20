@@ -8,7 +8,9 @@ sudo apt-get install -y software-properties-common
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
 sudo apt-get update -y
 sudo apt-get install -y neovim
+sudo apt-get install -y cscope
 
+sudo apt install -y silversearcher-ag
 sudo apt-get install -y python3-dev python3-pip
 sudo pip3 install --user pynvim
 
@@ -24,7 +26,6 @@ if [ ! -e ~/.fzf ]; then
 fi
 
 if [ ! -e /usr/local/bin/node ]; then
-    sudo apt install -y silversearcher-ag
     sudo apt install -y nodejs npm
     sudo npm install --global n
     sudo n stable

@@ -13,7 +13,7 @@
 
 ## プロセスとスレッド
 
-- プロセスはプログラムの実行を管理するための箱
+- プロセスはプログラムの実行を管理するための箱みたいなもの
   - 実態はカーネル内のデータ構造
   - プロセスは、プロセス ID(pid)を持っており、/proc/[pid]/ にそのプロセスのデータを見ることができる
 - スレッドはプロセスの実行単位
@@ -249,11 +249,9 @@ all   12.06    0.00   38.19    0.00    0.00    0.00    0.00    0.00    0.00   49
   - HDD の DMA 転送が終わった
   - Ethernet カードがパケットを受信した
 - 同期割り込み(例外)
-
   - ゼロで除算した
   - アクセス許可のないメモリにアクセスしようとした
   - 特権がないのに特権命令を実行した
-
 - 割り込みのカウンタを確認
 
 ```
@@ -341,4 +339,6 @@ ffff
 
 ## References
 
+- [Process Scheduling in Linux](https://oska874.gitbooks.io/process-scheduling-in-linux/content/)
+- [Tuning the Task Scheduler](https://doc.opensuse.org/documentation/leap/archive/42.1/tuning/html/book.sle.tuning/cha.tuning.taskscheduler.html)
 - [Core Partitioning Technique on Multicore Linux Systems](https://elinux.org/images/0/03/Core-Partitioning-Technique-on-Multicore-Linux-system.pdf)

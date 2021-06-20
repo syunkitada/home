@@ -61,6 +61,14 @@
   - grub/
     - grub.cfg
     - grubenv
+- Ubuntu18 の/boot
+  - config-5.4.0-74-generic
+  - initrd.img-5.4.0-74-generic
+  - System.map-5.4.0-74-generic
+  - vmlinuz-5.4.0-74-generic
+  - grub/
+    - grub.cfg
+    - grubenv
 
 ## ブートローダの仕組み
 
@@ -152,7 +160,3 @@ $ lscpi -n
 00:1f.2 0106: 8086:8c82
 00:1f.3 0c05: 8086:8ca2
 ```
-
-## 参考
-
-- ARM http://www.ujiya.net/linux/%5bARM%5d%20compressed%20kernel#fn-k61n1

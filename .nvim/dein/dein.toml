@@ -92,3 +92,7 @@ repo = 'https://github.com/cohama/agit.vim'
 # show git diff marker
 [[plugins]]
 repo = 'https://github.com/airblade/vim-gitgutter'
+
+# cscope
+[[plugins]]
+repo = 'https://github.com/ronakg/quickr-cscope.vim'

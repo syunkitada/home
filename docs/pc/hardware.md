@@ -108,3 +108,4 @@
 - [半導体メーカーのテストをすり抜ける「潜在不良」](https://pc.watch.impress.co.jp/docs/column/semicon/1252403.html)
 - [プロセスとセルの両方をスケールダウンする現在の半導体微細化](https://pc.watch.impress.co.jp/docs/column/kaigai/1232258.html)
 - [2020 年代の Intel CPU のカギとなる新 2.5D/3D 積層技術](https://pc.watch.impress.co.jp/docs/column/kaigai/1226842.html)
+- [次世代先端的計算基盤に関する白書](https://drive.google.com/file/d/1cAQyBmLs529Iqz44D_j1MfCkXk7o6kla/view)
