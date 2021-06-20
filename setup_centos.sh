@@ -4,7 +4,8 @@ if ! grep epel /etc/yum.repos.d/* > /dev/null 2>&1; then
     sudo yum install epel-release
 fi
 
-sudo yum install man wget git gcc gcc-c++ zsh vim tmux ncurses-devel -y
+sudo yum install -y gcc gcc-c++ libevent-devel ncurses-devel
+sudo yum install -y man wget git zsh vim
 
 # install neovim
 sudo yum -y install --enablerepo epel neovim the_silver_searcher cscope ctags
@@ -38,4 +39,16 @@ if [ ! -e ~/.goenv ]; then
 
     # https://github.com/go-godo/godo
     # go get -u gopkg.in/godo.v2/cmd/godo
+fi
+
+# install tmux
+if [ ! -e /usr/loca/bin/tmux ]; then
+    curl -kLO https://github.com/tmux/tmux/releases/download/2.8/tmux-2.8.tar.gz
+    tar -zxvf tmux-2.8.tar.gz
+    cd tmux-2.8
+    ./configure
+    make
+    sudo make install
+    cd ../
+    rm -rf tmux-*
 fi
