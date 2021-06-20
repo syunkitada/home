@@ -9,8 +9,8 @@ sudo yum install -y man wget git zsh vim
 
 # install neovim
 sudo yum -y install --enablerepo epel neovim the_silver_searcher cscope ctags
-sudo yum -y install python3 python3-dev python3-pip
-sudo pip3 install --user pynvim
+sudo yum -y install python3 python3-devel python3-pip
+sudo pip3 install --user pynvim neovim
 
 # install fzf
 if [ ! -e ~/.fzf ]; then
