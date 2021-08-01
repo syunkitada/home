@@ -66,3 +66,8 @@
 - virt/
   - kvm/
   - lib/
+
+wget https://vault.centos.org/7.9.2009/updates/Source/SPackages/kernel-3.10.0-1160.25.1.el7.src.rpm
+mv kernel-3.10.0-1160.25.1.el7.src.rpm kernel-3.10.0-1160.25.1/
+rpm2cpio kernel-3.10.0-1160.25.1.el7.src.rpm| cpio -id
+tar xf linux-3.10.0-1160.25.1.el7.tar.xz
