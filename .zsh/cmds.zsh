@@ -35,7 +35,7 @@ function _mssh() {
     shift
     for host in "$@";
     do
-        tmux split-window "ssh $host"
+        tmux split-window "ssh -A $host"
         # tmux select-layout even-vertical > /dev/null
         tmux select-layout even-horizontal > /dev/null
     done

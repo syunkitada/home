@@ -313,7 +313,11 @@ RCU: 682194 2333117
     - マスク可能な通常のデバイスから割り込みに用いられる
     - NMI はハードウェア障害の通知などの特殊な用途に用いられる
 
-## Isol
+## Isolcpus
+
+- kernel のプロセススケジューリングから CPU を除外する
+- 各 CPU ごとに稼働する kernel スレッドだけが動く状態となる
+- linux の起動オプションに以下を追加すると、指定した cpu を除外できる
 
 ```
 isolcpus=1-3
@@ -321,13 +325,16 @@ isolcpus=1-3
 
 ## Pinning
 
-```
-taskset
+- プロセスのスケジューリング先の CPU を限定する
 
-numactl
+```
+# CPUのスケジューリング先を 1,3-4 に限定する
+$ taskset -c 1,3-4 sleep 10
 ```
 
 ## smp_affinity
+
+- IRQ(Interrupt Request) の ISR(Interrupt Service Routine: 割り込みハンドラ) を実行する CPU コアを限定する
 
 ```
 $ cat /proc/irq/default_smp_affinity
