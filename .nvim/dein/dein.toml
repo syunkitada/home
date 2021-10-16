@@ -67,6 +67,11 @@ repo = 'https://github.com/scrooloose/syntastic.git'
 [[plugins]]
 repo = 'https://github.com/majutsushi/tagbar.git'
 
+# for viewing markdown on tagbar
+[[plugins]]
+repo = 'https://github.com/jszakmeister/markdown2ctags.git'
+
+
 # SrcExpl is plugin to display definitions and declarations
 # this plugin require ctags
 [[plugins]]
