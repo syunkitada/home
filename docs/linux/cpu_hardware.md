@@ -235,3 +235,4 @@ $ mount -t debugfs nodev /sys/kernel/debug
 - [FPGA 開発日記: プロセッサにおけるアウトオブオーダの考え方について(リオーダバッファの考え方について)](http://msyksphinz.hatenablog.com/entry/2016/05/07/025243)
 - [FPGA 開発日記: プロセッサにおけるアウトオブオーダの考え方について(リネームレジスタの例外時の処理について)](http://msyksphinz.hatenablog.com/entry/2016/04/24/030607)
 - [CPU の脆弱性[Spectre], [Meltdown] は具体的にどのような仕組みで攻撃する？影響範囲は？](http://milestone-of-se.nesuke.com/nw-advanced/nw-security/meltdown-spectre/)
+- [なぜ、Apple の M1 チップはそんなに速いのか?](https://okuranagaimo.blogspot.com/2020/12/applem1.html)
