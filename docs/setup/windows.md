@@ -163,3 +163,12 @@ In exploler
 
 - パスワード管理用
 - https://keepassxc.org/download/#windows
+
+## drawio-desktop
+
+- ダイアグラムエディタ
+- https://github.com/jgraph/drawio-desktop/releases
+- 特徴
+  - 一般的なダイアグラムエディタの機能は備えている
+  - ローカルで利用可能
+  - エクセルのようなタブ機能がある
