@@ -29,6 +29,7 @@
 
 - 静的なメモリ割り当てで利用され、LIFO(Last In First Out)の構造を持っている
 - LIFO の性質上データの保存と取得が高速
+  - 必要な CPU 命令は、保存はスタックへの push 、取得はスタックからの pop だけ
 - スタックに格納されるデータは有限で静的でなければならない（コンパイル時にデータのサイズが分ってる必要がある）
 - 関数の実行データがスタックフレームとして格納される場所
   - 各フレームは、その機能に必要なデータが格納されるスペースのブロックです
@@ -67,6 +68,8 @@
 ## Resource Acquisition is Initialization (RAII)
 
 - オブジェクトのメモリ割り当ては、ライフタイムは構築から破棄までのライフタイムに関連付けられる
+- 変数がスコープ外に出たときにそのデストラクタが呼び出されてリソースを開放する
+  - これにより、手動でメモリを開放したり、メモリリークを心配する必要がなくなる
 - これは C++で導入され、Ada や Rust でも使用されている
 
 ## Automatic Reference Counting(ARC)
@@ -83,18 +86,108 @@
 - これはコンパイル時の参照カウントのようなもの
 - Rust によって利用されている
 
-## Golang
+## TCMalloc
 
-TODO
+- TCMalloc のメモリ管理は thread memory と pageheap の 2 つのパートに分かれる
+- thread memory
+  - 32k 以下の小さいオブジェクトは、thread memory から割り当てられる
+  - 各スレッドは、ロックなしの小さいオブジェクト用のキャッシュを持っている
+    - スレッドごとにキャッシュがあるので、スレッド間でロックを取る必要がない
+  - このキャッシュは、様々な固定サイズごとの割り当て可能なフリーリストでここからメモリを割り当てたり、解放を行う
+    - Buddy システムの仕組みに近い
+    - 8, 16, 32, 48, ,,, 256 バイトの各サイズごとのフリーリストがある
+- page heap
+  - 32K より大きいオブジェクトは、ページヒープから割り当てられる
+  - TCMalloc によって管理されるヒープは、ページのコレクションであり、span として表される連続したページのセット
+
+## Golang によるメモリ管理
+
+- Go Runtime は各 Goroutines(G)を追跡して、Logical Processors(P)にスケジュールする
+  - P は OS スレッド(M)の抽象化リソース（タスク、コンテキストと同等）とみなすことができる、
+- スタック
+  - G ごとにある静的なデータを保存するためのメモリ領域
+  - GC は行われず、メモリ管理は OS によって行われ、利用コストも安い
+- ヒープ(mheap)
+  - Go が動的なメモリ管理で利用され、GC が行われる場所
+  - 一つの mheap オブジェクトは、8KB のページで分割されて管理される
+  - メモリが必要になると、mheap は arena と呼ばれる 64MB のチャンクとして仮想メモリを OS に要求する
+    - 初期化時に 1arena 確保され、より多くのメモリが必要になると追加の arena 用の仮想メモリを OS に要求する
+  - mcache
+    - TCMalloc の thread memory と同様に P ごとにキャッシュ(mcache)を持つ
+    - Goroutine がメモリを必要とすると、ロックなしで mcache から取得する
+    - mcache は、各ブロックサイズ(spanClass)ごとの mspan を含んでいる
+      - spanClass は、67 の異なるサイズに分かれ、そのサイズごとに mspan が存在する
+      - mspan オブジェクトは、固定サイズのオブジェクトの double linked list になっている
+      - mspan オブジェクトは、以下の情報を含む
+        - spanClass: ブロックサイズ
+        - startAddr: ページの開始アドレス
+        - npages: ページ数
+    - mspan への参照は、2 つのタイプをによって区別される
+      - scan: ポインタを含むオブジェクト
+      - noscan: ポインタを含まないオブジェクト
+      - タイプを分けることで、GC の際に scan はトラバースする必要があるが、noscan はその必要がなくなる
+  - mcentral
+    - 同一サイズ spanClass ごとのグループで、各 mcentral は二つの mspanList を含む
+      - empty: free でないオブジェクトや mcache にキャッシュされている span の double linked list で、span が free になったら、non-empty に移動される
+      - non-empty: free の span の double linked list で、新しい span が要求されたら、ここから払い出して empty に移動する
+  - mheap
+    - mcentral のコレクション
+    - 各 spanClass 用の mspan を持っており、新しい span が要求されたら、ここから払い出す
+  - オブジェクトの割り当てフロー
+    - Size > 32K: mheap から直接割り当てられる
+    - Size < 16B: mcache の tiny から割り当てられる
+    - 16B - 32K: 対応する size の spanClass の mcache から割り当てられる
+    - もし、対応する spanClass の mcache に割り当て可能なブロックがない場合は、mcentral に要求する
+    - もし、mcentral に利用可能な span がない場合は、mheap に要求し、最も一致する span を探して利用する
+    - mheap に利用可能な span がない場合、新しいページセット(arena)をオペレーティングシステムに要求する
+- エスケープ分析
+  - Go コンパイラはエスケープ分析というプロセスを用いて、コンパイル時に寿命が wakat タイルオブジェクトを見つけ、ヒープではなくスタックに割り当てる
+    - go build -gcflags '-m' フラグをつけて実行すると、その詳細を確認できる
+    - 一部の Go ライブラリでは、この特性を考慮してなるべくスタックを利用するように設計されている
+- Garbage collection
+  - Mark Setup(Stop the world)
+    - GC が開始されると、コレクタは次の同時実行フェーズの間にデータの整合性を維持するために書き込みバリアをオンにする
+    - このステップでは、実行中のすべての Goroutine がこれを有効にするために一時停止してその後継続させる、非常に小さなポーズを必要とする
+  - Marking(Concurrent)
+    - 書き込みバリアがオンになると、実際のマーキングプロセスが開始され、アクティブな値がマークされる
+      - これはそのアプリケーションと並行稼働し、利用可能な CPU キャパシティの 25%を利用する
+      - マーキングが完了するまで、対応する P はリザーブされる
+  - Mark Termination(Stop the world)
+    - マーキングが終了すると、すべてのアクティブな Goroutine は一時停止し（非常に小さなポーズ）、書き込みバリアをオフにし、クリーンアップタスクが開始される
+    - これが完了すると、リザーブされた P は、アプリケーションに戻され解放される
+  - Sweeping(Concurrent)
+    - マークされていないオブジェクトを reclaim (返還) する
+- 参考
+  - [Visualizing memory management in Golang](https://deepu.tech/memory-management-in-golang/)
+    - [Go におけるメモリ管理の可視化](https://zenn.dev/kazu1029/articles/38ab3d99ef0de3)
+      - Visualizing memory management in Golang の日本語訳
+  - [A visual guide to Go Memory Allocator from scratch (Golang)](https://medium.com/@ankur_anand/a-visual-guide-to-golang-memory-allocator-from-ground-up-e132258453ed)
+
+## Rust によるメモリ管理
+
+- Rust は、メモリモデルが定義されておらず、とても単純になっている
+- Rust のプログラムは OS によって仮想メモリが割り当てられる
+- スタック
+  - スレッドごとにある静的なデータを管理するためのメモリ領域
+- ヒープ
+  - Ownership model によって動的なデータを管理するためのメモリ領域
+  - 静的な値はすべてスタックに保存され、動的な値のデータはヒープ上に作成されスマートポインタを用いたスタックから参照される
+- Ownership
+  - スタック、ヒープに限らず以下のルールが適用される
+    - すべての値は owner として変数を持つ
+    - 値には常に一つの owner がいる
+    - owner がスコープの外になると、その値はドロップされてメモリが解放される
+  - これらのルールはコンパイル時にチェックされ、メモリの解放は RAII を利用してプログラムの実行時に行われるため、追加のオーバーヘッドや一時停止が発生しない
+- Borrowing & Borrow checker
+  - 変数を参照で渡すことを borrowing と呼ぶ
+  - リソースの所有者は一度に一人しか持てないので、リソースの所有権を取らずに使用するにはリソースを borrowing する必要がある
+  - Rust コンパイラは、参照が裕子言うなオブジェクトを指しているか、所有権のルールに違反していないかを静的に確認する Borrow checker を持っている
+- スマートポインタ
+  - RAII と同様で C++に導入された仕組み
+  - 通常のポインタに加えてメタデータを持ち、スマートポインタは指し示すデータを所有する
+- 参考
+  - [Visualizing memory management in Rust](https://deepu.tech/memory-management-in-rust/)
 
 ## 参考
 
 - [Demystifying memory management in modern programming languages](https://deepu.tech/memory-management-in-programming/)
-- [Visualizing memory management in Golang](https://deepu.tech/memory-management-in-golang/)
-  - [Go におけるメモリ管理の可視化](https://zenn.dev/kazu1029/articles/38ab3d99ef0de3)
-    - Visualizing memory management in Golang の日本語訳
-- [A visual guide to Go Memory Allocator from scratch (Golang)](https://medium.com/@ankur_anand/a-visual-guide-to-golang-memory-allocator-from-ground-up-e132258453ed)
-- [Allocation efficiency in high-performance Go services](https://segment.com/blog/allocation-efficiency-in-high-performance-go-services/)
-  - [go で書いたコードがヒープ割り当てになるかを確認する方法](https://hnakamur.github.io/blog/2018/01/30/go-heap-allocations/)
-    - Allocation efficiency in high-performance Go services のメモ書き記事
-- [TCMalloc : Thread-Caching Malloc](http://goog-perftools.sourceforge.net/doc/tcmalloc.html)
