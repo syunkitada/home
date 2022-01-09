@@ -185,6 +185,7 @@ setopt transient_rprompt  # コピペしやすいようにコマンド実行後�
 source ~/.zsh/aliases.zsh
 source ~/.zsh/fabkit.zsh
 source ~/.zsh/go.zsh
+source ~/.zsh/rust.zsh
 source ~/.zsh/js.zsh
 source ~/.zsh/cmds.zsh
 source ~/.zsh/extensions.zsh

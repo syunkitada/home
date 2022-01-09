@@ -4,6 +4,11 @@ repo  = 'https://github.com/fatih/vim-go.git'
 rev = 'v1.18'
 on_ft = ['go']
 
+# plugins for go
+[[plugins]]
+repo  = 'https://github.com/rust-lang/rust.vim.git'
+on_ft = ['rust']
+
 # plugins for coffee
 [[plugins]]
 repo = 'https://github.com/kchmck/vim-coffee-script.git'
