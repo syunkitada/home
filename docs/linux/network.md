@@ -2,21 +2,22 @@
 
 ## NAPI 対応の受信処理(Kernel2.6 以降)
 
-- Kernel2.6 ではデバイスドライバに対して NAPI(New API)と呼ばれる新しい受信 API が提供されるようになった。
-- ネットワークインタフェースで受信したパケットは、デバイスドライバの H/W 割り込み処理処理で刈り取られる。
-- ハードウェア割り込みが発生すると、H/W 割り込みを禁止してポーリング処理によってデバイスの受信バッファからパケットを取り出していく。
-- バッファが空になって受信処理が完了すると、割り込みを再度許可状態にして、次の受信が発生するのを待つようにしている。
+- Kernel2.6 ではデバイスドライバに対して NAPI(New API)と呼ばれる新しい受信 API が提供されるようになった
+- ネットワークインタフェースで受信したパケットは、デバイスドライバの H/W 割り込み処理処理で刈り取られる
+- ハードウェア割り込みが発生すると、H/W 割り込みを禁止してポーリング処理によってデバイスの受信バッファからパケットを取り出していく
+- バッファが空になって受信処理が完了すると、割り込みを再度許可状態にして、次の受信が発生するのを待つようにしている
 - 参考
-  - http://wiki.bit-hive.com/linuxkernelmemo/pg/%C1%F7%BC%F5%BF%AE
-  - http://syuu1228.hatenablog.com/entry/20101015/1287095708
+  - [Linux カーネルメモ: 送受信](http://wiki.bit-hive.com/linuxkernelmemo/pg/%C1%F7%BC%F5%BF%AE)
+  - [syuu1228's blog: じゃあ、Linux のネットワークスタックはどうなのん？](http://syuu1228.hatenablog.com/entry/20101015/1287095708)
+  - [VA Linux エンジニアブログ: 詳解 Linux ネットワーク - NAPI 編 (前編)](https://valinux.hatenablog.com/entry/20220128)
 
 ## ソケットインタフェース
 
-- TCP ソケットは listen()関数の第二引数 backlog に指定した数の、完全に確立された接続要求を待ち受けることができるキューを作成します。
-- キューがいっぱいになった状態で新たに接続を受け取ると、サーバは ECONNREFUSED を返します。
-- 下位層のプロトコルが再送をサポートしていれば、ECONNREFUSED は無視され、リトライが成功するかもしれません。
-- net.core.somaxconn は、TCP ソケットが受け付けた接続要求を格納する、キューの最大長です。
-- backlog > net.core.somaxconn のとき、キューの大きさは暗黙に net.core.somaxconn に切り詰められます。
+- TCP ソケットは listen()関数の第二引数 backlog に指定した数の、完全に確立された接続要求を待ち受けることができるキューを作成します
+- キューがいっぱいになった状態で新たに接続を受け取ると、サーバは ECONNREFUSED を返します
+- 下位層のプロトコルが再送をサポートしていれば、ECONNREFUSED は無視され、リトライが成功するかもしれません
+- net.core.somaxconn は、TCP ソケットが受け付けた接続要求を格納する、キューの最大長です
+- backlog > net.core.somaxconn のとき、キューの大きさは暗黙に net.core.somaxconn に切り詰められます
 - 参考
   - [listen backlog](http://wiki.bit-hive.com/linuxkernelmemo/pg/listen%20backlog%20%A1%DA3.6%A1%DB)
 

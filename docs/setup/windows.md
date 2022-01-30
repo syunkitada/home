@@ -16,62 +16,16 @@
 
 Install following software
 
-| Soft                                                | Description                              |
-| --------------------------------------------------- | ---------------------------------------- |
-| Microsoft Security Essentials (Windows7)            |                                          |
-| Windows Defender (Windows 8, 10: default installed) |                                          |
-| GVIM                                                | GVIM [KaoriYa](https://www.kaoriya.net/) |
-| Lhaplus                                             |                                          |
-| Desktops                                            |                                          |
-| VLC media player                                    |                                          |
-| TrueCrypt                                           | Depricated                               |
-| LibreOffice                                         |                                          |
-
-## Install cygwin
-
-- Install position: ~/Desktop/cygwin/cygwin64
-  - local position: ~/Desktop/cygwin/local
-- And Install 'KaoriYa gvim', 'putty', 'teraterm' to ~/Desktop/cygwin/
-
-Install cygwin package is
-
-| Category | Soft                                            |
-| -------- | ----------------------------------------------- |
-| Devel    | ctags, gcc (c, c++, objectiv-c, etc), git, make |
-| Editor   | vim, vim-common                                 |
-| Net      | bind-utils, curl, openssl                       |
-| Python   | python, python-crypto                           |
-| Shell    | zsh                                             |
-| Tcl      | expect                                          |
-| Utils    | tmux                                            |
-| Web      | wget                                            |
-
-Change home directory
-
-```bash
-# $ mkpasswd -l > /etc/passwd
-#
-# $ vim /etc/passwd
-# < home/<username>
-# > /cygdrive/c/Users/<username>
-
-$ vim .bash_profile
-HOME=/cygdrive/c/Users/[user]
-cd ~
-source .bash_profile
-```
-
-Set cygwin options
-
-- Looks > Transparency: Medium
-- Text > Font: MS ゴシック
-
-Setup git
-
-```bash
-$ git config --global user.name "syunkitada"
-$ git config --global user.email "syun.kitada@gmail.com"
-```
+| Soft                                                | Description                                    |
+| --------------------------------------------------- | ---------------------------------------------- |
+| Microsoft Security Essentials (Windows7)            |                                                |
+| Windows Defender (Windows 8, 10: default installed) |                                                |
+| GVIM                                                | GVIM [KaoriYa](https://www.kaoriya.net/)       |
+| Lhaplus                                             |                                                |
+| Desktops                                            |                                                |
+| VLC media player                                    |                                                |
+| VeraCrypt                                           | 暗号仮想ディスクの管理ソフト、TrueCrypt の後継 |
+| LibreOffice                                         |                                                |
 
 ## Setup ssh key
 

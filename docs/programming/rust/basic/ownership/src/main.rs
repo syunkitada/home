@@ -75,6 +75,27 @@ fn main() {
         // let r4 = &mut s2; // r3, r4が同時に可変な参照を持つとコンパイルエラーとなる
         // println!("r3={}, r4={}", r3, r4);
     }
+
+    // 文字列スライス
+    // スライスは所有権のないデータ型です
+    // スライスにより、コレクション全体ではなく、そのうちの一連の要素を参照することができる
+    {
+        let s = String::from("helloworld");
+        let hello = &s[0..5]; // 文字列スライス
+        let world = &s[5..10];
+        println!("hello={}, world={}", hello, world);
+
+        let s2 = String::from("hello world");
+        println!("first_word={}", first_word(&s));
+        println!("first_word={}", first_word(&s2));
+        println!("first_word={}", first_word2(&s2));
+
+        // 文字列リテラルはスライス
+        // 以下のs3の型は&strで、バイナリのその特定の位置を指すスライスで不変な参照である
+        let s3 = "hello world";
+        // println!("first_word={}", first_word(&s3)); // Error
+        println!("first_word={}", first_word2(&s3));
+    }
 }
 
 // 引数はcopyされて渡され、返り値もcopyされて返される
@@ -96,4 +117,26 @@ fn calculate_length(s: &String) -> usize {
 
 fn change(some_string: &mut String) {
     some_string.push_str(", world");
+}
+
+// 以下はStringの参照のみ受け取ることができる
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+    return &s[..];
+}
+
+// 以下のように書くと、Stringも文字列リテラルも文字列スライスとして受け取ることができる
+fn first_word2(s: &str) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+    return &s[..];
 }
