@@ -1,5 +1,5 @@
 [package]
-name = "functions"
+name = "basic_enum"
 version = "0.1.0"
 edition = "2021"
 
