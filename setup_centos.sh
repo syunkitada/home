@@ -41,6 +41,11 @@ if [ ! -e ~/.goenv ]; then
     # go get -u gopkg.in/godo.v2/cmd/godo
 fi
 
+# Setup rust environment
+if [ ! -e ~/.cargo ]; then
+    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path --profile default
+fi
+
 # install tmux
 if [ ! -e /usr/loca/bin/tmux ]; then
     curl -kLO https://github.com/tmux/tmux/releases/download/2.8/tmux-2.8.tar.gz
