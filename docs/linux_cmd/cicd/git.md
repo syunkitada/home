@@ -19,3 +19,17 @@ $ git format-patch -o /tmp/patches 34ece0dbc9bca5b028e677bfe17e157359047b30
 $ cd ~/repository2
 $ git am -3 patches/*.patch
 ```
+
+## 空のディレクトリを柄するための二つのパターン
+
+- .gitignore を使うパターン
+  - ディレクトリにファイルを追加する予定がない場合、間違って追加されても無視したい場合は以下のような.gitignore を追加する
+
+```
+*
+!.gitignore
+```
+
+- .gitkeep を使うパターン
+  - ディレクトリにファイルを追加する予定がある場合、.gitkeep(ただの空ファイル) を置く
+  - .gitignore を置いておくでもよいが、用途ととして紛らわしいので.gitkeep を置くほうが好まれる
