@@ -175,6 +175,21 @@ Average:     1000     12411  100.00    0.00    0.00    0.00  100.00     -  stres
 Average:     1000     12412  100.00    0.00    0.00    0.00  100.00     -  stress
 Average:     1000     12413  100.00    0.00    0.00    0.00  100.00     -  stress
 Average:     1000     12414  100.00    0.00    0.00    0.00  100.00     -  stress
+
+# cfs_quota_us
+# https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/6/html/resource_management_guide/sec-cpu
+$ cat /sys/fs/cgroup/cpu,cpuacct/testgroup/cpu.cfs_quota_us
+-1
+
+# 1 秒あたり 0.2 秒のみ利用できるようにする
+$ echo 200000 | sudo tee /sys/fs/cgroup/cpu,cpuacct/testgroup/cpu.cfs_quota_us
+200000
+
+# どの程度制限されたかを確認する
+$ cat /sys/fs/cgroup/cpu,cpuacct/testgroup/cpu.stat
+nr_periods 29
+nr_throttled 27
+throttled_time 26428857418
 ```
 
 ## cpuset
