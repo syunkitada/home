@@ -4,7 +4,7 @@ export PATH=$GOENV_ROOT/bin:$PATH
 if type goenv > /dev/null 2>&1; then
     eval "$(goenv init -)"
     export PATH=$PATH:$GOPATH/bin
-    export GO111MODULE=off
+    export GO111MODULE=on
 
     # The next line updates PATH for the Google Cloud SDK.
     if [ -f '/home/owner/google-cloud-sdk/path.zsh.inc' ]; then source '/home/owner/google-cloud-sdk/path.zsh.inc'; fi

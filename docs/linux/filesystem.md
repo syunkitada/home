@@ -352,6 +352,10 @@ $ service lvm2-lvmetad start
 # ddで空ファイルを作成する、もしくはパーティションを切ってもよい
 $ dd if=/dev/zero of=/tmp/test-volume bs=1 count=0 seek=10G
 
+# 空いてるloopデバイスを確認する
+$ losetup -f
+/dev/loop2
+
 # losetupでloopデバイスを作成したファイルと接続する
 # losetupは、loopデバイスを通常ファイルやブロックデバイスと接続・切断する
 # アタッチ
@@ -592,6 +596,25 @@ tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=1611440k,mode=755)
 - 参考
   - [netstat コマンドを高速化する](https://qiita.com/mutz0623/items/7b000a6ac0f75df5dafd)
   - [seq ファイルシステムについて](https://qiita.com/akachochin/items/98085494081b8bc39cbb)
+
+## tmpfs
+
+```
+sudo modprobe brd rd_nr=1 rd_size=1048576
+ls -l /dev/ram0
+sudo mount -t tmpfs /dev/ram0 /tmp/ram0
+
+```
+
+## dm-delay
+
+- devicemapper によって delay をかけることができる
+- https://www.kernel.org/doc/html/v5.4/admin-guide/device-mapper/delay.html
+
+```
+# 以下は、tmpfsにdelayをかける例
+sudo sh -c 'echo "0 `blockdev --getsz /dev/ram0` delay /dev/ram0 0 500" | dmsetup create delayed'
+```
 
 ## nfs
 
