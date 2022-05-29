@@ -176,20 +176,40 @@ Average:     1000     12412  100.00    0.00    0.00    0.00  100.00     -  stres
 Average:     1000     12413  100.00    0.00    0.00    0.00  100.00     -  stress
 Average:     1000     12414  100.00    0.00    0.00    0.00  100.00     -  stress
 
-# cfs_quota_us
+# cfs_period_us & cfs_quota_us
 # https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/6/html/resource_management_guide/sec-cpu
+# cpu.cfs_quota_usは、cgroup内の全タスクがcpu.cfs_period_usで定義された一定の期間に実行される合計時間をマイクロ秒単位で指定する
+# cpu.cfs_quota_usの上限は1秒、下限は1000マイクロ秒
+
+# cpu.cfs_period_usのデフォルトは、100000
+$ cat /sys/fs/cgroup/cpu,cpuacct/testgroup/cpu.cfs_period_us
+1000000
+
+# cfs_quota_usのデフォルトは、-1（無制限）
 $ cat /sys/fs/cgroup/cpu,cpuacct/testgroup/cpu.cfs_quota_us
 -1
 
-# 1 秒あたり 0.2 秒のみ利用できるようにする
+# 例えば、１秒あたり0.2秒のみCPUを利用できるようにするには以下のようにする
+# cpu.cfs_period_usを1000000(1秒)に設定する
+$ echo 1000000 | sudo tee /sys/fs/cgroup/cpu,cpuacct/testgroup/cpu.cfs_period_us
+# cpu.cfs_quota_usを0.2秒にする
 $ echo 200000 | sudo tee /sys/fs/cgroup/cpu,cpuacct/testgroup/cpu.cfs_quota_us
-200000
 
+# cfs_quota_usは、利用量が制限を超えた場合プロセスが止まるので利用には注意すること
 # どの程度制限されたかを確認する
 $ cat /sys/fs/cgroup/cpu,cpuacct/testgroup/cpu.stat
 nr_periods 29
 nr_throttled 27
 throttled_time 26428857418
+
+# この状態で、100%の負荷をかけようとすると、実際には20%しかcpuを使えず、80%はwaitとして待たされているのが分かる
+$ yes > /dev/null
+
+$ pidstat -C yes 1
+Average:      UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+Average:     1000      8046    4.21   15.69    0.00   79.89   19.90     -  yes
+
+
 ```
 
 ## cpuset

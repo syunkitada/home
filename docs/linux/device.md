@@ -222,15 +222,14 @@ $ sudo hdparm -i /dev/sda1
 
 ## smartctl
 
-- インストール
+- S.M.A.R.T.(Self-Monitoring, Analysis and Reporting Technology、以下 SMART)は、障害の早期発見・故障の予測を行うための情報を保有している
+- smartctl コマンドは、SMART 情報を取得するツールです
 
 ```
+# インストール
 $ sudo yum install smartmontools
-```
 
-- デバイス情報を見る
-
-```
+# デバイス情報を見る
 $ sudo smartctl -i /dev/sda1
 smartctl 6.5 2016-01-24 r4214 [x86_64-linux-4.4.0-59-generic] (local build)
 Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
@@ -252,7 +251,12 @@ SMART support is: Available - device has SMART capability.
 SMART support is: Enabled
 ```
 
-- デバイスのテストを行う
+### デバイスの自己診断を行う
+
+- 自己診断実行モードは、short, long, conveyance の３種類がある
+  - short: 簡単なテスト、１分くらい
+  - long: 長いテスト、１～１時間くらい
+  - conveyance: 輸送中に障害が起きやすいセクタをテストする
 
 ```
 $ sudo /usr/sbin/smartctl -t short /dev/sda1
@@ -282,4 +286,44 @@ Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
 SMART Self-test log structure revision number 1
 Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
 # 1  Short offline       Completed without error       00%      4758         -
+```
+
+### SMART 情報の表示
+
+```
+$ sudo smartctl -i /dev/nvme0 -A
+smartctl 6.6 2016-05-31 r4324 [x86_64-linux-5.4.0-109-generic] (local build)
+Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Number:                       INTEL SSDPEKKW256G8
+Serial Number:                      BTHH83540UFC256B
+Firmware Version:                   004C
+PCI Vendor/Subsystem ID:            0x8086
+IEEE OUI Identifier:                0x5cd2e4
+Controller ID:                      1
+Number of Namespaces:               1
+Namespace 1 Size/Capacity:          256,060,514,304 [256 GB]
+Namespace 1 Formatted LBA Size:     512
+Local Time is:                      Sun May  1 15:21:38 2022 JST
+
+=== START OF SMART DATA SECTION ===
+SMART/Health Information (NVMe Log 0x02, NSID 0xffffffff)
+Critical Warning:                   0x00
+Temperature:                        29 Celsius
+Available Spare:                    100%
+Available Spare Threshold:          12%
+Percentage Used:                    6%
+Data Units Read:                    2,168,718 [1.11 TB]
+Data Units Written:                 13,885,398 [7.10 TB]
+Host Read Commands:                 47,271,829
+Host Write Commands:                322,701,937
+Controller Busy Time:               3,015
+Power Cycles:                       496
+Power On Hours:                     4,871
+Unsafe Shutdowns:                   38
+Media and Data Integrity Errors:    0
+Error Information Log Entries:      0
+Warning  Comp. Temperature Time:    0
+Critical Comp. Temperature Time:    0
 ```
