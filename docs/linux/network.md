@@ -127,6 +127,35 @@ NETLINK   1064     15      -1   NI       0   no   kernel      n  n  n  n  n  n  
   - この際に、ソケットバッファの割り当てに失敗すると、1 インクリメントされる
     - ソケットバッファの割り当て失敗は、TCP クォータの制限による失敗ではなく、Slab アロケータによる割り当て失敗が原因となる
 
+## NIC オフロード
+
+- TSO(TCP Segmentagion Offload), UFO(UDP Segmentation Offload), GSO(Generic Segmentation Offload)
+  - IP フラグメンテーションと TCP セグメンテーション
+    - L3 レイヤにおいて IP パケットは、途中経路の MTU のサイズを超えることができないので、その単位で IP パケットを分割する
+      - この分割処理を IP フラグメンテーションと呼ぶ
+    - IP フラグメンテーションをすると、TCP ヘッダは最初のパケットにしか含まれず、以降の IP パケットには TCP パケットは含まれない
+    - そこで、TCP ではすべてのパケットに TCP パケットが含まれるように L4 のレイヤでパケットを MTU におさまるように事前に分割する
+      - この分割処理を TCP セグメンテーションと呼ぶ
+      - 分割単位(MSS:Maximum Segment Size)はハンドシェイク時に MTU を基準に決定する
+  - 遅延セグメンテーション
+    - TCP セグメンテーションの処理を早めにやってしまうと、後続の処理は分割されたパケット分だけ多くの処理を行う必要があるため、なるべく後ろの処理で行う
+    - この(NIC での)ハードウェア実装を TSO と呼び、ソフトウェア実装を GSO と呼ぶ
+    - UFO は TSO の UDP 版
+  - メモ
+    - TSO、UFO はハードウェア依存なのでデフォルトでは OFF にされているので、利用したい場合は明示的に ON にする必要がある
+    - TSO を利用すると MTU がらみでバグを踏む可能性もあるので注意(UFO も同様)
+      - 実際にあったこと
+        - クライアントとサーバの MTU が異なり、かつ PMTUD がうまく機能してない場合、TSO 有効時に MTU におさまらない単位でセグメンテーションされてしまい、IP フラグメンテーションが発生するという問題が起こったことがある
+        - TSO によって MTU1500 で収まるようなセグメンテーションをされたが、実際の受け取り手の MTU は 1450 であった
+        - 本来は MTU が異なっていてもハンドシェイク時に適切な MSS が決定されるはずだが、TSO 有効時にこれがうまく機能していなかった(TSO を無効にしたらうまく機能した)
+- LRO(Large Receive Offload)、GRO(Generic Receive Offload)
+  - 受信側における遅延セグメンテーションの逆の考え
+    - 受信側ではなるべく早い段階で分割されたパケットを結合しできると、それ以降の処理をパケット分だけ減らすことができる
+    - この(NIC での)ハードウェア実装を LRO と呼び、ソフトウェア実装を GRO と呼ぶ
+- 参考
+  - [Segmentation Offloads in the Linux Networking Stack](https://www.kernel.org/doc/Documentation/networking/segmentation-offloads.txt)
+  - [SRv6 ベースのマルチテナンシー環境で起きた TSO 問題とその検証方法 – LINE Developer Meetup #67 フォローアップ記事](https://engineering.linecorp.com/ja/blog/tso-problems-srv6-based-multi-tenancy-environment/)
+
 ## DDOS 対策
 
 ```
