@@ -55,3 +55,9 @@ $ cat <<EOS | dd of=/etc/apt/sources.list.d/syunkitada-aptrepo.list
 deb [trusted=yes] http://hogepiyo/hoge/amd64/ ./
 EOS
 ```
+
+## PPA
+
+- Personal Package Archive の略
+- Ubuntu 向けの個人用リポジトリで、Launchpad.net にソースパッケージをアップロードすると、APT リポジトリとしてリリースできる
+- Ubuntu ユーザーは公式リポジトリに登録されていないパッケージをインストールすることが可能

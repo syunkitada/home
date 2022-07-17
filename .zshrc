@@ -183,7 +183,6 @@ setopt transient_rprompt  # コピペしやすいようにコマンド実行後�
 
 # load plugins
 source ~/.zsh/aliases.zsh
-source ~/.zsh/fabkit.zsh
 source ~/.zsh/go.zsh
 source ~/.zsh/rust.zsh
 source ~/.zsh/js.zsh
