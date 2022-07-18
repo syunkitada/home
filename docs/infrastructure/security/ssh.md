@@ -34,3 +34,47 @@
     - このユーザが sudo password を利用していた場合、ssh されるだけでなく、root 権限の操作も可能となってしまう
     - 多段 ssh もできないので不便（やりようによってはできるが、、、
 - ユーザ認証が成功したら、ターミナルのセッションが開始される
+
+## ssh-agent
+
+- UNIX domain socket を使って通信する
+- eval $(ssh-agent) のように実行すると SSH_AUTH_SOCK、SSH_AGENT_PID の二つの環境変数がセットされる
+  - SSH_AUTH_SOCK は、UNIX domain socket のパスがセットされる
+  - SSH_AGENT_PID は daemon 化した ssh-agent の pid がセットされる
+- ssh は、SSH_AUTH_SOCK が定義されていればそれを使って ssh-agent と通信する
+- ForwardAgent が有効な状態で、ssh ログインすると、ログイン先の 環境変数 SSH_AUTH_SOCK がセットされる
+  - ログインするたびに新しいパスがセットされるため、既存のログインセッションは間違った SSH_AUTH_SOCK を利用したままになる
+  - このため、ログインするたびに $HOME/.ssh/agent に SSH_AUTH_SOCKへの symlink を張るようにして、SSH_AUTH_SOCKを$HOME/.ssh/agent にするとこの問題が回避できる
+
+```
+agent="$HOME/.ssh/agent"
+if [ -S "$SSH_AUTH_SOCK" ]; then
+    case $SSH_AUTH_SOCK in
+    /tmp/*/agent.[0-9]*)
+        ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
+    esac
+elif [ -S $agent ]; then
+    export SSH_AUTH_SOCK=$agent
+else
+    echo "no ssh-agent"
+fi
+```
+
+## agent key RSA SHA256:xxx returned incorrect signature type
+
+- RSA SSH key を使用する場合、SHA-1、SHA-256、SHA-512 などのハッシュアルゴリズムで署名可能
+- SSH Client が SHA-512 で接続を negotiate したが、[ssh-agent]が SHA-1, SHA-256 で署名を作成した場合に発生する
+
+```
+$ ssh -vvv 10.100.100.2
+...
+debug3: sign_and_send_pubkey: RSA SHA256:xxx
+debug3: sign_and_send_pubkey: signing using rsa-sha2-512 SHA256:xxx
+agent key RSA SHA256:xxx returned incorrect signature type
+...
+```
+
+- pagent を利用してる場合は、0.71 以上のバージョンを利用します
+  - https://www.chiark.greenend.org.uk/~sgtatham/putty/wishlist/pageant-rsa-sha2.html
+- またついでに ed25519 で鍵を作り直しておく
+- RLogin を利用してる場合は、オプションのサーバのプロトコルの SSH 認証鍵も変更します
