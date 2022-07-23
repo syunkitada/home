@@ -28,3 +28,8 @@ on_ft = ['typescript.tsx']
 [[plugins]]
 repo = 'https://github.com/rhysd/vim-clang-format.git'
 on_ft = ['c']
+
+# Formatter for python
+[[plugins]]
+repo = 'https://github.com/psf/black.git'
+on_ft = ['python']

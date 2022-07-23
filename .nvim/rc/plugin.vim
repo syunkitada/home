@@ -419,3 +419,12 @@ let g:clang_format#style_options = {
 "
 nmap [cscope]c <plug>(quickr_cscope_symbols)
 nmap [cscope]f <plug>(quickr_cscope_files)
+
+
+"
+" black(python formatter)
+"
+augroup black_on_save
+  autocmd!
+  autocmd BufWritePre *.py Black
+augroup end
