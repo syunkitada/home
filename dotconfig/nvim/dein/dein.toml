@@ -1,0 +1,113 @@
+# colorscheme
+[[plugins]]
+repo = 'https://github.com/w0ng/vim-hybrid'
+
+# colorscheme: hybridよりもおとなしい色合い(言い方を変えると色のメリハリが弱い
+[[plugins]]
+repo = 'https://github.com/cocopon/iceberg.vim'
+
+# unite is plugin to create user interface
+# display bookmark, buffer, etc
+[[plugins]]
+repo = 'https://github.com/Shougo/unite.vim'
+
+# display history files on unite
+[[plugins]]
+repo = 'https://github.com/Shougo/neomru.vim'
+
+# filer
+[[plugins]]
+repo = 'https://github.com/Shougo/vimfiler.vim'
+
+# required by vimfiler
+[[plugins]]
+repo = 'https://github.com/Shougo/vimproc.vim'
+build = 'make'
+
+# nerdtree is filer, but vimfiler is better than this
+# [[plugins]]
+# repo = 'https://github.com/scrooloose/nerdtree'
+
+# fzf is finder for file, text, buffer
+# [[plugins]]
+# repo ='https://github.com/junegunn/fzf.vim'
+# depends = 'fzf'
+
+
+# [[plugins]]
+# repo = 'https://github.com/jremmen/vim-ripgrep'
+
+
+[[plugins]]
+repo ='https://github.com/rking/ag.vim'
+
+
+# ctrlp is plugin is finder, but fzf is better than this
+# [[plugins]]
+# repo = 'https://github.com/ctrlpvim/ctrlp.vim.git'
+
+# deoplete is asynchronous completion framework for neovim/Vim8
+[[plugins]]
+repo = 'https://github.com/Shougo/deoplete.nvim'
+
+# vim-signature is plugin to extend mark
+[[plugins]]
+repo = 'https://github.com/kshenoy/vim-signature'
+
+# vim-easymotion is plugin to extend motion
+[[plugins]]
+repo = 'https://github.com/Lokaltog/vim-easymotion'
+
+# vim-surround is plugin to surround parentheses, brackets, quotes
+# disable this plugin, because of I don't use this plugin recently.
+# [[plugins]]
+# repo = 'https://github.com/tpope/vim-surround.git'
+
+# tComment is plugin for comment out
+# disable this plugin, because of I don't use this plugin recently.
+# [[plugins]]
+# repo = 'https://github.com/vim-scripts/tComment'
+
+# syntastic is plugin for syntax check
+[[plugins]]
+repo = 'https://github.com/scrooloose/syntastic.git'
+
+# tagbar is plugin to display tag list in side bar
+# this plugin require ctags
+[[plugins]]
+repo = 'https://github.com/majutsushi/tagbar.git'
+
+# for viewing markdown on tagbar
+[[plugins]]
+repo = 'https://github.com/jszakmeister/markdown2ctags.git'
+
+
+# SrcExpl is plugin to display definitions and declarations
+# this plugin require ctags
+[[plugins]]
+repo = 'https://github.com/wesleyche/SrcExpl'
+
+# lightline is plugin to configure statusline/tabline
+[[plugins]]
+repo = 'https://github.com/itchyny/lightline.vim.git'
+
+# formater for js, tsx, md, and others
+[[plugins]]
+repo = 'https://github.com/prettier/vim-prettier.git'
+
+# git
+# basic plugin
+[[plugins]]
+repo = 'https://github.com/tpope/vim-fugitive'
+
+# git log viewer
+[[plugins]]
+repo = 'https://github.com/cohama/agit.vim'
+
+# show git diff marker
+[[plugins]]
+repo = 'https://github.com/airblade/vim-gitgutter'
+
+# cscope
+[[plugins]]
+repo = 'https://github.com/ronakg/quickr-cscope.vim'

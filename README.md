@@ -4,9 +4,9 @@ This is my dot files, and other setting files.
 
 ## Setup Docs
 
-- [Setup Windows](/docs/setup/windows.md)
-- [Setup CentOS](/docs/setup/centos.md)
-- [Setup Ubuntu](/docs/setup/ubuntu.md)
+- [Setup Windows](/setup/docs/windows.md)
+- [Setup CentOS](/setup/docs/centos.md)
+- [Setup Ubuntu](/setup/docs/ubuntu.md)
 
 ## About keybind
 

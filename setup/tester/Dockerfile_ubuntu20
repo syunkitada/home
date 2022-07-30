@@ -1,0 +1,12 @@
+FROM ubuntu:22.04
+
+RUN apt update && \
+    apt install -y openssh-server sudo make && \
+    mkdir /var/run/sshd && \
+    useradd tester && \
+    gpasswd -a tester tester && \
+    mkdir -p /home/tester && \
+    chown -R tester:tester /home/tester && \
+    echo "tester ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+ENTRYPOINT [ "/usr/sbin/sshd", "-D" ]
