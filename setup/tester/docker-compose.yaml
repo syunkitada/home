@@ -1,0 +1,49 @@
+version: "3"
+services:
+  centos7:
+    hostname: centos7.example.com
+    build:
+      context: .
+      dockerfile: ./Dockerfile_centos7
+    user: "1000:1000"
+    working_dir: "/home/tester"
+    volumes:
+      - "${HOME}/home:/home/tester/home:ro"
+    network_mode: "host"
+    entrypoint: bash -c "sleep 36000"
+
+  centos7_ssh:
+    hostname: centos7s.example.com
+    build:
+      context: .
+      dockerfile: ./Dockerfile_centos7
+    volumes:
+      - "${HOME}/.ssh/authorized_keys:${HOME}/.ssh/authorized_keys"
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/sudoers:/etc/sudoers:ro
+      - /etc/shadow:/etc/shadow:ro
+      - /etc/group:/etc/group:ro
+    networks:
+      localnet:
+        ipv4_address: 10.100.11.2
+    entrypoint: bash -c "chown ${SUDO_UID}:${SUDO_GID} ${HOME} &&  /usr/sbin/sshd -D"
+
+  ubuntu20:
+    hostname: ubuntu20.example.com
+    build:
+      context: .
+      dockerfile: ./Dockerfile_ubuntu20
+    user: "1000:1000"
+    working_dir: "/home/tester"
+    volumes:
+      - "${HOME}/home:/home/tester/home:ro"
+    network_mode: "host"
+    entrypoint: bash -c "sleep 36000"
+
+networks:
+  localnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.11.0/24
