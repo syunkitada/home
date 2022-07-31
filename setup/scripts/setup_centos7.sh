@@ -16,7 +16,7 @@ pip3 install --user pynvim neovim black
 # fzfのインストール
 if [ ! -e ~/.fzf ]; then
     git clone https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --all
+    ~/.fzf/install --bin
 fi
 
 # nodeのおよび、prettier(vimプラグインの依存)のインストール
