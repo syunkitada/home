@@ -68,66 +68,89 @@ let g:vimfiler_enable_auto_cd = 1
 " -------------------------
 " unite.vim
 "
-" 入力モードで開始する
+" 入力モードで開始する（インタラクティブ検索ができる）
 " let g:unite_enable_start_insert=1
-" ファイル一覧
-nnoremap <silent> [unite]f :UniteWithBufferDir -buffer-name=files file<CR>
-" レジスタ一覧(選択してペースト)
-nnoremap <silent> [unite]r :Unite -buffer-name=register register<CR>
-" バッファ一覧
-nnoremap <silent> [unite]l :Unite buffer<CR>
-" 最近使用したファイル
-nnoremap <silent> [unite]u :Unite file_mru buffer<CR>
-" ブックマーク一覧
-nnoremap <silent> [unite]b :Unite bookmark<CR>
-" ブックマーク追加
-nnoremap <silent> [unite]a :UniteBookmarkAdd<CR>
+" 
+" " 大文字小文字を区別しない
+" let g:unite_enable_ignore_case = 1
+" let g:unite_enable_smart_case = 1
+" 
+" " ファイル一覧
+" nnoremap <silent> [unite]f :UniteWithBufferDir -buffer-name=files file<CR>
+" " レジスタ一覧(選択してペースト)
+" nnoremap <silent> [unite]r :Unite -buffer-name=register register<CR>
+" " バッファ一覧
+" nnoremap <silent> [unite]l :Unite buffer<CR>
+" " 最近使用したファイル
+" nnoremap <silent> [unite]u :Unite file_mru buffer<CR>
+" " ブックマーク一覧
+" nnoremap <silent> [unite]b :Unite bookmark<CR>
+" " ブックマーク追加
+" nnoremap <silent> [unite]a :UniteBookmarkAdd<CR>
 " ブックマークの削除
 " d でカーソル位置のブックマークを削除
 
-" insert modeで開始
-let g:unite_enable_start_insert = 1
-
-" 大文字小文字を区別しない
-let g:unite_enable_ignore_case = 1
-let g:unite_enable_smart_case = 1
-
 " grep検索
-nnoremap <silent> [unite]g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-
-" カーソル位置の単語をgrep検索
-nnoremap <silent> [unite]cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-
-" grep検索結果の再呼出
-" nnoremap <silent> [unite]r  :<C-u>UniteResume search-buffer<CR>
-
-" unite grep に ag(The Silver Searcher) を使う
-if executable('ag')
-   let g:unite_source_grep_command = 'ag'
-   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-   let g:unite_source_grep_recursive_opt = ''
-endif
-
-
-
-
+" nnoremap <silent> [unite]g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+" " カーソル位置の単語をgrep検索
+" nnoremap <silent> [unite]cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+" " grep検索結果の再呼出
+" nnoremap <silent> [unite]rg  :<C-u>UniteResume search-buffer<CR>
+" 
+" " unite grep に ag(The Silver Searcher) を使う
+" if executable('ag')
+"    let g:unite_source_grep_command = 'ag'
+"    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+"    let g:unite_source_grep_recursive_opt = ''
+" endif
+" 
+" " unite grep に ag(The Silver Searcher) を使う
+" if executable('fzf')
+"    let g:unite_source_find_command = 'fzf'
+"    let g:unite_source_find_default_opts = ''
+"    let g:unite_source_find_default_expr = ''
+" endif
 
 " ファイル一覧時の動作
 " qで終了
 " Enterで現在のウィンドウに開く
 " sでウィンドウを横に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> s unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> s unite#do_action('split')
-" vでウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> v unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> v unite#do_action('vsplit')
-" tでウィンドウをタブで開く
-au FileType unite nnoremap <silent> <buffer> <expr> t unite#do_action('tabopen')
-au FileType unite inoremap <silent> <buffer> <expr> t unite#do_action('tabopen')
+" au FileType unite nnoremap <silent> <buffer> <expr> S unite#do_action('split')
+" au FileType unite inoremap <silent> <buffer> <expr> S unite#do_action('split')
+" " vでウィンドウを縦に分割して開く
+" au FileType unite nnoremap <silent> <buffer> <expr> V unite#do_action('vsplit')
+" au FileType unite inoremap <silent> <buffer> <expr> V unite#do_action('vsplit')
+" " tでウィンドウをタブで開く
+" au FileType unite nnoremap <silent> <buffer> <expr> T unite#do_action('tabopen')
+" au FileType unite inoremap <silent> <buffer> <expr> T unite#do_action('tabopen')
+" 
+" " vimshell, vimfilerからuniteを起動して移動した時にvimshell, vimfilerへ移動する
+" " for Unite bookmark
+" autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
 
-" vimshell, vimfilerからuniteを起動して移動した時にvimshell, vimfilerへ移動する
-" for Unite bookmark
-autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
+
+" terminal
+nmap [terminal]t :call MyOpenTerminal("t-filer", "")<cr>
+nmap [terminal]f :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; fvim\n")<cr>
+nmap [terminal]g :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim\n")<cr>
+nmap [terminal]G :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim " . expand("<cword>") . "\n")<cr>
+nmap [terminal]l :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim " . getreg('"') . "\n")<cr>
+nmap [terminal]s :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
+nmap [terminal]S :call feedkeys(":split\n :wincmd j\n :resize 20\n :terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
+tnoremap <Space>q exit 0<cr>exit 0<cr>
+" terminalモードでは、<C-\><C-n> で Terminal-Normal
+" モードになるので、<ESC>にこれを割り当てる
+tnoremap <ESC> <C-\><C-n>
+
+function! MyOpenTerminal(name, keys) abort
+    if bufexists(a:name)
+        call feedkeys(":e " . a:name . "\n i\n" . a:keys)
+    else
+        " VIMTERMINAL=true によって、zshrcの挙動を一部変更できるようにする
+        " :set shell=zshとはしない(zsh起動前にVIMTERMINAL=trueとするため)
+        call feedkeys(":terminal\n :file " . a:name . "\n i\n export VIMTERMINAL=true\n zsh\n" . a:keys)
+    endif
+endfunction
 
 
 " -------------------------
@@ -402,18 +425,18 @@ nmap [srcexpl]p :call g:SrcExpl_PrevDef()<CR>
 " fzf
 " Require fzf, silversearcher-ag
 "
-nmap [fzf]a :Ag<CR>
-nmap [fzf]f :FZF<CR>
-nmap [fzf]l :Lines<CR>
-
-" :Buffers
-" バッファで開いてるファイルを検索してジャンプする
-
-" :BLines
-" バッファで開いてるファイルから全行を対象に検索してジャンプする
-nmap [fzf]b :BLines<CR>
-
-let g:fzf_layout = { 'down': '~90%' }
+" nmap [fzf]a :Ag<CR>
+" nmap [fzf]f :FZF<CR>
+" nmap [fzf]l :Lines<CR>
+" 
+" " :Buffers
+" " バッファで開いてるファイルを検索してジャンプする
+" 
+" " :BLines
+" " バッファで開いてるファイルから全行を対象に検索してジャンプする
+" nmap [fzf]b :BLines<CR>
+" 
+" let g:fzf_layout = { 'down': '~90%' }
 
 
 " :History

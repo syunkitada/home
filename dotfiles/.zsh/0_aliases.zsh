@@ -3,8 +3,12 @@
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias vim='nvim'
-alias vimf='nvim -c :VimFiler'
+if [ "$VIMTERMINAL" == "true" ]; then
+    alias vim='nvr'
+else
+    alias vim='nvim'
+    alias vimf='nvim -c :VimFiler'
+fi
 alias doc='cd ~/home/docs && nvim -c "VimFiler"'
 alias motd_s='cat ~/home/motd/linux_system'
 

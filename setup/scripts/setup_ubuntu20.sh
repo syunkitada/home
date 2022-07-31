@@ -22,7 +22,7 @@ curl https://raw.githubusercontent.com/jb55/typescript-ctags/master/.ctags > ~/.
 # install fzf
 if [ ! -e ~/.fzf ]; then
     git clone https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --bin
+    ~/.fzf/install --all
 fi
 
 if [ ! -e /usr/local/bin/node ]; then

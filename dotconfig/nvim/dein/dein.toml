@@ -24,6 +24,10 @@ repo = 'https://github.com/Shougo/vimfiler.vim'
 repo = 'https://github.com/Shougo/vimproc.vim'
 build = 'make'
 
+# deoplete is asynchronous completion framework for neovim/Vim8
+[[plugins]]
+repo = 'https://github.com/Shougo/deoplete.nvim'
+
 # nerdtree is filer, but vimfiler is better than this
 # [[plugins]]
 # repo = 'https://github.com/scrooloose/nerdtree'
@@ -33,10 +37,13 @@ build = 'make'
 # repo ='https://github.com/junegunn/fzf.vim'
 # depends = 'fzf'
 
-
+# uniteのがよい
 # [[plugins]]
 # repo = 'https://github.com/jremmen/vim-ripgrep'
 
+[[plugins]]
+repo = 'https://github.com/mhinz/neovim-remote'
+# terminalモードでvimを実行できるようにするために必要
 
 [[plugins]]
 repo ='https://github.com/rking/ag.vim'
@@ -45,10 +52,6 @@ repo ='https://github.com/rking/ag.vim'
 # ctrlp is plugin is finder, but fzf is better than this
 # [[plugins]]
 # repo = 'https://github.com/ctrlpvim/ctrlp.vim.git'
-
-# deoplete is asynchronous completion framework for neovim/Vim8
-[[plugins]]
-repo = 'https://github.com/Shougo/deoplete.nvim'
 
 # vim-signature is plugin to extend mark
 [[plugins]]

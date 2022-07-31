@@ -8,9 +8,10 @@ nnoremap <S-r> <C-r>
 
 " プリフィックス
 " プラグイン
+nmap <Space>t [terminal]
 nmap <Space>f [vimfiler]
-nmap <Space>u [unite]
-nmap <Space>a [fzf]
+" nmap <Space>u [unite]
+" nmap <Space>a [fzf]
 nmap <Space>g [git]
 nmap <Space>v [vimgo]
 nmap <Space>y [yank_to_teraterm]

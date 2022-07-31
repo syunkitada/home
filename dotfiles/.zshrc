@@ -193,17 +193,22 @@ contains() {
 }
 
 # load common scripts
-source ~/.zsh/*.zsh
+for file in `find ~/.zsh/ -name '*.zsh' -type f | sort`
+do
+    source $file
+done
 
 # .zsh_mydevは、特定ユーザ(個人開発)の場合のみロードする
 if echo $USER | egrep "owner|tester" > /dev/null; then
     source ~/.zsh_mydev/*.zsh
+    for file in `find ~/.zsh_mydev/ -name '*.zsh' -type f | sort`
+    do
+        source $file
+    done
 fi
 
 # .zsh_exは、拡張用のスクリプト置き場
-for file in `find ~/.zsh_ex/ -name '*.zsh'`
+for file in `find ~/.zsh_ex/ -name '*.zsh' -type f | sort`
 do
-    source file
+    source $file
 done
-
-

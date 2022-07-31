@@ -144,27 +144,3 @@ function wdig() {
 }
 
 
-#
-# fzf helpers
-#
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# fe - edit
-fe() {
-  local file
-  file=$(fzf --query="$1" --select-1 --exit-0)
-  [ -n "$file" ] && ${EDITOR:-vim} "$file"
-}
-
-# fd - cd to selected directory
-fd() {
-  local dir
-  dir=$(find ${1:-*} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
-
-# fh - repeat history
-fh() {
-  eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
-}
