@@ -5,14 +5,29 @@
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# find(fzf)してvimを実行する
-fvim() {
-  files=$(git ls-files) &&
-  selected_files=$(echo "$files" | fzf -m --preview 'head -100 {}') &&
-  vim $selected_files
+# treeして、fzfして、ファイルならvimで開いて、ディレクトリならcdする
+ff() {
+  LBUFFER=""
+  selected=$(tree --charset=o -f | fzf --query "$LBUFFER" --preview '
+     f() {
+      set -- $(echo -- "$@" | grep -o "\./.*$");
+      if [ -d $1 ]; then
+        ls -lh $1
+      else
+        head -n 100 $1
+      fi
+    }; f {}' | tr -d '\||`|-' | xargs echo)
+  if [ -f $selected ]; then
+     vim $selected
+     return 0
+  fi
+  if [ -d $selected ]; then
+      cd $selected
+     return 0
+  fi
 }
 
-# grep(ripgrep & fzf)してvimを実行する
+# grep(ripgrep & fzf)してvimで開く
 gvim() {
   INITIAL_QUERY=""
   if [ $# != 0 ]; then
@@ -32,7 +47,7 @@ gvim() {
   vim $option $filename
 }
 
-# 特定ファイルに限定してgrep(ripgrep & fzf)してvimを実行する
+# 特定ファイルに限定してgrep(ripgrep & fzf)してvimで開く
 gfvim() {
     if [ $# < 1 ]; then
         echo "Usage: gfvim [filename] [query]"
@@ -71,17 +86,9 @@ fgrep() {
   fi
 }
 
-# fd - cd to selected directory
-fd() {
-  local dir
-  dir=$(find ${1:-*} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
-
 # fh - repeat history
 fh() {
-  eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
+    eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
 }
 
 cdpjroot() {

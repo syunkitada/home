@@ -137,18 +137,18 @@ nmap [terminal]G :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdp
 nmap [terminal]l :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim " . getreg('"') . "\n")<cr>
 nmap [terminal]s :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
 nmap [terminal]S :call feedkeys(":split\n :wincmd j\n :resize 20\n :terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
-tnoremap <Space>q exit 0<cr>exit 0<cr>
+tnoremap <Space>q <C-\><C-n>:q<cr>
 " terminalモードでは、<C-\><C-n> で Terminal-Normal
-" モードになるので、<ESC>にこれを割り当てる
-tnoremap <ESC> <C-\><C-n>
+" モードになるので、<Space><ESC>にこれを割り当てる
+tnoremap <Space><ESC> <C-\><C-n>
 
 function! MyOpenTerminal(name, keys) abort
     if bufexists(a:name)
-        call feedkeys(":e " . a:name . "\n i\n" . a:keys)
+        call feedkeys(":tabe " . a:name . "\n i\n" . a:keys)
     else
         " VIMTERMINAL=true によって、zshrcの挙動を一部変更できるようにする
         " :set shell=zshとはしない(zsh起動前にVIMTERMINAL=trueとするため)
-        call feedkeys(":terminal\n :file " . a:name . "\n i\n export VIMTERMINAL=true\n zsh\n" . a:keys)
+        call feedkeys(":tabe\n :terminal\n :file " . a:name . "\n i\n export VIMTERMINAL=true\n zsh\n" . a:keys)
     endif
 endfunction
 
