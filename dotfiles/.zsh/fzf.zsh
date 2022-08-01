@@ -37,7 +37,8 @@ ff() {
      return 0
   fi
   if [ -d $selected ]; then
-      cd $selected
+     cd $selected
+     ls
      return 0
   fi
 }
@@ -101,17 +102,49 @@ fgrep() {
   fi
 }
 
-# fh - repeat history
-fh() {
-    eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
+# pd - cd to parent directory
+pd() {
+    local dirs=()
+    local parent_dir
+
+    get_parent_dirs() {
+        if [[ -d "$1" ]]; then dirs+=("$1"); else return; fi
+        if [[ "$1" == '/' ]]; then
+            for _dir in "${dirs[@]}"; do echo "$_dir"; done
+        else
+            get_parent_dirs "$(dirname "$1")"
+        fi
+    }
+
+    parent_dir="$(
+      get_parent_dirs "$(realpath "${1:-$PWD}")" \
+        | fzf +m \
+            --preview 'ls {}' )" || return
+    cd "$parent_dir" || return
+    ls
 }
 
-cdpjroot() {
-   # projectのrootへ移動する
-   # gitがあればそこをprojetのrootとみなす
-   result=`git rev-parse --show-toplevel 2> /dev/null`
-   if [ $? == 0 ]; then
-       cd $result
-       return 0
-   fi
+# fh - show history
+fh() {
+    # fcの結果をuniqして、sortしなおす（直近実行したコマンドを下に出す）
+    cmd=$((fc -l 1 || history) | sort -k 2 | uniq -f 1 | sort -n -k 1 | fzf +s | sed 's/ *[0-9]* *//')
+    echo $cmd
 }
+
+# fhr - show history and run
+fhr() {
+    cmd=$((fc -l 1 || history) | sort -k 2 | uniq -f 1 | sort -n -k 1 | fzf +s | sed 's/ *[0-9]* *//')
+    echo '$' $cmd
+    eval $cmd
+}
+
+# projectのrootへ移動する
+cdpjroot() {
+    # gitがあればそこをprojetのrootとみなす
+    result=`git rev-parse --show-toplevel 2> /dev/null`
+    if [ $? == 0 ]; then
+        cd $result
+        return 0
+    fi
+}
+

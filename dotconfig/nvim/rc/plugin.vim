@@ -56,7 +56,7 @@
 nmap [vimfiler]s :VimFiler -split -simple -winwidth=40 -no-quit<CR>
 nmap [vimfiler]r :VimFiler<CR>
 nmap [vimfiler]f :VimFiler<CR>O
-nmap [vimfiler]t :tabe<CR>:VimFiler<CR>o
+" nmap [vimfiler]t :tabe<CR>:VimFiler<CR>o
 nmap [vimfiler]o :VimFiler -split -simple -winwidth=40 -no-quit<CR>:TagbarToggle<CR><C-w>l
 "vimデフォルトのエクスプローラをvimfilerで置き換える
 let g:vimfiler_as_default_explorer = 1
@@ -130,26 +130,34 @@ let g:vimfiler_enable_auto_cd = 1
 
 
 " terminal
-nmap [terminal]t :call MyOpenTerminal("t-filer", "")<cr>
-nmap [terminal]f :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; fvim\n")<cr>
+nmap [vimfiler]t :call MyOpenTerminal(":tabe\n", "t-filer", "")<cr>
+nmap [terminal]t :call MyOpenTerminal(":tabe\n", "t-filer", "")<cr>
+nmap [terminal]f :call MyOpenTerminal("", "t-filer", "cdpjroot; ff\n")<cr>
 nmap [terminal]g :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim\n")<cr>
 nmap [terminal]G :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim " . expand("<cword>") . "\n")<cr>
 nmap [terminal]l :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim " . getreg('"') . "\n")<cr>
 nmap [terminal]s :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
 nmap [terminal]S :call feedkeys(":split\n :wincmd j\n :resize 20\n :terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
-tnoremap <Space>q <C-\><C-n>:q<cr>
 " terminalモードでは、<C-\><C-n> で Terminal-Normal
 " モードになるので、<Space><ESC>にこれを割り当てる
 tnoremap <Space><ESC> <C-\><C-n>
 
-function! MyOpenTerminal(name, keys) abort
+function! MyOpenTerminal(prekeys, name, keys) abort
     if bufexists(a:name)
+        " TODO tabが開いた状態ならそこへ移動する
         call feedkeys(":tabe " . a:name . "\n i\n" . a:keys)
     else
         " VIMTERMINAL=true によって、zshrcの挙動を一部変更できるようにする
         " :set shell=zshとはしない(zsh起動前にVIMTERMINAL=trueとするため)
-        call feedkeys(":tabe\n :terminal\n :file " . a:name . "\n i\n export VIMTERMINAL=true\n zsh\n" . a:keys)
+        call feedkeys(a:prekeys . ":terminal\n :file " . a:name . "\n i\n export VIMTERMINAL=true\n zsh\n" . a:keys)
     endif
+endfunction
+
+
+function! OpenFromTerminal() abort
+    " TODO nvr -c "call OpenFromTerminal()"
+    " nvrからの切り替え時にここを通らせる、バッファがあるならそこへ移動する（多重では開かないようにする）
+    echo "DEBUG"
 endfunction
 
 
