@@ -64,6 +64,20 @@ let g:vimfiler_edit_action = 'tabopen'
 let g:vimfiler_enable_auto_cd = 1
 
 
+" let g:netrw_preview=1
+" let g:netrw_banner=0
+" let g:netrw_liststyle = 3
+" function! NetrwMapping()
+"   nmap <buffer> h -
+"   nmap <buffer> l <CR>
+"   nmap <buffer> . a
+" endfunction
+" 
+" augroup netrw_mapping
+"   autocmd!
+"   autocmd filetype netrw call NetrwMapping()
+" augroup END
+
 
 " -------------------------
 " unite.vim
@@ -139,25 +153,66 @@ nmap [terminal]l :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdp
 nmap [terminal]s :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
 nmap [terminal]S :call feedkeys(":split\n :wincmd j\n :resize 20\n :terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
 " terminalモードでは、<C-\><C-n> で Terminal-Normal
-" モードになるので、<Space><ESC>にこれを割り当てる
-tnoremap <Space><ESC> <C-\><C-n>
+" モードになるので、<ESC>にこれを割り当てる
+tnoremap <ESC> <C-\><C-n>
+
+function! s:GetActiveBuffers()
+    let l:blist = getbufinfo({'bufloaded': 1, 'buflisted': 1})
+    let l:result = []
+    for l:item in l:blist
+        "skip unnamed buffers; also skip hidden buffers?
+        if empty(l:item.name) || l:item.hidden
+            continue
+        endif
+        call add(l:result, l:item.name)
+    endfor
+    return l:result
+endfunction
+
+function! s:find_tabnr(bufnr)
+    for tabnr in range(1, tabpagenr("$"))
+        if index(tabpagebuflist(tabnr), a:bufnr) !=# -1
+            return tabnr
+        endif
+    endfor
+    return -1
+endfunction
 
 function! MyOpenTerminal(prekeys, name, keys) abort
+    " $BUFFERSのファイルを候補にできるようにするため、環境変数に入れておく
+    let $VIM_BUFFERS = join(s:GetActiveBuffers(), " ")
+    " VIMTERMINAL=true によって、zshrcの挙動を一部変更できるようにする
+    let $VIMTERMINAL = "true"
     if bufexists(a:name)
-        " TODO tabが開いた状態ならそこへ移動する
+        " tabが開いた状態ならそこへ移動する
+        let bufnr = bufnr(expand(a:name))
+        let tabnr = s:find_tabnr(bufnr)
+        if tabnr != -1
+            call feedkeys(":q\n :tabn " . tabnr . "\n")
+            return
+        endif
+        " そうでないなら新規タブでバッファを開く
         call feedkeys(":tabe " . a:name . "\n i\n" . a:keys)
     else
-        " VIMTERMINAL=true によって、zshrcの挙動を一部変更できるようにする
-        " :set shell=zshとはしない(zsh起動前にVIMTERMINAL=trueとするため)
-        call feedkeys(a:prekeys . ":terminal\n :file " . a:name . "\n i\n export VIMTERMINAL=true\n zsh\n" . a:keys)
+        set shell=zsh
+        call feedkeys(a:prekeys . ":terminal\n :file " . a:name . "\n i\n" . a:keys)
     endif
 endfunction
 
-
 function! OpenFromTerminal() abort
-    " TODO nvr -c "call OpenFromTerminal()"
-    " nvrからの切り替え時にここを通らせる、バッファがあるならそこへ移動する（多重では開かないようにする）
-    echo "DEBUG"
+    " vim terminal modeからは以下で開かれる想定
+    " $ nvr -c 'call OpenFromTerminal()' hoge.txt
+    " タブが見つかった場合はファイルを閉じて、そのタブへ移動する
+    if bufexists(expand("%:p"))
+        let bufnr = bufnr(expand("%:p"))
+        let tabnr = s:find_tabnr(bufnr)
+        if tabnr != -1
+            call feedkeys(":q\n :tabn " . tabnr . "\n")
+            echo "tabfound"
+            return
+        endif
+    endif
+    " そうでないなら何もしない（そのまま開く）
 endfunction
 
 

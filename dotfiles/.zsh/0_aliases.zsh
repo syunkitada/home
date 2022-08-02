@@ -4,7 +4,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 if [ "$VIMTERMINAL" == "true" ]; then
-    alias vim='nvr'
+    alias vim='nvr -c "call OpenFromTerminal()"'
 else
     alias vim='nvim'
     alias vimf='nvim -c :VimFiler'

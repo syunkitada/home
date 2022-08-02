@@ -8,25 +8,25 @@ repo = 'https://github.com/cocopon/iceberg.vim'
 
 # unite is plugin to create user interface
 # display bookmark, buffer, etc
-[[plugins]]
-repo = 'https://github.com/Shougo/unite.vim'
+# [[plugins]]
+# repo = 'https://github.com/Shougo/unite.vim'
 
 # display history files on unite
-[[plugins]]
-repo = 'https://github.com/Shougo/neomru.vim'
+# [[plugins]]
+# repo = 'https://github.com/Shougo/neomru.vim'
 
 # filer
-[[plugins]]
-repo = 'https://github.com/Shougo/vimfiler.vim'
+# [[plugins]]
+# repo = 'https://github.com/Shougo/vimfiler.vim'
 
 # required by vimfiler
-[[plugins]]
-repo = 'https://github.com/Shougo/vimproc.vim'
-build = 'make'
+# [[plugins]]
+# repo = 'https://github.com/Shougo/vimproc.vim'
+# build = 'make'
 
 # deoplete is asynchronous completion framework for neovim/Vim8
-[[plugins]]
-repo = 'https://github.com/Shougo/deoplete.nvim'
+# [[plugins]]
+# repo = 'https://github.com/Shougo/deoplete.nvim'
 
 # nerdtree is filer, but vimfiler is better than this
 # [[plugins]]

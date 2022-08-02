@@ -204,8 +204,7 @@ endif
 let g:python3_host_prog = substitute(system('which python3'),"\n","","")
 
 
-set rtp+=~/.fzf
-
+filetype plugin on
 
 " -------------------------------------------------------------
 " end .vimrc
