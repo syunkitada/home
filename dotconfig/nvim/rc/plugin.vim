@@ -206,9 +206,8 @@ function! OpenFromTerminal() abort
     if bufexists(expand("%:p"))
         let bufnr = bufnr(expand("%:p"))
         let tabnr = s:find_tabnr(bufnr)
-        if tabnr != -1
+        if tabnr != tabpagenr() && tabnr != -1
             call feedkeys(":q\n :tabn " . tabnr . "\n")
-            echo "tabfound"
             return
         endif
     endif

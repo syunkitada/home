@@ -151,18 +151,24 @@ cdpjroot() {
     fi
 }
 
-fvim_buffers() {
-    # TODO: oldfilesも参照する
-    # vim --headless -c 'oldfiles' -c 'q'
-
+# キャッシュからファイルを選択してvimで開く
+cvim() {
+    candidates=()
     buffers=(${(@s: :)VIM_BUFFERS})
-    candidates=""
     for buffer in "${buffers[@]}"; do
         if [ -e $buffer ]; then
-            candidates="$candidates$buffer
-"
+            candidates+=($buffer)
         fi
     done
+
+    oldfiles=$(vim --headless -c 'oldfiles' -c 'q' 2>&1 > /dev/null)
+    oldfiles=$(echo $oldfiles | awk -F ':' '{print $1": "$2}' | egrep -v 'term:|vimfiler|unite' | sort -k 2 | uniq -f 1 | sort -n -k 1 | awk '{print $2}' | sed -e 's/\r//g')
+    for oldfile in `echo $oldfiles`; do
+        if [ -e $oldfile ]; then
+            candidates+=($oldfile)
+        fi
+    done
+    candidates=$(IFS=$'\n'; echo "${candidates[*]}")
     selected=$(echo $candidates | fzf)
     if [ -f $selected ]; then
         vim $selected
