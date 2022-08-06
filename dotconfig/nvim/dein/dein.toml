@@ -6,40 +6,17 @@ repo = 'https://github.com/w0ng/vim-hybrid'
 [[plugins]]
 repo = 'https://github.com/cocopon/iceberg.vim'
 
-# unite is plugin to create user interface
-# display bookmark, buffer, etc
-# [[plugins]]
-# repo = 'https://github.com/Shougo/unite.vim'
 
-# display history files on unite
-# [[plugins]]
-# repo = 'https://github.com/Shougo/neomru.vim'
+# ファイラ
+[[plugins]]
+repo = 'https://github.com/lambdalisue/fern.vim'
 
-# filer
-# [[plugins]]
-# repo = 'https://github.com/Shougo/vimfiler.vim'
+[[plugins]]
+repo = 'https://github.com/lambdalisue/fern-hijack.vim'
 
-# required by vimfiler
-# [[plugins]]
-# repo = 'https://github.com/Shougo/vimproc.vim'
-# build = 'make'
+[[plugins]]
+repo = 'https://github.com/lambdalisue/fern-mapping-project-top.vim'
 
-# deoplete is asynchronous completion framework for neovim/Vim8
-# [[plugins]]
-# repo = 'https://github.com/Shougo/deoplete.nvim'
-
-# nerdtree is filer, but vimfiler is better than this
-# [[plugins]]
-# repo = 'https://github.com/scrooloose/nerdtree'
-
-# fzf is finder for file, text, buffer
-# [[plugins]]
-# repo ='https://github.com/junegunn/fzf.vim'
-# depends = 'fzf'
-
-# uniteのがよい
-# [[plugins]]
-# repo = 'https://github.com/jremmen/vim-ripgrep'
 
 [[plugins]]
 repo = 'https://github.com/mhinz/neovim-remote'

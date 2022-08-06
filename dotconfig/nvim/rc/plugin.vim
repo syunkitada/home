@@ -1,157 +1,69 @@
+" # Finder ---------------------------------------------------------------------------------------------------
 "
-" -------------------------
-"  vimfiler
+" [fern](https://github.com/lambdalisue/fern.vim)
+" ? | ヘルプ表示
+" N | ファイル作成
+" K | ディレクトリ作成
+" D | 削除
 "
-" # 使い方
-" -- 表示 --
-" t   フォルダを展開
-" T   展開解除
-" o   1ウィンドウの場合は新たにvimfilerを起動し、2ウィンドウの場合はディレクトリ位置を同期する
-" Tab 1ウィンドウの場合は新たにvimfilerを起動し、2ウィンドウの場合はウィンドウを切り替える
-" H   シェルを起動
-" .   隠しファイルの表示非表示切り替え
+" e | 開く
+" E | サイドで開く
+" t | タブで開く
+" h | ディレクトリを閉じる
+" l | ディレクトリを開ける or ファイルを開く
+" k | 上へ
+" j | 下へ
+" s | 隠しファイル表示切替
+" u | 上位のディレクトリへ
+" T | ターミナルへ
 "
-" -- 移動 --
-" hjkl フォルダ・選択移動
-" \    ルートに移動
-" ~    ホームに移動
-"
-" -- find, grep --
-" gf find
-" gr grep
-"
-" -- 編集 --
-" e  ファイルの編集
-" E  スプリットしてファイルの編集
-" q  バッファの残して終了
-" Q  終了
-" gs safemode有効、無効切り替え（ファイルの作成や削除はsafemodeではできない）
-"
-" Space マーク
-" c  マークしたファイルをコピー
-" cc カーソル下のファイルをコピー
-" m  マークしたファイルを移動
-" mm カーソル下のファイルをコピー
-" d  マークしたファイルを削除(ゴミ箱）
-" dd 削除
-" r  マークしたファイルの名前を変更
-" K  新規ディレクトリを作成
-" N  新規ファイルを作成
-" *  すべてのファイルにマークをつける・マークをはずす
-" U  すべてのファイルのマークをはずす
-" yy ファイルのフルパスコピー
-"
-" 補足
-" c, m, dはマークされてるファイルがないときは、カーソル下のファイルをマークする
-" このため、cc, mm, ddなどと入力すればカーソル下のファイルを操作できる
-"
-" また、m, cによるファイルの移動、コピーは、
-" 2画面の時は他方のディレクトリへの移動、コピーとなる
-" 1画面の時は移動先を聞かれるのでパスを入力する
-"
-" その他
-" x  システム関連付けを実行
-" E  外部ファイラでファイルを開く
+" 再割り当てできないキー: a, .
 
-nmap [vimfiler]s :VimFiler -split -simple -winwidth=40 -no-quit<CR>
-nmap [vimfiler]r :VimFiler<CR>
-nmap [vimfiler]f :VimFiler<CR>O
-" nmap [vimfiler]t :tabe<CR>:VimFiler<CR>o
-nmap [vimfiler]o :VimFiler -split -simple -winwidth=40 -no-quit<CR>:TagbarToggle<CR><C-w>l
-"vimデフォルトのエクスプローラをvimfilerで置き換える
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_edit_action = 'tabopen'
-let g:vimfiler_enable_auto_cd = 1
+function! s:fern_settings() abort
+    nmap <silent> <buffer> p <Plug>(fern-action-project-top)
+    nmap <silent> <buffer> P <Plug>(fern-action-project-top:reveal)
+    nmap <silent> <buffer> D <Plug>(fern-action-remove)
+    nmap <silent> <buffer> u <Plug>(fern-action-leave)
+    nmap <silent> <buffer> s <Plug>(fern-action-hidden)
+    nmap <silent> <buffer> r <Plug>(fern-action-rename)
+    nmap <silent> <buffer> v <Plug>(fern-action-open:side)
+
+    " Terminalモード
+    nmap <silent> <buffer> T <Plug>(fern-action-terminal)
+    nmap <silent> <buffer> f <Plug>(fern-action-terminal) :call feedkeys("i\n fff\n")<CR>
+    nmap <silent> <buffer> g <Plug>(fern-action-terminal) :call feedkeys("i\n fgv\n")<CR>
+endfunction
+
+augroup fern_settings
+  autocmd!
+  autocmd FileType fern call s:fern_settings()
+augroup END
+
+" Fern . -reveal=%   | カレントディレクトリで開き、カーソルは現在開いたファイルにする
+nmap [finder]f :Fern . -reveal=%<CR>
+" Fern . -reveal=% -drawer | ファイラをサイドで開いたままにする（現在のバッファも表示されたまま）
+nmap [finder]s :Fern . -reveal=% -drawer<CR>
 
 
-" let g:netrw_preview=1
-" let g:netrw_banner=0
-" let g:netrw_liststyle = 3
-" function! NetrwMapping()
-"   nmap <buffer> h -
-"   nmap <buffer> l <CR>
-"   nmap <buffer> . a
-" endfunction
-" 
-" augroup netrw_mapping
-"   autocmd!
-"   autocmd filetype netrw call NetrwMapping()
-" augroup END
+" # Terminal ---------------------------------------------------------------------------------------------------
+" ファイラの役割も果たすので[finder]のmappingもある（[finder]と読み替えるとよい)
+nmap [finder]t :call MyOpenTerminal(":tabe\n", "t-finder", "")<cr>
+nmap [terminal]t :call MyOpenTerminal(":tabe\n", "t-terminal", "")<cr>
+nmap [terminal]p :call MyOpenTerminal(":tabe\n", "t-project", "cd_project_root;")<cr>
+" find and cd or vim
+nmap [finder]a :call MyOpenTerminal("", "t-finder-tmp", "cd_project_root; fa\n")<cr>
+" find by grep
+nmap [finder]g :call MyOpenTerminal("", "t-finder-tmp", "cd_project_root; fgv\n")<cr>
+" find from current word
+nmap [finder]. :call MyOpenTerminal("", "t-finder-tmp", "cd_project_root; fgv " . expand("<cword>") . "\n")<cr>
+" find from yank
+nmap [finder]y :call MyOpenTerminal("", "t-finder-tmp", "cd_project_root; fgv " . getreg('"') . "\n")<cr>
+" find from internal
+nmap [finder]i :call MyOpenTerminal(":split\n :wincmd j\n :resize 20\n", "", "ffv " . getreg('%:p') . "\n")<cr>
+nmap [finder]I :call MyOpenTerminal("", "t-finder-tmp", "ffv " . getreg('%:p') . "\n")<cr>
+" find from cache
+nmap [finder]c :call MyOpenTerminal("", "t-finder-tmp", "fcv\n")<cr>
 
-
-" -------------------------
-" unite.vim
-"
-" 入力モードで開始する（インタラクティブ検索ができる）
-" let g:unite_enable_start_insert=1
-" 
-" " 大文字小文字を区別しない
-" let g:unite_enable_ignore_case = 1
-" let g:unite_enable_smart_case = 1
-" 
-" " ファイル一覧
-" nnoremap <silent> [unite]f :UniteWithBufferDir -buffer-name=files file<CR>
-" " レジスタ一覧(選択してペースト)
-" nnoremap <silent> [unite]r :Unite -buffer-name=register register<CR>
-" " バッファ一覧
-" nnoremap <silent> [unite]l :Unite buffer<CR>
-" " 最近使用したファイル
-" nnoremap <silent> [unite]u :Unite file_mru buffer<CR>
-" " ブックマーク一覧
-" nnoremap <silent> [unite]b :Unite bookmark<CR>
-" " ブックマーク追加
-" nnoremap <silent> [unite]a :UniteBookmarkAdd<CR>
-" ブックマークの削除
-" d でカーソル位置のブックマークを削除
-
-" grep検索
-" nnoremap <silent> [unite]g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-" " カーソル位置の単語をgrep検索
-" nnoremap <silent> [unite]cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-" " grep検索結果の再呼出
-" nnoremap <silent> [unite]rg  :<C-u>UniteResume search-buffer<CR>
-" 
-" " unite grep に ag(The Silver Searcher) を使う
-" if executable('ag')
-"    let g:unite_source_grep_command = 'ag'
-"    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-"    let g:unite_source_grep_recursive_opt = ''
-" endif
-" 
-" " unite grep に ag(The Silver Searcher) を使う
-" if executable('fzf')
-"    let g:unite_source_find_command = 'fzf'
-"    let g:unite_source_find_default_opts = ''
-"    let g:unite_source_find_default_expr = ''
-" endif
-
-" ファイル一覧時の動作
-" qで終了
-" Enterで現在のウィンドウに開く
-" sでウィンドウを横に分割して開く
-" au FileType unite nnoremap <silent> <buffer> <expr> S unite#do_action('split')
-" au FileType unite inoremap <silent> <buffer> <expr> S unite#do_action('split')
-" " vでウィンドウを縦に分割して開く
-" au FileType unite nnoremap <silent> <buffer> <expr> V unite#do_action('vsplit')
-" au FileType unite inoremap <silent> <buffer> <expr> V unite#do_action('vsplit')
-" " tでウィンドウをタブで開く
-" au FileType unite nnoremap <silent> <buffer> <expr> T unite#do_action('tabopen')
-" au FileType unite inoremap <silent> <buffer> <expr> T unite#do_action('tabopen')
-" 
-" " vimshell, vimfilerからuniteを起動して移動した時にvimshell, vimfilerへ移動する
-" " for Unite bookmark
-" autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
-
-
-" terminal
-nmap [vimfiler]t :call MyOpenTerminal(":tabe\n", "t-filer", "")<cr>
-nmap [terminal]t :call MyOpenTerminal(":tabe\n", "t-filer", "")<cr>
-nmap [terminal]f :call MyOpenTerminal("", "t-filer", "cdpjroot; ff\n")<cr>
-nmap [terminal]g :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim\n")<cr>
-nmap [terminal]G :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim " . expand("<cword>") . "\n")<cr>
-nmap [terminal]l :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n cdpjroot; gvim " . getreg('"') . "\n")<cr>
-nmap [terminal]s :call feedkeys(":terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
-nmap [terminal]S :call feedkeys(":split\n :wincmd j\n :resize 20\n :terminal\n export VIMTERMINAL=true\n zsh\n gfvim " . expand("%:p") . "\n")<cr>
 " terminalモードでは、<C-\><C-n> で Terminal-Normal
 " モードになるので、<ESC>にこれを割り当てる
 tnoremap <ESC> <C-\><C-n>
@@ -178,24 +90,28 @@ function! s:find_tabnr(bufnr)
     return -1
 endfunction
 
+set shell=zsh
 function! MyOpenTerminal(prekeys, name, keys) abort
     " $BUFFERSのファイルを候補にできるようにするため、環境変数に入れておく
     let $VIM_BUFFERS = join(s:GetActiveBuffers(), " ")
     " VIMTERMINAL=true によって、zshrcの挙動を一部変更できるようにする
     let $VIMTERMINAL = "true"
-    if bufexists(a:name)
-        " tabが開いた状態ならそこへ移動する
-        let bufnr = bufnr(expand(a:name))
-        let tabnr = s:find_tabnr(bufnr)
-        if tabnr != -1
-            call feedkeys(":q\n :tabn " . tabnr . "\n")
-            return
-        endif
-        " そうでないなら新規タブでバッファを開く
-        call feedkeys(":tabe " . a:name . "\n i\n" . a:keys)
+    if a:name == ""
+        call feedkeys(a:prekeys . ":terminal\n i\n" . a:keys)
     else
-        set shell=zsh
-        call feedkeys(a:prekeys . ":terminal\n :file " . a:name . "\n i\n" . a:keys)
+        if bufexists(a:name)
+            " tabが開いた状態ならそこへ移動する
+            let bufnr = bufnr(expand(a:name))
+            let tabnr = s:find_tabnr(bufnr)
+            if tabnr != -1
+                call feedkeys(":q\n :tabn " . tabnr . "\n")
+                return
+            endif
+            " そうでないなら新規タブでバッファを開く
+            call feedkeys(":tabe " . a:name . "\n i\n" . a:keys)
+        else
+            call feedkeys(a:prekeys . ":terminal\n :file " . a:name . "\n i\n" . a:keys)
+        endif
     endif
 endfunction
 
@@ -213,6 +129,8 @@ function! OpenFromTerminal() abort
     endif
     " そうでないなら何もしない（そのまま開く）
 endfunction
+
+" END ファイラ ---------------------------------------------------------------------------------------------------
 
 
 " -------------------------
@@ -451,9 +369,6 @@ function! s:syntastic()
   call lightline#update()
 endfunction
 
-let g:unite_force_overwrite_statusline = 0
-let g:vimfiler_force_overwrite_statusline = 0
-let g:vimshell_force_overwrite_statusline = 0
 
 
 " -------------------------

@@ -1,4 +1,43 @@
 # ----------------------------------------------------------------------------------------------------
+# aliasの設定
+# ----------------------------------------------------------------------------------------------------
+
+# vimのalias設定
+if [ "$VIMTERMINAL" == "true" ]; then
+    # vimのterminalモードからvimを実行するときはnvrで開く
+    alias vim='nvr -c "call OpenFromTerminal()"'
+else
+    alias vim='nvim'
+    alias vimf='nvim -c :VimFiler'
+fi
+
+# vimのファイラを開く
+alias ff=vim .
+# ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開く
+alias fa=find_and_cd_or_vim
+# fgv  -- 文字列で検索してvimで開く
+# fgv [query]  -- 文字列で検索してvimで開く
+alias fgv=find_grep_and_vim
+
+# fcv  -- キャッシュからファイルを探して、vimで開く
+alias fcv=find_cache_and_vim
+
+# ffv [filename]  -- [filename]をgrepして、そのマッチした行でvimを開く
+# ffv [filename] [query]  -- [filename]を[query]でgrepして、そのマッチした行でvimを開く
+alias ffv=find_grep_file_and_vim
+
+# hs  -- ヒストリを検索するだけ
+alias hs=show_history
+# hr  -- ヒストリを検索してそのまま実行する
+alias hr=run_history
+
+# cdp  -- 親ディレクトリを検索して移動する
+alias cdp=cd_to_parent_directory
+# cdr  -- プロジェクトのルートディレクトリへ移動する
+alias cdr=cd_project_root
+
+
+# ----------------------------------------------------------------------------------------------------
 # fzfの基本設定
 # ----------------------------------------------------------------------------------------------------
 if [[ ! "$PATH" == *${HOME}/.fzf/bin* ]]; then
@@ -20,8 +59,8 @@ source "${HOME}/.fzf/shell/key-bindings.zsh"
 # fzf, agを利用します
 # ----------------------------------------------------------------------------------------------------
 
-# treeして、fzfして、ファイルならvimで開いて、ディレクトリならcdする
-ff() {
+# tree表示して、fzfで絞り込んで、ディレクトリならcdで移動して、ファイルならvimで開く
+find_and_cd_or_vim() {
     LBUFFER=""
     selected=$(tree --charset=o -f | fzf --query "$LBUFFER" --preview '
     f() {
@@ -46,8 +85,8 @@ ff() {
     fi
 }
 
-# grep(ag & fzf)してvimで開く
-gvim() {
+# grep(ag)してvimで開く
+find_grep_and_vim() {
   INITIAL_QUERY=""
   if [ $# != 0 ]; then
     INITIAL_QUERY=$1
@@ -67,7 +106,7 @@ gvim() {
 }
 
 # 特定ファイルに限定してgrep(ag & fzf)してvimで開く
-gfvim() {
+find_grep_file_and_vim() {
     if [ $# < 1 ]; then
         echo "Usage: gfvim [filename] [query]"
         return 1
@@ -86,8 +125,10 @@ gfvim() {
     vim +${linenum} ${FILENAME}
 }
 
-# grep(ag & fzf)するだけ
-fgrep() {
+# grep_fzf(ag & fzf)するだけ
+# grep_fzf [filename]  | 特定のファイル名から検索する
+# grep_fzf  | 特定のファイル名から検索する
+grep_fzf() {
   INITIAL_QUERY=""
   if [ $# == 0 ]; then
     RG_PREFIX="ag "
@@ -105,8 +146,7 @@ fgrep() {
   fi
 }
 
-# pd - cd to parent directory
-pd() {
+cd_to_parent_directory() {
     local dirs=()
     local parent_dir
 
@@ -127,22 +167,19 @@ pd() {
     ls
 }
 
-# fh - show history
-fh() {
+show_history() {
     # fcの結果をuniqして、sortしなおす（直近実行したコマンドを下に出す）
     cmd=$((fc -l 1 || history) | sort -k 2 | uniq -f 1 | sort -n -k 1 | fzf +s | sed 's/ *[0-9]* *//')
     echo $cmd
 }
 
-# fhr - show history and run
-fhr() {
+run_history() {
     cmd=$((fc -l 1 || history) | sort -k 2 | uniq -f 1 | sort -n -k 1 | fzf +s | sed 's/ *[0-9]* *//')
     echo '$' $cmd
     eval $cmd
 }
 
-# projectのrootへ移動する
-cdpjroot() {
+cd_project_root() {
     # gitがあればそこをprojetのrootとみなす
     result=`git rev-parse --show-toplevel 2> /dev/null`
     if [ $? == 0 ]; then
@@ -151,8 +188,7 @@ cdpjroot() {
     fi
 }
 
-# キャッシュからファイルを選択してvimで開く
-cvim() {
+find_cache_and_vim() {
     candidates=()
     buffers=(${(@s: :)VIM_BUFFERS})
     for buffer in "${buffers[@]}"; do
@@ -161,7 +197,7 @@ cvim() {
         fi
     done
 
-    oldfiles=$(vim --headless -c 'oldfiles' -c 'q' 2>&1 > /dev/null)
+    oldfiles=$(nvim --headless -c 'oldfiles' -c 'q' 2>&1 > /dev/null)
     oldfiles=$(echo $oldfiles | awk -F ':' '{print $1": "$2}' | egrep -v 'term:|vimfiler|unite' | sort -k 2 | uniq -f 1 | sort -n -k 1 | awk '{print $2}' | sed -e 's/\r//g')
     for oldfile in `echo $oldfiles`; do
         if [ -e $oldfile ]; then
