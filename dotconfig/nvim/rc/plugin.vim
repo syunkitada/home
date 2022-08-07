@@ -40,9 +40,9 @@ augroup fern_settings
 augroup END
 
 " Fern . -reveal=%   | カレントディレクトリで開き、カーソルは現在開いたファイルにする
-nmap [finder]f :Fern . -reveal=%<CR>
+nmap [finder]f :Fern %:h -reveal=%p<CR>
 " Fern . -reveal=% -drawer | ファイラをサイドで開いたままにする（現在のバッファも表示されたまま）
-nmap [finder]s :Fern . -reveal=% -drawer<CR>
+nmap [finder]s :Fern %:h -reveal=%p -drawer<CR>
 
 
 " # Terminal ---------------------------------------------------------------------------------------------------

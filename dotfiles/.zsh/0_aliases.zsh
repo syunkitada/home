@@ -3,7 +3,6 @@
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias doc='cd ~/home/docs && nvim -c "VimFiler"'
 alias motd_s='cat ~/home/motd/linux_system'
 
 # alias for misc

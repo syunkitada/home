@@ -15,7 +15,7 @@ nmap <Space>v [vimgo]
 nmap <Space>y [yank_to_teraterm]
 nmap <Space>o [outline]
 nmap <Space>s [srcexpl]
-nmap <Space>d [coc]
+nmap <Space>d [doc]
 nmap <Space>c [cscope]
 
 " signature 'Leader'             : "m"
