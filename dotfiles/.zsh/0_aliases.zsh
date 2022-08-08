@@ -19,3 +19,5 @@ alias st='ssh-agent tmux'
 alias t='tmux'
 alias ta='tmux a'
 alias tl='tmux ls'
+
+alias tt='IS_TMUXT=true tmux'
