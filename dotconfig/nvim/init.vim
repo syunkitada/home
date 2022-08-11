@@ -61,7 +61,7 @@ if dein#load_state(s:dein_dir)
   call dein#save_state()
 endif
 
-" もし、未インストールものものがあったらインストール
+" もし、未インストールのプラグインがあればインストールします
 if dein#check_install()
   call dein#install()
 endif
@@ -78,9 +78,9 @@ endif
 " ----------------------------------------------------------------------------------------------------
 
 
-" ----------------------------------------
+" ----------------------------------------------------------------------------------------------------
 " common settings
-" ----------------------------------------
+" ----------------------------------------------------------------------------------------------------
 set fileformat=unix
 set encoding=utf-8
 set fileencodings=utf-8
@@ -119,20 +119,6 @@ au WinEnter * let w:m1 = matchadd("Whitespaces", '    ')
 highlight ZenkakuSpace cterm=underline ctermbg=203
 au BufWinEnter * let w:m3 = matchadd("ZenkakuSpace", '　')
 au WinEnter * let w:m3 = matchadd("ZenkakuSpace", '　')
-
-" indent
-set autoindent
-set tabstop=4
-set shiftwidth=4
-" if tab to space
-set expandtab
-autocmd! FileType yaml setlocal tabstop=2 shiftwidth=2
-autocmd! FileType html setlocal tabstop=2 shiftwidth=2
-autocmd! FileType javascript setlocal tabstop=2 shiftwidth=2
-autocmd! FileType ruby setlocal tabstop=2 shiftwidth=2
-autocmd! FileType markdown setlocal tabstop=2 shiftwidth=2
-autocmd! FileType make setlocal noexpandtab
-autocmd! FileType go   setlocal noexpandtab
 
 " search
 set hlsearch
@@ -193,22 +179,13 @@ set timeoutlen=1000 ttimeoutlen=0
 set t_ut=
 
 
-" For makefile
-let _currentfile=expand("%:r")
-if _currentfile == 'Makefile'
-  set noexpandtab
-endif
-
-
 " Enable python3 provider
 let g:python3_host_prog = substitute(system('which python3'),"\n","","")
 
 
 filetype plugin on
 
-" -------------------------------------------------------------
-" end .vimrc
-"
-" if you want to add your settings, please describe below.
-" or please put the vimscript in '.vim/userautoload'
-" -------------------------------------------------------------
+
+" ----------------------------------------------------------------------------------------------------
+" END common settings
+" ----------------------------------------------------------------------------------------------------

@@ -1,22 +1,4 @@
-# nvim
-
-## 初期セットアップ
-
-```
-python3
-pip3 install pynvim neovim
-pip3 install black
-```
-
-```
-npm install prettier prettier/vim-prettier
-```
-
-- うまく初期化できない場合があるときは、以下も実行する
-
-```
-:UpdateRemotePlugins
-```
+# vim
 
 ## 方針、考え方のメモ書き
 
@@ -148,7 +130,3 @@ npm install prettier prettier/vim-prettier
       - https://github.com/lambdalisue/fern-mapping-project-top.vim
   - 参考
     - https://wonwon-eater.com/neovim-susume-file-explorer/
-
-## バージョン問題
-
-- [1 度ビルドした Neovim を他のマシンにコピーしたい: 動的リンクライブラリを静的リンクにし直す「sold」リンカ](https://logmi.jp/tech/articles/326142)

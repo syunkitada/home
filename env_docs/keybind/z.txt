@@ -1,0 +1,9 @@
+ff                             [find]     vimでファイラを開きます
+fa                             [find]     ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開きます
+fgv [query:option]             [find]     文字列で(queryがあればqueryで)ファイルを検索して、vimで開きます
+fcv                            [find]     キャッシュからファイルを検索してvimで開きます
+ffv [filename] [query:option]  [find]     [filename]を([query]があればqueryで)grepして、そのマッチした行をvimで開きます
+hs                             [history]  ヒストリを検索して、表示だけします
+hr                             [history]  ヒストリを検索して、そのまま実行します
+cdp                            [move]     親ディレクトリを検索して移動します
+cdr                            [move]     プロジェクトのルートディレクトリへ移動する

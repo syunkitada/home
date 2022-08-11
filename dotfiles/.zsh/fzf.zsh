@@ -12,28 +12,27 @@ else
 fi
 
 # vimのファイラを開く
+# [COMMAND] key=ff; tags=find; action=vimでファイラを開きます;
 alias ff=vim .
-# ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開く
+# [COMMAND] key=fa; tags=find; action=ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開きます;
 alias fa=find_and_cd_or_vim
-# fgv  -- 文字列で検索してvimで開く
-# fgv [query]  -- 文字列で検索してvimで開く
+# [COMMAND] key=fgv [query:option]; tags=find; action=文字列で(queryがあればqueryで)ファイルを検索して、vimで開きます;
 alias fgv=find_grep_and_vim
 
-# fcv  -- キャッシュからファイルを探して、vimで開く
+# [COMMAND] key=fcv; tags=find; action=キャッシュからファイルを検索してvimで開きます;
 alias fcv=find_cache_and_vim
 
-# ffv [filename]  -- [filename]をgrepして、そのマッチした行でvimを開く
-# ffv [filename] [query]  -- [filename]を[query]でgrepして、そのマッチした行でvimを開く
+# [COMMAND] key=ffv [filename] [query:option]; tags=find; action=[filename]を([query]があればqueryで)grepして、そのマッチした行をvimで開きます;
 alias ffv=find_grep_file_and_vim
 
-# hs  -- ヒストリを検索するだけ
+# [COMMAND] key=hs; tags=history; action=ヒストリを検索して、表示だけします;
 alias hs=show_history
-# hr  -- ヒストリを検索してそのまま実行する
+# [COMMAND] key=hr; tags=history; action=ヒストリを検索して、そのまま実行します;
 alias hr=run_history
 
-# cdp  -- 親ディレクトリを検索して移動する
+# [COMMAND] key=cdp; tags=move; action=親ディレクトリを検索して移動します;
 alias cdp=cd_to_parent_directory
-# cdr  -- プロジェクトのルートディレクトリへ移動する
+# [COMMAND] key=cdr; tags=move; action=プロジェクトのルートディレクトリへ移動する;
 alias cdr=cd_project_root
 
 

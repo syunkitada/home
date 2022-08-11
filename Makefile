@@ -13,6 +13,9 @@ ubuntu20:
 	./setup/scripts/link_dotfiles.sh
 	./setup/scripts/setup_ubuntu20.sh
 
+keybind_doc:
+	go run setup/scripts/gen_keybind_doc.go
+
 
 # ----------------------------------------------------------------------------------------------------
 # tester
