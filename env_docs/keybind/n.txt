@@ -34,26 +34,27 @@
 >^e        [clipboard]    コピーします(rEplicate text)
 >^r        [clipboard]    ペーストします(paste Replicated text)
 >^t        [clipboard]    切り取ります(cuT text)
->^u        [move]         前のワードへ移動します(previoUs text) FIXME
->^i        [move]         次のワードへ移動します(cuT text) FIXME
+>^u        [move]         前のワードへ移動します(move to previoUs word)
+>^i        [move]         次のワードへ移動します(move to next contIguous word)
 >^o        [edit]         下へ新規の行追加して移動します(new Oneline)
 >^O        [edit]         上へ新規の行追加して移動します(new Oneline)
 >^a        [select]       全選択します
->^d        [edit]         前の一文字を削除します FIXME
->^f        [edit]         後ろの一文字を削除します FIXME
+>^s        [edit]         前の5文字を削除します(delete conSecutive 5 chars)
+>^d        [edit]         前の1文字を削除します(Delete left char)
+>^f        [edit]         後ろの一文字を削除します(delete Following char)
+>^g        [edit]         後ろの5文字を削除します(delete followinG 5 chars)
 >^h        [move]         左へ移動します
 >^j        [move]         下へ移動します
 >^k        [move]         上へ移動します
 >^l        [move]         右へ移動します
 >^;        [move]         一番左へ移動します
 >^:        [move]         一番右へ移動します
->^v        [page]         前の文字列を削除します FIXME
->^b        [page]         後ろの文字列を削除します FIXME
+>^c        [edit]         前の一単語を削除します(delete baCkward word)
+>^v        [edit]         次の一単語を削除します(remoVe forward word)
 >^n        [page]         ページを下へスクロールします
 >^m        [page]         ページを上へスクロールします
 >^,        [page]         ヒストリを前へ戻ります FIXME
 >^.        [page]         ヒストリを先へ進みます FIXME
 <TODO>     [page]         定義元へ飛びます FIXME
->^/        [page]         コメントアウトします FIXME
 >+<Space>  [language]     英数字入力に切り替えます
 >+<RCtrl>  [language]     ローマ字入力に切り替えます

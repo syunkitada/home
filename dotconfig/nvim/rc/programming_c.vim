@@ -6,7 +6,6 @@
 " ----------------------------------------------------------------------------------------------------
 " clang format
 " ----------------------------------------------------------------------------------------------------
-" TODO 見直す
 autocmd BufWritePre *.c,*.h ClangFormat
 let g:clang_format#code_style = "google"
 let g:clang_format#style_options = {

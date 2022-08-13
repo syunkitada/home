@@ -83,14 +83,15 @@ let g:tagbar_type_markdown = {
 " Set refresh time in ms
 let g:SrcExpl_RefreshTime = 1000
 " Is update tags when SrcExpl is opened
+" TODO 見直す
 let g:SrcExpl_isUpdateTags = 0
 " Tag update command
 let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase %'
 " Update all tags
 function! g:SrcExpl_UpdateAllTags()
-let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase -R .'
-call g:SrcExpl_UpdateTags()
-let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase %'
+    let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase -R .'
+    call g:SrcExpl_UpdateTags()
+    let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase %'
 endfunction
 " Source Explorer Window Height
 let g:SrcExpl_winHeight = 14
