@@ -56,20 +56,20 @@ nmap [finder]s :Fern %:h -reveal=%p -drawer<CR>
 
 " [KEYBIND] key=_ft; tags=finder,terminal; action=t-findrバッファでターミナルモードへ移行します;
 nmap [finder]t :call MyOpenTerminal(":tabe\n", "t-finder", "")<cr>
-" [KEYBIND] key=_fa; tags=finder,terminal; action=ターミナルモードへ移行し、プロジェクトトップへ移動して、fa(find any)します;
-nmap [finder]a :call MyOpenTerminal("", "t-finder-tmp", "cd_project_root; fa\n")<cr>
-" [KEYBIND] key=_fg; tags=finder,terminal; action=ターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します;
-nmap [finder]g :call MyOpenTerminal("", "t-finder-tmp", "cd_project_root; fgv\n")<cr>
-" [KEYBIND] key=_f.; tags=finder,terminal; action=ターミナルモードへ移行し、プロジェクトトップへ移動して、カーソル位置のワードでfgv(grep and vim)します;
-nmap [finder]. :call MyOpenTerminal("", "t-finder-tmp", "cd_project_root; fgv " . expand("<cword>") . "\n")<cr>
-" [KEYBIND] key=_fy; tags=finder,terminal; action=ターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します;
-nmap [finder]y :call MyOpenTerminal("", "t-finder-tmp", "cd_project_root; fgv " . getreg('"') . "\n")<cr>
+" [KEYBIND] key=_fa; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fa(find any)します;
+nmap [finder]a :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fa\n")<cr>
+" [KEYBIND] key=_fg; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します;
+nmap [finder]g :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fgv\n")<cr>
+" [KEYBIND] key=_f.; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、カーソル位置のワードでfgv(grep and vim)します;
+nmap [finder]. :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fgv " . expand("<cword>") . "\n")<cr>
+" [KEYBIND] key=_fy; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します;
+nmap [finder]y :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fgv " . getreg('"') . "\n")<cr>
 " [KEYBIND] key=_fi; tags=finder,terminal; action=ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います;
 nmap [finder]i :call MyOpenTerminal(":split\n :wincmd j\n :resize 20\n", "", "ffv " . getreg('%:p') . "\n")<cr>
 " [KEYBIND] key=_fI; tags=finder,terminal; action=カレントバッファでターミナルモードへ移行し、ファイル内の文字列検索を行います;
 nmap [finder]I :call MyOpenTerminal("", "t-finder-tmp", "ffv " . getreg('%:p') . "\n")<cr>
-" [KEYBIND] key=_fc; tags=finder,terminal; action=カレントバッファでターミナルモードへ移行し、fcv(find from cache and vim)します;
-nmap [finder]c :call MyOpenTerminal("", "t-finder-tmp", "fcv\n")<cr>
+" [KEYBIND] key=_fc; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、fcv(find from cache and vim)します;
+nmap [finder]c :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "fcv\n")<cr>
 
 " [KEYBIND] key=_tt; tags=terminal; action=t-terminalバッファでターミナルモードへ移行します;
 nmap [terminal]t :call MyOpenTerminal(":tabe\n", "t-terminal", "")<cr>

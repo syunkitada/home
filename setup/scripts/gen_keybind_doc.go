@@ -27,19 +27,19 @@ func main() {
 	keybindDocs := path.Join(pwd, "env_docs", "keybind")
 
 	// autohotkey
-	cmd := "grep '; \\[KEYBIND\\]' ~/autohotkey/* -r | awk -F '\\[KEYBIND\\]' '{print $2}'"
+	cmd := "grep '; \\[KEYBIND\\]' ~/autohotkey/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "n", cmd)
 
 	// vim
-	cmd = "grep '\" \\[KEYBIND\\]' ~/home/dotconfig/nvim/* -r | awk -F '\\[KEYBIND\\]' '{print $2}'"
+	cmd = "grep '\" \\[KEYBIND\\]' ~/home/dotconfig/nvim/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "vn", cmd)
 
 	// tmux
-	cmd = "grep '# \\[KEYBIND\\]' ~/home/dotfiles/.tmux.conf -r | awk -F '\\[KEYBIND\\]' '{print $2}'"
+	cmd = "grep '# \\[KEYBIND\\]' ~/home/dotfiles/.tmux.conf -r | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "t", cmd)
 
 	// zsh
-	cmd = "grep '# \\[COMMAND\\]' ~/home/dotfiles/.zsh/* -r | awk -F '\\[COMMAND\\]' '{print $2}'"
+	cmd = "grep '# \\[COMMAND\\]' ~/home/dotfiles/.zsh/* -r | sed -e 's/.*\\[COMMAND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "z", cmd)
 
 	for mode, keyMap := range modeKeyMap {
@@ -89,6 +89,9 @@ func appendKeyMap(modeKeyMap map[string]map[string]KeyBind, defaultMode string, 
 		if len(line) == 0 {
 			continue
 		}
+
+		line = strings.Replace(line, "\\\\", "<BACKSLASH>", -1)
+		line = strings.Replace(line, "\\;", "<SEMICOLON>", -1)
 		splitedLine := strings.Split(line, ";")
 		keyBind := KeyBind{Index: i}
 		for _, keyValue := range splitedLine {
@@ -98,6 +101,8 @@ func appendKeyMap(modeKeyMap map[string]map[string]KeyBind, defaultMode string, 
 			}
 			key := keyValues[0]
 			value := keyValues[1]
+			value = strings.Replace(value, "<SEMICOLON>", ";", -1)
+			value = strings.Replace(value, "<BACKSLASH>", "\\", -1)
 			switch key {
 			case "mode":
 				keyBind.Mode = value

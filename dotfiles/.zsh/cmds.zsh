@@ -20,6 +20,7 @@ function tx() {
 #
 # ssh, scp helpers
 #
+# [COMMAND] key=mssh [file]; tags=ssh; action=指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshします;
 function mssh() {
     if [ $# != 1 ]; then
         echo "Usage: mssh [file]"
@@ -44,9 +45,10 @@ function _mssh() {
 }
 
 
+# [COMMAND] key=cssh [file] [command]; tags=ssh; action=指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshで[command]を実行します;
 function cssh() {
     if [ $# != 1 ]; then
-        echo "Usage: cssh [file] [command...]"
+        echo "Usage: cssh [file] [command]"
         return 1
     fi
 
@@ -60,6 +62,7 @@ function cssh() {
 }
 
 
+# [COMMAND] key=scphome [host]; tags=ssh; action=homeの設定ファイルを[host]へscpします;
 function scphome() {
     if [ $# != 1 ]; then
         echo "Usage: scphome [target]"
@@ -144,3 +147,45 @@ function wdig() {
 }
 
 
+# [COMMAND] key=ssh-add -l; tags=ssh; action=登録済みのssh鍵一覧を表示します;
+# [COMMAND] key=sshadd; tags=ssh; action=ssh-agentに鍵を登録します;
+alias sshadd="run_ssh_agent_and_ssh_add"
+function run_ssh_agent_and_ssh_add() {
+    ssh_auth_sock="$HOME/.ssh/agent"
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+        # SSH_AUTH_SOCKが設定されてなければ設定する
+        export SSH_AUTH_SOCK=$ssh_auth_sock
+    fi
+    if [ -n "$SSH_AGENT_PID" ]; then
+        # SSH_AGENT_PIDが設定されており、プロセスが正しく存在するなら、ssh-add して終わり
+        if kill -0 $SSH_AGENT_PID; then
+            ssh_add
+            return 0
+        fi
+    fi
+    # ssh-agentが存在するなら、それをSSH_AGENT_PIDに設定して、ssh-addして終わり
+    if pid=`pgrep ssh-agent`; then
+        export SSH_AGENT_PID=$pid
+        ssh_add
+        return 0
+    fi
+
+    # 既存のsocketとプロセスを削除してから、ssh-agentを起動する
+    rm -rf /tmp/ssh-*
+    pkill ssh-agent
+    eval `ssh-agent`
+
+    ln -snf "$SSH_AUTH_SOCK" $ssh_auth_sock
+    export SSH_AUTH_SOCK=$ssh_auth_sock
+    ssh_add
+}
+
+function ssh_add() {
+    echo "SSH_AGENT_PID=${SSH_AGENT_PID}"
+    echo "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
+    if ssh-add -l | grep ED25519; then
+        echo "ssh-key is already registered"
+    else
+        ssh-add ~/.ssh/id_ed25519
+    fi
+}

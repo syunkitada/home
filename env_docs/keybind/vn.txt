@@ -1,15 +1,13 @@
-_o   [show]              ライトパネルでタグ一覧を表示する
-_ss  [show]              SrcExplの表示・非表示を切りかえます
 _ff  [finder]            カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
 _fs  [finder]            サイドパネルで、カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
 _ft  [finder][terminal]  t-findrバッファでターミナルモードへ移行します
-_fa  [finder][terminal]  ターミナルモードへ移行し、プロジェクトトップへ移動して、fa(find any)します
-_fg  [finder][terminal]  ターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します
-_f.  [finder][terminal]  ターミナルモードへ移行し、プロジェクトトップへ移動して、カーソル位置のワードでfgv(grep and vim)します
-_fy  [finder][terminal]  ターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します
+_fa  [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fa(find any)します
+_fg  [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します
+_f.  [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、カーソル位置のワードでfgv(grep and vim)します
+_fy  [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します
 _fi  [finder][terminal]  ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います
 _fI  [finder][terminal]  カレントバッファでターミナルモードへ移行し、ファイル内の文字列検索を行います
-_fc  [finder][terminal]  カレントバッファでターミナルモードへ移行し、fcv(find from cache and vim)します
+_fc  [finder][terminal]  新しいタブでターミナルモードへ移行し、fcv(find from cache and vim)します
 _tt  [terminal]          t-terminalバッファでターミナルモードへ移行します
 _tp  [terminal]          t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します
 s    [move]              easymotionへ移行します
@@ -22,3 +20,5 @@ _gb  [git][show]         git blameします
 _gd  [git][show]         git diffします
 _gp  [git][update]       git pullします
 _gu  [git][update]       git pushします
+_o   [show]              ライトパネルでタグ一覧を表示する
+_ss  [show]              SrcExplの表示・非表示を切りかえます

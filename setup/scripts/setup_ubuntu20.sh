@@ -19,6 +19,8 @@ sudo apt install -y python3 python3-venv python3-dev python3-pip
 sudo apt install -y exuberant-ctags clang-format
 curl https://raw.githubusercontent.com/jb55/typescript-ctags/master/.ctags > ~/.ctags
 
+pip3 install --user pynvim neovim black neovim-remote
+
 # install fzf
 if [ ! -e ~/.fzf ]; then
     git clone https://github.com/junegunn/fzf.git ~/.fzf

@@ -1,3 +1,8 @@
+mssh [file]                    [ssh]      指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshします
+cssh [file] [command]          [ssh]      指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshで[command]を実行します
+scphome [host]                 [ssh]      homeの設定ファイルを[host]へscpします
+ssh-add -l                     [ssh]      登録済みのssh鍵一覧を表示します
+sshadd                         [ssh]      ssh-agentに鍵を登録します
 ff                             [find]     vimでファイラを開きます
 fa                             [find]     ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開きます
 fgv [query:option]             [find]     文字列で(queryがあればqueryで)ファイルを検索して、vimで開きます
