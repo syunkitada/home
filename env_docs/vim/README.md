@@ -71,6 +71,11 @@
   - nvim-lsp
     - Neovim(0.5 以上) で利用可能な LSP クライアント
       - 要求バージョンが高いのでいったん見送り
+    - 以下を参照すればわかるが、nvim-lspconfig を入れて、LSP の設定をするだけで、タグジャンプや、補完などの機能が利用できる
+      - https://neovim.io/doc/user/lsp.html
+      - https://github.com/neovim/nvim-lspconfig
+      - nvim-lspconfig 以外のプラグインも導入しないと使えないように誤解されてるかもしれないがそんなことはない
+    - ただし、そのままでは使いずらいので補完機能の UI 部分を補強するようなプラグイン(nvim-cmp や、ddc.vim)と組み合わされて使われている
     - 参考
       - [Neovim builtin LSP 設定入門](https://zenn.dev/nazo6/articles/c2f16b07798bab)
       - [[第 13 回] Neovim のすゝめ – LSP をセットアップ（Builtin LSP 編）](https://wonwon-eater.com/nvim-susume-builtin-lsp/)
