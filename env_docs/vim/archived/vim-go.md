@@ -1,3 +1,6 @@
+# vim-go
+
+```
 " vim-go
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -90,3 +93,4 @@ nmap [vimgo]s :GoDefStack<CR>
 
 " :GoImpl [interface]
 " 指定したインターフェイスを実装したひな型コードを自動生成する
+```

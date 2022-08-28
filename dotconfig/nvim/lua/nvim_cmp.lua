@@ -1,39 +1,6 @@
-# nvim-cmp
-
-```
-[[plugins]]
-repo = 'https://github.com/neovim/nvim-lspconfig'
-
-[[plugins]]
-repo = 'hrsh7th/nvim-cmp'
-on_event = 'VimEnter'
-hook_source = '''lua require('plugins.nvim-cmp')'''
-
-[[plugins]]
-repo = 'hrsh7th/cmp-buffer'
-on_source = 'nvim-cmp'
-
-[[plugins]]
-repo = 'hrsh7th/cmp-path'
-on_source = 'nvim-cmp'
-
-[[plugins]]
-repo = 'hrsh7th/cmp-nvim-lsp'
-on_source = 'nvim-cmp'
-
-[[plugins]]
-repo = 'L3MON4D3/LuaSnip'
-on_source = 'nvim-cmp'
-```
-
-
-
-```
-set completeopt=menu,menuone,noselect
-
-lua <<EOF
-
--- Setup nvim-cmp.
+----------------------------------------------------------------------------------------------------
+-- nvim-cmpの設定
+----------------------------------------------------------------------------------------------------
 local cmp = require'cmp'
 
 cmp.setup({
@@ -94,16 +61,3 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-local lspconfig = require 'lspconfig'
-
-lspconfig.pylsp.setup{
-  capabilities = capabilities
-}
-
-
-EOF
-```
