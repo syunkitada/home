@@ -1,35 +1,30 @@
 # plugins for go
-[[plugins]]
-repo  = 'https://github.com/fatih/vim-go.git'
-rev = 'v1.18'
-on_ft = ['go']
+# [[plugins]]
+# repo  = 'https://github.com/fatih/vim-go.git'
+# rev = 'v1.18'
+# on_ft = ['go']
 
 # plugins for rust
-[[plugins]]
-repo  = 'https://github.com/rust-lang/rust.vim.git'
-on_ft = ['rust']
+# [[plugins]]
+# repo  = 'https://github.com/rust-lang/rust.vim.git'
+# on_ft = ['rust']
 
 # plugins for coffee
-[[plugins]]
-repo = 'https://github.com/kchmck/vim-coffee-script.git'
-on_ft = ['coffee']
+# [[plugins]]
+# repo = 'https://github.com/kchmck/vim-coffee-script.git'
+# on_ft = ['coffee']
 
 # Syntax highlighting for JSX in Typescript.(required by vim-jsx-typescript)
-[[plugins]]
-repo = 'https://github.com/leafgarland/typescript-vim.git'
-on_ft = ['typescript.tsx']
+# [[plugins]]
+# repo = 'https://github.com/leafgarland/typescript-vim.git'
+# on_ft = ['typescript.tsx']
 
 # Syntax highlighting for JSX in Typescript.
-[[plugins]]
-repo = 'https://github.com/peitalin/vim-jsx-typescript.git'
-on_ft = ['typescript.tsx']
+# [[plugins]]
+# repo = 'https://github.com/peitalin/vim-jsx-typescript.git'
+# on_ft = ['typescript.tsx']
 
 # Formatter for clang
-[[plugins]]
-repo = 'https://github.com/rhysd/vim-clang-format.git'
-on_ft = ['c']
-
-# Formatter for python
-[[plugins]]
-repo = 'https://github.com/psf/black.git'
-on_ft = ['python']
+# [[plugins]]
+# repo = 'https://github.com/rhysd/vim-clang-format.git'
+# on_ft = ['c']

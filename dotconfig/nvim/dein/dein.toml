@@ -1,13 +1,31 @@
+# ----------------------------------------------------------------------------------------------------
+# 雑多: 装飾、便利系など
+# ----------------------------------------------------------------------------------------------------
 # colorscheme
 [[plugins]]
 repo = 'https://github.com/w0ng/vim-hybrid'
 
-# colorscheme: hybridよりもおとなしい色合い(言い方を変えると色のメリハリが弱い
+# neovim-remoteは、terminalモードでvimを実行した際にvimをnestで起動せずに、カレントのvimでファイルを開けるようにするために必要
 [[plugins]]
-repo = 'https://github.com/cocopon/iceberg.vim'
+repo = 'https://github.com/mhinz/neovim-remote'
+
+# vim-signature: マークを少し見やすくします
+[[plugins]]
+repo = 'https://github.com/kshenoy/vim-signature'
+
+# vim-easymotion: normalモードでの移動を楽にする
+[[plugins]]
+repo = 'https://github.com/Lokaltog/vim-easymotion'
+
+# lightline: ステータスラインのカスタマイズ用
+[[plugins]]
+repo = 'https://github.com/itchyny/lightline.vim.git'
+# ----------------------------------------------------------------------------------------------------
 
 
+# ----------------------------------------------------------------------------------------------------
 # ファイラ
+# ----------------------------------------------------------------------------------------------------
 [[plugins]]
 repo = 'https://github.com/lambdalisue/fern.vim'
 
@@ -16,49 +34,12 @@ repo = 'https://github.com/lambdalisue/fern-hijack.vim'
 
 [[plugins]]
 repo = 'https://github.com/lambdalisue/fern-mapping-project-top.vim'
+# ----------------------------------------------------------------------------------------------------
 
 
-[[plugins]]
-# terminalモードでvimを実行できるようにするために必要
-repo = 'https://github.com/mhinz/neovim-remote'
-
-
-# vim-signature is plugin to extend mark
-[[plugins]]
-repo = 'https://github.com/kshenoy/vim-signature'
-
-# vim-easymotion is plugin to extend motion
-[[plugins]]
-repo = 'https://github.com/Lokaltog/vim-easymotion'
-
-# syntastic is plugin for syntax check
-[[plugins]]
-repo = 'https://github.com/scrooloose/syntastic.git'
-
-# tagbar is plugin to display tag list in side bar
-# this plugin require ctags
-[[plugins]]
-repo = 'https://github.com/majutsushi/tagbar.git'
-
-# for viewing markdown on tagbar
-[[plugins]]
-repo = 'https://github.com/jszakmeister/markdown2ctags.git'
-
-
-# SrcExpl is plugin to display definitions and declarations
-# this plugin require ctags
-[[plugins]]
-repo = 'https://github.com/wesleyche/SrcExpl'
-
-# lightline is plugin to configure statusline/tabline
-[[plugins]]
-repo = 'https://github.com/itchyny/lightline.vim.git'
-
-# formater for js, tsx, md, and others
-[[plugins]]
-repo = 'https://github.com/prettier/vim-prettier.git'
-
-# git
+# ----------------------------------------------------------------------------------------------------
+# git 関連
+# ----------------------------------------------------------------------------------------------------
 # basic plugin
 [[plugins]]
 repo = 'https://github.com/tpope/vim-fugitive'
@@ -70,7 +51,59 @@ repo = 'https://github.com/cohama/agit.vim'
 # show git diff marker
 [[plugins]]
 repo = 'https://github.com/airblade/vim-gitgutter'
+# ----------------------------------------------------------------------------------------------------
 
-# cscope
+
+# ----------------------------------------------------------------------------------------------------
+# lsp 関連
+# ----------------------------------------------------------------------------------------------------
 [[plugins]]
-repo = 'https://github.com/ronakg/quickr-cscope.vim'
+repo = 'https://github.com/neovim/nvim-lspconfig'
+
+[[plugins]]
+repo = 'hrsh7th/nvim-cmp'
+on_event = 'VimEnter'
+hook_source = '''lua require('plugins.nvim-cmp')'''
+
+[[plugins]]
+repo = 'hrsh7th/cmp-buffer'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-path'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-nvim-lsp'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-vsnip'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+on_source = 'nvim-cmp'
+
+# null-ls.nvimの依存
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
+# フォーマッタ、リンタ用のプラグイン
+[[plugins]]
+repo = 'https://github.com/jose-elias-alvarez/null-ls.nvim'
+on_source = 'plenary.nvim'
+
+# j-hui/fidget.nvim: LSのステータス表示
+[[plugins]]
+repo = 'j-hui/fidget.nvim'
+
+# LSP用のシグネチャ表示（関数の引数入力時の説明表示）
+[[plugins]]
+repo = 'ray-x/lsp_signature.nvim'
+
+# LSP用のリッチなUI
+# outline
+[[plugins]]
+repo = 'glepnir/lspsaga.nvim'
+# ----------------------------------------------------------------------------------------------------

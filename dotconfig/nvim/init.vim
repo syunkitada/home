@@ -71,6 +71,7 @@ if has('vim_starting')
     " autoload my vimscripts
     set runtimepath+=$XDG_CONFIG_HOME/nvim
     runtime! rc/*.vim
+    runtime! lua/*.lua
 endif
 
 " ----------------------------------------------------------------------------------------------------
@@ -185,6 +186,7 @@ let g:python3_host_prog = substitute(system('which python3'),"\n","","")
 
 filetype plugin on
 
+set termguicolors
 
 " ----------------------------------------------------------------------------------------------------
 " END common settings
