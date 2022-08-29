@@ -191,6 +191,7 @@ local on_attach = function(client, bufnr)
 
     init_null_ls()
     init_lspsaga()
+
 end
 
 
@@ -246,11 +247,3 @@ require('lspconfig')['gopls'].setup{
     flags = lsp_flags,
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
 }
-
-
-
-----------------------------------------------------------------------------------------------------
--- fidget
--- LSPのステータス表示用
-----------------------------------------------------------------------------------------------------
-require"fidget".setup{}

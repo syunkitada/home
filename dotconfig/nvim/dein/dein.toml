@@ -5,6 +5,10 @@
 [[plugins]]
 repo = 'https://github.com/w0ng/vim-hybrid'
 
+[[plugins]]
+repo = 'https://github.com/cocopon/iceberg.vim'
+
+
 # neovim-remoteは、terminalモードでvimを実行した際にvimをnestで起動せずに、カレントのvimでファイルを開けるようにするために必要
 [[plugins]]
 repo = 'https://github.com/mhinz/neovim-remote'
@@ -94,16 +98,12 @@ repo = 'nvim-lua/plenary.nvim'
 repo = 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 on_source = 'plenary.nvim'
 
-# j-hui/fidget.nvim: LSのステータス表示
-[[plugins]]
-repo = 'j-hui/fidget.nvim'
-
 # LSP用のシグネチャ表示（関数の引数入力時の説明表示）
 [[plugins]]
 repo = 'ray-x/lsp_signature.nvim'
 
 # LSP用のリッチなUI
-# outline
+# アウトライン表示、定義・参照の表示など
 [[plugins]]
 repo = 'glepnir/lspsaga.nvim'
 # ----------------------------------------------------------------------------------------------------

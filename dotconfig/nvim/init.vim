@@ -90,9 +90,10 @@ set fileencodings=utf-8
 set vb t_vb=
 
 " setting syntax color
+set termguicolors
 syntax on
-colorscheme hybrid
-" colorscheme iceberg
+" colorscheme hybrid
+colorscheme iceberg
 set background=dark
 
 " show status line for lightline
@@ -186,7 +187,6 @@ let g:python3_host_prog = substitute(system('which python3'),"\n","","")
 
 filetype plugin on
 
-set termguicolors
 
 " ----------------------------------------------------------------------------------------------------
 " END common settings
