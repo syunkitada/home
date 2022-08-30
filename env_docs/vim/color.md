@@ -25,8 +25,10 @@ TrueColor の利用方法
   - 以下のように TERM を設定すると 8bit にすることもできます
     - export TERM='xterm-256color'
 - tmux の設定
-  - set-option -g default-terminal "tmux-256color" # 基本的には screen-256color か tmux-256color を設定
   - set-option -ga terminal-overrides ",$TERM:Tc" # tmuxを起動していない時のzshでの$TERM の値を指定
+  - # set-option -g default-terminal "tmux-256color" # 基本的には screen-256color か tmux-256color を設定
+    - 環境によってはこれを設定するとバックスペースが効かなくなるので注意（TrueColor には影響ないので自分は設定しない）
+    - https://stackoverflow.com/questions/51488920/backspace-not-working-in-tmux-command-prompt
 - vim の設定
   - set termguicolors
 

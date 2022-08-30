@@ -118,6 +118,7 @@ function init_null_ls()
     local null_ls = require "null-ls"
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
     local h = require("null-ls.helpers")
+    local vim_version = vim.version()
     null_ls.setup({
         debug = true,
         sources = {
@@ -143,12 +144,25 @@ function init_null_ls()
         },
         on_attach = function(client, bufnr)
             if client.supports_method("textDocument/formatting") then
+                -- formatはnull_lsで行うため、lsp clientのformatを無効化する
+                if vim_version.major == 0 and vim_version.minor < 8 then
+                    client.resolved_capabilities.document_formatting = false
+                    client.resolved_capabilities.document_range_formatting = false
+                else
+                    client.server_capabilities.document_formatting = false
+                    client.server_capabilities.document_range_formatting = false
+                end
+
                 vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
                 vim.api.nvim_create_autocmd("BufWritePre", {
                     group = augroup,
                     buffer = bufnr,
                     callback = function()
-                        vim.lsp.buf.format({ bufnr = bufnr })
+                        if vim_version.major == 0 and vim_version.minor < 8 then
+                            vim.lsp.buf.formatting_sync()
+                        else
+                            vim.lsp.buf.format({ bufnr = bufnr })
+                        end
                     end,
                 })
             end 
