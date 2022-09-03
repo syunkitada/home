@@ -1,24 +1,57 @@
-_ff  [finder]            カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
-_fs  [finder]            サイドパネルで、カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
-_ft  [finder][terminal]  t-findrバッファでターミナルモードへ移行します
-_fa  [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fa(find any)します
-_fg  [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します
-_f.  [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、カーソル位置のワードでfgv(grep and vim)します
-_fy  [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します
-_fi  [finder][terminal]  ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います
-_fI  [finder][terminal]  カレントバッファでターミナルモードへ移行し、ファイル内の文字列検索を行います
-_fc  [finder][terminal]  新しいタブでターミナルモードへ移行し、fcv(find from cache and vim)します
-_tt  [terminal]          t-terminalバッファでターミナルモードへ移行します
-_tp  [terminal]          t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します
-s    [move]              easymotionへ移行します
-_gl  [git][show]         git logを表示します
-_gg  [git][show]         gitgutterのマーカの表示非表示を切り替えます（デフォルトは表示）
-_ga  [git][edit]         git addします
-_gc  [git][edit]         git commitします
-_gs  [git][show]         git statusします
-_gb  [git][show]         git blameします
-_gd  [git][show]         git diffします
-_gp  [git][update]       git pullします
-_gu  [git][update]       git pushします
-_o   [show]              ライトパネルでタグ一覧を表示する
-_ss  [show]              SrcExplの表示・非表示を切りかえます
+gg           [move]              一番上に移動します
+G            [move]              一番下に移動します
+[num]G       [move]              [num]行に移動します
+h            [move]              左へ移動します
+j            [move]              下へ移動します
+k            [move]              上へ移動します
+l            [move]              右へ移動します
+H            [move]              画面上へ移動します
+L            [move]              画面下へ移動します
+-            [move]              前の文頭に移動します
+<Enter>      [move]              次の文頭に移動します
+f[char]      [move]              カーソル後の一行から[c]を検索して移動します
+t[char]      [move]              カーソル後の一行から[c]を検索して、その手前まで移動します
+F[char]      [move]              カーソル前の一行から[c]を検索して移動します
+T[char]      [move]              カーソル前の一行から[c]を検索して、その手前まで移動します
+0            [move]              カーソル行の一番前に移動します
+$            [move]              カーソル行の一番後ろに移動します
+/[str...]    [move]              単語を下に検索します(n/Nで前/次の検索結果に移動します)
+?[str...]    [move]              単語を上に検索します(n/Nで前/次の検索結果に移動します)
+#            [move]              カーソル位置の単語を完全一致で上に検索します(n/Nで前/次の検索結果に移動します)
+g#           [move]              カーソル位置の単語を上に検索します(n/Nで前/次の検索結果に移動します)
+*            [move]              カーソル位置の単語を完全一致で下に検索します(n/Nで前/次の検索結果に移動します)
+g*           [move]              カーソル位置の単語を下に検索します(n/Nで前/次の検索結果に移動します)
+%            [move]              カーソル位置の括弧のペアの括弧に移動します
+d[move cmd]  [edit]              [move]対象の文字削除します
+D            [edit]              カーソル移行の一行を削除します
+gh           [show]              カーソル位置のワードの定義元、参照先の一覧を表示します
+gr           [edit]              LSPで名前を変更します
+gn           [move]              次のdiagnosticに移動します
+gp           [move]              前のdiagnosticに移動します
+_f           [show]              ファイルのアウトラインを表示します
+K            [show]              カーソル位置のワードのドキュメントを表示します
+_ff          [finder]            ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
+gf           [finder]            ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
+_fh          [finder]            カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
+_fs          [finder]            サイドパネルで、カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
+_ft          [finder][terminal]  t-findrバッファでターミナルモードへ移行します
+_fa          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fa(find any)します
+_fg          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します
+_f.          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、カーソル位置のワードでfgv(grep and vim)します
+_fy          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します
+_fi          [finder][terminal]  ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います
+_fI          [finder][terminal]  カレントバッファでターミナルモードへ移行し、ファイル内の文字列検索を行います
+_fc          [finder][terminal]  新しいタブでターミナルモードへ移行し、fcv(find from cache and vim)します
+_tt          [terminal]          t-terminalバッファでターミナルモードへ移行します
+_tp          [terminal]          t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します
+_tg          [terminal]          t-gitバッファでターミナルモードへ移行し、lazygitを実行します
+s            [move]              easymotionへ移行します
+_gl          [git][show]         git logを表示します
+_gg          [git][show]         gitgutterのマーカの表示非表示を切り替えます（デフォルトは表示）
+_ga          [git][edit]         git addします
+_gc          [git][edit]         git commitします
+_gs          [git][show]         git statusします
+_gb          [git][show]         git blameします
+_gd          [git][show]         git diffします
+_gp          [git][update]       git pullします
+_gu          [git][update]       git pushします

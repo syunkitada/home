@@ -1,29 +1,3 @@
-<!q        [window]       タブを閉じる
-<!w        [window]       カレントウインドウをメインモニタで最大化する
-<!e        [window]       カレントウインドウをサブモニタで最大化する
-<!r        [window]       カレントウインドウを最小化する
-<!t        [window]       新しいタブを開く
-<!+t       [window]       タブを閉じる
-<!u        [window]       under tmux を操作するためのプレフィックスを入力します
-<!i        [window]       internal vim のウィンドウを操作するためのプレフィックスを入力します
-<!o        [window]       over tmux を操作するためのプレフィックスを入力します
-<!a        [window]       カレントウィンドウをメインモニタの左に寄せます
-<!s        [window]       カレントウィンドウをメインモニタの右に寄せます
-<!d        [window]       カレントウィンドウをサブモニタの左に寄せます
-<!f        [window]       カレントウィンドウをサブモニタの右に寄せます
-<!g        [search]       コピーして、グーグルで検索します
-<!h        [window]       前のタブへ移動します（RLoginの時はvimのみ有効です）
-<!j        [window]       次のWindows画面へ移動します
-<!k        [window]       前のWindows画面へ移動します
-<!l        [window]       次のタブへ移動します（RLoginの時はvimのみ有効です）
-<!;        [window]       Windows画面の一覧を表示し、選択した画面へ移動します
-<!:        [command]      コマンドモードへ移行します
-<!z        [window]       カレントウィンドウを透明にします（濃い: カレントウィンドウにフォーカス）
-<!x        [window]       カレントウィンドウを透明にします（薄め: バックウィンドウにフォーカス）
-<!n        [window]       ページを下へスクロールします
-<!m        [window]       ページを上へスクロールします
-<!/        [search]       文字列検索モードへ移行します(ESCで戻ります)
-<!\        [search]       ブラウザを開いて（Explorerの場合はExplorerで）カーソルをアドレスバーにフォーカスします
 <RCtrl>    [keybind]      <ESC>キーを送信します
 !;         [keybind]      <'>キーを送信します
 !:         [keybind]      <">キーを送信します
@@ -49,12 +23,39 @@
 >^l        [move]         右へ移動します
 >^;        [move]         一番左へ移動します
 >^:        [move]         一番右へ移動します
->^c        [edit]         前の一単語を削除します(delete baCkward word)
->^v        [edit]         次の一単語を削除します(remoVe forward word)
+>^v        [edit]         前の一単語を削除します(remoVe backward word)
+>^b        [edit]         次の一単語を削除します(remove suBsequent word)
 >^n        [page]         ページを下へスクロールします
 >^m        [page]         ページを上へスクロールします
 >^,        [page]         ヒストリを前へ戻ります FIXME
 >^.        [page]         ヒストリを先へ進みます FIXME
 <TODO>     [page]         定義元へ飛びます FIXME
+<!q        [window]       タブを閉じる
+<!w        [window]       カレントウインドウをメインモニタで最大化する
+<!e        [window]       カレントウインドウをサブモニタで最大化する
+<!r        [window]       カレントウインドウを最小化する
+<!t        [window]       新しいタブを開く
+<!+t       [window]       タブを閉じる
+<!y        [window]       ブラウザをリロードします（ターミナルで実行した場合はウィンドウを切り替えてからリロードします）
+<!u        [window]       under tmux を操作するためのプレフィックスを入力します
+<!i        [window]       internal vim のウィンドウを操作するためのプレフィックスを入力します
+<!o        [window]       over tmux を操作するためのプレフィックスを入力します
+<!a        [window]       カレントウィンドウをメインモニタの左に寄せます
+<!s        [window]       カレントウィンドウをメインモニタの右に寄せます
+<!d        [window]       カレントウィンドウをサブモニタの左に寄せます
+<!f        [window]       カレントウィンドウをサブモニタの右に寄せます
+<!g        [search]       コピーして、グーグルで検索します
+<!h        [window]       前のタブへ移動します（RLoginの時はvimのみ有効です）
+<!j        [window]       次のWindows画面へ移動します
+<!k        [window]       前のWindows画面へ移動します
+<!l        [window]       次のタブへ移動します（RLoginの時はvimのみ有効です）
+<!;        [window]       Windows画面の一覧を表示し、選択した画面へ移動します
+<!:        [command]      コマンドモードへ移行します
+<!z        [window]       カレントウィンドウを透明にします（濃い: カレントウィンドウにフォーカス）
+<!x        [window]       カレントウィンドウを透明にします（薄め: バックウィンドウにフォーカス）
+<!n        [window]       ページを下へスクロールします
+<!m        [window]       ページを上へスクロールします
+<!/        [search]       文字列検索モードへ移行します(ESCで戻ります)
+<!\        [search]       ブラウザを開いて（Explorerの場合はExplorerで）カーソルをアドレスバーにフォーカスします
 >+<Space>  [language]     英数字入力に切り替えます
 >+<RCtrl>  [language]     ローマ字入力に切り替えます

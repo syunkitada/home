@@ -42,12 +42,48 @@ augroup fern_settings
   autocmd FileType fern call s:fern_settings()
 augroup END
 
-" [KEYBIND] key=_ff; tags=finder; action=カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
 " Fern . -reveal=%   | カレントディレクトリで開き、カーソルは現在開いたファイルにする
-nmap [finder]f :Fern %:h -reveal=%p<CR>
+" [KEYBIND] key=_ff; tags=finder; action=ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
+" [KEYBIND] key=gf; tags=finder; action=ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
+nmap gf :call OpenFern()<CR>
+nmap [finder]f :call OpenFern()<CR>
+" [KEYBIND] key=_fh; tags=finder; action=カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
+nmap [finder]h :Fern %:h -reveal=%p<CR>
 " [KEYBIND] key=_fs; tags=finder; action=サイドパネルで、カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
 " Fern . -reveal=% -drawer | ファイラをサイドパネルで開いたままにする（現在のバッファも表示されたまま）
 nmap [finder]s :Fern %:h -reveal=%p -drawer<CR>
+
+function! s:find_ferntabnr()
+    for tabnr in range(1, tabpagenr("$"))
+        for tabpagebuf in tabpagebuflist(tabnr)
+            if stridx(bufname(tabpagebuf), "fern:") == 0
+                return tabnr
+            endif
+        endfor
+    endfor
+    echo "debug end"
+    return -1
+endfunction
+
+function! OpenFern()
+    " fern tabを検索してあればそれをそのままtab移動する
+    let tabnr = s:find_ferntabnr()
+    if tabnr != tabpagenr() && tabnr != -1
+        call feedkeys(":tabn " . tabnr . "\n")
+        return
+    endif
+
+    " tabがなければfernを横二分割で開く
+    if line('$') != 1 || getline(1) != ''
+        call feedkeys(":tabnew\n")
+    endif
+    call feedkeys(":tabm 0\n")
+    call feedkeys(":Fern %:h -reveal=%p\n")
+    call feedkeys(":sleep 1000m\n")
+    call feedkeys(":e!\n")
+    call feedkeys(":vs\n")
+endfunction
+
 
 
 "
@@ -75,12 +111,17 @@ nmap [finder]c :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "fcv\n")<cr>
 nmap [terminal]t :call MyOpenTerminal(":tabe\n", "t-terminal", "")<cr>
 " [KEYBIND] key=_tp; tags=terminal; action=t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します;
 nmap [terminal]p :call MyOpenTerminal(":tabe\n", "t-project", "cd_project_root;")<cr>
+" [KEYBIND] key=_tg; tags=terminal; action=t-gitバッファでターミナルモードへ移行し、lazygitを実行します;
+nmap [terminal]g :call MyOpenTerminal(":tabe\n", "t-git", "lazygit\n")<cr>
 
 
 " terminalモードでは、<C-\><C-n> で Terminal-Normal
 " モードになるので、<ESC>にこれを割り当てる
 " [KEYBIND] mode=vt; key=<ESC>; tags=terminal; action=ノーマルモードへ移行します;
 tnoremap <ESC> <C-\><C-n>
+" [KEYBIND] mode=vt; key=<ESC><ESC>; tags=terminal; action=ターミナルモードを閉じます;
+tnoremap <ESC><ESC> <C-\><C-n>:q<CR>
+
 
 function! s:get_active_buffers()
     let l:blist = getbufinfo({'bufloaded': 1, 'buflisted': 1})
