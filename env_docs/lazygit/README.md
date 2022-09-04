@@ -25,18 +25,19 @@
 [KEYBIND] key=<Esc>; tags=move; action=戻る
 
 # ファイルパネル
-[KEYBIND] key=e; tags=move; action=ファイルをエディタで開きます
-[KEYBIND] key=_; tags=mark; action=ファイルをステージ・アンステージします
-[KEYBIND] key=a; tags=mark; action=すべてのファイルを変更ステージ・アンステージします
-[KEYBIND] key=c; tags=edit; action=コミットします
-[KEYBIND] key=C; tags=edit; action=gitの画面でコミットします
-[KEYBIND] key=f; tags=edit; action=フェッチします
-[KEYBIND] key=r; tags=edit; action=ファイルをリフレッシュします
-[KEYBIND] key=i; tags=edit; action=ファイルをignoreします
+[KEYBIND] key=e; mode=gf; tags=move; action=ファイルをエディタで開きます
+[KEYBIND] key=_; mode=gf; tags=mark; action=ファイルをステージ・アンステージします
+[KEYBIND] key=a; mode=gf; tags=mark; action=すべてのファイルを変更ステージ・アンステージします
+[KEYBIND] key=c; mode=gf; tags=edit; action=コミットします
+[KEYBIND] key=C; mode=gf; tags=edit; action=gitの画面でコミットします
+[KEYBIND] key=f; mode=gf; tags=edit; action=フェッチします
+[KEYBIND] key=r; mode=gf; tags=edit; action=ファイルをリフレッシュします
+[KEYBIND] key=i; mode=gf; tags=edit; action=ファイルをignoreします
 [KEYBIND] key=<Enter>; tags=move; action=プレビューパネルに移動します
 
 # ブランチパネル
-[KEYBIND] key=n; tags=edit; action=新しいブランチを作成します
-[KEYBIND] key=d; tags=edit; action=ブランチを削除します
-[KEYBIND] key=R; tags=edit; action=ブランチ名を変更します
+[KEYBIND] key=n; mode=gb; tags=edit; action=新しいブランチを作成します
+[KEYBIND] key=_; mode=gb; tags=edit; action=ブランチをチェックアウトします
+[KEYBIND] key=d; mode=gb; tags=edit; action=ブランチを削除します
+[KEYBIND] key=R; mode=gb; tags=edit; action=ブランチ名を変更します
 ```
