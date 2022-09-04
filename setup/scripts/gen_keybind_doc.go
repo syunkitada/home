@@ -27,20 +27,24 @@ func main() {
 	keybindDocs := path.Join(pwd, "env_docs", "keybind")
 
 	// autohotkey
-	cmd := "grep '; \\[KEYBIND\\]' ~/autohotkey/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
+	cmd := "grep '\\[KEYBIND\\]' ~/autohotkey/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "n", cmd)
 
 	// vim
-	cmd = "grep '\" \\[KEYBIND\\]' ~/home/dotconfig/nvim/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
+	cmd = "grep '\\[KEYBIND\\]' ~/home/dotconfig/nvim/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "vn", cmd)
 
 	// tmux
-	cmd = "grep '# \\[KEYBIND\\]' ~/home/dotfiles/.tmux.conf -r | sed -e 's/.*\\[KEYBIND\\]//g'"
+	cmd = "grep '\\[KEYBIND\\]' ~/home/dotfiles/.tmux.conf -r | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "t", cmd)
 
 	// zsh
-	cmd = "grep '# \\[COMMAND\\]' ~/home/dotfiles/.zsh/* -r | sed -e 's/.*\\[COMMAND\\]//g'"
+	cmd = "grep '\\[COMMAND\\]' ~/home/dotfiles/.zsh/* -r | sed -e 's/.*\\[COMMAND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "z", cmd)
+
+	// lazygit
+	cmd = "grep '\\[KEYBIND\\]' ~/home/env_docs/lazygit/README.md | sed -e 's/.*\\[KEYBIND\\]//g'"
+	appendKeyMapByCmd(modeKeyMap, "g", cmd)
 
 	for mode, keyMap := range modeKeyMap {
 		modeDoc := path.Join(keybindDocs, mode+".txt")
@@ -118,7 +122,7 @@ func appendKeyMap(modeKeyMap map[string]map[string]KeyBind, defaultMode string, 
 			keyBind.Mode = defaultMode
 		}
 		switch keyBind.Mode {
-		case "n", "vn", "vf", "vt", "t", "z":
+		case "n", "vn", "vf", "vl", "vt", "t", "z", "g":
 		default:
 			log.Fatalf("Unexpected Mode: mode=%s, line=%s", keyBind.Mode, line)
 		}

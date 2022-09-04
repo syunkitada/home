@@ -1,3 +1,4 @@
+d                  [window]     セッションをデタッチします
 s                  [window]     縦に画面を分割します
 v                  [window]     横に画面を分割します
 <Space>            [window]     新しい画面を作成します

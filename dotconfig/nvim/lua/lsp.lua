@@ -62,51 +62,27 @@ function init_lspsaga()
     -- Lsp finder find the symbol definition implement reference
     -- when you use action in finder like open vsplit then you can
     -- use <C-t> to jump back
+    -- [KEYBIND] mode=vn; key=gh; tags=show; action=カーソル位置のワードの定義元、参照先の一覧を表示します;
+    -- [KEYBIND] mode=vl; key=t; tags=move; action=タブで開く
+    -- [KEYBIND] mode=vl; key=o; tags=move; action=カレントバッファで開く
+    -- [KEYBIND] mode=vl; key=s; tags=move; action=横スプリットして開く
+    -- [KEYBIND] mode=vl; key=i; tags=move; action=縦スプリットして開く
+    -- [KEYBIND] mode=vl; key=q; tags=move; action=閉じる
     keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 
-    -- Code action
-    keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
-    keymap("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", { silent = true })
-
-    -- Rename
+    -- [KEYBIND] mode=vn; key=gr; tags=edit; action=LSPで名前を変更します
     keymap("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
 
-    -- Definition preview
-    keymap("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
+    -- [KEYBIND] mode=vn; key=gn; tags=move; action=次のdiagnosticに移動します
+    keymap("n", "gn", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
+    -- [KEYBIND] mode=vn; key=gp; tags=move; action=前のdiagnosticに移動します
+    keymap("n", "gp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
 
-    -- Show line diagnostics
-    keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
-
-    -- Show cursor diagnostic
-    keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
-
-    -- Diagnsotic jump can use `<c-o>` to jump back
-    keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
-    keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
-
-    -- Only jump to error
-    keymap("n", "[E", function()
-      require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
-    end, { silent = true })
-    keymap("n", "]E", function()
-      require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
-    end, { silent = true })
-
-    -- Outline
+    -- [KEYBIND] mode=vn; key=_f; tags=show; action=ファイルのアウトラインを表示します;
     keymap("n","<space>o", "<cmd>LSoutlineToggle<CR>",{ silent = true })
-
-    -- Hover Doc
+    -- [KEYBIND] mode=vn; key=K; tags=show; action=カーソル位置のワードのドキュメントを表示します;
     keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 
-    local action = require("lspsaga.action")
-    -- scroll in hover doc or  definition preview window
-    vim.keymap.set("n", "<C-f>", function()
-        action.smart_scroll_with_saga(1)
-    end, { silent = true })
-    -- scroll in hover doc or  definition preview window
-    vim.keymap.set("n", "<C-b>", function()
-        action.smart_scroll_with_saga(-1)
-    end, { silent = true })
 end
 
 
@@ -114,11 +90,35 @@ end
 ----------------------------------------------------------------------------------------------------
 -- null-lsの設定
 ----------------------------------------------------------------------------------------------------
-function init_null_ls()
+function init_null_ls(client)
     local null_ls = require "null-ls"
-    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
     local h = require("null-ls.helpers")
     local vim_version = vim.version()
+
+    -- フォーマットはnulllsで行うため、lspのフォーマットは無効化する
+    if vim_version.major == 0 and vim_version.minor < 8 then
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+    else
+        client.server_capabilities.document_formatting = false
+        client.server_capabilities.document_range_formatting = false
+    end
+
+    -- ファイル保存時にformatする
+    -- MEMO: 以下のwikiにいあるやり方だと、ファイル開いてからしばらくは動くがいつのまにかフォーマットが動かなくなった
+    --       https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
+    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+    vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        callback = function()
+            if vim_version.major == 0 and vim_version.minor < 8 then
+                vim.lsp.buf.formatting_sync()
+            else
+                vim.lsp.buf.format()
+            end
+        end,
+    })
+
     null_ls.setup({
         debug = true,
         sources = {
@@ -142,31 +142,6 @@ function init_null_ls()
             -- golang
             null_ls.builtins.formatting.goimports,
         },
-        on_attach = function(client, bufnr)
-            if client.supports_method("textDocument/formatting") then
-                -- formatはnull_lsで行うため、lsp clientのformatを無効化する
-                if vim_version.major == 0 and vim_version.minor < 8 then
-                    client.resolved_capabilities.document_formatting = false
-                    client.resolved_capabilities.document_range_formatting = false
-                else
-                    client.server_capabilities.document_formatting = false
-                    client.server_capabilities.document_range_formatting = false
-                end
-
-                vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                    group = augroup,
-                    buffer = bufnr,
-                    callback = function()
-                        if vim_version.major == 0 and vim_version.minor < 8 then
-                            vim.lsp.buf.formatting_sync()
-                        else
-                            vim.lsp.buf.format({ bufnr = bufnr })
-                        end
-                    end,
-                })
-            end 
-        end,
     })
 end
 
@@ -175,51 +150,19 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
-
-
     -- lsp_signature
     -- https://github.com/ray-x/lsp_signature.nvim
     require "lsp_signature".on_attach(signature_setup, bufnr)
 
-
-    init_null_ls()
+    init_null_ls(client)
     init_lspsaga()
 
 end
 
 
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
-
 local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
+    -- This is the default in Nvim 0.7+
+    debounce_text_changes = 150,
 }
 
 

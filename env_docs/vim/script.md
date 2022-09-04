@@ -1,5 +1,19 @@
 # vim script
 
+## メッセージの表示方法
+
+```
+# echoは、ステータスラインに文字列を出力します
+:echo "hello world"
+
+# echomは、ステータスラインに文字列を出力し、logとして記録されます
+:echom "hello world message"
+
+# echomで出力した文字列は、messagesで後で確認することができます
+:messages
+"hello world message"
+```
+
 ## 関数の命名規則
 
 ```
@@ -66,5 +80,6 @@ endfunction
 
 ## 参考
 
+- [Learn Vimscript the Hard Way](https://learnvimscriptthehardway.stevelosh.com/)
 - [チートシート](https://devhints.io/vimscript)
 - [Vim script の関数名について](https://osyo-manga.hatenadiary.org/entry/20130210/1360492784)

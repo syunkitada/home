@@ -20,6 +20,7 @@ function tx() {
 #
 # ssh, scp helpers
 #
+# [COMMAND] key=ssh [options] dest [command]; tags=ssh; action=sshを実行します;
 # [COMMAND] key=mssh [file]; tags=ssh; action=指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshします;
 function mssh() {
     if [ $# != 1 ]; then
@@ -61,7 +62,7 @@ function cssh() {
     done
 }
 
-
+# [COMMAND] key=scp [options] src dest; tags=ssh; action=scpでファイルを転送します;
 # [COMMAND] key=scphome [host]; tags=ssh; action=homeの設定ファイルを[host]へscpします;
 function scphome() {
     if [ $# != 1 ]; then
