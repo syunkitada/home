@@ -37,6 +37,7 @@
 
 # ブランチパネル
 [KEYBIND] key=n; tags=edit; action=新しいブランチを作成します
+[KEYBIND] key=_; tags=edit; action=ブランチをチェックアウトします
 [KEYBIND] key=d; tags=edit; action=ブランチを削除します
 [KEYBIND] key=R; tags=edit; action=ブランチ名を変更します
 ```
