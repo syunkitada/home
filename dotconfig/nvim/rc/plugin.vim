@@ -80,7 +80,6 @@ function! OpenFern()
     call feedkeys(":tabm 0\n")
     call feedkeys(":Fern %:h -reveal=%p\n")
     call feedkeys(":sleep 1000m\n")
-    call feedkeys(":e!\n")
     call feedkeys(":vs\n")
 endfunction
 
@@ -111,7 +110,9 @@ nmap [finder]c :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "fcv\n")<cr>
 nmap [terminal]t :call MyOpenTerminal(":tabe\n", "t-terminal", "")<cr>
 " [KEYBIND] key=_tp; tags=terminal; action=t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します;
 nmap [terminal]p :call MyOpenTerminal(":tabe\n", "t-project", "cd_project_root;")<cr>
+" [KEYBIND] key=gl; tags=terminal; action=t-gitバッファでターミナルモードへ移行し、lazygitを実行します;
 " [KEYBIND] key=_tg; tags=terminal; action=t-gitバッファでターミナルモードへ移行し、lazygitを実行します;
+nmap gl :call MyOpenTerminal(":tabe\n", "t-git", "lazygit\n")<cr>
 nmap [terminal]g :call MyOpenTerminal(":tabe\n", "t-git", "lazygit\n")<cr>
 
 
@@ -239,31 +240,11 @@ let g:EasyMotion_use_smartsign_jp = 1 " JP layout
 
 
 " -------------------------
-" git: agit, vim-gitgutter, vim-fugitive
-
-" [KEYBIND] key=_gl; tags=git,show; action=git logを表示します;
-nmap [git]l :Agit<CR>
-
+" git: vim-gitgutter
 " vim-gitgutter
 " [KEYBIND] key=_gg; tags=git,show; action=gitgutterのマーカの表示非表示を切り替えます（デフォルトは表示）;
 nmap [git]g :GitGutterToggle<CR>
 
-" vim-fugitive
-" gitの基本機能
-" [KEYBIND] key=_ga; tags=git,edit; action=git addします;
-nmap [git]a :Gwrite<CR>
-" [KEYBIND] key=_gc; tags=git,edit; action=git commitします;
-nmap [git]c :Gcommit -v<CR>
-" [KEYBIND] key=_gs; tags=git,show; action=git statusします;
-nmap [git]s :Gstatus<CR>
-" [KEYBIND] key=_gb; tags=git,show; action=git blameします;
-nmap [git]b :Gblame<CR>
-" [KEYBIND] key=_gd; tags=git,show; action=git diffします;
-nmap [git]d :Gdiff<CR>
-" [KEYBIND] key=_gp; tags=git,update; action=git pullします;
-nmap [git]p :Gpull<CR>
-" [KEYBIND] key=_gu; tags=git,update; action=git pushします;
-nmap [git]P :Gpush<CR>
 
 
 " -------------------------

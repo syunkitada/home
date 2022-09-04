@@ -60,7 +60,7 @@ source "${HOME}/.fzf/shell/key-bindings.zsh"
 
 # tree表示して、fzfで絞り込んで、ディレクトリならcdで移動して、ファイルならvimで開く
 find_and_cd_or_vim() {
-    LBUFFER=""
+    LBUFFER="$1"
     selected=$(tree --charset=o -f | fzf --query "$LBUFFER" --preview '
     f() {
         set -- $(echo -- "$@" | grep -o "\./.*$");
@@ -209,3 +209,25 @@ find_cache_and_vim() {
         vim $selected
     fi
 }
+
+
+
+# ドキュメント関連
+# [COMMAND] key=dcmd; tags=doc; action=コマンドのドキュメントを検索します
+alias dcmd="cd ~/home/docs/linux_cmd/ && find_and_cd_or_vim"
+# [COMMAND] key=dkey; tags=doc; action=キーバインドのドキュメントを検索します
+alias dkey="cd ~/home/env_docs/keybind/ && find_and_cd_or_vim"
+# [COMMAND] key=dkeyn; tags=doc; action=ノーマルモードのドキュメントを表示します
+alias dkeyn='vim ~/home/env_docs/keybind/n.txt'
+# [COMMAND] key=dkeyz; tags=doc; action=zshのコマンドのドキュメントを表示します
+alias dkeyz='vim ~/home/env_docs/keybind/z.txt'
+# [COMMAND] key=dkeyvn; tags=doc; action=vimノーマルモードのドキュメントを表示します
+alias dkeyvn='vim ~/home/env_docs/keybind/vn.txt'
+# [COMMAND] key=dkeyvf; tags=doc; action=vimファイラモードのドキュメントを表示します
+alias dkeyvf='vim ~/home/env_docs/keybind/vf.txt'
+# [COMMAND] key=dkeyvt; tags=doc; action=vimターミナルモードのドキュメントを表示します
+alias dkeyvt='vim ~/home/env_docs/keybind/vt.txt'
+# [COMMAND] key=dkeyt; tags=doc; action=tmuxのドキュメントを表示します
+alias dkeyt='vim ~/home/env_docs/keybind/t.txt'
+# [COMMAND] key=dkeyg; tags=doc; action=lazygitのドキュメントを表示します
+alias dkeyg='vim ~/home/env_docs/keybind/g.txt'

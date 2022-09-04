@@ -42,6 +42,10 @@ func main() {
 	cmd = "grep '\\[COMMAND\\]' ~/home/dotfiles/.zsh/* -r | sed -e 's/.*\\[COMMAND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "z", cmd)
 
+	// lazygit
+	cmd = "grep '\\[KEYBIND\\]' ~/home/env_docs/lazygit/README.md | sed -e 's/.*\\[KEYBIND\\]//g'"
+	appendKeyMapByCmd(modeKeyMap, "g", cmd)
+
 	for mode, keyMap := range modeKeyMap {
 		modeDoc := path.Join(keybindDocs, mode+".txt")
 		maxKeyLength := 0
@@ -118,7 +122,7 @@ func appendKeyMap(modeKeyMap map[string]map[string]KeyBind, defaultMode string, 
 			keyBind.Mode = defaultMode
 		}
 		switch keyBind.Mode {
-		case "n", "vn", "vf", "vl", "vt", "t", "z":
+		case "n", "vn", "vf", "vl", "vt", "t", "z", "g":
 		default:
 			log.Fatalf("Unexpected Mode: mode=%s, line=%s", keyBind.Mode, line)
 		}

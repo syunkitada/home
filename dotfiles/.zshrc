@@ -63,13 +63,15 @@ setopt nonomatch         # no matches foundを無効にする(これがあると
 
 
 ### Complement ###
-autoload -U compinit; compinit # 補完機能を有効にする
+autoload -Uz compinit; compinit # 補完機能を有効にする
 setopt auto_list               # 補完候補を一覧で表示する(d)
 setopt auto_menu               # 補完キー連打で補完候補を順に表示する(d)
 setopt list_packed             # 補完候補をできるだけ詰めて表示する
 setopt list_types              # 補完候補にファイルの種類も表示する
 bindkey "^[[Z" reverse-menu-complete  # Shift-Tabで補完候補を逆順する("\e[Z"でも動作する)
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
+zstyle ':completion:*' menu select matcher-list 'm:{a-z}={A-Z}' # 補完時に、選択した候補をハイライトする、大文字小文字を区別しない
+
 
 ### Glob ###
 setopt extended_glob # グロブ機能を拡張する
@@ -113,8 +115,6 @@ export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30
 export ZLS_COLORS=$LS_COLORS
 # lsコマンド時、自動で色がつく(ls -Gのようなもの？)
 export CLICOLOR=true
-# 補完候補に色を付ける
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # 色を定義
 local GREEN=$'%{\e[1;32m%}'

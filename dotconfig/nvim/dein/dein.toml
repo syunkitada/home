@@ -8,22 +8,30 @@ repo = 'https://github.com/w0ng/vim-hybrid'
 [[plugins]]
 repo = 'https://github.com/cocopon/iceberg.vim'
 
-
-# neovim-remoteは、terminalモードでvimを実行した際にvimをnestで起動せずに、カレントのvimでファイルを開けるようにするために必要
+# neovim-remote
+# terminalモードでvimを実行した際にvimをnestで起動せずに、カレントのvimでファイルを開けるようにするために必要
 [[plugins]]
 repo = 'https://github.com/mhinz/neovim-remote'
 
-# vim-signature: マークを少し見やすくします
-[[plugins]]
-repo = 'https://github.com/kshenoy/vim-signature'
-
-# vim-easymotion: normalモードでの移動を楽にする
+# vim-easymotion
+# normalモードでの移動を楽にする
 [[plugins]]
 repo = 'https://github.com/Lokaltog/vim-easymotion'
 
-# lightline: ステータスラインのカスタマイズ用
+# lightline
+# ステータスラインのカスタマイズ用
 [[plugins]]
 repo = 'https://github.com/itchyny/lightline.vim.git'
+
+# vim-signature
+# マークを少し見やすくします
+[[plugins]]
+repo = 'https://github.com/kshenoy/vim-signature'
+
+# vim-gitgutter
+# git diffをマーカとして表示します
+[[plugins]]
+repo = 'https://github.com/airblade/vim-gitgutter'
 # ----------------------------------------------------------------------------------------------------
 
 
@@ -38,23 +46,6 @@ repo = 'https://github.com/lambdalisue/fern-hijack.vim'
 
 [[plugins]]
 repo = 'https://github.com/lambdalisue/fern-mapping-project-top.vim'
-# ----------------------------------------------------------------------------------------------------
-
-
-# ----------------------------------------------------------------------------------------------------
-# git 関連
-# ----------------------------------------------------------------------------------------------------
-# basic plugin
-[[plugins]]
-repo = 'https://github.com/tpope/vim-fugitive'
-
-# git log viewer
-[[plugins]]
-repo = 'https://github.com/cohama/agit.vim'
-
-# show git diff marker
-[[plugins]]
-repo = 'https://github.com/airblade/vim-gitgutter'
 # ----------------------------------------------------------------------------------------------------
 
 

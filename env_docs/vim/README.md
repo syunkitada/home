@@ -52,7 +52,7 @@
 
 - メモ
   - LSP クライアントは、Neovim に標準でついてるのでそれを使うのがよさそう
-  - 補完用のプラグインは別途用意する（模索中）
+  - 補完用のプラグインは別途用意する
 - LSP
   - メモ
     - LSP はサーバ側、クライアント側で分かれており、vim にはクライアント側の実装を入れる必要がある
@@ -84,6 +84,7 @@
     - 長年お世話になっていたが、開発が止まってるので他のに切り替える
   - [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
     - nvim-lsp 連携できる
+    - これがよさそう
   - [asyncomplete.vim](https://github.com/prabirshrestha/asyncomplete.vim)
     - 参考
       - [asyncomplete.vim を使い始めた](https://qiita.com/hokorobi/items/b4be36253262373fbefc)

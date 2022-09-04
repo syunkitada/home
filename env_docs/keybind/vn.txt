@@ -44,14 +44,7 @@ _fI          [finder][terminal]  カレントバッファでターミナルモ�
 _fc          [finder][terminal]  新しいタブでターミナルモードへ移行し、fcv(find from cache and vim)します
 _tt          [terminal]          t-terminalバッファでターミナルモードへ移行します
 _tp          [terminal]          t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します
+gl           [terminal]          t-gitバッファでターミナルモードへ移行し、lazygitを実行します
 _tg          [terminal]          t-gitバッファでターミナルモードへ移行し、lazygitを実行します
 s            [move]              easymotionへ移行します
-_gl          [git][show]         git logを表示します
 _gg          [git][show]         gitgutterのマーカの表示非表示を切り替えます（デフォルトは表示）
-_ga          [git][edit]         git addします
-_gc          [git][edit]         git commitします
-_gs          [git][show]         git statusします
-_gb          [git][show]         git blameします
-_gd          [git][show]         git diffします
-_gp          [git][update]       git pullします
-_gu          [git][update]       git pushします

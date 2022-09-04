@@ -1,9 +1,8 @@
 ### Aliases ###
 # for interactive operation
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias motd_s='cat ~/home/motd/linux_system'
+# alias rm='rm -i'
+# alias cp='cp -i'
+# alias mv='mv -i'
 
 # alias for misc
 alias grep='grep --color'
@@ -14,10 +13,16 @@ alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
 
-# arias for screen and tmux
-alias st='ssh-agent tmux'
-alias t='tmux'
-alias ta='tmux a'
-alias tl='tmux ls'
+# git関連のコマンド
+# [COMMAND] key=gl; tags=git; action=lazygitを起動します;
+alias gl='lazygit'
 
+# tmux関連のコマンド
+# [COMMAND] key=t; tags=tmux; action=over tmuxを起動します;
+alias t='tmux'
+# [COMMAND] key=tt; tags=tmux; action=under tmuxを起動します;
 alias tt='IS_TMUXT=true tmux'
+# [COMMAND] key=ta; tags=tmux; action=tmuxセッションにアタッチします;
+alias ta='tmux a'
+# [COMMAND] key=tl; tags=tmux; action=tmuxセッション一覧を表示します;
+alias tl='tmux ls'
