@@ -46,8 +46,9 @@ func main() {
 	cmd = "grep '\\[KEYBIND\\]' ~/home/env_docs/lazygit/README.md | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "g", cmd)
 
+	// TODO 特定のmodeはファイルを分割しないようにする
+	modeDocMap := map[string]string{}
 	for mode, keyMap := range modeKeyMap {
-		modeDoc := path.Join(keybindDocs, mode+".txt")
 		maxKeyLength := 0
 		maxTagsLength := 0
 		keyBinds := []KeyBind{}
@@ -70,8 +71,25 @@ func main() {
 		for _, keyBind := range keyBinds {
 			docLines = append(docLines, fmt.Sprintf(formatLine, keyBind.Key, keyBind.Tags, keyBind.Action))
 		}
+		modeDocMap[mode] = strings.Join(docLines, "\n")
+	}
 
-		if err := ioutil.WriteFile(modeDoc, []byte(strings.Join(docLines, "\n")), 0644); err != nil {
+	mergeMap := map[string][]string{
+		"g": {"g", "gf", "gb"},
+	}
+	for name, modes := range mergeMap {
+		newDocs := []string{}
+		for _, mode := range modes {
+			doc := modeDocMap[mode]
+			newDocs = append(newDocs, "# "+mode+"\n"+doc)
+			delete(modeDocMap, mode)
+		}
+		modeDocMap[name] = strings.Join(newDocs, "\n\n")
+	}
+
+	for mode, doc := range modeDocMap {
+		modeDoc := path.Join(keybindDocs, mode+".txt")
+		if err := ioutil.WriteFile(modeDoc, []byte(doc), 0644); err != nil {
 			log.Fatalf("Failed WriteFile: err=%s", err.Error())
 		}
 		fmt.Printf("Generated: file=%s\n", modeDoc)
@@ -122,7 +140,7 @@ func appendKeyMap(modeKeyMap map[string]map[string]KeyBind, defaultMode string, 
 			keyBind.Mode = defaultMode
 		}
 		switch keyBind.Mode {
-		case "n", "vn", "vf", "vl", "vt", "t", "z", "g":
+		case "n", "vn", "vf", "vl", "vt", "t", "z", "g", "gf", "gb":
 		default:
 			log.Fatalf("Unexpected Mode: mode=%s, line=%s", keyBind.Mode, line)
 		}
