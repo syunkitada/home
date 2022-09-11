@@ -1,102 +1,121 @@
 # Service
 
 ## 主要コンポーネント
+
 kube-apiserver
-* Kubernetesのリソースを管理するAPIサーバ
+
+- Kubernetes のリソースを管理する API サーバ
 
 kubectl
-* kube-apiserverを叩くためのCLIクライアント
+
+- kube-apiserver を叩くための CLI クライアント
 
 etcd
-* Kubernetesのリソースデータを保管する分散KVS
+
+- Kubernetes のリソースデータを保管する分散 KVS
 
 kube-scheduler
-* Podをノードへ割り当てるスケジューラ
+
+- Pod をノードへ割り当てるスケジューラ
 
 kube-controller-manager
-* ReplicationControllerなどの各種コントローラを起動して管理するマネージャ
+
+- ReplicationController などの各種コントローラを起動して管理するマネージャ
 
 kube-proxy
-* KubernetesのServiceが持つClusterIP、ExternalIPへのアクセスをルーティングする
-* proxy-modeオプションで iptablesかuserspaceのモードを選択できる
-* iptables(デフォルトのプロキシモード)
-    * iptablesによってServiceのIPへのアクセスが来たらdnatしてPodへルーティングする
+
+- Kubernetes の Service が持つ ClusterIP、ExternalIP へのアクセスをルーティングする
+- proxy-mode オプションで iptables か userspace のモードを選択できる
+- iptables(デフォルトのプロキシモード)
+  - iptables によって Service の IP へのアクセスが来たら dnat して Pod へルーティングする
 
 kubelet
-* 各ノード上で動いており、自ノードのPodを管理(作成、削除、変更)する
-* 以下の4つの方法でPodの情報を取得し、管理します
-  * kube-apiを監視して、自ノードに割り当てられたRodを管理する
-  * ローカルファイル（/etc/kubernetes/manifestsディレクトリ以下のファイル)を監視して、manifestに書かれたPodを起動・変更する
-    * kube-api, kube-scheduler, kube-controller-manager, kube-proxy はkubeletのローカルファイルで定義して起動されることが多い
-    * --config で監視ディレクトリを指定
-    * --file-check-frequency で監視間隔(デフォルト20s)を指定
-  * HTTPエンドポイントを監視してそこに置かれたmanifestに書かれたPodを起動する
-    * --manifest-url で監視エンドポイントを指定
-    * --http-check-frequency で監視間隔(デフォルト20s)を指定
-  * Kubelete自身が持つHTTPサーバ に対してmanifestを送信することでPodが起動される
+
+- 各ノード上で動いており、自ノードの Pod を管理(作成、削除、変更)する
+- 以下の 4 つの方法で Pod の情報を取得し、管理します
+  - kube-api を監視して、自ノードに割り当てられた Rod を管理する
+  - ローカルファイル（/etc/kubernetes/manifests ディレクトリ以下のファイル)を監視して、manifest に書かれた Pod を起動・変更する
+    - kube-api, kube-scheduler, kube-controller-manager, kube-proxy は kubelet のローカルファイルで定義して起動されることが多い
+    - --config で監視ディレクトリを指定
+    - --file-check-frequency で監視間隔(デフォルト 20s)を指定
+  - HTTP エンドポイントを監視してそこに置かれた manifest に書かれた Pod を起動する
+    - --manifest-url で監視エンドポイントを指定
+    - --http-check-frequency で監視間隔(デフォルト 20s)を指定
+  - Kubelete 自身が持つ HTTP サーバ に対して manifest を送信することで Pod が起動される
 
 kube-dns(addon)
-* クラスタ内DNSのPod
-* Service Resouceが作成された際に、{Service名}.{ネームスペース}.svc.cluster.localという形式のFQDNでAレコード、SRVレコードに登録される
+
+- クラスタ内 DNS の Pod
+- Service Resouce が作成された際に、{Service 名}.{ネームスペース}.svc.cluster.local という形式の FQDN で A レコード、SRV レコードに登録される
 
 kubernetes-dashboard(addon)
-* ダッシュボード
 
+- ダッシュボード
 
 ## ネットワークコンポーネント
+
 cni
-* コンテナネットワークインターフェイス
-* flannelやcalicoといったネットワークプロバイダを利用するためのインターフェイス
-* cniによってPodにIPが払い出されPod間での通信が可能になる
+
+- コンテナネットワークインターフェイス
+- flannel や calico といったネットワークプロバイダを利用するためのインターフェイス
+- cni によって Pod に IP が払い出され Pod 間での通信が可能になる
 
 flannel
-* 仮想ブリッジと、XXLANで仮想ネットワークを提供
+
+- 仮想ブリッジと、XXLAN で仮想ネットワークを提供
 
 calico
-* BGPを利用してkubernetesクラスタ上のノード間でPodのIPアドレスを広報しあうことで、各ノード上からPodへのアクセスを可能にする
-* PodのIPは、外へは広報されないので完全に閉じたL3のプライベートネットワーク空間でPodが利用できる
 
+- BGP を利用して kubernetes クラスタ上のノード間で Pod の IP アドレスを広報しあうことで、各ノード上から Pod へのアクセスを可能にする
+- Pod の IP は、外へは広報されないので完全に閉じた L3 のプライベートネットワーク空間で Pod が利用できる
 
 ## 監視コンポーネント
+
 監視について
-* Kubernetesを使う上ではどこでアプリケーションが動いているかを正確に知ることができない
-* タグとラベルで管理しトラッキングすることが重要
-* イベントのハンドリングやアラートの仕組みも重要
+
+- Kubernetes を使う上ではどこでアプリケーションが動いているかを正確に知ることができない
+- タグとラベルで管理しトラッキングすることが重要
+- イベントのハンドリングやアラートの仕組みも重要
 
 cAdvisor
-* cAdvisorはGoogleが開発してるオープンソースのコンテナの監視ツール。
-* Kubernetesの各ホスト上で起動している
-* デフォルトで１秒毎に同じホストにあるコンテナのメトリックスを収集している
-* メモリ上に（デフォルトで）60秒分のメトリックスを保持し、APIとして提供している
-* CPU・メモリ・ネットワーク・ディスクのメトリクスを収集
+
+- cAdvisor は Google が開発してるオープンソースのコンテナの監視ツール。
+- Kubernetes の各ホスト上で起動している
+- デフォルトで１秒毎に同じホストにあるコンテナのメトリックスを収集している
+- メモリ上に（デフォルトで）60 秒分のメトリックスを保持し、API として提供している
+- CPU・メモリ・ネットワーク・ディスクのメトリクスを収集
 
 Heapster
-* [Github](https://github.com/kubernetes/heapster)
-* クラスタ単位のメトリックスの監視ツール
-* ホストを自動的に監視に追加しkubeletを通してcAdvisorからメトリックスを収集する
-  * メトリックス情報は、ラベルでPodをまとめてエクスポートされる
-* メトリックスのフォワード先のストレージバックエンドが必要
-  * InfluxDBが使われることが多い
-  * メトリックス表示にはGrafanaが使われることが多い
-* Heapsterを利用していればkubernetes-dashbord上でNamespaceごと、PodごとのCPU、メモリの使用量のグラフを見ることができる
+
+- [Github](https://github.com/kubernetes/heapster)
+- クラスタ単位のメトリックスの監視ツール
+- ホストを自動的に監視に追加し kubelet を通して cAdvisor からメトリックスを収集する
+  - メトリックス情報は、ラベルで Pod をまとめてエクスポートされる
+- メトリックスのフォワード先のストレージバックエンドが必要
+  - InfluxDB が使われることが多い
+  - メトリックス表示には Grafana が使われることが多い
+- Heapster を利用していれば kubernetes-dashbord 上で Namespace ごと、Pod ごとの CPU、メモリの使用量のグラフを見ることができる
 
 Prometheus
-* SoundCloudによって開発されているOSSのメトリックスの収集・監視システム
-* Google 出身者が Google 社内監視ツール Borgmon にインスパイアされて作成された
-* [アーキテクチャ](https://prometheus.io/docs/introduction/overview/#architecture)
-* サービスディスカバリの機能があるのでKubernetesと連携がしやすい
-* データの保存はローカルストレージなので大規模なスケールは怪しいが、Kubernetesクラスタ一つ分は監視できそう?
-* グラフの描画機能はPrometheus事態にもあるが、Grafanaを使うのが推奨
+
+- SoundCloud によって開発されている OSS のメトリックスの収集・監視システム
+- Google 出身者が Google 社内監視ツール Borgmon にインスパイアされて作成された
+- [アーキテクチャ](https://prometheus.io/docs/introduction/overview/#architecture)
+- サービスディスカバリの機能があるので Kubernetes と連携がしやすい
+- データの保存はローカルストレージなので大規模なスケールは怪しいが、Kubernetes クラスタ一つ分は監視できそう?
+- グラフの描画機能は Prometheus 事態にもあるが、Grafana を使うのが推奨
 
 kube-state-metrics
-* [Github](https://github.com/kubernetes/kube-state-metrics)
-* HeapsterはCPU・メモリ・ネットワーク・ディスクのメトリクスを管理しているが、kube-state-metricsはPod, Deployment, DaemonSetといったKubernetesで抽象化された単位でメトリックスを管理する
-* Prometheusと一緒に利用される
-   * [設定例](https://raw.githubusercontent.com/prometheus/prometheus/master/documentation/examples/prometheus-kubernetes.yml)
-* メトリックスは、メモリに保持しておいて、Prometheus golangクライアントを介してエクスポートされる(http://[svc]/metrics)
-* Prometheusのscraperによって消費されるように設計されている
-  * /metricsを開くと未処理のメトリックスが表示される
+
+- [Github](https://github.com/kubernetes/kube-state-metrics)
+- Heapster は CPU・メモリ・ネットワーク・ディスクのメトリクスを管理しているが、kube-state-metrics は Pod, Deployment, DaemonSet といった Kubernetes で抽象化された単位でメトリックスを管理する
+- Prometheus と一緒に利用される
+  - [設定例](https://raw.githubusercontent.com/prometheus/prometheus/master/documentation/examples/prometheus-kubernetes.yml)
+- メトリックスは、メモリに保持しておいて、Prometheus golang クライアントを介してエクスポートされる(http://[svc]/metrics)
+- Prometheus の scraper によって消費されるように設計されている
+  - /metrics を開くと未処理のメトリックスが表示される
 
 Fluentd + ElasticSearch
-* 各ノード上でFluentdをDaemonsetで動かしてログをElasticSearchに集約
-* ElasticSearchにログ検索・分析をする
+
+- 各ノード上で Fluentd を Daemonset で動かしてログを ElasticSearch に集約
+- ElasticSearch にログ検索・分析をする
