@@ -96,6 +96,10 @@ syntax on
 colorscheme iceberg
 set background=dark
 
+set lazyredraw " マクロの途中で画面を再描画しない
+set ttyfast " スクロール時に再描画するようにする
+set nocursorline " カーソルラインをハイライトしない（描画コストが高いため）
+
 " show status line for lightline
 set laststatus=2
 
