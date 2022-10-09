@@ -1,16 +1,16 @@
-# nvim-lspconfigを使ってみたメモ
+# nvim-lspconfig を使ってみたメモ
 
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
 
-## 事前に各種Languageサーバをインストールする
+## 事前に各種 Language サーバをインストールする
 
 ```
 $ npm i -g pyright
 ```
 
-## vim側の設定
+## vim 側の設定
 
-- とりあえず使ってみる場合は公式の設定そのままでOK
+- とりあえず使ってみる場合は公式の設定そのままで OK
 
 ```
 [[plugins]]
@@ -65,8 +65,17 @@ require('lspconfig')['pyright'].setup{
 EOF
 ```
 
-ステータスの確認
+## 便利コマンド
+
+- 状態確認
 
 ```
 :LspInfo
+```
+
+- LSP の再起動
+  - 依存とかを更新して再読み込みさせたいときなどに使う
+
+```
+:LspRestart
 ```
