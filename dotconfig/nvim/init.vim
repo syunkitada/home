@@ -100,6 +100,12 @@ set lazyredraw " マクロの途中で画面を再描画しない
 set ttyfast " スクロール時に再描画するようにする
 set nocursorline " カーソルラインをハイライトしない（描画コストが高いため）
 
+" memory settings
+" パターンマッチングに使うメモリ量の最大値(defaultは1000)
+" ファイルの行数が多かったりするとメモリが足りなくてシンタックスが効かなくなるため多めにする
+set maxmempattern=10000
+
+
 " show status line for lightline
 set laststatus=2
 
@@ -187,7 +193,6 @@ set t_ut=
 
 " Enable python3 provider
 let g:python3_host_prog = substitute(system('which python3'),"\n","","")
-
 
 filetype plugin on
 
