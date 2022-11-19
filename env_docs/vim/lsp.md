@@ -4,15 +4,15 @@
 
 ## 言語ごとの LSP、フォーマッタ、リンタ
 
-- nvim-lspconfigで利用可能なLSP は以下を参考に
+- nvim-lspconfig で利用可能な LSP は以下を参考に
   - https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-- null-lsで利用可能なツールは以下を参考に
+- null-ls で利用可能なツールは以下を参考に
   - https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 - python
   - LSP: pyright
   - Formater: black
   - Linter: flake8
-- web系全般
+- web 系全般
   - LSP: tailwindcss
   - Formatter: prittier
   - Linter: ?
@@ -24,26 +24,30 @@
   - LSP: gopls
   - Formatter: goimports
   - Linter: [golangci-lint](https://github.com/golangci/golangci-lint)
+- shell
+  - LSP: bashls
+    - shellcheck も含まれる
+  - Formatter:
 - rust
   - LSP: ?
   - Formatter: ?
   - Linter: ?
 
-## nvim-lspと関連プラグインについて
+## nvim-lsp と関連プラグインについて
 
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
   - LSP 設定用のプラグイン（公式）
   - 最低限のことはこれだけでできる
   - そのままだと不便なので操作性拡張のためにプラグインを別途導入するほうが良い
-  - [nvim-lspconfig使ってみたメモ](nvim-lspconfig.md)
+  - [nvim-lspconfig 使ってみたメモ](nvim-lspconfig.md)
 - [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
   - 補完機能用のプラグイン(nvim-lsp をソースとして補完できる)
-  - nvim-comは、補完機能のためのプラグインです
-  - cmp-xxxは、保管ための情報源(source)を提供するためのプラグインです
-    - [cmp-buffer](https://github.com/hrsh7th/cmp-buffer): bufferの文字をsourceとして提供する
-    - [cmp-path](https://github.com/hrsh7th/cmp-path): ファイルシステムパスをsourceとして提供します
-    - [cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline): vimのコマンドラインをsourceとして提供します（不要かも？）
-    - [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp): lspをsourceとして提供します
+  - nvim-com は、補完機能のためのプラグインです
+  - cmp-xxx は、保管ための情報源(source)を提供するためのプラグインです
+    - [cmp-buffer](https://github.com/hrsh7th/cmp-buffer): buffer の文字を source として提供する
+    - [cmp-path](https://github.com/hrsh7th/cmp-path): ファイルシステムパスを source として提供します
+    - [cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline): vim のコマンドラインを source として提供します（不要かも？）
+    - [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp): lsp を source として提供します
   - hrsh7th/cmp-vsnip, hrsh7th/vim-vsnip は、スニペットのためのプラグインです
 - [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) -フォーマッタ・リンタ
   - 様々なツールを LSP の形式に変換して nvim-lsp に送る仕組みになっている
