@@ -141,6 +141,9 @@ function init_null_ls(client)
 
             -- golang
             null_ls.builtins.formatting.goimports,
+
+            -- shell
+            null_ls.builtins.formatting.shfmt,
         },
     })
 end
@@ -203,4 +206,11 @@ require('lspconfig')['gopls'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
+}
+
+require('lspconfig')['bashls'].setup{
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
+    filetypes = { "sh" },
 }
