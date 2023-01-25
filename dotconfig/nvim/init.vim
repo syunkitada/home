@@ -62,9 +62,9 @@ if dein#load_state(s:dein_dir)
 endif
 
 " もし、未インストールのプラグインがあればインストールします
-if dein#check_install()
-  call dein#install()
-endif
+" if dein#check_install()
+"   call dein#install()
+" endif
 
 " vim_starting is true only at start up
 if has('vim_starting')
