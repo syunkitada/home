@@ -9,7 +9,7 @@ if type pip3; then
 	pip3 install --user pynvim neovim neovim-remote
 
 	# install for python develop tools
-	pip3 install --user black flake8
+	pip3 install --user black flake8 isort
 else
 	echo "Skipped installing python tools because of pip3 is not installed"
 fi
