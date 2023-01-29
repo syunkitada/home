@@ -16,3 +16,9 @@
 $ sudo cp /usr/share/doc/initscripts-9.03.46/sysvinitfiles /etc/init.d/openstack-keystone
 $ sudo chmod 755 /etc/init.d/openstack-keystone
 ```
+
+## edit
+
+```
+systemd edit tuned
+```
