@@ -49,3 +49,14 @@ fi
 
 # setup language-servers for c
 install clang clangd clang-format
+
+# https://github.com/watchexec/watchexec
+# ファイルの変更検知して自動でプロセス再起動してくれる
+if ! type watchexec; then
+	WATCHEXEC_VERSION=1.21.1
+	cd /tmp || exit 1
+	wget https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
+	sudo apt install /tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
+	rm /tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
+	cd - || exit 1
+fi
