@@ -2,6 +2,10 @@
 
 set +ex
 
+function setup_init() {
+	echo "init"
+}
+
 function install() {
 	for pkg in "$@"; do
 		dpkg -l "$pkg" || sudo apt install "$pkg"

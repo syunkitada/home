@@ -33,7 +33,7 @@ if &runtimepath !~# '/dein.vim'
         " MEMO masterだとプラグインがロードできなかった
         execute '!git clone https://github.com/Shougo/dein.vim -b 2.2' s:dein_repo_dir
     else
-        execute '!git clone https://github.com/Shougo/dein.vim -b 2.2' s:dein_repo_dir
+        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
     endif
   endif
   if has("gui_running") && has('win32')
@@ -62,9 +62,10 @@ if dein#load_state(s:dein_dir)
 endif
 
 " もし、未インストールのプラグインがあればインストールします
-" if dein#check_install()
-"   call dein#install()
-" endif
+if dein#check_install()
+   call dein#install()
+   " call dein#update()
+endif
 
 " vim_starting is true only at start up
 if has('vim_starting')
