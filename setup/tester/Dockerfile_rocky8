@@ -1,0 +1,8 @@
+FROM rockylinux:8.7
+
+RUN yum install -y sudo make openssh-server && \
+    useradd tester && \
+    gpasswd -a tester tester && \
+    echo "tester ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+ENTRYPOINT [ "sleep", "36000" ]

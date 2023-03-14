@@ -13,6 +13,10 @@ $ tcpdump -D
 # デバイスでフィルタリング
 $ sudo tcpdump -i [device]
 
+# 全デバイスでキャプチャする
+# -i なしだと適当なデバイスでキャプチャされるのでanyか、何かしらのデバイスを指定するとよい
+$ sudo tcpdump -i any ...
+
 # ホスト名でフィルタリング
 $ sudo tcpdump host [hostname]
 

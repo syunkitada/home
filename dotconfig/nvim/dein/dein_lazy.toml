@@ -10,9 +10,9 @@
 # on_ft = ['rust']
 
 # plugins for coffee
-# [[plugins]]
-# repo = 'https://github.com/kchmck/vim-coffee-script.git'
-# on_ft = ['coffee']
+[[plugins]]
+repo = 'https://github.com/kchmck/vim-coffee-script.git'
+on_ft = ['coffee']
 
 # Syntax highlighting for JSX in Typescript.(required by vim-jsx-typescript)
 # [[plugins]]

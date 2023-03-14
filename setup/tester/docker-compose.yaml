@@ -28,6 +28,18 @@ services:
         ipv4_address: 10.100.11.2
     entrypoint: bash -c "chown ${SUDO_UID}:${SUDO_GID} ${HOME} &&  /usr/sbin/sshd -D"
 
+  rocky8:
+    hostname: rocky8.example.com
+    build:
+      context: .
+      dockerfile: ./Dockerfile_rocky8
+    user: "1000:1000"
+    working_dir: "/home/tester"
+    volumes:
+      - "${HOME}/home:/home/tester/home:ro"
+    network_mode: "host"
+    entrypoint: bash -c "sleep 36000"
+
   ubuntu20:
     hostname: ubuntu20.example.com
     build:

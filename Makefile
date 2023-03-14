@@ -43,6 +43,8 @@ tester-bash-centos7:
 	sudo docker exec -it tester_centos7_1 bash
 tester-ssh-centos7:
 	ssh 10.100.11.2
+tester-bash-rocky8:
+	sudo docker exec -it tester_rocky8_1 bash
 tester-bash-ubuntu20:
 	sudo docker exec -it tester_ubuntu20_1 bash
 # ----------------------------------------------------------------------------------------------------
