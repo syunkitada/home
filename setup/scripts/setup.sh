@@ -15,3 +15,4 @@ if [ "$OS_NAME" = "Ubuntu" ]; then
 fi
 
 setup_init
+./link_dotfiles.sh
