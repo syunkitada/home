@@ -29,9 +29,9 @@ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 " runtimepathにdeinを追加する
 if &runtimepath !~# '/dein.vim'
   if !isdirectory(s:dein_repo_dir)
-    if GetNVimVersion() < 0.4
-        " MEMO masterだとプラグインがロードできなかった
-        execute '!git clone https://github.com/Shougo/dein.vim -b 2.2' s:dein_repo_dir
+    if GetNVimVersion() < 0.8
+        " MEMO masterだと、nvim-0.8以上を要求してくるのでブランチを固定します
+        execute '!git clone https://github.com/Shougo/dein.vim -b 3.1' s:dein_repo_dir
     else
         execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
     endif

@@ -1,66 +1,92 @@
 #!/bin/bash
 
-set +ex
+set -ex
 
-function setup_init() {
-	echo "init"
-}
-
-function install() {
+function _install() {
 	for pkg in "$@"; do
-		dpkg -l "$pkg" || sudo apt install "$pkg"
+		dpkg -s "$pkg" || sudo apt install -y "$pkg"
 	done
 }
 
-# 汎用ツール類のインストール
-sudo apt update -y
-install curl git zsh build-essential ncurses-dev snapd
+function setup_base_tools() {
+	echo "skip setup_base_tools"
+}
 
-# pythonとその関連パッケージのインストール
-install python3 python3-venv python3-dev python3-pip
+function setup_dev_tools() {
+	# 汎用ツール類のインストール
+	sudo apt update -y
+	_install curl git zsh build-essential ncurses-dev snapd
 
-# for building tmux
-install libevent-dev ncurses-dev build-essential bison pkg-config
-./setup_tmux.sh
+	# pythonとその関連パッケージのインストール
+	_install python3 python3-venv python3-dev python3-pip
+
+	# setup node
+	if [ ! -e /usr/local/bin/node ]; then
+		_install nodejs npm
+		sudo npm install --global n
+		sudo n stable
+		sudo apt remove -y nodejs npm
+
+		mkdir -p "${HOME}/.npm-packages"
+		npm config set prefix "${HOME}/.npm-packages"
+	fi
+
+	# https://github.com/watchexec/watchexec
+	# ファイルの変更検知して自動でプロセス再起動してくれる
+	if ! type watchexec; then
+		WATCHEXEC_VERSION=${WATCHEXEC_VERSION:-1.21.1}
+		cd /tmp || exit 1
+		wget https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
+		sudo apt install /tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
+		rm /tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
+		cd - || exit 1
+	fi
+}
+
+# install tmux
+TMUX_VERSION=${TMUX_VERSION:-3.3}
+function setup_tmux() {
+	_install libevent-dev ncurses-dev build-essential bison pkg-config
+	if [ ! -e ~/.local/bin/tmux ]; then
+		_PWD=$PWD
+		cd /tmp || exit 1
+		curl -kLO https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
+		tar -zxvf tmux-${TMUX_VERSION}.tar.gz
+		cd tmux-${TMUX_VERSION} || exit 1
+		./configure --prefix="${HOME}/.local"
+		make
+		sudo make install
+		cd ../
+		rm -rf tmux-*
+		cd ${_PWD}
+	fi
+}
+
+function setup_dev_clang() {
+	_install clang clangd clang-format
+}
 
 # ファイル検索ツール
-install silversearcher-ag
-# install fzf
-if [ ! -e ~/.fzf ]; then
-	git clone https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install --bin
-fi
+# _install silversearcher-ag
 
 # razygit
 # https://github.com/jesseduffield/lazygit
-LAZYGIT_VERSION=0.35
-if [ "$(lazygit --version | sed -r 's/^.*version=([0-9]+\.[0-9]+), .*$/\1/')" != "${LAZYGIT_VERSION}" ]; then
-	curl -Lo lazygit.tar.gz https://github.com/jesseduffield/lazygit/releases/download/v0.35/lazygit_0.35_Linux_x86_64.tar.gz
-	tar -xzf lazygit.tar.gz -C ~/.local/bin lazygit
-	rm lazygit.tar.gz
-fi
+# LAZYGIT_VERSION=0.35
+# if [ "$(lazygit --version | sed -r 's/^.*version=([0-9]+\.[0-9]+), .*$/\1/')" != "${LAZYGIT_VERSION}" ]; then
+# 	curl -Lo lazygit.tar.gz https://github.com/jesseduffield/lazygit/releases/download/v0.35/lazygit_0.35_Linux_x86_64.tar.gz
+# 	tar -xzf lazygit.tar.gz -C ~/.local/bin lazygit
+# 	rm lazygit.tar.gz
+# fi
 
-# setup node
-if [ ! -e /usr/local/bin/node ]; then
-	install -y nodejs npm
-	sudo npm install --global n
-	sudo n stable
-	sudo apt remove -y nodejs npm
+function help() {
+	cat <<EOS
+setup_base_tools
+setup_dev_tools
+setup_tmux
+setup_dev_clang
+EOS
+}
 
-	mkdir -p "${HOME}/.npm-packages"
-	npm config set prefix "${HOME}/.npm-packages"
-fi
-
-# setup language-servers for c
-install clang clangd clang-format
-
-# https://github.com/watchexec/watchexec
-# ファイルの変更検知して自動でプロセス再起動してくれる
-if ! type watchexec; then
-	WATCHEXEC_VERSION=1.21.1
-	cd /tmp || exit 1
-	wget https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
-	sudo apt install /tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
-	rm /tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
-	cd - || exit 1
+if [ $# != 0 ]; then
+	${@}
 fi
