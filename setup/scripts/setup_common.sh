@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+. confrc
 
 # NVIM-0.8.X は、GLIBC_2.29を要求してくるがRocky8のGLIBは2.28なので、0.7.2を利用します
 NEOVIM_VERSION=${NEOVIM_VERSION:-v0.7.2}
@@ -10,9 +11,34 @@ function setup_init() {
 	mkdir -p ~/.local
 }
 
+function setup_dotfiles() {
+	# dotfiles 内のファイルのシンボリックリンクを ~/ に作成します
+	# dotconfig 内のファイルのシンボリックリンクを ~/.config に作成します
+
+	export ROOT=${HOME}/home/
+	cd "$ROOT"
+
+	XDG_CONFIG_HOME=${HOME}/.config
+	mkdir -p "${XDG_CONFIG_HOME}"
+
+	for file in $(find dotfiles -name '.*' -printf "%f\n"); do
+		src=${ROOT}/dotfiles/${file}
+		dst=${HOME}/${file}
+		rm -f "$dst"
+		ln -s "$src" "$dst"
+	done
+
+	for file in $(ls dotconfig); do
+		src=${ROOT}/dotconfig/${file}
+		dst=${HOME}/.config/${file}
+		rm -f "$dst"
+		ln -s "$src" "$dst"
+	done
+}
+
 function setup_nvim() {
 	if [ "$(nvim --version | grep 'NVIM v')" != "NVIM ${NEOVIM_VERSION}" ]; then
-		curl -fsSL https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux64.tar.gz |
+		curl -fsSL "https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux64.tar.gz" |
 			gunzip | tar x --strip-components=1 -C ~/.local
 	fi
 
@@ -37,7 +63,7 @@ function setup_dev_web() {
 function setup_dev_go() {
 	if [ "$(go version | grep 'go version' | awk '{print $3}')" != "go${GO_VERSION}" ]; then
 		rm -rf /usr/local/go
-		curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz |
+		curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" |
 			gunzip | sudo tar x --strip-components=1 -C /usr/local
 
 		# LSP for go
@@ -79,9 +105,17 @@ function setup_dev_rust() {
 function help() {
 	cat <<EOS
 setup_init
+setup_dotfiles
+setup_nvim
+setup_fzf
+setup_dev_go
+setup_dev_web
+setup_dev_python
+setup_dev_rust
+setup_dev_shell
 EOS
 }
 
 if [ $# != 0 ]; then
-	${@}
+	"${@}"
 fi

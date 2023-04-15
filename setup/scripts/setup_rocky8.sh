@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set +x
+set -e
+. confrc
 
 function setup_base_tools() {
 	# findutils:  find command
@@ -21,26 +22,25 @@ function setup_dev_tools() {
 		sudo /usr/local/bin/n stable
 		sudo yum remove -y nodejs npm
 
-		mkdir -p ${NPM_PACKAGES}
+		mkdir -p "${NPM_PACKAGES}"
 		npm config set prefix "${HOME}/.npm-packages"
 	fi
 }
 
 # install tmux
-TMUX_VERSION=${TMUX_VERSION:-3.3}
 function setup_tmux() {
 	if [ ! -e ~/.local/bin/tmux ]; then
 		_PWD=$PWD
 		cd /tmp || exit 1
-		curl -kLO https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
-		tar -zxvf tmux-${TMUX_VERSION}.tar.gz
-		cd tmux-${TMUX_VERSION} || exit 1
+		curl -kLO "https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
+		tar -zxvf "tmux-${TMUX_VERSION}.tar.gz"
+		cd "tmux-${TMUX_VERSION}" || exit 1
 		./configure --prefix="${HOME}/.local"
 		make
 		sudo make install
 		cd ../
 		rm -rf tmux-*
-		cd ${_PWD}
+		cd "${_PWD}"
 	fi
 }
 
@@ -53,5 +53,5 @@ EOS
 }
 
 if [ $# != 0 ]; then
-	${@}
+	"${@}"
 fi

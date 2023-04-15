@@ -23,6 +23,14 @@ clone_programming_repos:
 	test -e ~/programming_python || git clone git@github.com:syunkitada/programming_python.git ~/programming_python
 	test -e ~/programming_web || git clone git@github.com:syunkitada/programming_web.git ~/programming_web
 
+.PHONY: setup
+setup:
+	cd setup/scripts; ./setup.sh
+
+.PHONY: check
+check:
+	cd setup/scripts; ./check.sh
+
 
 # ----------------------------------------------------------------------------------------------------
 # tester

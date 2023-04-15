@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export TMUX_VERSION=${TMUX_VERSION:-3.3}
+export NEOVIM_VERSION=${NEOVIM_VERSION:-v0.7.2}
+export GO_VERSION=${GO_VERSION:-1.20.3}
+export SETUP_RUST=${SETUP_RUST:-false}

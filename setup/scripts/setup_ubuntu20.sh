@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -ex
+set -e
+. confrc
 
 function _install() {
 	for pkg in "$@"; do
@@ -36,9 +37,9 @@ function setup_dev_tools() {
 	if ! type watchexec; then
 		WATCHEXEC_VERSION=${WATCHEXEC_VERSION:-1.21.1}
 		cd /tmp || exit 1
-		wget https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
-		sudo apt install /tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
-		rm /tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb
+		wget "https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+		sudo apt install "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+		rm "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
 		cd - || exit 1
 	fi
 }
@@ -50,15 +51,15 @@ function setup_tmux() {
 	if [ ! -e ~/.local/bin/tmux ]; then
 		_PWD=$PWD
 		cd /tmp || exit 1
-		curl -kLO https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
-		tar -zxvf tmux-${TMUX_VERSION}.tar.gz
-		cd tmux-${TMUX_VERSION} || exit 1
+		curl -kLO "https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
+		tar -zxvf "tmux-${TMUX_VERSION}.tar.gz"
+		cd "tmux-${TMUX_VERSION}" || exit 1
 		./configure --prefix="${HOME}/.local"
 		make
 		sudo make install
 		cd ../
 		rm -rf tmux-*
-		cd ${_PWD}
+		cd "${_PWD}"
 	fi
 }
 
@@ -88,5 +89,5 @@ EOS
 }
 
 if [ $# != 0 ]; then
-	${@}
+	"${@}"
 fi
