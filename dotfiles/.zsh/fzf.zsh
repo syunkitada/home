@@ -92,12 +92,33 @@ find_grep_and_vim() {
         --ansi --phony --query "$INITIAL_QUERY" \
         --preview 'cat `echo {} | cut -f 1 --delim ":"`')
   filename=$(echo $selected_file | awk -F ':' '{print $1}')
+  if [ "$filename" == "" ]; then
+      return 0
+  fi
   linenum=$(echo $selected_file | awk -F ':' '{print $2}')
   option=""
   if [ "$linenum" != "" ]; then
     option="+${linenum}"
   fi
   vim $option $filename
+}
+
+# [DOC]をgrep(ag)してvimで開く
+find_grep_doc_and_vim() {
+  INITIAL_QUERY=""
+  if [ $# != 0 ]; then
+    INITIAL_QUERY=$1
+  fi
+  RG_PREFIX="ag"
+  selected_file=$(FZF_DEFAULT_COMMAND="$RG_PREFIX '\[DOC]' | sed -e 's/:.*\[.*] /:/g'" \
+      fzf --bind "change:reload($RG_PREFIX '\[DOC]' | ($RG_PREFIX {q} || cat) | sed -e 's/:.*\[.*] /:/g')" \
+        --ansi --phony --query "$INITIAL_QUERY" \
+        --preview 'cat `echo {} | cut -f 1 --delim ":"`')
+  filename=$(echo $selected_file | awk -F ':' '{print $1}')
+  if [ "$filename" == "" ]; then
+      return 0
+  fi
+  vim $filename
 }
 
 # 特定ファイルに限定してgrep(ag & fzf)してvimで開く
@@ -210,7 +231,9 @@ find_cache_and_vim() {
 
 # ドキュメント関連
 # [COMMAND] key=dcmd; tags=doc; action=コマンドのドキュメントを検索します
-alias dcmd="cd ~/home/docs/linux_cmd/ && find_and_cd_or_vim"
+# alias dcmd="cd ~/home/docs/linux_cmd/ && find_and_cd_or_vim"
+# [COMMAND] key=dcmdcicd; tags=doc; action=コマンドのドキュメントを検索します
+alias dcmd="cd ~/home/docs/linux_cmd && find_grep_doc_and_vim"
 # [COMMAND] key=dkey; tags=doc; action=キーバインドのドキュメントを検索します
 alias dkey="cd ~/home/env_docs/keybind/ && find_and_cd_or_vim"
 # [COMMAND] key=dkeyn; tags=doc; action=ノーマルモードのドキュメントを表示します
