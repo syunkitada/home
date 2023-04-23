@@ -4,9 +4,9 @@ This repository manages my personal configuration files and documents.
 
 ## Initial setup procedures for each OS
 
-- [Setup Windows](docs_env/os/windows.md)
-- [Setup CentOS](docs_env/os/centos.md)
-- [Setup Ubuntu](docs_env/os/ubuntu.md)
+- [Setup Windows](docs_env/os/windows/README.md)
+- [Setup CentOS](docs_env/os/centos/README.md)
+- [Setup Ubuntu](docs_env/os/ubuntu/README.md)
 
 ```
 # Initial setup procedures for shell

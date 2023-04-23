@@ -1,5 +1,7 @@
 # shutdown, reboot
 
+[DOC] 電源管理をします
+
 ## shutdown
 
 ```

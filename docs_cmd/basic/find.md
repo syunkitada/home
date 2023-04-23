@@ -1,5 +1,7 @@
 # find
 
+[DOC] ファイルを検索します
+
 ## find して rename する
 
 ```
