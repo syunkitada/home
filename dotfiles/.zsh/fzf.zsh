@@ -229,24 +229,25 @@ find_cache_and_vim() {
 
 
 
-# ドキュメント関連
-# [COMMAND] key=dcmd; tags=doc; action=コマンドのドキュメントを検索します
-# alias dcmd="cd ~/home/docs/linux_cmd/ && find_and_cd_or_vim"
-# [COMMAND] key=dcmdcicd; tags=doc; action=コマンドのドキュメントを検索します
-alias dcmd="cd ~/home/docs/linux_cmd && find_grep_doc_and_vim"
-# [COMMAND] key=dkey; tags=doc; action=キーバインドのドキュメントを検索します
-alias dkey="cd ~/home/env_docs/keybind/ && find_and_cd_or_vim"
-# [COMMAND] key=dkeyn; tags=doc; action=ノーマルモードのドキュメントを表示します
-alias dkeyn='vim ~/home/env_docs/keybind/n.txt'
-# [COMMAND] key=dkeyz; tags=doc; action=zshのコマンドのドキュメントを表示します
-alias dkeyz='vim ~/home/env_docs/keybind/z.txt'
-# [COMMAND] key=dkeyvn; tags=doc; action=vimノーマルモードのドキュメントを表示します
-alias dkeyvn='vim ~/home/env_docs/keybind/vn.txt'
-# [COMMAND] key=dkeyvf; tags=doc; action=vimファイラモードのドキュメントを表示します
-alias dkeyvf='vim ~/home/env_docs/keybind/vf.txt'
-# [COMMAND] key=dkeyvt; tags=doc; action=vimターミナルモードのドキュメントを表示します
-alias dkeyvt='vim ~/home/env_docs/keybind/vt.txt'
-# [COMMAND] key=dkeyt; tags=doc; action=tmuxのドキュメントを表示します
-alias dkeyt='vim ~/home/env_docs/keybind/t.txt'
-# [COMMAND] key=dkeyg; tags=doc; action=lazygitのドキュメントを表示します
-alias dkeyg='vim ~/home/env_docs/keybind/g.txt'
+# ドキュメントの検索
+# [COMMAND] key=doccmd; tags=doc; action=コマンドのドキュメントを検索します
+# [COMMAND] key=doccmdg; tags=doc; action=コマンドのドキュメントを検索します
+alias doccmd="cd ~/home/docs_cmd && find_grep_doc_and_vim"
+alias doccmdg="cd ~/home/docs_cmd && find_and_cd_or_vim"
+# [COMMAND] key=docops; tags=doc; action=コマンドのドキュメントを検索します
+# [COMMAND] key=docopsg; tags=doc; action=コマンドのドキュメントを検索します
+alias docops="cd ~/home/docs_ops && find_grep_doc_and_vim"
+alias docopsg="cd ~/home/docs_ops && find_and_cd_or_vim"
+
+
+# キーバインドの検索
+# [COMMAND] key=dockey; tags=doc; action=キーバインドのドキュメントを検索します
+alias dockey="cd ~/home/docs_env/keybind/ && find_and_cd_or_vim"
+# [COMMAND] key=dockeydefault; tags=doc; action=ノーマルモードのドキュメントを表示します
+alias dockeydefault='vim ~/home/docs_env/keybind/default.txt'
+# [COMMAND] key=dockeyzsh; tags=doc; action=zshのコマンドのドキュメントを表示します
+alias dockeyzsh='vim ~/home/docs_env/keybind/zsh.txt'
+# [COMMAND] key=dockeyvim; tags=doc; action=vimノーマルモードのドキュメントを表示します
+alias dockeyvim='vim ~/home/docs_env/keybind/vim.txt'
+# [COMMAND] key=dockeytmux; tags=doc; action=tmuxのドキュメントを表示します
+alias dockeytmux='vim ~/home/docs_env/keybind/tmux.txt'

@@ -24,14 +24,14 @@ func main() {
 	modeKeyMap := map[string]map[string]KeyBind{}
 
 	pwd := os.Getenv("PWD")
-	keybindDocs := path.Join(pwd, "env_docs", "keybind")
+	keybindDocs := path.Join(pwd, "docs_env", "keybind")
 
 	// autohotkey
 	cmd := "grep '\\[KEYBIND\\]' ~/autohotkey/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "n", cmd)
 
 	// vim
-	cmd = "grep '\\[KEYBIND\\]' ~/home/dotconfig/nvim/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
+	cmd = "grep '\\[KEYBIND\\]' ~/home/xdgconfig/nvim/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "vn", cmd)
 
 	// tmux
@@ -42,11 +42,6 @@ func main() {
 	cmd = "grep '\\[COMMAND\\]' ~/home/dotfiles/.zsh/* -r | sed -e 's/.*\\[COMMAND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "z", cmd)
 
-	// lazygit
-	cmd = "grep '\\[KEYBIND\\]' ~/home/env_docs/lazygit/README.md | sed -e 's/.*\\[KEYBIND\\]//g'"
-	appendKeyMapByCmd(modeKeyMap, "g", cmd)
-
-	// TODO 特定のmodeはファイルを分割しないようにする
 	modeDocMap := map[string]string{}
 	for mode, keyMap := range modeKeyMap {
 		maxKeyLength := 0
@@ -75,7 +70,10 @@ func main() {
 	}
 
 	mergeMap := map[string][]string{
-		"g": {"g", "gf", "gb"},
+		"default": {"n"},
+		"vim":     {"vn", "vf", "vt", "vl"},
+		"tmux":    {"t"},
+		"zsh":     {"zsh"},
 	}
 	for name, modes := range mergeMap {
 		newDocs := []string{}
@@ -140,7 +138,7 @@ func appendKeyMap(modeKeyMap map[string]map[string]KeyBind, defaultMode string, 
 			keyBind.Mode = defaultMode
 		}
 		switch keyBind.Mode {
-		case "n", "vn", "vf", "vl", "vt", "t", "z", "g", "gf", "gb":
+		case "n", "vn", "vl", "vf", "vt", "t", "z", "g", "gf", "gb":
 		default:
 			log.Fatalf("Unexpected Mode: mode=%s, line=%s", keyBind.Mode, line)
 		}

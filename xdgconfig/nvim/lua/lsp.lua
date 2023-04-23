@@ -62,27 +62,26 @@ function init_lspsaga()
     -- Lsp finder find the symbol definition implement reference
     -- when you use action in finder like open vsplit then you can
     -- use <C-t> to jump back
-    -- [KEYBIND] mode=vn; key=gh; tags=show; action=カーソル位置のワードの定義元、参照先の一覧を表示します;
-    -- [KEYBIND] mode=vl; key=t; tags=move; action=タブで開く
-    -- [KEYBIND] mode=vl; key=o; tags=move; action=カレントバッファで開く
-    -- [KEYBIND] mode=vl; key=s; tags=move; action=横スプリットして開く
-    -- [KEYBIND] mode=vl; key=i; tags=move; action=縦スプリットして開く
-    -- [KEYBIND] mode=vl; key=q; tags=move; action=閉じる
+    -- [KEYBIND] mode=vl; key=t; tags=lsp_modal,move; action=タブで開く
+    -- [KEYBIND] mode=vl; key=o; tags=lsp_modal,move; action=カレントバッファで開く
+    -- [KEYBIND] mode=vl; key=s; tags=lsp_modal,move; action=横スプリットして開く
+    -- [KEYBIND] mode=vl; key=i; tags=lsp_modal,move; action=縦スプリットして開く
+    -- [KEYBIND] mode=vl; key=q; tags=lsp_modal,move; action=閉じる
 
-    -- [KEYBIND] mode=vn; key=gj; tags=show; action=カーソル位置のワードの定義先、参照先へ移動します
+    -- [KEYBIND] mode=vn; key=gj; tags=lsp,show; action=カーソル位置のワードの定義先、参照先へ移動します
     keymap("n", "gj", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
-    -- [KEYBIND] mode=vn; key=gh; tags=show; action=カーソル位置のワードのドキュメントを表示します;
+    -- [KEYBIND] mode=vn; key=gh; tags=lsp,show; action=カーソル位置のワードのドキュメントを表示します;
     keymap("n", "gh", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 
-    -- [KEYBIND] mode=vn; key=go; tags=show; action=ファイルのアウトラインを表示します;
+    -- [KEYBIND] mode=vn; key=go; tags=lsp,show; action=ファイルのアウトラインを表示します;
     keymap("n","go", "<cmd>LSoutlineToggle<CR>",{ silent = true })
 
-    -- [KEYBIND] mode=vn; key=gr; tags=edit; action=LSPで名前を変更します
+    -- [KEYBIND] mode=vn; key=gr; tags=lsp,edit; action=カーソル位置のワードの名前を変更します
     keymap("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
 
-    -- [KEYBIND] mode=vn; key=gn; tags=move; action=次のdiagnosticに移動します
+    -- [KEYBIND] mode=vn; key=gn; tags=lsp,move; action=次のdiagnosticに移動します
     keymap("n", "gn", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
-    -- [KEYBIND] mode=vn; key=gp; tags=move; action=前のdiagnosticに移動します
+    -- [KEYBIND] mode=vn; key=gp; tags=lsp,move; action=前のdiagnosticに移動します
     keymap("n", "gp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
 
 end

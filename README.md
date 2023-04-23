@@ -8,6 +8,12 @@ This repository manages my personal configuration files and documents.
 - [Setup CentOS](docs_env/os/centos.md)
 - [Setup Ubuntu](docs_env/os/ubuntu.md)
 
+```
+# Initial setup procedures for shell
+$ make setup
+$ make check
+```
+
 ## About key binding
 
 Key bindings are managed by [autohotkey](https://github.com/syunkitada/autohotkey).

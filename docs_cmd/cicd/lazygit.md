@@ -1,7 +1,8 @@
 # lazygit
 
+[DOC] git 操作のための UI です
+
 - [lazygit](https://github.com/jesseduffield/lazygit)
-- git 操作のためのリッチな UI です
 
 ## keybind
 
