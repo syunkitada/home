@@ -9,10 +9,6 @@ function _install() {
 	done
 }
 
-function setup_base_tools() {
-	echo "skip setup_base_tools"
-}
-
 function setup_dev_tools() {
 	# 汎用ツール類のインストール
 	sudo apt update -y

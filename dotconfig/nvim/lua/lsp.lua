@@ -68,7 +68,14 @@ function init_lspsaga()
     -- [KEYBIND] mode=vl; key=s; tags=move; action=横スプリットして開く
     -- [KEYBIND] mode=vl; key=i; tags=move; action=縦スプリットして開く
     -- [KEYBIND] mode=vl; key=q; tags=move; action=閉じる
-    keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+
+    -- [KEYBIND] mode=vn; key=gj; tags=show; action=カーソル位置のワードの定義先、参照先へ移動します
+    keymap("n", "gj", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+    -- [KEYBIND] mode=vn; key=gh; tags=show; action=カーソル位置のワードのドキュメントを表示します;
+    keymap("n", "gh", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+
+    -- [KEYBIND] mode=vn; key=go; tags=show; action=ファイルのアウトラインを表示します;
+    keymap("n","go", "<cmd>LSoutlineToggle<CR>",{ silent = true })
 
     -- [KEYBIND] mode=vn; key=gr; tags=edit; action=LSPで名前を変更します
     keymap("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
@@ -77,11 +84,6 @@ function init_lspsaga()
     keymap("n", "gn", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
     -- [KEYBIND] mode=vn; key=gp; tags=move; action=前のdiagnosticに移動します
     keymap("n", "gp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
-
-    -- [KEYBIND] mode=vn; key=_f; tags=show; action=ファイルのアウトラインを表示します;
-    keymap("n","<space>o", "<cmd>LSoutlineToggle<CR>",{ silent = true })
-    -- [KEYBIND] mode=vn; key=K; tags=show; action=カーソル位置のワードのドキュメントを表示します;
-    keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 
 end
 

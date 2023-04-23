@@ -44,6 +44,11 @@ function setup_tmux() {
 	fi
 }
 
+function setup_dev_clang() {
+	# clang-tools-extraにclangdも入ってます
+	sudo yum install -y clang clang-tools-extra
+}
+
 function help() {
 	cat <<EOS
 setup_base_tools

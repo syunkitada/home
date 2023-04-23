@@ -7,6 +7,10 @@ set -e
 NEOVIM_VERSION=${NEOVIM_VERSION:-v0.7.2}
 GO_VERSION=${GO_VERSION:-1.20.3}
 
+function setup_base_tools() {
+	echo "skip setup_base_tools"
+}
+
 function setup_init() {
 	mkdir -p ~/.local
 }
@@ -100,6 +104,10 @@ function setup_dev_rust() {
 	if [ ! -e ~/.cargo ]; then
 		curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path --profile default
 	fi
+}
+
+function setup_dev_clang() {
+	echo "skip setup_dev_clang"
 }
 
 function help() {
