@@ -33,7 +33,7 @@ function! s:fern_settings() abort
 
     " Terminalモード
     nmap <silent> <buffer> T <Plug>(fern-action-terminal)
-    nmap <silent> <buffer> f <Plug>(fern-action-terminal) :call feedkeys("i\n fff\n")<CR>
+    nmap <silent> <buffer> f <Plug>(fern-action-terminal) :call feedkeys("i\n fa\n")<CR>
     nmap <silent> <buffer> F <Plug>(fern-action-terminal) :call feedkeys("i\n fgv\n")<CR>
 endfunction
 
@@ -146,12 +146,14 @@ function! s:find_tabnr(bufnr)
     return -1
 endfunction
 
+
+" 環境変数 VIMTERMINAL=true とセットしておくことで、terminal時のzshrcの挙動を一部変更できるようにします
+" 例えば、vim terminalでは、vimのaliasにnvrを利用するなど（これによりnestedでvimを起動しないようにできる）
+let $VIMTERMINAL = "true"
 set shell=zsh
 function! MyOpenTerminal(prekeys, name, keys) abort
     " $BUFFERSのファイルを候補にできるようにするため、環境変数に入れておく
     let $VIM_BUFFERS = join(s:get_active_buffers(), " ")
-    " VIMTERMINAL=true によって、zshrcの挙動を一部変更できるようにする
-    let $VIMTERMINAL = "true"
     if a:name == ""
         call feedkeys(a:prekeys . ":terminal\n i\n" . a:keys)
     else
