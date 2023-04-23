@@ -5,16 +5,8 @@ index:
 deploy:
 	cd ../home-index/; git commit -am 'update'; git push
 
-centos7:
-	./setup/scripts/link_dotfiles.sh
-	./setup/scripts/setup_centos7.sh
-
-ubuntu20:
-	./setup/scripts/link_dotfiles.sh
-	./setup/scripts/setup_ubuntu20.sh
-
 gen_keybind_doc:
-	go run setup/scripts/gen_keybind_doc.go
+	go run tools/scripts/gen_keybind_doc.go
 
 clone_programming_repos:
 	test -e ~/programming_go || git clone git@github.com:syunkitada/programming_go.git ~/programming_go
@@ -22,6 +14,14 @@ clone_programming_repos:
 	test -e ~/programming_rust || git clone git@github.com:syunkitada/programming_rust.git ~/programming_rust
 	test -e ~/programming_python || git clone git@github.com:syunkitada/programming_python.git ~/programming_python
 	test -e ~/programming_web || git clone git@github.com:syunkitada/programming_web.git ~/programming_web
+
+.PHONY: setup
+setup:
+	cd tools/scripts; ./setup.sh
+
+.PHONY: check
+check:
+	cd tools/scripts; ./check.sh
 
 
 # ----------------------------------------------------------------------------------------------------

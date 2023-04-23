@@ -1,4 +1,10 @@
 ### Aliases ###
+
+for a in `alias | awk -F '=' '{print $1}'`
+do
+    unalias $a
+done
+
 # for interactive operation
 # alias rm='rm -i'
 # alias cp='cp -i'

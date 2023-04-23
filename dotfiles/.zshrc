@@ -1,14 +1,7 @@
 # ------------------------------
 # General Settings
 # ------------------------------
-export EDITOR=nvim        # エディタをvimに設定
-export VISUAL=nvim        # lessから使うエディタをvimに設定
-export LANG=ja_JP.UTF-8  # 文字コードをUTF-8に設定
-export KCODE=u           # KCODEにUTF-8を設定
-export TZ=Asia/Tokyo
-# export TERM='xterm-256color'
-export PATH=$HOME/.local/bin:$PATH
-export XDG_CONFIG_HOME=$HOME/.config
+source ~/.envrc
 
 
 # for cygwin on windows

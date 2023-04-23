@@ -1,2 +1,0 @@
-<ESC>       [terminal]  ノーマルモードへ移行します
-<ESC><ESC>  [terminal]  ターミナルモードを閉じます

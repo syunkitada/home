@@ -1,0 +1,83 @@
+# vn
+gg           [move]              一番上に移動します
+G            [move]              一番下に移動します
+[num]G       [move]              [num]行に移動します
+h            [move]              左へ移動します
+j            [move]              下へ移動します
+k            [move]              上へ移動します
+l            [move]              右へ移動します
+H            [move]              画面上へ移動します
+L            [move]              画面下へ移動します
+-            [move]              前の文頭に移動します
+<Enter>      [move]              次の文頭に移動します
+f[char]      [move]              カーソル後の一行から[c]を検索して移動します
+t[char]      [move]              カーソル後の一行から[c]を検索して、その手前まで移動します
+F[char]      [move]              カーソル前の一行から[c]を検索して移動します
+T[char]      [move]              カーソル前の一行から[c]を検索して、その手前まで移動します
+0            [move]              カーソル行の一番前に移動します
+$            [move]              カーソル行の一番後ろに移動します
+/[str...]    [move]              単語を下に検索します(n/Nで前/次の検索結果に移動します)
+?[str...]    [move]              単語を上に検索します(n/Nで前/次の検索結果に移動します)
+#            [move]              カーソル位置の単語を完全一致で上に検索します(n/Nで前/次の検索結果に移動します)
+g#           [move]              カーソル位置の単語を上に検索します(n/Nで前/次の検索結果に移動します)
+*            [move]              カーソル位置の単語を完全一致で下に検索します(n/Nで前/次の検索結果に移動します)
+g*           [move]              カーソル位置の単語を下に検索します(n/Nで前/次の検索結果に移動します)
+%            [move]              カーソル位置の括弧のペアの括弧に移動します
+d[move cmd]  [edit]              [move]対象の文字削除します
+D            [edit]              カーソル移行の一行を削除します
+gj           [lsp][show]         カーソル位置のワードの定義先、参照先へ移動します
+gh           [lsp][show]         カーソル位置のワードのドキュメントを表示します
+go           [lsp][show]         ファイルのアウトラインを表示します
+gr           [lsp][edit]         カーソル位置のワードの名前を変更します
+gn           [lsp][move]         次のdiagnosticに移動します
+gp           [lsp][move]         前のdiagnosticに移動します
+_ff          [finder]            ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
+gf           [finder]            ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
+_fh          [finder]            カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
+_fs          [finder]            サイドパネルで、カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
+_ft          [finder][terminal]  t-findrバッファでターミナルモードへ移行します
+_fa          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fa(find any)します
+_fg          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します
+_f.          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、カーソル位置のワードでfgv(grep and vim)します
+_fy          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します
+_fi          [finder][terminal]  ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います
+_fI          [finder][terminal]  カレントバッファでターミナルモードへ移行し、ファイル内の文字列検索を行います
+_fc          [finder][terminal]  新しいタブでターミナルモードへ移行し、fcv(find from cache and vim)します
+_tt          [terminal]          t-terminalバッファでターミナルモードへ移行します
+_tp          [terminal]          t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します
+gl           [terminal]          t-gitバッファでターミナルモードへ移行し、lazygitを実行します
+_tg          [terminal]          t-gitバッファでターミナルモードへ移行し、lazygitを実行します
+s            [move]              easymotionへ移行します
+_gg          [git][show]         gitgutterのマーカの表示非表示を切り替えます（デフォルトは表示）
+
+# vf
+?  [show]  ヘルプを表示します
+N  [edit]  新規ファイルを作成します
+K  [edit]  新規ディレクトリを作成します
+D  [edit]  ファイルを削除します
+r  [edit]  ファイル名を変更します
+e  [open]  カレントバッファでターゲットを開きます
+E  [open]  サイドパネルでターゲットを開きます
+t  [open]  タブでターゲットを開きます
+h  [move]  ディレクトリを閉じます
+l  [move]  ディレクトリを開ける or ファイルを開きます
+k  [move]  カーソルを上へ移動します
+j  [move]  カーソルを下へ移動します
+u  [move]  上位のディレクトリへ移動します
+p  [move]  プロジェクトのトップへ移動します
+P  [move]  プロジェクトのトップへ移動します（カーソルは維持したまま）
+s  [show]  隠しファイル表示を切り替えます
+T  [move]  ターミナルモードへ移行します
+f  [move]  ターミナルモードへ移行し、ファイル検索モードへ移行します
+F  [move]  ターミナルモードへ移行し、文字列検索モードへ移行します
+
+# vt
+<ESC>       [terminal]  ノーマルモードへ移行します
+<ESC><ESC>  [terminal]  ターミナルモードを閉じます
+
+# vl
+t  [lsp_modal][move]  タブで開く
+o  [lsp_modal][move]  カレントバッファで開く
+s  [lsp_modal][move]  横スプリットして開く
+i  [lsp_modal][move]  縦スプリットして開く
+q  [lsp_modal][move]  閉じる

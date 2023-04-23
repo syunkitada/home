@@ -39,10 +39,6 @@ alias cdr=cd_project_root
 # ----------------------------------------------------------------------------------------------------
 # fzfの基本設定
 # ----------------------------------------------------------------------------------------------------
-if [[ ! "$PATH" == *${HOME}/.fzf/bin* ]]; then
-    PATH="${PATH:+${PATH}:}${HOME}/.fzf/bin"
-fi
-
 # Auto-completion
 # ---------------
 [[ $- == *i* ]] && source "${HOME}/.fzf/shell/completion.zsh" 2> /dev/null
@@ -96,12 +92,33 @@ find_grep_and_vim() {
         --ansi --phony --query "$INITIAL_QUERY" \
         --preview 'cat `echo {} | cut -f 1 --delim ":"`')
   filename=$(echo $selected_file | awk -F ':' '{print $1}')
+  if [ "$filename" == "" ]; then
+      return 0
+  fi
   linenum=$(echo $selected_file | awk -F ':' '{print $2}')
   option=""
   if [ "$linenum" != "" ]; then
     option="+${linenum}"
   fi
   vim $option $filename
+}
+
+# [DOC]をgrep(ag)してvimで開く
+find_grep_doc_and_vim() {
+  INITIAL_QUERY=""
+  if [ $# != 0 ]; then
+    INITIAL_QUERY=$1
+  fi
+  RG_PREFIX="ag"
+  selected_file=$(FZF_DEFAULT_COMMAND="$RG_PREFIX '\[DOC]' | sed -e 's/:.*\[.*] /:/g'" \
+      fzf --bind "change:reload($RG_PREFIX '\[DOC]' | ($RG_PREFIX {q} || cat) | sed -e 's/:.*\[.*] /:/g')" \
+        --ansi --phony --query "$INITIAL_QUERY" \
+        --preview 'cat `echo {} | cut -f 1 --delim ":"`')
+  filename=$(echo $selected_file | awk -F ':' '{print $1}')
+  if [ "$filename" == "" ]; then
+      return 0
+  fi
+  vim $filename
 }
 
 # 特定ファイルに限定してgrep(ag & fzf)してvimで開く
@@ -212,22 +229,25 @@ find_cache_and_vim() {
 
 
 
-# ドキュメント関連
-# [COMMAND] key=dcmd; tags=doc; action=コマンドのドキュメントを検索します
-alias dcmd="cd ~/home/docs/linux_cmd/ && find_and_cd_or_vim"
-# [COMMAND] key=dkey; tags=doc; action=キーバインドのドキュメントを検索します
-alias dkey="cd ~/home/env_docs/keybind/ && find_and_cd_or_vim"
-# [COMMAND] key=dkeyn; tags=doc; action=ノーマルモードのドキュメントを表示します
-alias dkeyn='vim ~/home/env_docs/keybind/n.txt'
-# [COMMAND] key=dkeyz; tags=doc; action=zshのコマンドのドキュメントを表示します
-alias dkeyz='vim ~/home/env_docs/keybind/z.txt'
-# [COMMAND] key=dkeyvn; tags=doc; action=vimノーマルモードのドキュメントを表示します
-alias dkeyvn='vim ~/home/env_docs/keybind/vn.txt'
-# [COMMAND] key=dkeyvf; tags=doc; action=vimファイラモードのドキュメントを表示します
-alias dkeyvf='vim ~/home/env_docs/keybind/vf.txt'
-# [COMMAND] key=dkeyvt; tags=doc; action=vimターミナルモードのドキュメントを表示します
-alias dkeyvt='vim ~/home/env_docs/keybind/vt.txt'
-# [COMMAND] key=dkeyt; tags=doc; action=tmuxのドキュメントを表示します
-alias dkeyt='vim ~/home/env_docs/keybind/t.txt'
-# [COMMAND] key=dkeyg; tags=doc; action=lazygitのドキュメントを表示します
-alias dkeyg='vim ~/home/env_docs/keybind/g.txt'
+# ドキュメントの検索
+# [COMMAND] key=doccmd; tags=doc; action=コマンドのドキュメントを検索します
+# [COMMAND] key=doccmdg; tags=doc; action=コマンドのドキュメントを検索します
+alias doccmd="cd ~/home/docs_cmd && find_grep_doc_and_vim"
+alias doccmdg="cd ~/home/docs_cmd && find_and_cd_or_vim"
+# [COMMAND] key=docops; tags=doc; action=コマンドのドキュメントを検索します
+# [COMMAND] key=docopsg; tags=doc; action=コマンドのドキュメントを検索します
+alias docops="cd ~/home/docs_ops && find_grep_doc_and_vim"
+alias docopsg="cd ~/home/docs_ops && find_and_cd_or_vim"
+
+
+# キーバインドの検索
+# [COMMAND] key=dockey; tags=doc; action=キーバインドのドキュメントを検索します
+alias dockey="cd ~/home/docs_env/keybind/ && find_and_cd_or_vim"
+# [COMMAND] key=dockeydefault; tags=doc; action=ノーマルモードのドキュメントを表示します
+alias dockeydefault='vim ~/home/docs_env/keybind/default.txt'
+# [COMMAND] key=dockeyzsh; tags=doc; action=zshのコマンドのドキュメントを表示します
+alias dockeyzsh='vim ~/home/docs_env/keybind/zsh.txt'
+# [COMMAND] key=dockeyvim; tags=doc; action=vimノーマルモードのドキュメントを表示します
+alias dockeyvim='vim ~/home/docs_env/keybind/vim.txt'
+# [COMMAND] key=dockeytmux; tags=doc; action=tmuxのドキュメントを表示します
+alias dockeytmux='vim ~/home/docs_env/keybind/tmux.txt'
