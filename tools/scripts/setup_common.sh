@@ -17,7 +17,7 @@ function setup_init() {
 
 function setup_dotfiles() {
 	# dotfiles 内のファイルのシンボリックリンクを ~/ に作成します
-	# dotconfig 内のファイルのシンボリックリンクを ~/.config に作成します
+	# xdgconfig 内のファイルのシンボリックリンクを ~/.config に作成します
 
 	export ROOT=${HOME}/home/
 	cd "$ROOT"
@@ -32,8 +32,8 @@ function setup_dotfiles() {
 		ln -s "$src" "$dst"
 	done
 
-	for file in $(ls dotconfig); do
-		src=${ROOT}/dotconfig/${file}
+	for file in $(ls xdgconfig); do
+		src=${ROOT}/xdgconfig/${file}
 		dst=${HOME}/.config/${file}
 		rm -f "$dst"
 		ln -s "$src" "$dst"
