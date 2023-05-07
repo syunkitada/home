@@ -1,8 +1,7 @@
-# Upgrade
+# Ubuntu のアップグレード方法
 
-## アップグレード方法
-
-以下のファイルで Prompt=lts となってるのを確認する（この場合アップグレードの対象は LTS に限定される）
+以下のファイルで Prompt=lts となってるのを確認してください  
+以下の場合はアップグレードの対象は LTS に限定されます
 
 ```
 $ cat /etc/update-manager/release-upgrades
@@ -24,7 +23,7 @@ $ cat /etc/update-manager/release-upgrades
 Prompt=lts
 ```
 
-以下の手順で、アップグレードを実施する
+以下の手順で、アップグレードを実施できます
 
 ```
 # 現在のバージョンを確認する
@@ -60,7 +59,7 @@ Codename:       focal
 ### 新しいメジャーリリースが出てるのにアップグレードできない場合
 
 ```
-# do-release-upgradeを実行しても、新しいLTSがないと表示される
+# do-release-upgradeを実行しても、新しいLTSがないと表示されません
 $ sudo do-release-upgrade
 Checking for a new Ubuntu release
 There is no development version of an LTS available.
@@ -68,8 +67,8 @@ To upgrade to the latest non-LTS development release
 set Prompt=normal in /etc/update-manager/release-upgrades.
 ```
 
-一般ユーザ向けは、ある程度の安定性が求められるため 22.04.0 が出ても 22.04.1 がでるまでは表示されない  
-もし、インストールしたい場合は -d, --devel-release オプションを付けることでインストールできる
+一般ユーザ向けは、ある程度の安定性が求められるため 22.04.0 が出ても 22.04.1 がでるまでは表示されません  
+もし、強制的にインストールしたい場合は -d, --devel-release オプションを付けることでインストールできます
 
 ```
 $ sudo do-release-upgrade -d
