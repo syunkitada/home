@@ -23,6 +23,9 @@ if [ "$OS_NAME" = "Ubuntu" ] && [ "$OS_VERSION" = "20" -o "$OS_VERSION" = "22" ]
 	source ./setup_ubuntu20.sh
 fi
 
+# 拡張用のライブラリを読み込みます
+source setup_common_ex.sh
+
 set -ex
 
 # dot_filesを配置します
