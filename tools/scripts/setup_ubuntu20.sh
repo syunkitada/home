@@ -25,6 +25,8 @@ function setup_dev_tools() {
 
 		sudo -E npm install --global n
 		sudo -E /usr/local/bin/n "${NODE_VERSION}"
+		# npmのpathが変わったことによりnpmのpath解決できなくなるのでaliasを張ります
+		alias npm=/usr/local/bin/npm
 	fi
 	mkdir -p "${HOME}/.npm-packages"
 	npm config set prefix "${HOME}/.npm-packages"
@@ -42,7 +44,6 @@ function setup_dev_tools() {
 }
 
 # install tmux
-TMUX_VERSION=${TMUX_VERSION:-3.3}
 function setup_tmux() {
 	_install libevent-dev ncurses-dev build-essential bison pkg-config
 	if [ ! -e ~/.local/bin/tmux ]; then

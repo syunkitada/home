@@ -50,6 +50,10 @@ function setup_nvim() {
 	pip3 install --user pynvim neovim neovim-remote
 }
 
+function setup_tmux() {
+	echo "skip tmux"
+}
+
 function setup_dev_python() {
 	# install for python develop tools
 	pip3 install --user black isort flake8

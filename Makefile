@@ -31,13 +31,13 @@ UID := $(shell id -u)
 GID := $(shell id -g)
 
 tester:
-	cd setup/tester; UID=${UID} GID=${GID} sudo -E docker-compose up -d
+	cd tools/tester; UID=${UID} GID=${GID} sudo -E docker-compose up -d
 
 tester-build:
-	cd setup/tester; UID=${UID} GID=${GID} sudo -E docker-compose build
+	cd tools/tester; UID=${UID} GID=${GID} sudo -E docker-compose build
 
 tester-clean:
-	cd setup/tester; UID=${UID} GID=${GID} sudo -E docker-compose down
+	cd tools/tester; UID=${UID} GID=${GID} sudo -E docker-compose down
 
 tester-bash-centos7:
 	sudo docker exec -it tester_centos7_1 bash

@@ -24,6 +24,8 @@ function setup_dev_tools() {
 		sudo -E npm install --global n
 		sudo -E /usr/local/bin/n "${NODE_VERSION}"
 		sudo yum remove -y nodejs npm
+		# npmのpathが変わったことによりnpmのpath解決できなくなるのでaliasを張ります
+		alias npm=/usr/local/bin/npm
 	fi
 	mkdir -p "${NPM_PACKAGES}"
 	npm config set prefix "${HOME}/.npm-packages"
