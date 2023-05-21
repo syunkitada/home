@@ -20,13 +20,14 @@ function setup_dev_tools() {
 	# setup node
 	if [ ! -e /usr/local/bin/node ]; then
 		_install nodejs npm
-		sudo npm install --global n
-		sudo n stable
-		sudo apt remove -y nodejs npm
 
-		mkdir -p "${HOME}/.npm-packages"
-		npm config set prefix "${HOME}/.npm-packages"
+		setup_npm_config
+
+		sudo -E npm install --global n
+		sudo -E /usr/local/bin/n "${NODE_VERSION}"
 	fi
+	mkdir -p "${HOME}/.npm-packages"
+	npm config set prefix "${HOME}/.npm-packages"
 
 	# https://github.com/watchexec/watchexec
 	# ファイルの変更検知して自動でプロセス再起動してくれる
