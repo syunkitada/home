@@ -25,8 +25,9 @@ function setup_dev_tools() {
 
 		sudo -E npm install --global n
 		sudo -E /usr/local/bin/n "${NODE_VERSION}"
-		# npmのpathが変わったことによりnpmのpath解決できなくなるのでaliasを張ります
-		alias npm=/usr/local/bin/npm
+
+		# npmのpathが変わったことによりbashのキャッシュによってnpmのpath解決できなくなるので、bashのキャッシュを消します
+		hash -r
 	fi
 	mkdir -p "${HOME}/.npm-packages"
 	npm config set prefix "${HOME}/.npm-packages"
