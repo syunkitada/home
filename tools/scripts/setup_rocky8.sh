@@ -18,13 +18,15 @@ function setup_dev_tools() {
 	# node
 	if [ ! -e /usr/local/bin/node ]; then
 		sudo yum install -y nodejs npm
-		sudo npm install --global n
-		sudo /usr/local/bin/n stable
-		sudo yum remove -y nodejs npm
 
-		mkdir -p "${NPM_PACKAGES}"
-		npm config set prefix "${HOME}/.npm-packages"
+		setup_npm_config
+
+		sudo -E npm install --global n
+		sudo -E /usr/local/bin/n "${NODE_VERSION}"
+		sudo yum remove -y nodejs npm
 	fi
+	mkdir -p "${NPM_PACKAGES}"
+	npm config set prefix "${HOME}/.npm-packages"
 }
 
 # install tmux
