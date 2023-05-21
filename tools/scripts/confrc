@@ -1,7 +1,13 @@
 #!/bin/bash
 
 export TMUX_VERSION=${TMUX_VERSION:-3.3}
+
+# CentOS7, Rocky8 require <=0.7.2
 export NEOVIM_VERSION=${NEOVIM_VERSION:-v0.7.2}
+
+# CentOS7 require <=16.20.0
 export NODE_VERSION=${NODE_VERSION:-16.20.0}
+
 export GO_VERSION=${GO_VERSION:-1.20.3}
+
 export SETUP_RUST=${SETUP_RUST:-false}

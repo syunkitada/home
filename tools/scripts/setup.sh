@@ -38,9 +38,8 @@ source ~/.envrc
 
 setup_init
 setup_dev_tools
-echo "hoge"
 setup_nvim
-echo "hoge2"
+setup_tmux
 setup_fzf
 setup_dev_python
 setup_dev_shell
