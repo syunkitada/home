@@ -110,6 +110,10 @@ function setup_dev_clang() {
 	echo "skip setup_dev_clang"
 }
 
+function setup_npm_config() {
+	echo "skip setup_npm_config"
+}
+
 function help() {
 	cat <<EOS
 setup_init
