@@ -18,16 +18,13 @@ function setup_dev_tools() {
 	_install python3 python3-venv python3-dev python3-pip
 
 	# setup node
-	if [ ! -e /usr/local/bin/node ]; then
-		_install nodejs npm
+	if [ ! -e ~/.nvm ]; then
+		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+		export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+        nvm install node
 
 		setup_npm_config
-
-		sudo -E npm install --global n
-		sudo -E /usr/local/bin/n "${NODE_VERSION}"
-
-		# npmのpathが変わったことによりbashのキャッシュによってnpmのpath解決できなくなるので、bashのキャッシュを消します
-		hash -r
 	fi
 	mkdir -p "${HOME}/.npm-packages"
 	npm config set prefix "${HOME}/.npm-packages"
