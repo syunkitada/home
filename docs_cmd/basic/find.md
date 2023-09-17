@@ -13,3 +13,9 @@ $ find ./ -iname '*hoge*' | xargs rename 's/hoge/piyo/g'
 ```
 $ find ./ -type f | xargs sed -i 's/\t/        /g'
 ```
+
+## サイズの大きいファイルを検索します
+
+```
+$ find /home -size +300M | xargs ls -l | sort -rn
+```
