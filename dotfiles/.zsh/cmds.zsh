@@ -95,6 +95,22 @@ function scphome() {
     cd -
 }
 
+# [COMMAND] key=setup-dockerhome [host]; tags=docker; action=docker上での開発環境を整えます。
+function setup-dockerhome() {
+    if [ $# != 1 ]; then
+        echo "Usage: dockercphome [container]"
+        sudo docker ps
+        return 1
+    fi
+
+    cd
+    set -x
+    sudo docker cp home openstack-yoga:/root/
+    sudo docker exec $1 bash -c 'cd /root/home && make setup'
+    set +x
+    cd -
+}
+
 
 #
 # network helpers
