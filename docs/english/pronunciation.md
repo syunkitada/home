@@ -1,4 +1,4 @@
-# Pronunciation
+# Pronunciation（発音）
 
 ## 音節について
 
