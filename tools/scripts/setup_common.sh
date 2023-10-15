@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set -e
+
+cd "$(dirname "$0")"
 . confrc
 
 # NVIM-0.8.X は、GLIBC_2.29を要求してくるがRocky8のGLIBは2.28なので、0.7.2を利用します
@@ -129,6 +131,9 @@ setup_dev_web
 setup_dev_python
 setup_dev_rust
 setup_dev_shell
+setup_fzf
+setup_dev_clang
+setup_npm_config
 EOS
 }
 
