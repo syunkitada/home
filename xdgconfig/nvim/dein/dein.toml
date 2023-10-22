@@ -32,6 +32,10 @@ repo = 'https://github.com/kshenoy/vim-signature'
 # git diffをマーカとして表示します
 [[plugins]]
 repo = 'https://github.com/airblade/vim-gitgutter'
+
+# copilot
+[[plugins]]
+repo = 'https://github.com/github/copilot.vim'
 # ----------------------------------------------------------------------------------------------------
 
 
