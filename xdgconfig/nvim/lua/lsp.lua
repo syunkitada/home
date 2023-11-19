@@ -105,20 +105,24 @@ function init_null_ls(client)
         client.server_capabilities.document_range_formatting = false
     end
 
-    -- ファイル保存時にformatする
-    -- MEMO: 以下のwikiにいあるやり方だと、ファイル開いてからしばらくは動くがいつのまにかフォーマットが動かなくなった
-    --       https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
-    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-    vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        callback = function()
-            if vim_version.major == 0 and vim_version.minor < 8 then
-                vim.lsp.buf.formatting_sync()
-            else
-                vim.lsp.buf.format()
-            end
-        end,
-    })
+    -- gitレポの場合のみformatを有効化する
+    result = os.execute("git rev-parse")
+    if result == 0 then
+        -- ファイル保存時にformatする
+        -- MEMO: 以下のwikiにいあるやり方だと、ファイル開いてからしばらくは動くがいつのまにかフォーマットが動かなくなった
+        --       https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
+        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            callback = function()
+                if vim_version.major == 0 and vim_version.minor < 8 then
+                    vim.lsp.buf.formatting_sync()
+                else
+                    vim.lsp.buf.format()
+                end
+            end,
+        })
+    end
 
     null_ls.setup({
         debug = true,
