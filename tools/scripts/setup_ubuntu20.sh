@@ -39,7 +39,7 @@ function setup_dev_tools() {
 		WATCHEXEC_VERSION=${WATCHEXEC_VERSION:-1.21.1}
 		cd /tmp || exit 1
 		wget "https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-		sudo apt install "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+		sudo dpkg -i "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
 		rm "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
 		cd - || exit 1
 	fi
