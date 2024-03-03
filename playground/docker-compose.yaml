@@ -1,0 +1,73 @@
+version: "3"
+services:
+  centos7:
+    hostname: home-centos7
+    container_name: home-centos7
+    build:
+      context: docker_images/centos7
+    user: "1000:1000"
+    working_dir: "/home/playground/home"
+    volumes:
+      - "${HOME}/home:/home/playground/home:ro"
+    network_mode: "host"
+    entrypoint: bash -c "sleep 36000"
+
+  # centos7_ssh:
+  #   hostname: centos7s.example.com
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile_centos7
+  #   volumes:
+  #     - "${HOME}/.ssh/authorized_keys:${HOME}/.ssh/authorized_keys"
+  #     - /etc/passwd:/etc/passwd:ro
+  #     - /etc/sudoers:/etc/sudoers:ro
+  #     - /etc/shadow:/etc/shadow:ro
+  #     - /etc/group:/etc/group:ro
+  #   networks:
+  #     localnet:
+  #       ipv4_address: 10.100.11.2
+  #   entrypoint: bash -c "chown ${SUDO_UID}:${SUDO_GID} ${HOME} &&  /usr/sbin/sshd -D"
+
+  rocky8:
+    hostname: home-rocky8
+    container_name: home-rocky8
+    build:
+      context: docker_images/rocky8
+    user: "1000:1000"
+    working_dir: "/home/playground"
+    volumes:
+      - "${HOME}/home:/home/playground/home:ro"
+    network_mode: "host"
+    entrypoint: bash -c "sleep 36000"
+
+  rocky9:
+    hostname: home-rocky9
+    container_name: home-rocky9
+    build:
+      context: docker_images/rocky9
+    user: "1000:1000"
+    working_dir: "/home/playground"
+    volumes:
+      - "${HOME}/home:/home/playground/home:ro"
+    network_mode: "host"
+    entrypoint: bash -c "sleep 36000"
+
+  ubuntu22:
+    hostname: home-ubuntu22
+    container_name: home-ubuntu22
+    build:
+      context: docker_images/ubuntu22
+    user: "1000:1000"
+    working_dir: "/home/playground"
+    volumes:
+      - "${HOME}/home:/home/playground/home:ro"
+    network_mode: "host"
+    entrypoint: bash -c "sleep 36000"
+
+networks:
+  localnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.11.0/24

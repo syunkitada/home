@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -e
+
+cd "$(dirname "$0")" || exit 1
 
 . confrc
 
@@ -13,14 +15,18 @@ echo "OS_NAME=$OS_NAME, OS_VERSION=$OS_VERSION"
 if [ "$OS_NAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
 	echo "load ./setup_centos7.sh"
 	source ./setup_centos7.sh
-fi
-if [ "$OS_NAME" = "Rocky" ] && [ "$OS_VERSION" = "8" ]; then
+elif [ "$OS_NAME" = "Rocky" ] && [ "$OS_VERSION" = "8" ]; then
 	echo "load ./setup_rocky8.sh"
 	source ./setup_rocky8.sh
-fi
-if [ "$OS_NAME" = "Ubuntu" ] && [ "$OS_VERSION" = "20" -o "$OS_VERSION" = "22" ]; then
-	echo "load ./setup_ubuntu20.sh"
-	source ./setup_ubuntu20.sh
+elif [ "$OS_NAME" = "Rocky" ] && [ "$OS_VERSION" = "9" ]; then
+	echo "load ./setup_rocky9.sh"
+	source ./setup_rocky9.sh
+elif [ "$OS_NAME" = "Ubuntu" ] && [ "$OS_VERSION" = "22" ]; then
+	echo "load ./setup_ubuntu22.sh"
+	source ./setup_ubuntu22.sh
+else
+	echo "Unsupported OS: ${OS_NAME} ${OS_VERSION}"
+	exit 1
 fi
 
 # 拡張用のライブラリを読み込みます

@@ -2,7 +2,9 @@
 
 set -e
 
-cd "$(dirname "$0")"
+echo "DEBUG"
+echo "$0"
+
 . confrc
 
 # NVIM-0.8.X は、GLIBC_2.29を要求してくるがRocky8のGLIBは2.28なので、0.7.2を利用します

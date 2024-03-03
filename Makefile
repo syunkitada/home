@@ -17,34 +17,8 @@ clone_programming_repos:
 
 .PHONY: setup
 setup:
-	cd tools/scripts; ./setup.sh
+	./scripts/setup.sh
 
 .PHONY: check
 check:
-	cd tools/scripts; ./check.sh
-
-
-# ----------------------------------------------------------------------------------------------------
-# tester
-# ----------------------------------------------------------------------------------------------------
-UID := $(shell id -u)
-GID := $(shell id -g)
-
-tester:
-	cd tools/tester; UID=${UID} GID=${GID} sudo -E docker-compose up -d
-
-tester-build:
-	cd tools/tester; UID=${UID} GID=${GID} sudo -E docker-compose build
-
-tester-clean:
-	cd tools/tester; UID=${UID} GID=${GID} sudo -E docker-compose down
-
-tester-bash-centos7:
-	sudo docker exec -it tester_centos7_1 bash
-tester-ssh-centos7:
-	ssh 10.100.11.2
-tester-bash-rocky8:
-	sudo docker exec -it tester_rocky8_1 bash
-tester-bash-ubuntu20:
-	sudo docker exec -it tester_ubuntu20_1 bash
-# ----------------------------------------------------------------------------------------------------
+	./scripts/check.sh
