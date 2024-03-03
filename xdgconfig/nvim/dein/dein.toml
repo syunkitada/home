@@ -58,6 +58,7 @@ repo = 'https://github.com/lambdalisue/fern-mapping-project-top.vim'
 # ----------------------------------------------------------------------------------------------------
 [[plugins]]
 repo = 'https://github.com/neovim/nvim-lspconfig'
+rev = 'v0.1.7'
 
 [[plugins]]
 repo = 'hrsh7th/nvim-cmp'
