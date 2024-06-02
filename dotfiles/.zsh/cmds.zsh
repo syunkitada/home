@@ -105,7 +105,7 @@ function setup-dockerhome() {
 
     cd
     set -x
-    sudo docker cp home openstack-yoga:/root/
+    sudo docker cp home $1:/root/
     sudo docker exec $1 bash -c 'cd /root/home && make setup'
     set +x
     cd -
