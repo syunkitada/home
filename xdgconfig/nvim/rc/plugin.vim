@@ -98,8 +98,6 @@ nmap [finder]t :call MyOpenTerminal(":tabe\n", "t-finder", "")<cr>
 nmap [finder]a :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fa\n")<cr>
 " [KEYBIND] key=_fg; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します;
 nmap [finder]g :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fgv\n")<cr>
-" [KEYBIND] key=_f.; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、カーソル位置のワードでfgv(grep and vim)します;
-nmap [finder]. :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fgv " . expand("<cword>") . "\n")<cr>
 " [KEYBIND] key=_fy; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します;
 nmap [finder]y :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fgv " . getreg('"') . "\n")<cr>
 " [KEYBIND] key=_fi; tags=finder,terminal; action=ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います;

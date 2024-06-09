@@ -219,5 +219,5 @@ require('lspconfig')['bashls'].setup{
     capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
-    filetypes = { "sh" },
+    filetypes = { "sh", "zsh" },
 }

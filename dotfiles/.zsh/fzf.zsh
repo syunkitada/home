@@ -48,6 +48,10 @@ alias cdr=cd_project_root
 source "${HOME}/.fzf/shell/key-bindings.zsh"
 # ----------------------------------------------------------------------------------------------------
 
+# Reference: https://github.com/junegunn/fzf/blob/8a5f7199649d56a92474676c9cf626204e3e8bcb/ADVANCED.md#color-themes
+FZF_COLOR='--color=bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8E91,fg:#F8F8F2,header:#7E8E91,info:#A6E22E,pointer:#A6E22E,marker:#F92672,fg+:#F8F8F2,prompt:#F92672,hl+:#F92672'
+export FZF_DEFAULT_OPTS="--ansi ${FZF_COLOR}"
+
 
 # ----------------------------------------------------------------------------------------------------
 # 検索周りの設定
@@ -57,15 +61,20 @@ source "${HOME}/.fzf/shell/key-bindings.zsh"
 # tree表示して、fzfで絞り込んで、ディレクトリならcdで移動して、ファイルならvimで開く
 find_and_cd_or_vim() {
     LBUFFER="$1"
-    selected=$(tree --charset=o -f | fzf --query "$LBUFFER" --preview '
-    f() {
-        set -- $(echo -- "$@" | grep -o "\./.*$");
-        if [ -d $1 ]; then
-            ls -lh $1
-        else
-            head -n 100 $1
-        fi
-    }; f {}' | tr -d '\||`|-' | xargs echo)
+    PREVIEW='
+f() {
+    set -- $(echo -- "$@" | grep -o "\./.*$");
+    if [ -d $1 ]; then
+        ls -lh $1
+    else
+        head -n 100 $1
+    fi
+}; f {}'
+    selected=$(tree --charset=o -f | \
+        fzf --query "$LBUFFER" \
+        --delimiter=":" \
+        --preview ${PREVIEW} | \
+        tr -d '\||`|-' | xargs echo)
     if [ "$selected" = "" ]; then
         return 0
     fi
@@ -87,10 +96,17 @@ find_grep_and_vim() {
     INITIAL_QUERY=$1
   fi
   RG_PREFIX="ag "
+  PREVIEW='batcat --color=always --theme="Nord" {1} --highlight-line {2}'
+  if ! which batcat > /dev/null; then
+      PREVIEW='cat {1}'
+  fi
   selected_file=$(FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
         fzf --bind "change:reload($RG_PREFIX {q} || true)" \
-        --ansi --phony --query "$INITIAL_QUERY" \
-        --preview 'cat `echo {} | cut -f 1 --delim ":"`')
+        --query "$INITIAL_QUERY" \
+        --delimiter=":" \
+        --preview-window=+{2}+3/2,~3 \
+        --preview=$PREVIEW)
+
   filename=$(echo $selected_file | awk -F ':' '{print $1}')
   if [ "$filename" == "" ]; then
       return 0
