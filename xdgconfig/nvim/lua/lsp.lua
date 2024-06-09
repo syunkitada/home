@@ -149,7 +149,9 @@ function init_null_ls(client)
             null_ls.builtins.formatting.goimports,
 
             -- shell
-            null_ls.builtins.formatting.shfmt,
+            null_ls.builtins.formatting.shfmt.with {
+                filetypes = { "sh", "zsh" },
+            },
         },
     })
 end

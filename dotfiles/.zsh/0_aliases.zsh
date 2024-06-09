@@ -1,8 +1,7 @@
 ### Aliases ###
 
-for a in `alias | awk -F '=' '{print $1}'`
-do
-    unalias $a
+for a in $(alias | awk -F '=' '{print $1}'); do
+	unalias $a
 done
 
 # for interactive operation

@@ -43,7 +43,6 @@ _fs          [finder]            サイドパネルで、カレントディレ�
 _ft          [finder][terminal]  t-findrバッファでターミナルモードへ移行します
 _fa          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fa(find any)します
 _fg          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します
-_f.          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、カーソル位置のワードでfgv(grep and vim)します
 _fy          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します
 _fi          [finder][terminal]  ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います
 _fI          [finder][terminal]  カレントバッファでターミナルモードへ移行し、ファイル内の文字列検索を行います
