@@ -32,6 +32,17 @@
 ## 編集
 
 ```
+[KEYBIND] mode=vn; key=x; tags=edit; action=カーソル一の文字削除します;
 [KEYBIND] mode=vn; key=d[move cmd]; tags=edit; action=[move]対象の文字削除します;
 [KEYBIND] mode=vn; key=D; tags=edit; action=カーソル移行の一行を削除します;
+[KEYBIND] mode=vn; key=c[char]; tags=edit; action=カーソル一の文字を[c]に置換します;
+[KEYBIND] mode=vn; key=C; tags=edit; action=カーソル移行の一行を削除して入力モードに切り替えます;
+```
+
+## ファイル操作
+
+```
+[KEYBIND] mode=vn; key=:e[path]; tags=file; action=[path]のファイルを現在のタブで開きます;
+[KEYBIND] mode=vn; key=:tabe[path]; tags=file; action=[path]のファイルを新しいタブで開きます;
+[KEYBIND] mode=vn; key=:e!; tags=file; action=現在のタブのファイルを開きなおします;
 ```

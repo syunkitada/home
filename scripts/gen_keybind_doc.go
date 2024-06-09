@@ -40,7 +40,7 @@ func main() {
 
 	// zsh
 	cmd = "grep '\\[COMMAND\\]' ~/home/dotfiles/.zsh/* -r | sed -e 's/.*\\[COMMAND\\]//g'"
-	appendKeyMapByCmd(modeKeyMap, "z", cmd)
+	appendKeyMapByCmd(modeKeyMap, "zsh", cmd)
 
 	modeDocMap := map[string]string{}
 	for mode, keyMap := range modeKeyMap {
@@ -138,7 +138,7 @@ func appendKeyMap(modeKeyMap map[string]map[string]KeyBind, defaultMode string, 
 			keyBind.Mode = defaultMode
 		}
 		switch keyBind.Mode {
-		case "n", "vn", "vl", "vf", "vt", "t", "z", "g", "gf", "gb":
+		case "n", "vn", "vl", "vf", "vt", "t", "zsh", "g", "gf", "gb":
 		default:
 			log.Fatalf("Unexpected Mode: mode=%s, line=%s", keyBind.Mode, line)
 		}

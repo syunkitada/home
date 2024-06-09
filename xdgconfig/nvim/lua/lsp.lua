@@ -149,7 +149,9 @@ function init_null_ls(client)
             null_ls.builtins.formatting.goimports,
 
             -- shell
-            null_ls.builtins.formatting.shfmt,
+            null_ls.builtins.formatting.shfmt.with {
+                filetypes = { "sh", "zsh" },
+            },
         },
     })
 end
@@ -219,5 +221,5 @@ require('lspconfig')['bashls'].setup{
     capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
-    filetypes = { "sh" },
+    filetypes = { "sh", "zsh" },
 }

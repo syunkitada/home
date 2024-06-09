@@ -6,7 +6,7 @@ deploy:
 	cd ../home-index/; git commit -am 'update'; git push
 
 gen_keybind_doc:
-	go run tools/scripts/gen_keybind_doc.go
+	go run scripts/gen_keybind_doc.go
 
 clone_programming_repos:
 	test -e ~/programming_go || git clone git@github.com:syunkitada/programming_go.git ~/programming_go
