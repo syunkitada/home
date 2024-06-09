@@ -15,9 +15,6 @@ if &term =~ "xterm"
 	cnoremap <special> <Esc>[201~ <nop>
 endif
 
-" yank register to clipboard of teraterm
-command! CopyToTeraterm let $vim_clipboard = @" | !echo "$vim_clipboard" | copy_to_teraterm
-
 " vim +clipboard
 " for gui
 set guioptions+=a

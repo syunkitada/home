@@ -42,16 +42,19 @@ augroup fern_settings
   autocmd FileType fern call s:fern_settings()
 augroup END
 
-" Fern . -reveal=%   | カレントディレクトリで開き、カーソルは現在開いたファイルにする
+" :Fern .               | Fernを開きます
+" :Fern . -drawer       | サイドパネルでFernを開きます
+" :Fern . -reveal=%     | Fernを開き、カーソルを現在開いてるファイルにします
+" :Fern %:h             | カレントバッファの親ディレクトリを起点にFernを開きます
+" :Fern %:h -reveal=%:p | カレントバッファの親ディレクトリを起点にFernを開き、カーソルを現在開いてるファイルにします
+"   Referece: [How to open fern on a parent directory of a current buffer and focus](https://github.com/lambdalisue/vim-fern/issues/295)
+"
 " [KEYBIND] key=_ff; tags=finder; action=ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
-" [KEYBIND] key=gf; tags=finder; action=ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
-nmap gf :call OpenFern()<CR>
-nmap [finder]f :call OpenFern()<CR>
+nmap [finder]f :call MyOpenFern()<CR>
 " [KEYBIND] key=_fh; tags=finder; action=カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
-nmap [finder]h :Fern %:h -reveal=%p<CR>
+nmap [finder]h :Fern %:h -reveal=%:p<CR>
 " [KEYBIND] key=_fs; tags=finder; action=サイドパネルで、カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
-" Fern . -reveal=% -drawer | ファイラをサイドパネルで開いたままにする（現在のバッファも表示されたまま）
-nmap [finder]s :Fern %:h -reveal=%p -drawer<CR>
+nmap [finder]s :Fern %:h -reveal=%:p -drawer<CR>
 
 function! s:find_ferntabnr()
     for tabnr in range(1, tabpagenr("$"))
@@ -65,7 +68,7 @@ function! s:find_ferntabnr()
     return -1
 endfunction
 
-function! OpenFern()
+function! MyOpenFern()
     " fern tabを検索してあればそれをそのままtab移動する
     let tabnr = s:find_ferntabnr()
     if tabnr != tabpagenr() && tabnr != -1
