@@ -208,3 +208,8 @@ function ssh_add() {
 		ssh-add ~/.ssh/id_ed25519
 	fi
 }
+
+# [COMMAND] key=genpass; tags=util; action=ランダムなパスワードを生成します;
+function genpass() {
+	cat /dev/urandom | tr -dc 'a-zA-Z0-9-_@!?' | fold -w 64 | head -n 16 | sort -u
+}
