@@ -19,11 +19,11 @@ alias ff=find_file_and_vim
 # [COMMAND] key=fgv [query:option]; tags=find; action=文字列で(queryがあればqueryで)ファイルを検索して、vimで開きます;
 alias ft=find_text_and_vim
 
-# [COMMAND] key=fcv; tags=find; action=キャッシュからファイルを検索してvimで開きます;
-alias fcv=find_cache_and_vim
+# [COMMAND] key=fh; tags=find; action=ヒストリからファイルを検索してvimで開きます;
+alias fh=find_history_and_vim
 
-# [COMMAND] key=ffv [filename] [query:option]; tags=find; action=[filename]を([query]があればqueryで)grepして、そのマッチした行をvimで開きます;
-alias ffv=find_grep_file_and_vim
+# [COMMAND] key=ftt [filename] [query:option]; tags=find; action=[filename]を([query]があればqueryで)grepして、そのマッチした行をvimで開きます;
+alias ftt=find_text_target_and_vim
 
 # [COMMAND] key=cdp; tags=move; action=親ディレクトリを検索して移動します;
 alias cdp=cd_to_parent_directory
@@ -111,6 +111,37 @@ function find_text_and_vim() {
 	vim $option $filename
 }
 
+# 特定ファイルに限定して、ftを実行する
+function find_text_target_and_vim() {
+	if [ $# ] <1; then
+		echo "Usage: gfvim [filename] [query]"
+		return 1
+	fi
+	FILENAME=$1
+	INITIAL_QUERY=""
+	if [ $# == 2 ]; then
+		INITIAL_QUERY=$2
+	fi
+	RG_PREFIX="ag "
+	PREVIEW='batcat --color=always --theme="Nord" '$FILENAME' --highlight-line {1}'
+	if ! which batcat >/dev/null; then
+		PREVIEW='cat {1}'
+	fi
+	selected_file=$(FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY' ${FILENAME}" \
+		fzf --bind "change:reload($RG_PREFIX {q} ${FILENAME} || true)" \
+		--query "$INITIAL_QUERY" \
+		--delimiter=":" \
+		--preview-window=+{1}+3/2,~3 \
+		--preview=$PREVIEW)
+
+	linenum=$(echo $selected_file | awk -F ':' '{print $1}')
+	option=""
+	if [ "$linenum" != "" ]; then
+		option="+${linenum}"
+	fi
+	vim $option $FILENAME
+}
+
 # [DOC]をgrep(ag)してvimで開く
 function find_grep_doc_and_vim() {
 	INITIAL_QUERY=""
@@ -127,26 +158,6 @@ function find_grep_doc_and_vim() {
 		return 0
 	fi
 	vim $filename
-}
-
-# 特定ファイルに限定してgrep(ag & fzf)してvimで開く
-function find_grep_file_and_vim() {
-	if [ $# ] <1; then
-		echo "Usage: gfvim [filename] [query]"
-		return 1
-	fi
-	FILENAME=$1
-	INITIAL_QUERY=""
-	if [ $# == 2 ]; then
-		INITIAL_QUERY=$2
-	fi
-	RG_PREFIX="ag "
-	selected=$(FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY' ${FILENAME}" \
-		fzf --bind "change:reload($RG_PREFIX '{q}' ${FILENAME} || true)" \
-		--ansi --phony --query "$INITIAL_QUERY" \
-		--preview 'cat `echo {} | cut -f 1 --delim ":"`')
-	linenum=$(echo $selected | awk -F ':' '{print $1}')
-	vim +${linenum} ${FILENAME}
 }
 
 # grep_fzf(ag & fzf)するだけ
@@ -201,7 +212,7 @@ function cd_project_root() {
 	fi
 }
 
-function find_cache_and_vim() {
+function find_history_and_vim() {
 	candidates=()
 	for buffer in $(echo ${VIM_BUFFERS}); do
 		if [ -e $buffer ]; then
