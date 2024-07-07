@@ -49,8 +49,8 @@ augroup END
 " :Fern %:h -reveal=%:p | カレントバッファの親ディレクトリを起点にFernを開き、カーソルを現在開いてるファイルにします
 "   Referece: [How to open fern on a parent directory of a current buffer and focus](https://github.com/lambdalisue/vim-fern/issues/295)
 "
-" [KEYBIND] key=_ff; tags=finder; action=ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
-nmap [finder]f :call MyOpenFern()<CR>
+" [KEYBIND] key=_fo; tags=finder; action=ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
+nmap [finder]o :call MyOpenFern()<CR>
 " [KEYBIND] key=_fh; tags=finder; action=カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
 nmap [finder]h :Fern %:h -reveal=%:p<CR>
 " [KEYBIND] key=_fs; tags=finder; action=サイドパネルで、カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
@@ -92,12 +92,10 @@ endfunction
 " ファイル移動のためにターミナルモードを経由するショートカット
 "
 
-" [KEYBIND] key=_ft; tags=finder,terminal; action=t-findrバッファでターミナルモードへ移行します;
-nmap [finder]t :call MyOpenTerminal(":tabe\n", "t-finder", "")<cr>
-" [KEYBIND] key=_fa; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fa(find any)します;
-nmap [finder]a :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fa\n")<cr>
-" [KEYBIND] key=_fg; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、fgv(grep and vim)します;
-nmap [finder]g :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fgv\n")<cr>
+" [KEYBIND] key=_ff; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、ff(find file)します;
+nmap [finder]f :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; ff\n")<cr>
+" [KEYBIND] key=_ft; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、ft(find text)します;
+nmap [finder]t :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; ft\n")<cr>
 " [KEYBIND] key=_fy; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します;
 nmap [finder]y :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fgv " . getreg('"') . "\n")<cr>
 " [KEYBIND] key=_fi; tags=finder,terminal; action=ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います;
@@ -109,8 +107,10 @@ nmap [finder]c :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "fcv\n")<cr>
 
 " [KEYBIND] key=_tt; tags=terminal; action=t-terminalバッファでターミナルモードへ移行します;
 nmap [terminal]t :call MyOpenTerminal(":tabe\n", "t-terminal", "")<cr>
+" [KEYBIND] key=_tf; tags=finder,terminal; action=t-findrバッファでターミナルモードへ移行します;
+nmap [terminal]f :call MyOpenTerminal(":tabe\n", "t-finder", "")<cr>
 " [KEYBIND] key=_tp; tags=terminal; action=t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します;
-nmap [terminal]p :call MyOpenTerminal(":tabe\n", "t-project", "cd_project_root;")<cr>
+nmap [terminal]p :call MyOpenTerminal(":tabe\n", "t-project", "cd_project_root\n")<cr>
 " [KEYBIND] key=gl; tags=terminal; action=t-gitバッファでターミナルモードへ移行し、lazygitを実行します;
 " [KEYBIND] key=_tg; tags=terminal; action=t-gitバッファでターミナルモードへ移行し、lazygitを実行します;
 nmap gl :call MyOpenTerminal(":tabe\n", "t-git", "lazygit\n")<cr>
