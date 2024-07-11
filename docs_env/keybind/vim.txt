@@ -40,12 +40,11 @@ gp           [lsp][move]         前のdiagnosticに移動します
 _fo          [finder]            ファイラを開く（すでにtabが開かれてる場合はtabに移動する）
 _fg          [finder]            カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
 _fs          [finder]            サイドパネルで、カレントディレクトリをファイラで開き、カーソルは現在開いたファイルにする
-_ff          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、ff(find file)します
-_ft          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、ft(find text)します
-_fy          [finder][terminal]  新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します
-_fi          [finder][terminal]  ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います
-_fI          [finder][terminal]  カレントバッファでターミナルモードへ移行し、ファイル内の文字列検索を行います
-_fh          [finder][terminal]  新しいタブでターミナルモードへ移行し、fh(find history)します
+_ff          [finder][fzf]       FZFでファイルを検索します
+_ft          [finder][fzf]       FZFでテキストを検索します
+_fb          [finder][fzf]       FZFでバッファファイルを検索します
+_fi          [finder][fzf]       FZFでバッファいファイル内のテキストを検索します
+_fh          [finder][fzf]       FZFで最近開いたファイルを検索します
 _tt          [terminal]          t-terminalバッファでターミナルモードへ移行します
 _tf          [finder][terminal]  t-findrバッファでターミナルモードへ移行します
 _tp          [terminal]          t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します
