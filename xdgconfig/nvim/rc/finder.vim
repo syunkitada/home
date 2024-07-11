@@ -86,24 +86,55 @@ function! MyOpenFern()
     call feedkeys(":vs\n")
 endfunction
 
+"
+" FZF
+" https://github.com/junegunn/fzf/wiki/Examples-(vim)
+"
+set rtp+=~/.fzf
+let g:fzf_action = {'tab': 'tab split'}
 
+" [KEYBIND] key=_ff; tags=finder,fzf; action=FZFでファイルを検索します;
+nmap [finder]f :Files<cr>
+" [KEYBIND] key=_ft; tags=finder,fzf; action=FZFでテキストを検索します;
+nmap [finder]t :Ag<cr>
+" [KEYBIND] key=_fb; tags=finder,fzf; action=FZFでバッファファイルを検索します;
+nmap [finder]b :Buffers<cr>
+" [KEYBIND] key=_fi; tags=finder,fzf; action=FZFでバッファいファイル内のテキストを検索します;
+nmap [finder]i :FZFLines<cr>
+" [KEYBIND] key=_fh; tags=finder,fzf; action=FZFで最近開いたファイルを検索します;
+nmap [finder]h :FZFMru<cr>
+
+function! s:line_handler(l)
+  let keys = split(a:l, ':\t')
+  exec 'buf' keys[0]
+  exec keys[1]
+  normal! ^zz
+endfunction
+
+function! s:buffer_lines()
+  let res = []
+  for b in filter(range(1, bufnr('$')), 'buflisted(v:val)')
+    call extend(res, map(getbufline(b,0,"$"), 'b . ":\t" . (v:key + 1) . ":\t" . v:val '))
+  endfor
+  return res
+endfunction
+
+command! FZFLines call fzf#run({
+\   'source':  <sid>buffer_lines(),
+\   'sink':    function('<sid>line_handler'),
+\   'options': '--extended --nth=3..',
+\   'down':    '60%'
+\})
+
+command! FZFMru call fzf#run({
+\  'source':  v:oldfiles,
+\  'sink':    'e',
+\  'options': '-m -x +s',
+\  'down':    '40%'})
 
 "
 " ファイル移動のためにターミナルモードを経由するショートカット
 "
-
-" [KEYBIND] key=_ff; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、ff(find file)します;
-nmap [finder]f :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; ff\n")<cr>
-" [KEYBIND] key=_ft; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、ft(find text)します;
-nmap [finder]t :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; ft\n")<cr>
-" [KEYBIND] key=_fy; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、プロジェクトトップへ移動して、yankしたワードでfgv(grep and vim)します;
-nmap [finder]y :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "cd_project_root; fgv " . getreg('"') . "\n")<cr>
-" [KEYBIND] key=_fi; tags=finder,terminal; action=ボトムパネルでターミナルを開き、ファイル内の文字列検索を行います;
-nmap [finder]i :call MyOpenTerminal(":split\n :wincmd j\n :resize 20\n", "", "ftt " . getreg('%:p') . "\n")<cr>
-" [KEYBIND] key=_fI; tags=finder,terminal; action=カレントバッファでターミナルモードへ移行し、ファイル内の文字列検索を行います;
-nmap [finder]I :call MyOpenTerminal("", "t-finder-tmp", "ftt " . getreg('%:p') . "\n")<cr>
-" [KEYBIND] key=_fh; tags=finder,terminal; action=新しいタブでターミナルモードへ移行し、fh(find history)します;
-nmap [finder]h :call MyOpenTerminal(":tabe\n", "t-finder-tmp", "fh\n")<cr>
 
 " [KEYBIND] key=_tt; tags=terminal; action=t-terminalバッファでターミナルモードへ移行します;
 nmap [terminal]t :call MyOpenTerminal(":tabe\n", "t-terminal", "")<cr>

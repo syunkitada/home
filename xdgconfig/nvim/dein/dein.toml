@@ -50,6 +50,13 @@ repo = 'https://github.com/lambdalisue/fern-hijack.vim'
 
 [[plugins]]
 repo = 'https://github.com/lambdalisue/fern-mapping-project-top.vim'
+
+[[plugins]]
+repo = 'https://github.com/junegunn/fzf.vim'
+
+[[plugins]]
+repo = 'https://github.com/LumaKernel/fern-mapping-fzf.vim'
+
 # ----------------------------------------------------------------------------------------------------
 
 
