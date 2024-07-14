@@ -2,14 +2,9 @@
 
 set -e
 
-echo "DEBUG"
-echo "$0"
+echo "ARG=$*"
 
 . confrc
-
-# NVIM-0.8.X は、GLIBC_2.29を要求してくるがRocky8のGLIBは2.28なので、0.7.2を利用します
-NEOVIM_VERSION=${NEOVIM_VERSION:-v0.7.2}
-GO_VERSION=${GO_VERSION:-1.20.3}
 
 function setup_base_tools() {
 	echo "skip setup_base_tools"
@@ -70,19 +65,23 @@ function setup_dev_web() {
 	npm install -g typescript typescript-language-server
 	npm install -g prettier
 	npm install -g @tailwindcss/language-server
+	npm install -g yarn
 }
 
 function setup_dev_go() {
-	if [ "$(go version | grep 'go version' | awk '{print $3}')" != "go${GO_VERSION}" ]; then
+	go_version="$(go version | grep 'go version' | awk '{print $3}')"
+	echo "GOVersion: current=${go_version}, expected=${GO_VERSION}"
+	if [ "${go_version}" != "go${GO_VERSION}" ]; then
 		rm -rf /usr/local/go
 		curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" |
-			gunzip | sudo tar x --strip-components=1 -C /usr/local
-
-		# LSP for go
-		go install golang.org/x/tools/gopls@latest
-		# formatter for go
-		go install golang.org/x/tools/cmd/goimports@latest
+			gunzip | sudo tar x -C /usr/local
 	fi
+	echo "GOVersion: $(go version)"
+
+	# LSP for go
+	go install golang.org/x/tools/gopls@latest
+	# formatter for go
+	go install golang.org/x/tools/cmd/goimports@latest
 }
 
 function setup_dev_shell() {

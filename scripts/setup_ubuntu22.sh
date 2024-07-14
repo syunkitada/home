@@ -32,6 +32,7 @@ function setup_dev_tools() {
 	fi
 	mkdir -p "${HOME}/.npm-packages"
 	npm config set prefix "${HOME}/.npm-packages"
+	sudo n lts
 
 	# https://github.com/watchexec/watchexec
 	# ファイルの変更検知して自動でプロセス再起動してくれる
