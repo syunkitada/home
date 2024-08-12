@@ -69,6 +69,7 @@ rev = 'v0.1.7'
 
 [[plugins]]
 repo = 'hrsh7th/nvim-cmp'
+rev = '04e0ca376d6abdbfc8b52180f8ea236cbfddf782'
 on_event = 'VimEnter'
 hook_source = '''lua require('plugins.nvim-cmp')'''
 
