@@ -1,5 +1,7 @@
 # カーネルパニック
 
+- カーネルパニックとは、何らかの致命的な理由により、システムがクラッシュすること
+
 ## Double Fault
 
 - 例外処理中に、何らかの理由により処理できない場合に発生する
@@ -46,6 +48,12 @@ kernel.softlockup_panic = 0
 kernel.unknown_nmi_panic = 0
 vm.panic_on_oom = 0
 ```
+
+- kernel.panic
+  - kernel panicが発生したときの挙動
+    - 基本的には、自動でrebootするのが一般的
+- カーネルパニックが起こった時、その内容が/var/log/messagesなどに保存されると勘違いされることがあるが、実はどこにも残らない（コンソールには表示される）
+  - リブート後に、syslogなどを確認すると、何もログがなく理由なく急にカーネルがRebootしたように見える
 
 ## kdump
 

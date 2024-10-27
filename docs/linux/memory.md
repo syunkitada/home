@@ -782,6 +782,24 @@ $ virsh dumpxml xxxx
 </memoryBacking>
 ```
 
+Hugepageを利用しているプロセスを調べる
+
+```
+$ sudo grep "KernelPageSize:.*1048576" /proc/[[:digit:]]*/smaps | awk {'print $1'} | cut -d "/" -f3 | sort | uniq
+```
+
+Hogepageのページ数を動的に変更する
+
+```
+$ cat /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages
+1
+
+$ sudo sh -c 'echo "0" > /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages'
+
+$ cat /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages
+0
+```
+
 ## /proc/[PID]/smaps
 
 ```

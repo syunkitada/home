@@ -72,7 +72,7 @@ function setup_dev_go() {
 	go_version="$(go version | grep 'go version' | awk '{print $3}')"
 	echo "GOVersion: current=${go_version}, expected=${GO_VERSION}"
 	if [ "${go_version}" != "go${GO_VERSION}" ]; then
-		rm -rf /usr/local/go
+		sudo rm -rf /usr/local/go
 		curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" |
 			gunzip | sudo tar x -C /usr/local
 	fi
