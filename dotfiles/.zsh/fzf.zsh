@@ -44,7 +44,8 @@ source "${HOME}/.fzf/shell/key-bindings.zsh"
 
 # Reference: https://github.com/junegunn/fzf/blob/8a5f7199649d56a92474676c9cf626204e3e8bcb/ADVANCED.md#color-themes
 FZF_COLOR='--color=bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8E91,fg:#F8F8F2,header:#7E8E91,info:#A6E22E,pointer:#A6E22E,marker:#F92672,fg+:#F8F8F2,prompt:#F92672,hl+:#F92672'
-export FZF_DEFAULT_OPTS="--ansi ${FZF_COLOR}"
+# fzfは、デフォルトであいまい検索をして不用意に大量のファイルが見つかってしまうため、--exact オプションにより無効にする
+export FZF_DEFAULT_OPTS="--exact --ansi ${FZF_COLOR}"
 
 # ----------------------------------------------------------------------------------------------------
 # 検索周りの設定
