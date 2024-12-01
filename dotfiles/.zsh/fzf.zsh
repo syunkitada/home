@@ -44,8 +44,9 @@ source "${HOME}/.fzf/shell/key-bindings.zsh"
 
 # Reference: https://github.com/junegunn/fzf/blob/8a5f7199649d56a92474676c9cf626204e3e8bcb/ADVANCED.md#color-themes
 FZF_COLOR='--color=bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8E91,fg:#F8F8F2,header:#7E8E91,info:#A6E22E,pointer:#A6E22E,marker:#F92672,fg+:#F8F8F2,prompt:#F92672,hl+:#F92672'
-# fzfは、デフォルトであいまい検索をして不用意に大量のファイルが見つかってしまうため、--exact オプションにより無効にする
-export FZF_DEFAULT_OPTS="--exact --ansi ${FZF_COLOR}"
+# FZF_COLOR='--color=bg+:#3F3F3F,bg:#4B4B4B,border:#6B6B6B,spinner:#98BC99,hl:#719872,fg:#D9D9D9,header:#719872,info:#BDBB72,pointer:#E12672,marker:#E17899,fg+:#D9D9D9,preview-bg:#3F3F3F,prompt:#98BEDE,hl+:#98BC99'
+# fzfのデフォルトの検索は、あいまい検索（検索文字列の一部が一致するとヒットする）であるため不用意に大量のファイルが見つかってしまうため、--exact オプションにより無効にする
+export FZF_DEFAULT_OPTS="--exact ${FZF_COLOR}"
 
 # ----------------------------------------------------------------------------------------------------
 # 検索周りの設定
@@ -89,16 +90,49 @@ function find_text_and_vim() {
 		INITIAL_QUERY=$1
 	fi
 	RG_PREFIX="ag "
+	PREVIEW="sed -n {2},+4p {1} | grep --color=always -A 5 -- {-1}"
+	selected_file=$(
+		FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+			fzf --bind "change:reload($RG_PREFIX {q} || true)" \
+			--query "$INITIAL_QUERY" \
+			--delimiter=":" \
+			--ansi \
+			--preview-window=down,5 \
+			--preview=$PREVIEW
+	)
+
+	filename=$(echo $selected_file | awk -F ':' '{print $1}')
+	if [ "$filename" == "" ]; then
+		return 0
+	fi
+	linenum=$(echo $selected_file | awk -F ':' '{print $2}')
+	option=""
+	if [ "$linenum" != "" ]; then
+		option="+${linenum}"
+	fi
+	vim $option $filename
+}
+
+# batcatによるpreview表示はリッチではあるが、少し遅いのと、検索文字列のハイライトがわかりずらいので廃止しました
+function find_text_and_vim_deprecated() {
+	INITIAL_QUERY=""
+	if [ $# != 0 ]; then
+		INITIAL_QUERY=$1
+	fi
+	RG_PREFIX="ag "
 	PREVIEW='batcat --color=always --theme="Nord" {1} --highlight-line {2}'
 	if ! which batcat >/dev/null; then
 		PREVIEW='cat {1}'
 	fi
-	selected_file=$(FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
-		fzf --bind "change:reload($RG_PREFIX {q} || true)" \
-		--query "$INITIAL_QUERY" \
-		--delimiter=":" \
-		--preview-window=+{2}+3/2,~3 \
-		--preview=$PREVIEW)
+	selected_file=$(
+		FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+			fzf --bind "change:reload($RG_PREFIX {q} || true)" \
+			--multi \
+			--query "$INITIAL_QUERY" \
+			--delimiter=":" \
+			--preview-window=+{2}+3/2,~3 \
+			--preview=$PREVIEW
+	)
 
 	filename=$(echo $selected_file | awk -F ':' '{print $1}')
 	if [ "$filename" == "" ]; then
