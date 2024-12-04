@@ -89,11 +89,25 @@ function find_text_and_vim() {
 	if [ $# != 0 ]; then
 		INITIAL_QUERY=$1
 	fi
-	RG_PREFIX="ag "
-	PREVIEW="sed -n {2},+4p {1} | grep --color=always -A 5 -- {-1}"
+	GREP_CMD="grep --recursive --line-number"
+	PREVIEW='
+f() {
+    linenum=${2}
+    linenum=$((linenum-1))
+    if [ ${linenum} -eq 0 ]; then
+        linenum=1
+    fi
+
+    query={q}
+    if [ "${query}" = "" ]; then
+        sed -n ${linenum},+4p ${1} | grep --color=always -B 1 -A 4 -- ${-1}
+    else
+	    sed -n ${linenum},+4p ${1} | grep --color=always -B 1 -A 4 -- ${query}
+    fi
+}; f {}'
 	selected_file=$(
-		FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
-			fzf --bind "change:reload($RG_PREFIX {q} || true)" \
+		FZF_DEFAULT_COMMAND="$GREP_CMD '$INITIAL_QUERY'" \
+			fzf --bind "change:reload($GREP_CMD {q} || true)" \
 			--query "$INITIAL_QUERY" \
 			--delimiter=":" \
 			--ansi \
