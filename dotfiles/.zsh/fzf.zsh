@@ -47,6 +47,8 @@ FZF_COLOR='--color=bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8
 # fzfのデフォルトの検索は、あいまい検索（検索文字列の一部が一致するとヒットする）であるため不用意に大量のファイルが見つかってしまうため、--exact オプションにより無効にする
 export FZF_DEFAULT_OPTS="--exact ${FZF_COLOR}"
 
+FZF_TREE_IGNORE=".git|.venv|.*cache|__pycache__"
+
 # ----------------------------------------------------------------------------------------------------
 # 検索周りの設定
 # fzf, agを利用します
@@ -66,7 +68,7 @@ f() {
     fi
 }; f {}'
 
-	files=$(tree --noreport --charset=o -f | sed -e '1d')
+	files=$(tree --noreport --charset=o -af -I ${FZF_TREE_IGNORE} | sed -e '1d')
 	selected=$(echo $files |
 		fzf --reverse --query "$INITIAL_QUERY" \
 			--preview ${PREVIEW} |
@@ -85,7 +87,7 @@ f() {
 	fi
 }
 
-# ディレクトリ名を検索してvimで開く
+# ディレクトリ名を検索して移動する
 function find_directory_and_cd() {
 	INITIAL_QUERY=""
 	if [ $# != 0 ]; then
@@ -101,7 +103,7 @@ f() {
     ls -lh $1
 }; f {}'
 
-	directories=$(tree --charset=o -df --noreport | sed -e '1d')
+	directories=$(tree --charset=o -af -d --noreport -I ${FZF_TREE_IGNORE} | sed -e '1d')
 
 	local dirs=()
 	get_parent_dirs() {
