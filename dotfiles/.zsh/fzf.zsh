@@ -11,16 +11,12 @@ else
 	alias vimf='nvim -c :VimFiler'
 fi
 
-# vimのファイラを開く
-# [COMMAND] key=ff; tags=find; action=vimでファイラを開きます;
-alias fv=vim .
-# [COMMAND] key=fa; tags=find; action=ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開きます;
+# [COMMAND] key=ff; tags=find; action=ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開きます;
 alias ff=find_file_and_vim
 # [COMMAND] key=fd; tags=find; action=ディレクトリ名で検索してそこへ移動します;
 alias fd=find_directory_and_cd
-# [COMMAND] key=fgv [query:option]; tags=find; action=文字列で(queryがあればqueryで)ファイルを検索して、vimで開きます;
+# [COMMAND] key=ft; tags=find; action=文字列で(queryがあればqueryで)ファイルを検索して、vimで開きます;
 alias ft=find_text_and_vim
-
 # [COMMAND] key=fh; tags=find; action=ヒストリからファイルを検索してvimで開きます;
 alias fh=find_history_and_vim
 

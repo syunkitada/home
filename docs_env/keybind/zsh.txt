@@ -1,31 +1,30 @@
 # zsh
-gl                             [git]     lazygitを起動します
-t                              [tmux]    over tmuxを起動します
-tt                             [tmux]    under tmuxを起動します
-ta                             [tmux]    tmuxセッションにアタッチします
-tl                             [tmux]    tmuxセッション一覧を表示します
-ssh [options] dest [command]   [ssh]     sshを実行します
-mssh [file]                    [ssh]     指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshします
-cssh [file] [command]          [ssh]     指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshで[command]を実行します
-scp [options] src dest         [ssh]     scpでファイルを転送します
-scphome [host]                 [ssh]     homeの設定ファイルを[host]へscpします
-setup-dockerhome [host]        [docker]  docker上での開発環境を整えます。
-ssh-add -l                     [ssh]     登録済みのssh鍵一覧を表示します
-sshadd                         [ssh]     ssh-agentに鍵を登録します
-genpass                        [util]    ランダムなパスワードを生成します
-ff                             [find]    vimでファイラを開きます
-fa                             [find]    ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開きます
-fgv [query:option]             [find]    文字列で(queryがあればqueryで)ファイルを検索して、vimで開きます
-fh                             [find]    ヒストリからファイルを検索してvimで開きます
-ftt [filename] [query:option]  [find]    [filename]を([query]があればqueryで)grepして、そのマッチした行をvimで開きます
-cdp                            [move]    親ディレクトリを検索して移動します
-cdr                            [move]    プロジェクトのルートディレクトリへ移動する
-doccmd                         [doc]     コマンドのドキュメントを検索します
-doccmdg                        [doc]     コマンドのドキュメントを検索します
-docops                         [doc]     コマンドのドキュメントを検索します
-docopsg                        [doc]     コマンドのドキュメントを検索します
-dockey                         [doc]     キーバインドのドキュメントを検索します
-dockeydefault                  [doc]     ノーマルモードのドキュメントを表示します
-dockeyzsh                      [doc]     zshのコマンドのドキュメントを表示します
-dockeyvim                      [doc]     vimノーマルモードのドキュメントを表示します
-dockeytmux                     [doc]     tmuxのドキュメントを表示します
+gl                            [git]     lazygitを起動します
+t                             [tmux]    over tmuxを起動します
+tt                            [tmux]    under tmuxを起動します
+ta                            [tmux]    tmuxセッションにアタッチします
+tl                            [tmux]    tmuxセッション一覧を表示します
+ssh [options] dest [command]  [ssh]     sshを実行します
+mssh [file]                   [ssh]     指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshします
+cssh [file] [command]         [ssh]     指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshで[command]を実行します
+scp [options] src dest        [ssh]     scpでファイルを転送します
+scphome [host]                [ssh]     homeの設定ファイルを[host]へscpします
+setup-dockerhome [host]       [docker]  docker上での開発環境を整えます。
+ssh-add -l                    [ssh]     登録済みのssh鍵一覧を表示します
+sshadd                        [ssh]     ssh-agentに鍵を登録します
+genpass                       [util]    ランダムなパスワードを生成します
+ff                            [find]    ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開きます
+fd                            [find]    ディレクトリ名で検索してそこへ移動します
+ft                            [find]    文字列で(queryがあればqueryで)ファイルを検索して、vimで開きます
+fh                            [find]    ヒストリからファイルを検索してvimで開きます
+cdp                           [move]    親ディレクトリを検索して移動します
+cdr                           [move]    プロジェクトのルートディレクトリへ移動する
+doccmd                        [doc]     コマンドのドキュメントを検索します
+doccmdg                       [doc]     コマンドのドキュメントを検索します
+docops                        [doc]     コマンドのドキュメントを検索します
+docopsg                       [doc]     コマンドのドキュメントを検索します
+dockey                        [doc]     キーバインドのドキュメントを検索します
+dockeydefault                 [doc]     ノーマルモードのドキュメントを表示します
+dockeyzsh                     [doc]     zshのコマンドのドキュメントを表示します
+dockeyvim                     [doc]     vimノーマルモードのドキュメントを表示します
+dockeytmux                    [doc]     tmuxのドキュメントを表示します
