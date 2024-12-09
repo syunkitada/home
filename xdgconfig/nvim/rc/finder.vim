@@ -142,10 +142,6 @@ nmap [terminal]t :call MyOpenTerminal(":tabe\n", "t-terminal", "")<cr>
 nmap [terminal]f :call MyOpenTerminal(":tabe\n", "t-finder", "")<cr>
 " [KEYBIND] key=_tp; tags=terminal; action=t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します;
 nmap [terminal]p :call MyOpenTerminal(":tabe\n", "t-project", "cd_project_root\n")<cr>
-" [KEYBIND] key=gl; tags=terminal; action=t-gitバッファでターミナルモードへ移行し、lazygitを実行します;
-" [KEYBIND] key=_tg; tags=terminal; action=t-gitバッファでターミナルモードへ移行し、lazygitを実行します;
-nmap gl :call MyOpenTerminal(":tabe\n", "t-git", "lazygit\n")<cr>
-nmap [terminal]g :call MyOpenTerminal(":tabe\n", "t-git", "lazygit\n")<cr>
 
 
 " terminalモードでは、<C-\><C-n> で Terminal-Normal

@@ -48,8 +48,6 @@ _fh          [finder][fzf]       FZFで最近開いたファイルを検索し�
 _tt          [terminal]          t-terminalバッファでターミナルモードへ移行します
 _tf          [finder][terminal]  t-findrバッファでターミナルモードへ移行します
 _tp          [terminal]          t-projectバッファでターミナルモードへ移行し、プロジェクトトップへ移動します
-gl           [terminal]          t-gitバッファでターミナルモードへ移行し、lazygitを実行します
-_tg          [terminal]          t-gitバッファでターミナルモードへ移行し、lazygitを実行します
 s            [move]              easymotionへ移行します
 _gg          [git][show]         gitgutterのマーカの表示非表示を切り替えます（デフォルトは表示）
 
