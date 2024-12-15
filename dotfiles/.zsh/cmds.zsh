@@ -43,6 +43,17 @@ function _mssh() {
 	tmux select-layout tiled
 }
 
+function dev() {
+	tmux split-window
+	tmux split-window
+	tmux split-window
+	tmux select-layout tiled
+	tmux select-pane -U
+	tmux select-pane -L
+	tmux resize-pane -D 10
+	nvim -c "call MyOpenFern()"
+}
+
 # [COMMAND] key=cssh [file] [command]; tags=ssh; action=指定したファイルに記述されてるホスト一覧ごとにtmuxのパネルを作成してsshで[command]を実行します;
 function cssh() {
 	if [ $# != 1 ]; then

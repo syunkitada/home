@@ -100,9 +100,16 @@ function setup_dev_shell() {
 }
 
 function setup_fzf() {
+	if [ "$(fzf --version | awk '{print $1}')" != "${FZF_VERSION}" ]; then
+		echo "Install fzf."
+		curl -fsSL "https://github.com/junegunn/fzf/releases/download/v${FZF_VERSION}/fzf-${FZF_VERSION}-linux_amd64.tar.gz" |
+			gunzip | tar -x -C ~/.local/bin
+	else
+		echo "fzf is already installed."
+	fi
+
 	if [ ! -e ~/.fzf ]; then
 		git clone https://github.com/junegunn/fzf.git ~/.fzf
-		~/.fzf/install --bin
 	fi
 }
 
