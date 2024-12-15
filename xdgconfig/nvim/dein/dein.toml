@@ -106,6 +106,7 @@ rev = '0.7-compat'
 # LSP用のシグネチャ表示（関数の引数入力時の説明表示）
 [[plugins]]
 repo = 'ray-x/lsp_signature.nvim'
+rev = 'neovim-0.6'
 
 # LSP用のリッチなUI
 # アウトライン表示、定義・参照の表示など

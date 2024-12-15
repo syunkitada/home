@@ -68,7 +68,7 @@ f() {
 	selected=$(echo $files |
 		fzf --reverse --query "$INITIAL_QUERY" \
 			--preview ${PREVIEW} |
-		tr -d '\||`|-' | xargs echo)
+		sed -e 's/.*[|`]-- //g')
 
 	if [ "$selected" = "" ]; then
 		return 0
@@ -117,7 +117,7 @@ f() {
 	selected=$(echo $directories |
 		fzf --reverse --query "$INITIAL_QUERY" \
 			--preview ${PREVIEW} |
-		tr -d '\||`|-' | xargs echo)
+		sed -e 's/.*[|`]-- //g')
 
 	if [ "$selected" = "" ]; then
 		return 0
