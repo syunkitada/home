@@ -13,8 +13,10 @@ fi
 
 # [COMMAND] key=ff; tags=find; action=ファイル名で検索してディレクトリならそこへ移動し、ファイルならvimで開きます;
 alias ff=find_file_and_vim
-# [COMMAND] key=fd; tags=find; action=ディレクトリ名で検索してそこへ移動します;
-alias fd=find_directory_and_cd
+# [COMMAND] key=fd; tags=find; action=プロジェクトルートからディレクトリ名で検索してそこへ移動します;
+alias fd=find_directory_from_project_root_and_cd
+# [COMMAND] key=fdd; tags=find; action=ディレクトリ名で検索してそこへ移動します;
+alias fdd=find_directory_and_cd
 # [COMMAND] key=ft; tags=find; action=文字列で(queryがあればqueryで)ファイルを検索して、vimで開きます;
 alias ft=find_text_and_vim
 # [COMMAND] key=fh; tags=find; action=ヒストリからファイルを検索してvimで開きます;
@@ -43,7 +45,7 @@ FZF_COLOR='--color=bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8
 # fzfのデフォルトの検索は、あいまい検索（検索文字列の一部が一致するとヒットする）であるため不用意に大量のファイルが見つかってしまうため、--exact オプションにより無効にする
 export FZF_DEFAULT_OPTS="--exact ${FZF_COLOR}"
 
-FZF_TREE_IGNORE=".git|.venv|.*cache|__pycache__"
+FZF_TREE_IGNORE=".git|.cache|.*cache|__pycache__"
 
 # ----------------------------------------------------------------------------------------------------
 # 検索周りの設定
@@ -54,6 +56,8 @@ FZF_TREE_IGNORE=".git|.venv|.*cache|__pycache__"
 function find_file_and_vim() {
 	INITIAL_QUERY="$1"
 
+	# プレビューの対象は、ファイルの場合もあれば、ディレクトリの場合もあります。
+	# プレビュー対象が、ディレクトリの場合はlsでファイル一覧を表示し、そうでなければheadで先頭行のみ表示しています。
 	PREVIEW='
 f() {
     set -- $(echo -- "$@" | grep -o "\./.*$");
@@ -64,61 +68,54 @@ f() {
     fi
 }; f {}'
 
-	files=$(tree --noreport --charset=o -af -I ${FZF_TREE_IGNORE} | sed -e '1d')
+	# treeの実行結果からfzfによりファイルを絞れるようにします。
+	# 経験上、何かファイルを探したいときに、まずはディレクトリ構造ごと知ってからファイルを検索することが多いためです。
+	files=$(tree --noreport --charset=o -f -a -I ${FZF_TREE_IGNORE} | sed -e '1d')
+
 	selected=$(echo $files |
 		fzf --reverse --query "$INITIAL_QUERY" \
 			--preview ${PREVIEW} |
-		sed -e 's/.*[|`]-- //g')
+		grep -o "\./.*$")
 
+	# ファイルが選択されていなければなにもしません。
+	# ファイルが選択されていたら、それをファイル、ディレクトリにかかわらずvimで開きます。
 	if [ "$selected" = "" ]; then
 		return 0
 	fi
-	if [ -f $selected ]; then
-		vim $selected
+	if [ -f "$selected" ]; then
+		vim "$selected"
 		return 0
 	fi
-	if [ -d $selected ]; then
-		vim $selected
+	if [ -d "$selected" ]; then
+		vim "$selected"
 		return 0
 	fi
 }
 
-# ディレクトリ名を検索して移動する
-function find_directory_and_cd() {
-	INITIAL_QUERY=""
-	if [ $# != 0 ]; then
-		INITIAL_QUERY=$1
+function find_directory_from_project_root_and_cd() {
+	cd_project_root
+	find_directory_and_cd
+}
+
+function cd_project_root() {
+	# .gitがあればそこをprojetのrootとみなして移動します
+	result=$(git rev-parse --show-toplevel 2>/dev/null)
+	if [ $? == 0 ]; then
+		cd $result
+		return 0
 	fi
+}
 
-	PREVIEW='
-f() {
-    path="${@}"
-    if [ "${path:0:1}" != "/" ]; then
-        set -- $(echo -- "$@" | grep -o "\./.*$");
-    fi
-    ls -lh $1
-}; f {}'
+function find_directory_and_cd() {
+	PREVIEW='ls -lh {1}'
 
-	directories=$(tree --charset=o -af -d --noreport -I ${FZF_TREE_IGNORE} | sed -e '1d')
+	selected=$(
+		fzf --walker=dir --reverse \
+			--preview=$PREVIEW
+	)
 
-	local dirs=()
-	get_parent_dirs() {
-		if [[ -d "$1" ]]; then dirs+=("$1"); else return; fi
-		if [[ "$1" == '/' ]]; then
-			for _dir in "${dirs[@]}"; do echo "$_dir"; done
-		else
-			get_parent_dirs "$(dirname "$1")"
-		fi
-	}
-	parent_dirs=$(get_parent_dirs "$(realpath "${1:-$PWD}")")
-
-	directories="${parent_dirs}\n${directories}"
-
-	selected=$(echo $directories |
-		fzf --reverse --query "$INITIAL_QUERY" \
-			--preview ${PREVIEW} |
-		sed -e 's/.*[|`]-- //g')
-
+	# ディレクトリが選択されていなければなにもしません。
+	# ディレクトリが選択されていたら、そこに移動し、lsでディレクトリの中身を表示します。
 	if [ "$selected" = "" ]; then
 		return 0
 	fi
@@ -138,6 +135,8 @@ function find_text_and_vim() {
 		TARGET_FILE=$2
 	fi
 
+	# プレビューでは、sedにより検索でヒットした行の一行前と後ろ数行を部分的に表示するようにしています。
+	# また、検索文字をハイライトするためにgrepを実行しています。
 	PREVIEW='
 f() {
     query={q}
@@ -172,6 +171,8 @@ f() {
 			--preview=$PREVIEW
 	)
 
+	# ファイルが選択されていなければなにもしません。
+	# ファイルが選択されたら、そのファイルを行指定でvimで開きます。
 	filename=$(echo $selected_file | awk -F ':' '{print $1}')
 	if [ "$filename" == "" ]; then
 		return 0
@@ -222,15 +223,6 @@ function cd_to_parent_directory() {
 	)" || return
 	cd "$parent_dir" || return
 	ls
-}
-
-function cd_project_root() {
-	# gitがあればそこをprojetのrootとみなす
-	result=$(git rev-parse --show-toplevel 2>/dev/null)
-	if [ $? == 0 ]; then
-		cd $result
-		return 0
-	fi
 }
 
 function find_history_and_vim() {
