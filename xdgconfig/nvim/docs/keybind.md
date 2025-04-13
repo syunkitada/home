@@ -32,11 +32,14 @@
 ## 編集
 
 ```
-[KEYBIND] mode=vn; key=x; tags=edit; action=カーソル一の文字削除します;
-[KEYBIND] mode=vn; key=d[move cmd]; tags=edit; action=[move]対象の文字削除します;
-[KEYBIND] mode=vn; key=D; tags=edit; action=カーソル移行の一行を削除します;
-[KEYBIND] mode=vn; key=c[char]; tags=edit; action=カーソル一の文字を[c]に置換します;
-[KEYBIND] mode=vn; key=C; tags=edit; action=カーソル移行の一行を削除して入力モードに切り替えます;
+[KEYBIND] mode=vn; key=x; tags=edit; action=カーソル位置の文字を削除します;
+[KEYBIND] mode=vn; key=d[move cmd]; tags=edit; action=[move]対象の文字を削除します;
+[KEYBIND] mode=vn; key=D; tags=edit; action=カーソル後ろの一行を削除します;
+[KEYBIND] mode=vn; key=c[move cmd]; tags=edit; action=[move]対象の文字を削除し、入力モードに切り替えます;
+[KEYBIND] mode=vn; key=C; tags=edit; action=カーソル後ろの一行を削除して入力モードに切り替えます;
+[KEYBIND] mode=vn; key=r; tags=edit; action=(replace)カーソル位置の文字を置換します;
+[KEYBIND] mode=vn; key=u; tags=edit; action=(undo)一つ前の操作を取り消します;
+[KEYBIND] mode=vn; key=R; tags=edit; action=(redo)undoで取り消した操作をやり直します;
 ```
 
 ## ファイル操作
