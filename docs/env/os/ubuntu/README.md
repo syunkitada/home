@@ -23,6 +23,5 @@ $ chmod 600 .ssh/authorized_keys
 $ sudo apt-get install git
 $ git clone git@github.com:syunkitada/home.git
 $ cd home
-$ ./setup_dotfiles.sh
-$ ./setup_ubuntu.sh
+$ make
 ```

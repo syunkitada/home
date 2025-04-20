@@ -24,7 +24,7 @@ func main() {
 	modeKeyMap := map[string]map[string]KeyBind{}
 
 	pwd := os.Getenv("PWD")
-	keybindDocs := path.Join(pwd, "docs_env", "keybind")
+	keybindDocs := path.Join(pwd, "docs/env", "keybind")
 
 	// autohotkey
 	cmd := "grep '\\[KEYBIND\\]' ~/autohotkey/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"

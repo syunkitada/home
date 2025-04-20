@@ -54,6 +54,5 @@ $ sudo service sshd restart
 # Setup dotfiles and install basic packages
 $ git clone git@github.com:syunkitada/home.git
 $ cd home
-$ ./setup_dotfiles.sh
-$ ./setup_cent.sh
+$ make
 ```

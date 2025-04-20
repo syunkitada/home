@@ -267,21 +267,21 @@ function find_history_and_vim() {
 # ドキュメントの検索
 # [COMMAND] key=doccmd; tags=doc; action=コマンドのドキュメントを検索します
 # [COMMAND] key=doccmdg; tags=doc; action=コマンドのドキュメントを検索します
-alias doccmd="cd ~/home/docs_cmd && find_grep_doc_and_vim"
-alias doccmdg="cd ~/home/docs_cmd && find_file_and_vim"
+alias doccmd="cd ~/home/docs/cmd && find_grep_doc_and_vim"
+alias doccmdg="cd ~/home/docs/cmd && find_file_and_vim"
 # [COMMAND] key=docops; tags=doc; action=コマンドのドキュメントを検索します
 # [COMMAND] key=docopsg; tags=doc; action=コマンドのドキュメントを検索します
-alias docops="cd ~/home/docs_ops && find_grep_doc_and_vim"
-alias docopsg="cd ~/home/docs_ops && find_file_and_vim"
+alias docops="cd ~/home/docs/ops && find_grep_doc_and_vim"
+alias docopsg="cd ~/home/docs/ops && find_file_and_vim"
 
 # キーバインドの検索
 # [COMMAND] key=dockey; tags=doc; action=キーバインドのドキュメントを検索します
-alias dockey="cd ~/home/docs_env/keybind/ && find_file_and_vim"
+alias dockey="cd ~/home/docs/env/keybind/ && find_file_and_vim"
 # [COMMAND] key=dockeydefault; tags=doc; action=ノーマルモードのドキュメントを表示します
-alias dockeydefault='vim ~/home/docs_env/keybind/default.txt'
+alias dockeydefault='vim ~/home/docs/env/keybind/default.txt'
 # [COMMAND] key=dockeyzsh; tags=doc; action=zshのコマンドのドキュメントを表示します
-alias dockeyzsh='vim ~/home/docs_env/keybind/zsh.txt'
+alias dockeyzsh='vim ~/home/docs/env/keybind/zsh.txt'
 # [COMMAND] key=dockeyvim; tags=doc; action=vimノーマルモードのドキュメントを表示します
-alias dockeyvim='vim ~/home/docs_env/keybind/vim.txt'
+alias dockeyvim='vim ~/home/docs/env/keybind/vim.txt'
 # [COMMAND] key=dockeytmux; tags=doc; action=tmuxのドキュメントを表示します
-alias dockeytmux='vim ~/home/docs_env/keybind/tmux.txt'
+alias dockeytmux='vim ~/home/docs/env/keybind/tmux.txt'
