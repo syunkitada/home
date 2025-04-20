@@ -1,45 +1,69 @@
 # perf
 
-- Linux（主にカーネル）の性能に関する情報を収集、分析するためのツール
+Linux（主にカーネル）の性能に関する情報を収集、分析するためのツールです。
 
-## perf record (トレースデータの採取)
-
-- オプション
-  - -a: 全ての CPU のデータを採取します（デフォルトの動作）
-  - -C/--cpu (cpu number): 採取するデータを、指定した CPU のデータに限定します
-  - -g/--call-graph: バックトレース情報も採取します
-  - -o [file name]: 出力ファイル名を指定します（デフォルト：perf.data）
-  - -e [event regex]: イベント名の正規表現をしていして、採取するイベントを限定します
-    - 採取するイベントが複数ある場合は、-e を複数指定する
-    - perf -e sched:\* -e net:\* ...
+基本的な使いかたは、データをperf recordで収集し、perf reportで分析するという使いかたです。
 
 ```
 # -o でrecordデータの出力先を指定できる
 # デフォルトは、perf.data
-$ sudo perf record -o perf.data ./main.o
+$ sudo perf record -o perf.data
+^C
+[ perf record: Woken up 4 times to write data ]
+[ perf record: Captured and wrote 3.718 MB perf.data (49253 samples) ]
 
 # -i でrecordデータの入力元を指定できる
 # デフォルトは、perf.data
 $ sudo perf report -i perf.data
+```
 
-# トレースできるイベント一覧を表示
+## perf record
+
+- 基本オプション
+  - -a: 全ての CPU のデータを採取します（デフォルトの動作）
+  - -C/--cpu (cpu number): 採取するデータを、指定した CPU のデータに限定します
+  - -g/--call-graph: バックトレース情報も採取します
+  - -o [file name]: 出力ファイル名を指定します（デフォルト：perf.data）
+
+### トレースデータの採取
+
+- -e [event regex]: イベント名の正規表現を指定して、採取するイベントを限定します
+  - 採取するイベントが複数ある場合は、-e を複数指定する
+
+トレースできるイベント一覧は、perf list で確認できます
+
+```
 $ perf list
+...
 ```
 
+以下は、スケジューラとネットワークのイベントを採取する例です。
+
 ```
-# プロファイルデータの採取
-# -Fでサンプリング頻度を指定して採取する
-$ perf record -F 99 -C 0 --call-graph dwarf
+$ sudo perf record -o perf.data -e sched:\* -e net:\*
+```
+
+### プロファイルデータの採取
+
+- -F [frequency]: サンプリング頻度を指定して、プロファイルデータを採取します
+
+以下の例は、99Hz でCPU 0のプロファイルデータを、dwarf情報に基づくバックトレース付きで採取する例です。
+
+```
+$ sudo perf record -o perf.data -F 99 -C 0 --call-graph dwarf
 ```
 
 ## perf report
 
-- perf script コマンドを使って、他のスクリプトで解析するための情報として出力することも可能
+- 基本オプション
+  - -i [file name]: 入力ファイル名を指定します（デフォルト：perf.data）
+  - -g/--call-graph: バックトレース情報を表示します
+- perf script コマンドを使って、他のスクリプトで解析するための情報として出力することも可能です
 
-## top
+## perf top
 
 ```
-$ perf top
+$ sudo perf top
 Samples: 544  of event 'cpu-clock', Event count (approx.): 39421099
 Overhead  Shared Object                       Symbol
    9.44%  [kernel]                            [k] _raw_spin_unlock_irqrestore
@@ -52,8 +76,9 @@ Overhead  Shared Object                       Symbol
 
 ## perf stat
 
+パフォーマンスカウンタを記録し、表示します。
+
 ```
-# パフォーマンスカウンタを記録し、表示する
 $ sudo perf stat -a
 ^C
  Performance counter stats for 'system wide':
