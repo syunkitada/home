@@ -63,7 +63,7 @@ function setup_dev_python() {
 
 function setup_dev_web() {
 	npm install -g typescript typescript-language-server
-	npm install -g prettier
+	npm install -g prettier prettier-plugin-organize-imports
 	npm install -g @tailwindcss/language-server
 	npm install -g yarn
 }

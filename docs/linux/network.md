@@ -127,34 +127,59 @@ NETLINK   1064     15      -1   NI       0   no   kernel      n  n  n  n  n  n  
   - この際に、ソケットバッファの割り当てに失敗すると、1 インクリメントされる
     - ソケットバッファの割り当て失敗は、TCP クォータの制限による失敗ではなく、Slab アロケータによる割り当て失敗が原因となる
 
-## NIC オフロード
+## オフロード
 
 - TSO(TCP Segmentagion Offload), UFO(UDP Segmentation Offload), GSO(Generic Segmentation Offload)
   - IP フラグメンテーションと TCP セグメンテーション
-    - L3 レイヤにおいて IP パケットは、途中経路の MTU のサイズを超えることができないので、その単位で IP パケットを分割する
-      - この分割処理を IP フラグメンテーションと呼ぶ
-    - IP フラグメンテーションをすると、TCP ヘッダは最初のパケットにしか含まれず、以降の IP パケットには TCP パケットは含まれない
-    - そこで、TCP ではすべてのパケットに TCP パケットが含まれるように L4 のレイヤでパケットを MTU におさまるように事前に分割する
-      - この分割処理を TCP セグメンテーションと呼ぶ
-      - 分割単位(MSS:Maximum Segment Size)はハンドシェイク時に MTU を基準に決定する
+    - L3 レイヤにおいて IP パケットは、途中経路の MTU のサイズを超えることができないので、その単位で IP パケットを分割します
+      - この分割処理を IP フラグメンテーションと呼びます
+    - IP フラグメンテーションをすると、TCP ヘッダは最初のパケットにしか含まれず、以降の IP パケットには TCP パケットは含まれません
+    - そこで、TCP ではすべてのパケットに TCP パケットが含まれるように L4 のレイヤでパケットを MTU におさまるように事前に分割します
+      - この分割処理を TCP セグメンテーションと呼びます
+      - 分割単位(MSS:Maximum Segment Size)はハンドシェイク時に MTU を基準に決定されます
   - 遅延セグメンテーション
-    - TCP セグメンテーションの処理を早めにやってしまうと、後続の処理は分割されたパケット分だけ多くの処理を行う必要があるため、なるべく後ろの処理で行う
-    - この(NIC での)ハードウェア実装を TSO と呼び、ソフトウェア実装を GSO と呼ぶ
-    - UFO は TSO の UDP 版
+    - TCP セグメンテーションの処理を早めにやってしまうと、後続の処理は分割されたパケット分だけ多くの処理を行う必要があるため、なるべく後ろ側の処理で行います
+    - この(NIC での)ハードウェア実装を TSO と呼び、UFO は TSO の UDP 版のことです
+    - GSOは、NICがTSO, UFOをサポートしていない場合に利用されるソフトウェア実装のことです
   - メモ
-    - TSO、UFO はハードウェア依存なのでデフォルトでは OFF にされているので、利用したい場合は明示的に ON にする必要がある
+    - TSO、UFO はハードウェア依存なのでデフォルトでは OFF にされているので、利用したい場合は明示的に ON にする必要があります
     - TSO を利用すると MTU がらみでバグを踏む可能性もあるので注意(UFO も同様)
       - 実際にあったこと
-        - クライアントとサーバの MTU が異なり、かつ PMTUD がうまく機能してない場合、TSO 有効時に MTU におさまらない単位でセグメンテーションされてしまい、IP フラグメンテーションが発生するという問題が起こったことがある
-        - TSO によって MTU1500 で収まるようなセグメンテーションをされたが、実際の受け取り手の MTU は 1450 であった
-        - 本来は MTU が異なっていてもハンドシェイク時に適切な MSS が決定されるはずだが、TSO 有効時にこれがうまく機能していなかった(TSO を無効にしたらうまく機能した)
+        - クライアントとサーバの MTU が異なり、かつ PMTUD がうまく機能してない場合、TSO 有効時に MTU におさまらない単位でセグメンテーションされてしまい、IP フラグメンテーションが発生するという問題が起こったことがあります
+        - TSO によって MTUが1500 で収まるようなセグメンテーションをされたが、実際の受け取り手の MTU は 1450 でした
+        - 本来は MTU が異なっていてもハンドシェイク時に適切な MSS が決定されるはずだが、TSO 有効時にこれがうまく機能していませんでした(TSO を無効にしたらうまく機能しました)
 - LRO(Large Receive Offload)、GRO(Generic Receive Offload)
-  - 受信側における遅延セグメンテーションの逆の考え
-    - 受信側ではなるべく早い段階で分割されたパケットを結合しできると、それ以降の処理をパケット分だけ減らすことができる
-    - この(NIC での)ハードウェア実装を LRO と呼び、ソフトウェア実装を GRO と呼ぶ
+  - 受信側における遅延セグメンテーションの逆の考え方です
+    - 受信側ではなるべく早い段階で分割されたパケットを結合できると、それ以降の処理はその分割されたパケット分だけ減ることになります
+    - この(NIC での)ハードウェア実装を LRO と呼び、ソフトウェア実装を GRO と呼びます
 - 参考
-  - [Segmentation Offloads in the Linux Networking Stack](https://www.kernel.org/doc/Documentation/networking/segmentation-offloads.txt)
+  - [Segmentation Offloads in the Linux Networking Stack](https://www.kernel.org/doc/html/next/networking/segmentation-offloads.html)
   - [SRv6 ベースのマルチテナンシー環境で起きた TSO 問題とその検証方法 – LINE Developer Meetup #67 フォローアップ記事](https://engineering.linecorp.com/ja/blog/tso-problems-srv6-based-multi-tenancy-environment/)
+  - [OpenStack: Hardware Offloads - Test results](https://docs.openstack.org/developer/performance-docs/test_results/hardware_features/hardware_offloads/test_results.html#hw-features-offloads)
+  - [Linuxの各種仮想ネットワークデバイスにおけるSegmentation Offloadの振る舞い](https://zenn.dev/yutarohayakawa/articles/9e9a74ea8f8ed4)
+
+### トンネルデバイスのオフロード
+
+IPIP, GRE, VXLAN, SRv6 などのトンネルデバイス利用時のオフロードについて
+
+- 送信時の処理
+  - トンネルデバイスに入ったパケットは、パケットをトンネルプロトコルのヘッダでかプセス化した後に、プロトコルスタックで再処理されて、セグメンテーションされます
+    - この時、内側のパケットをセグメンテーションしたうえで、外側のトンネルプロトコルのヘッダでそれぞれをカプセル化する必要があります
+  - ethtoolを使って、NIC がこれをサポートしているか確認できます
+  - これらが利用できない場合は、GSOで処理されます
+
+```
+tx-gre-segmentation: on <= GRE
+tx-ipxip4-segmentation: on <= IPv4 in IPv4 (IPIP)
+tx-ipxip6-segmentation: on <= IPv4 in IPv6 (SRv6) もしくは IPv6 in IPv4
+tx-udp_tnl-segmentation: on <= VXLAN, GeneveなどのUDP encap
+```
+
+### 二段階トンネルのオフロード
+
+- VMのネットワークがトンネリングを利用しおり、さらにVMがK8SでVXLANやIPIPを利用している場合など
+- パケットをVM側のトンネルデバイスに通した時点で、GSOによってセグメンテーションされます
+- HV側はセグメンテーションされたパケットを処理する必要があるため、パフォーマンスが悪化します
 
 ## DDOS 対策
 

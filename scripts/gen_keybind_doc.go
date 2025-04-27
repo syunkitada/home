@@ -24,7 +24,7 @@ func main() {
 	modeKeyMap := map[string]map[string]KeyBind{}
 
 	pwd := os.Getenv("PWD")
-	keybindDocs := path.Join(pwd, "docs_env", "keybind")
+	keybindDocs := path.Join(pwd, "docs/env", "keybind")
 
 	// autohotkey
 	cmd := "grep '\\[KEYBIND\\]' ~/autohotkey/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
@@ -35,7 +35,7 @@ func main() {
 	appendKeyMapByCmd(modeKeyMap, "vn", cmd)
 
 	// tmux
-	cmd = "grep '\\[KEYBIND\\]' ~/home/dotfiles/.tmux.conf -r | sed -e 's/.*\\[KEYBIND\\]//g'"
+	cmd = "grep '\\[KEYBIND\\]' ~/home/xdgconfig/tmux/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
 	appendKeyMapByCmd(modeKeyMap, "t", cmd)
 
 	// zsh
