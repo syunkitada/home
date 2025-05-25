@@ -475,7 +475,7 @@ $ sudo losetup -d /dev/loop2
 $ sudo rm /tmp/test-volume
 ```
 
-## マウントしている FS を調べる
+## mount/df: マウントしている FS を表示します
 
 - mount
 
@@ -491,22 +491,24 @@ tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=1637448k,mode=755)
 ```
 
 - df
+  - -a: すべてのデバイスを表示します
+  - -T: ファイルシステムのTypeを表示します。
 
 ```
-df -a
-Filesystem     1K-blocks      Used Available Use% Mounted on
-sysfs                  0         0         0    - /sys
-proc                   0         0         0    - /proc
-udev             8162844         0   8162844   0% /dev
-devpts                 0         0         0    - /dev/pts
-tmpfs            1637448      9568   1627880   1% /run
-/dev/sda1      229613780 143513692  74413332  66% /
+$ df -aT
+Filesystem     Type  1K-blocks      Used Available Use% Mounted on
+tmpfs          tmpfs   3279220      1932   3277288   1% /run
+/dev/nvme0n1p1 ext4  212061700 166106304  35110420  83% /
+tmpfs          tmpfs  16396088         0  16396088   0% /dev/shm
+tmpfs          tmpfs      5120         4      5116   1% /run/lock
+tmpfs          tmpfs  16396088         0  16396088   0% /run/qemu
+localhost:/    nfs4  212062208 166106112  35110912  83% /mnt/nfs
+tmpfs          tmpfs   3279216        76   3279140   1% /run/user/121
+tmpfs          tmpfs   3279216        64   3279152   1% /run/user/1000
 ...
 ```
 
-## dumpe2fs
-
-- ext2/ext3/ext4
+## dumpe2fs: ext2/ext3/ext4の詳細情報を表示します
 
 ```
 $ sudo dumpe2fs /dev/sda1 | less
@@ -614,6 +616,67 @@ sudo mount -t tmpfs /dev/ram0 /tmp/ram0
 ```
 # 以下は、tmpfsにdelayをかける例
 sudo sh -c 'echo "0 `blockdev --getsz /dev/ram0` delay /dev/ram0 0 500" | dmsetup create delayed'
+```
+
+## /etc/fstab によるマウントの管理
+
+- /etc/fstab ファイルは、マウント設定を永続化するための設定ファイルです。
+- サーバの起動時に、fstab に記載された内容に従って自動的にファイルシステムがマウントされます。
+- 参考
+  - https://wiki.archlinux.org/title/Fstab
+
+```
+# <file system>                          <mount point>   <type>  <options>          <dump>  <pass>
+# / was on /dev/nvme0n1p1 during installation
+UUID=cf4b9c48-9b8d-43de-9441-1742c7822e41 /               ext4    errors=remount-ro 0       1
+/swapfile                                 none            swap    sw                0       0
+localhost:/ /mnt/nfs nfs defaults 0 0
+
+UUID=740f6d33-e629-4c0a-bde2-ab38d35f217a /mnt/sda        xfs    defaults,nofail    0       0
+UUID=5d4125fd-5ee0-476d-abed-376225f98e5d /mnt/sdb        xfs    defaults,nofail    0       0
+```
+
+- <device/file system>
+  - 以下の識別子が利用できます
+    - Kernel name descriptors
+      - /dev/sda, /dev/sdb などのデバイス名
+      - しかし、これはデバイスの読み込み順によって変わる可能性があるため、推奨されません
+    - UUID
+      - これはデバイス特有の識別子であり不変なのでよく利用されます
+    - LABEL
+      - デバイスにつけられたラベルであり、UUID と同様に不変です
+  - デバイス名や UUID、LABEL などを指定します。
+- <options>
+  - defaults
+    - rw, suid, dev, exec, auto, nouser, async が有効になります
+  - nofail
+    - マウントに失敗しても、起動を続行します
+    - ルートディス以外は、nofail をつけておくとよいです
+- <dump> フラグ
+  - そのファイルシステムをdumpコマンド（バックアップ用のコマンド）の対象とするかどうか
+  - 0の場合は無効です
+  - 基本的に 0 を指定します
+- <pass> フラグ
+  - fsckを行う順番（小さいものから実行されます）
+  - 0は fsck を行わない
+  - ルートディスク以外は基本的に 0 を指定します
+
+```
+# /etc/fstabに書かれたエントリすべてをマウントします
+$ sudo mount -a
+```
+
+## xfs_repair: XFS のファイルシステムをチェック・修復します
+
+```
+# 対象のファイルシステムをアンマウントする
+$ sudo umount /mnt/xxx
+
+# チェックのみを実行
+$ sudo xfs_repair -n /dev/sda
+
+# チェックおよび修復を実行
+$ sudo xfs_repair /dev/sda
 ```
 
 ## nfs
