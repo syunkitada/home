@@ -2,86 +2,72 @@
 
 ## Contents
 
-| Link                                                | Description                                          |
-| --------------------------------------------------- | ---------------------------------------------------- |
-| [Install common software](#install-common-software) | 基本的なソフトウェアをインストール                   |
-| [Install cygwin](#install-cygwin)                   | cygwin のインストールとセットアップ                  |
-| [Setup ssh key](#setup-ssh-key)                     | ssh-key を作成し、putty-agent で利用できるようにする |
-| [Setup dot files](#setup-dot-files)                 | dotfiles(.vimrc など)の展開                          |
-| [Setup vim](#setup-vim)                             | vim(gvim)の設定                                      |
-| [Setup RLogin](#setup-rlogin)                       | RLogin(SSH ターミナル)の設定                         |
-| [Other Setup](#other-setup)                         | その他(デフラグ無効化)                               |
+| Link                                      | Description                |
+| ----------------------------------------- | -------------------------- |
+| [Install software](#install-software)     | ソフトウェアをインストール |
+| [Setup VSCode](#setup-vscode)             | VSCodeの設定               |
+| [Setup RLogin](#setup-rlogin)             | RLoginの設定               |
+| [Disable SSD Defrag](#disable-ssd-defrag) | SSDのデフラグを無効化      |
 
-## Install common software
+## Install software
 
-Install following software
+- Lhaplus
+  - [窓の社](https://forest.watch.impress.co.jp/library/software/lhaplus/) からインストーラをダウンロードしてインストールします。
+  - Lhaplusは、LZH形式の解凍に利用します。
+  - Windowsは一般的な圧縮解凍をサポートしていますが、LZH形式はサポート外なので、Lhaplusを利用します。
+- Git for Windows
+  - wingetを利用してインストールします。
+  - `winget install -e --id Git.Git`
+  - その後、以下のコマンドを実行してGitの設定を行います。
+  - `git config --global user.email "hoge@example.com"`
+  - `git config --global user.name "Your Name"`
+  - `git config --global commit.verbose true`
+- VSCode/Neovim
+  - wingetを利用してインストールします。
+  - `winget install vscode --override "/silent /mergetasks=""addcontextmenufiles,addcontextmenufolders"""`
+  - `winget install -e --id neovim`
+- Change Key/AutoHotkey
+  - [autohotkey](https://github.com/syunkitada/autohotkey) を参考に、Change Key/AutoHotkey のセットアップをします。
+- VLC media player
+  - [窓の社](https://forest.watch.impress.co.jp/library/software/vlcmedia_ply/) からインストーラをダウンロードしてインストールします。
+  - VLC media playerは、オープンソースで開発されているメディアプレイヤーです。
+- KeePassXC
+  - [公式サイト](https://keepassxc.org/) からインストーラをダウンロードしてインストールします。
+  - KeePassXCは、パスワード管理用のオープンソースソフトウェアです。
+  - 2.7.10 において起動が失敗する問題がありましたが、これは以下のMicrosoft Visual C++ Redistributableをインストールすることで解決しました。
+    - https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
+- VeraCrypt
+  - [窓の社](https://forest.watch.impress.co.jp/library/software/veracrypt/) からインストーラをダウンロードしてインストールします。
+  - VeraCryptはTrueCryptの後継の暗号仮想ディスクの管理ソフトです。
+- LiberOffice
+  - [窓の社](https://forest.watch.impress.co.jp/library/software/libreoffice/) からインストーラをダウンロードしてインストールします。
+  - LibreOfficeは、オープンソースのオフィススイートです。
+- PuTTYry
+  - [PuTTYrv (PuTTY-ranvis)](https://www.ranvis.com/putty) から 64bit.7z をダウンロードしてデスクトップに展開します。
+  - puttygen.exe
+    - PuTTYのSSHキーを生成するためのツールです。
+    - 既存のOpenSSHの秘密鍵をPuTTY形式に変換することもできます。
+  - pagent.exe
+    - PuTTYのSSHエージェントです。
+    - puttygen.exeで生成した秘密鍵を読み込んで利用します。
+    - 以下のようにショートカットを作成しておき、タスクバーにピン留めしておくと便利です。
+    - `C:\[Path...]\PuTTY-ranvis\pageant.exe C:\[Path...]\[Key Name].ppk`
+- RLogin
+  - [Github: Releases](https://github.com/kmiya-culti/RLogin/releases/) から最新版をダウンロードして展開します。
 
-| Soft                                                | Description                                    |
-| --------------------------------------------------- | ---------------------------------------------- |
-| Microsoft Security Essentials (Windows7)            |                                                |
-| Windows Defender (Windows 8, 10: default installed) |                                                |
-| GVIM                                                | GVIM [KaoriYa](https://www.kaoriya.net/)       |
-| Lhaplus                                             |                                                |
-| Desktops                                            |                                                |
-| VLC media player                                    |                                                |
-| VeraCrypt                                           | 暗号仮想ディスクの管理ソフト、TrueCrypt の後継 |
-| LibreOffice                                         |                                                |
+## Setup VSCode
 
-## Setup ssh key
+WIP
 
-### create ssh key
-
-```bash
-$ ssh-keygen -t rsa -b 4096 -C "hoge@piyo.com"
-```
-
-### Deproy ssk key
-
-Deproy created ssh public key (.ssh/id_rsa.pub) to github or your server.
-
-Register ssh public key to github, and ssh to github by bash and putty.
-
-```bash
-$ ssh -T git@github.com
-```
-
-To use ssh-angent on github, export path of plink.exe to GIT_SSH.
-
-```bash
-$ export GIT_SSH=plinkパス
-```
-
-Create secret key of putty (id_rsa.ppk).
-And, create following shortcut.
-
-```bash
-pagent.exe C:\Users\<username>\.ssh\id_rsa.ppk
-```
-
-## Setup dot files
-
-```bash
-# In cygwin
-$ git clone git@github.com:syunkitada/home.git
-$ cd home
-$ ./setup_win_clone_neobundle.sh
-```
-
-In exploler
-
-- Run setup_win.bat by admin.
-  - setu_win.bat create symbolic link from dot files to home directory.
-- Edit .bashrc or .zshrc, and setup path plink.exe.
-
-## Setup vim
-
-- Run vim on cygwin. First, install plugins by dein.
-- Add path of cygwin/bin to PATH of env. for GVIM.
+- プラグイン
+  - VSCode Neovim
+  - Drawio Integration
+    - hoge.dio.svg, hoge.drawio.svgのファイルを作成するとVSCode上でDrawioが利用できます。
+  - TODO
+    - VIMの設定
 
 ## Setup RLogin
 
-- Download
-  - https://github.com/kmiya-culti/RLogin/releases/
 - default 設定用の接続先を作成する
   - コピペ用のショートカット設定
     - キーボード
@@ -100,76 +86,15 @@ In exploler
     - クリップボード > 制御コードによるクリップボード操作
       - 「クリップボードの読み込みを許可」にチェック
       - 「クリップボードの書き込みを許可」にチェック
+  - フォントの設定
+    - `Consolas`に設定する
 - default 設定を右クリックオプションから、「標準の設定にする」をクリック
 - 以降のサーバ設定は、「サーバ」の項目の「このページ以外のオプションは標準の設定を使用します」にチェックを入れる
 
-## Setup WSL(Ubuntu)
+## Disable SSD Defrag
 
-- Microsoft StoreからUbuntuをインストールしてください
-  - バージョン固定されてるものではなく、無印のUbuntuをインストールしてください
-- ターミナルヘッダを右クリックして、プロパティのオプションを開き、Ctrl+Shift+C/V によるコピペを有効にする
-
-#### ssh の設定
-
-1. "C:\Users\[User]\.ssh" のフォルダを、"C:\Users\[User]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu_XXX\LocalState\rootfs\home\[User]"にコピー
-2. その後ターミナルから.ssh の権限を適切に変更する
-
-```
-$ sudo chown -R owner:owner .ssh
-$ chmod 700 ~/.ssh/id_* ~/.ssh/config ~/.ssh/known_hosts
-```
-
-3. ssh-agent を起動
-
-```
-$ ssh-agent
-SSH_AUTH_SOCK=/tmp/ssh-XXXXXXXqFtJP/agent.88; export SSH_AUTH_SOCK;
-SSH_AGENT_PID=89; export SSH_AGENT_PID;
-echo Agent pid 89;
-$ SSH_AUTH_SOCK=/tmp/ssh-XXXXXXXqFtJP/agent.88; export SSH_AUTH_SOCK;
-
-$ ssh-add
-```
-
-#### shell のセットアップ
-
-```
-$ sudo apt install make
-$ git clone git@github.com:syunkitada/home.git
-$ cd home
-$ make setup
-```
-
-#### ssh のセットアップ(ターミナル起動後に ssh が必要な場合は毎回以下を実施してください)
-
-shell のセットアップ後は、以下で ssh-agent の起動と ssh-add ができます
-
-```
-ssh_add
-```
-
-## Other setup
-
-- Disable deflag if ssd
-  - Disable by "ドライブのデフラグと最適化"
-
-## KeePassXC
-
-- パスワード管理用
-- https://keepassxc.org/download/#windows
-
-## drawio-desktop
-
-- ダイアグラムエディタ
-- https://github.com/jgraph/drawio-desktop/releases
-- 特徴
-  - 一般的なダイアグラムエディタの機能は備えている
-  - ローカルで利用可能
-  - エクセルのようなタブ機能がある
-
-## VSCode
-
-- プラグイン
-  - Vim
-  - Drawio Integration
-    - hoge.dio.svg, hoge.drawio.svgのファイルを作成するとVSCode上でDrawioが利用できる
+- `ドライブのデフラグと最適化`によってデフラグを無効にします。
+- SSDのデフラグは通常不要ですが、特定の状況では有効な場合があります。
+  - 大量の小さなファイルを頻繁に読み書きする場合
+  - SSDの空き容量が少ない場合
+  - 特定のアプリケーションがSSDのパフォーマンスを最適化するためにデフラグを推奨している場合
