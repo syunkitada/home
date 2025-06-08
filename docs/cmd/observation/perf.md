@@ -5,15 +5,15 @@ Linux（主にカーネル）の性能に関する情報を収集、分析する
 基本的な使いかたは、データをperf recordで収集し、perf reportで分析するという使いかたです。
 
 ```
-# -o でrecordデータの出力先を指定できる
-# デフォルトは、perf.data
+# -o でrecordデータの出力先を指定してデータを収集します
+# -o のデフォルトは、perf.dataなので指定しなくてもよいです
 $ sudo perf record -o perf.data
 ^C
 [ perf record: Woken up 4 times to write data ]
 [ perf record: Captured and wrote 3.718 MB perf.data (49253 samples) ]
 
-# -i でrecordデータの入力元を指定できる
-# デフォルトは、perf.data
+# -i でrecordデータを指定してデータを分析します
+# -o のデフォルトは、perf.dataなので指定しなくてもよいです
 $ sudo perf report -i perf.data
 ```
 
@@ -31,6 +31,13 @@ $ sudo perf report -i perf.data
   - 採取するイベントが複数ある場合は、-e を複数指定する
 
 トレースできるイベント一覧は、perf list で確認できます
+
+イベントには以下のような種類があります。
+
+- hardware event: キャッシュミスなど、ハードウェアの動作に起因するイベント
+- software event: ページフォルトなど、ソフトウェアの動作に起因するイベント
+- static tracepoint: カーネルにあらかじめ定義されている tracepoint
+- dynamic tracepoint: ユーザが定義した tracepoint
 
 ```
 $ perf list
