@@ -9,25 +9,12 @@
 | [Setup RLogin](#setup-rlogin)             | RLoginの設定               |
 | [Disable SSD Defrag](#disable-ssd-defrag) | SSDのデフラグを無効化      |
 
-## Install software
+## Install common software
 
 - Lhaplus
   - [窓の社](https://forest.watch.impress.co.jp/library/software/lhaplus/) からインストーラをダウンロードしてインストールします。
   - Lhaplusは、LZH形式の解凍に利用します。
   - Windowsは一般的な圧縮解凍をサポートしていますが、LZH形式はサポート外なので、Lhaplusを利用します。
-- Git for Windows
-  - wingetを利用してインストールします。
-  - `winget install -e --id Git.Git`
-  - その後、以下のコマンドを実行してGitの設定を行います。
-  - `git config --global user.email "hoge@example.com"`
-  - `git config --global user.name "Your Name"`
-  - `git config --global commit.verbose true`
-- VSCode/Neovim
-  - wingetを利用してインストールします。
-  - `winget install vscode --override "/silent /mergetasks=""addcontextmenufiles,addcontextmenufolders"""`
-  - `winget install -e --id neovim`
-- Change Key/AutoHotkey
-  - [autohotkey](https://github.com/syunkitada/autohotkey) を参考に、Change Key/AutoHotkey のセットアップをします。
 - VLC media player
   - [窓の社](https://forest.watch.impress.co.jp/library/software/vlcmedia_ply/) からインストーラをダウンロードしてインストールします。
   - VLC media playerは、オープンソースで開発されているメディアプレイヤーです。
@@ -42,54 +29,53 @@
 - LiberOffice
   - [窓の社](https://forest.watch.impress.co.jp/library/software/libreoffice/) からインストーラをダウンロードしてインストールします。
   - LibreOfficeは、オープンソースのオフィススイートです。
-- PuTTYry
-  - [PuTTYrv (PuTTY-ranvis)](https://www.ranvis.com/putty) から 64bit.7z をダウンロードしてデスクトップに展開します。
-  - puttygen.exe
-    - PuTTYのSSHキーを生成するためのツールです。
-    - 既存のOpenSSHの秘密鍵をPuTTY形式に変換することもできます。
-  - pagent.exe
-    - PuTTYのSSHエージェントです。
-    - puttygen.exeで生成した秘密鍵を読み込んで利用します。
-    - 以下のようにショートカットを作成しておき、タスクバーにピン留めしておくと便利です。
-    - `C:\[Path...]\PuTTY-ranvis\pageant.exe C:\[Path...]\[Key Name].ppk`
-- RLogin
-  - [Github: Releases](https://github.com/kmiya-culti/RLogin/releases/) から最新版をダウンロードして展開します。
 
-## Setup VSCode
+## Setup by command prompt
 
-WIP
+コマンドプロンプトを管理者権限で起動して、以下を実行してください。
 
-- プラグイン
-  - VSCode Neovim
-  - Drawio Integration
-    - hoge.dio.svg, hoge.drawio.svgのファイルを作成するとVSCode上でDrawioが利用できます。
-  - TODO
-    - VIMの設定
+まず、Gitをインストールします。
 
-## Setup RLogin
+```
+> winget install -e --id Git.Git
+```
 
-- default 設定用の接続先を作成する
-  - コピペ用のショートカット設定
-    - キーボード
-      - Key Code: INSERT + Shift
-      - Assign String: $EDIT_PASTE
-  - 接続先のホストを表示する
-    - カラー > 背景設定
-      - 「バックグランド画像にテキストを追加」にチェック
-  - SSH 設定
-    - 通信共有
-      - 「接続が切れてもウィンドウを閉じない」にチェック
-    - プロトコル
-      - 「エージェント転送を有効にする」にチェック
-      - 「KeepAlive パケットの送信間隔(sec) 300」にチェック
-  - tmux 経由のコピペをできるようにする
-    - クリップボード > 制御コードによるクリップボード操作
-      - 「クリップボードの読み込みを許可」にチェック
-      - 「クリップボードの書き込みを許可」にチェック
-  - フォントの設定
-    - `Consolas`に設定する
-- default 設定を右クリックオプションから、「標準の設定にする」をクリック
-- 以降のサーバ設定は、「サーバ」の項目の「このページ以外のオプションは標準の設定を使用します」にチェックを入れる
+その後、以下のコマンドを実行してGitの設定を行います。
+
+```
+> git config --global user.email "hoge@example.com"
+> git config --global user.name "Your Name"
+> git config --global commit.verbose true
+```
+
+次に、デスクトップに移動してください。
+
+OneDriveを利用している場合は、OneDriveのデスクトップディレクトリに移動してください。
+
+```
+> cd "%UserProfile%\Desktop"
+
+> cd "%UserProfile%\OneDrive\Desktop"
+```
+
+次に、GitHubのリポジトリをクローンして、セットアップスクリプトを実行します。
+
+```
+> mkdir "github"
+> git clone https://github.com/syunkitada/home "github\home"
+> cd "github\home\windows"
+> bootstrap.bat
+```
+
+homeをプロジェクトフォルダとして、VSCodeを起動して、RECOMENDED EXTENSIONSをインストールします。
+
+## Setup KeyBind
+
+[autohotkey](https://github.com/syunkitada/autohotkey) を参考に、Change Key/AutoHotkey のセットアップをします。
+
+## Setup SSH Environment
+
+[ssh](./ssh.md) を参考に、SSH環境をセットアップします。
 
 ## Disable SSD Defrag
 
