@@ -9,7 +9,7 @@ This repository manages my personal configuration files and documents.
 - [Setup Ubuntu](docs/env/os/ubuntu/README.md)
 
 ```
-# Initial setup procedures for shell
+# Initial setup procedures for shell(except windows)
 $ make setup
 $ make check
 ```
@@ -24,13 +24,7 @@ $ make check
 | [legacy_dotfiles](legacy_dotfiles/README.md) | 古い環境用の最小限の設定のためのドットファイル群です。       |
 | [playground](playground/README.md)           | 設定ファイルの動作を確認するための実験環境構築ツール群です。 |
 | [etc](etc/README.md)                         | 雑多なファイル群です。                                       |
-| [scripts](scripts/README.md)                 | 雑多なツール群です。                                         |
-
-## About key binding
-
-Key bindings are managed by [autohotkey](https://github.com/syunkitada/autohotkey).
-
-My some configuration assumes this key binding.
+| [scripts](scripts/README.md)                 | 雑多なスクリプトファイル群です。                             |
 
 ## About home_ex
 

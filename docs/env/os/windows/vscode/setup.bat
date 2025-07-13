@@ -1,0 +1,5 @@
+winget install vscode --override "/silent /mergetasks=""addcontextmenufiles,addcontextmenufolders"""
+del "%APPDATA%\Code\User\keybindings.json"
+mklink "%APPDATA%\Code\User\keybindings.json" "%~dp0\keybindings.json"
+del "%APPDATA%\Code\User\settings.json"
+mklink "%APPDATA%\Code\User\settings.json" "%~dp0\settings.json"
