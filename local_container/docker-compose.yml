@@ -1,0 +1,19 @@
+name: local
+version: "3"
+services:
+  local-dev01:
+    hostname: local-dev01
+    container_name: local-dev01
+    build:
+      dockerfile: Dockerfile
+    privileged: true
+    volumes:
+      - "./tmp/dev01:/root/:rw"
+  local-dev02:
+    hostname: local-dev02
+    container_name: local-dev02
+    build:
+      dockerfile: Dockerfile
+    privileged: true
+    volumes:
+      - "./tmp/dev02:/root/:rw"
