@@ -25,5 +25,7 @@
     "dev01": "linux"
   },
   "hediet.vscode-drawio.resizeImages": null,
-  "github.copilot.nextEditSuggestions.enabled": true
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "git.autofetch": true,
+  "editor.minimap.enabled": false
 }
