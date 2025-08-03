@@ -1,19 +1,16 @@
 FROM rockylinux:9
 
-ARG GO_VERSION=1.24.5
+COPY ./docs /root/home/docs
+COPY ./scripts /root/home/scripts
+COPY ./Makefile /root/home/Makefile
+COPY ./xdgconfig /root/home/xdgconfig
+COPY ./dotfiles /root/home/dotfiles
 
 RUN dnf install -y \
     systemd sudo man vim findutils procps-ng \
-    git wget make
+    git wget make diffutils
 
-# Install Go
-# https://go.dev/dl/
-RUN	curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" \
-    | gunzip | sudo tar x -C /usr/local
-
-# Install Astral UV
-# https://docs.astral.sh/uv/getting-started/installation/
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+RUN cd /root/home && make
 
 # Remove unused systemd services
 RUN ls /lib/systemd/system/*.wants/* | grep -v journald | xargs rm -rf
