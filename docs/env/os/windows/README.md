@@ -37,6 +37,7 @@
 > git config --global user.email "hoge@example.com"
 > git config --global user.name "Your Name"
 > git config --global commit.verbose true
+> git config --global core.autocrlf false
 ```
 
 次に、デスクトップに移動してください。

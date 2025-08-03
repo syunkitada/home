@@ -5,15 +5,17 @@ services:
     hostname: local-dev01
     container_name: local-dev01
     build:
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: local_devcontainer/Dockerfile
     privileged: true
     volumes:
-      - "./tmp/dev01:/root/:rw"
+      - "./tmp/dev01:/root/work:rw"
   local-dev02:
     hostname: local-dev02
     container_name: local-dev02
     build:
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: local_devcontainer/Dockerfile
     privileged: true
     volumes:
       - "./tmp/dev02:/root/:rw"
