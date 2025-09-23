@@ -28,5 +28,37 @@
   "github.copilot.nextEditSuggestions.enabled": true,
   "git.autofetch": true,
   "editor.minimap.enabled": false,
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "makefile.configureOnOpen": true,
+  "chat.tools.terminal.autoApprove": {
+    "cd /root/workspace/spectest && ./.specify/scripts/bash/update-agent-context.sh copilot": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "cd /root/workspace/spectest && ./.specify/scripts/bash/check-prerequisites.sh --json": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "cd /root/workspace/spectest && mkdir -p src/components src/services src/styles src/utils tests/unit/services tests/unit/components tests/integration tests/e2e public docs": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "cd /root/workspace/spectest && npm test": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "cd /root/workspace/spectest && npm install": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "node": true,
+    "n": true,
+    "npm test": true,
+    "npx": true,
+    "npm run dev": true,
+    "cd /root/workspace/spectest && .specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
 }
