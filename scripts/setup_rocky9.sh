@@ -28,6 +28,11 @@ function setup_dev_tools() {
 		# npmのpathが変わったことによりbashのキャッシュによってnpmのpath解決できなくなるので、bashのキャッシュを消します
 		hash -r
 	fi
+
+	if [ "$(node --version)" != "v${NODE_VERSION}" ]; then
+        sudo -E /usr/local/bin/n "${NODE_VERSION}"
+    fi
+
 	mkdir -p "${NPM_PACKAGES}"
 	npm config set prefix "${HOME}/.npm-packages"
 }

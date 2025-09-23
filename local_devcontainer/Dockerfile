@@ -1,14 +1,11 @@
 FROM rockylinux:9
 
-COPY ./docs /root/home/docs
-COPY ./scripts /root/home/scripts
-COPY ./Makefile /root/home/Makefile
-COPY ./xdgconfig /root/home/xdgconfig
-COPY ./dotfiles /root/home/dotfiles
+COPY . /root/home
 
 RUN dnf install -y \
     systemd sudo man vim findutils procps-ng \
-    git wget make diffutils
+    git wget make diffutils \
+    iproute
 
 RUN cd /root/home && make
 

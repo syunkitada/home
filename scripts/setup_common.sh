@@ -18,21 +18,20 @@ function setup_dotfiles() {
 	# dotfiles 内のファイルのシンボリックリンクを ~/ に作成します
 	# xdgconfig 内のファイルのシンボリックリンクを ~/.config に作成します
 
-	export ROOT=${HOME}/home/
-	cd "$ROOT"
+	cd "${HOME_ROOT_DIR}"
 
 	XDG_CONFIG_HOME=${HOME}/.config
 	mkdir -p "${XDG_CONFIG_HOME}"
 
 	for file in $(find dotfiles -name '.*' -printf "%f\n"); do
-		src=${ROOT}/dotfiles/${file}
+		src=${HOME_ROOT_DIR}/dotfiles/${file}
 		dst=${HOME}/${file}
 		rm -f "$dst"
 		ln -s "$src" "$dst"
 	done
 
 	for file in $(ls xdgconfig); do
-		src=${ROOT}/xdgconfig/${file}
+		src=${HOME_ROOT_DIR}/xdgconfig/${file}
 		dst=${HOME}/.config/${file}
 		rm -f "$dst"
 		ln -s "$src" "$dst"
@@ -41,7 +40,7 @@ function setup_dotfiles() {
 
 function setup_nvim() {
 	if [ "$(nvim --version | grep 'NVIM v')" != "NVIM ${NEOVIM_VERSION}" ]; then
-		curl -fsSL "https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux64.tar.gz" |
+		curl -fsSL "https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux-x86_64.tar.gz" |
 			gunzip | tar x --strip-components=1 -C ~/.local
 	fi
 
@@ -56,6 +55,9 @@ function setup_tmux() {
 function setup_dev_python() {
 	# install for python develop tools
 	pip3 install --user black isort flake8
+
+	# install uv
+	curl -LsSf https://astral.sh/uv/install.sh | sh
 
 	# LSP
 	npm install -g pyright

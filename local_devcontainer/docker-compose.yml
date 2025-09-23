@@ -1,5 +1,4 @@
 name: local
-version: "3"
 services:
   local-dev01:
     hostname: local-dev01
@@ -8,8 +7,9 @@ services:
       context: ../
       dockerfile: local_devcontainer/Dockerfile
     privileged: true
+    network_mode: host
     volumes:
-      - "./tmp/dev01:/root/work:rw"
+      - "local-dev01:/root/workspace:rw"
   local-dev02:
     hostname: local-dev02
     container_name: local-dev02
@@ -17,5 +17,12 @@ services:
       context: ../
       dockerfile: local_devcontainer/Dockerfile
     privileged: true
+    network_mode: host
     volumes:
-      - "./tmp/dev02:/root/:rw"
+      - "local-dev02:/root/workspace:rw"
+
+volumes:
+  local-dev01:
+    external: true
+  local-dev02:
+    external: true
