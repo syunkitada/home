@@ -59,6 +59,7 @@
     "cd /root/workspace/spectest && .specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks": {
       "approve": true,
       "matchCommandLine": true
-    }
+    },
+    "python3": true
   }
 }

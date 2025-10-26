@@ -36,7 +36,16 @@
 - Serena
   - https://github.com/oraios/serena
 
+## AI Library
+
+- [LiteLLM](https://github.com/BerriAI/litellm)
+  - OpenAI の形式で、様々な LLM API(Bedrock, Huggingface, VertexAI, TogetherAI, Azure, OpenAI, Groq etc.)を利用することができる
+
 ## AI Agent Flamework
+
+- [Google: Agent Development Kit](https://google.github.io/adk-docs/)
+- [Pydantic AI](https://ai.pydantic.dev/)
+- [Langchain](https://github.com/langchain-ai/langchain)
 
 ## MCP Flamework
 

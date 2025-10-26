@@ -87,3 +87,23 @@
 - https://community.cisco.com/t5/service-providers-documents/xr-ncs5500-asr9000-persistent-loadbalancing-or-quot-sticky-ecmp/ta-p/3361883
 - 従来の ECMP はパスが消えると、経路がリハッシュされ既存のセッションも含めて経路が変わる可能性がある
 - Sticky ECMP はパスが消えた場合でも、その経路上のセッションのみ消えるだけで、既存のセッションには影響しない
+
+## MetalLB
+
+- https://metallb.io/
+- L4 Software LB の OSS(Apache License 2.0)
+- iptables/ipvs をデータプレーンに使っています。
+- ベアメタル環境で動作する Kubernetes クラスタ向けに特別に設計されており、IP アドレス管理のためのレイヤー 2（ARP/NDP）およびレイヤー 3（BGP）プロトコルを実装しています。
+
+## Loxilb
+
+- https://docs.loxilb.io/latest/
+- L4/L7 Software LB の OSS(Apache License 2.0)
+- eBPF をデータプレーンに使っています。
+- L2DSR/L3DSR もサポートしています。
+  - https://docs.loxilb.io/latest/nat/
+- パフォーマンス
+  - [L4-L7 Performance: Comparing LoxiLB, MetalLB, NGINX, HAProxy](https://dev.to/nikhilmalik/l4-l7-performance-comparing-loxilb-metallb-nginx-haproxy-1eh0)
+  - L4 の性能として Metal LB と比較されており、Loxilb のが良い
+  - L7 の性能として、NGINX/HAProxy と比較されており、Loxilb のが良い
+    - ただ L7 に関しては機能面も重要なので性能だけで一概に良いとは言えない
