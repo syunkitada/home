@@ -36,7 +36,8 @@ Codename:       bionic
 
 # パッケージを最新にしておく
 $ sudo apt update
-$ sudo apt upgrade
+$ sudo apt full-upgrade -y
+$ sudo apt --purge autoremove -y
 $ sudo reboot
 
 # アップグレードを実施

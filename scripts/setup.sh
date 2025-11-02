@@ -21,9 +21,9 @@ elif [ "$OS_NAME" = "Rocky" ] && [ "$OS_VERSION" = "8" ]; then
 elif [ "$OS_NAME" = "Rocky" ] && [ "$OS_VERSION" = "9" ]; then
 	echo "load ./setup_rocky9.sh"
 	source ./setup_rocky9.sh
-elif [ "$OS_NAME" = "Ubuntu" ] && [ "$OS_VERSION" = "22" ]; then
-	echo "load ./setup_ubuntu22.sh"
-	source ./setup_ubuntu22.sh
+elif [ "$OS_NAME" = "Ubuntu" ] && [ "$OS_VERSION" = "24" ]; then
+	echo "load ./setup_ubuntu24.sh"
+	source ./setup_ubuntu24.sh
 else
 	echo "Unsupported OS: ${OS_NAME} ${OS_VERSION}"
 	exit 1
@@ -44,10 +44,10 @@ source ~/.envrc
 
 setup_init
 setup_dev_tools
+setup_dev_python
 setup_nvim
 setup_tmux
 setup_fzf
-setup_dev_python
 setup_dev_shell
 setup_dev_web
 setup_dev_go
