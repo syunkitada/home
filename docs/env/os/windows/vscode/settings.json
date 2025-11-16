@@ -60,6 +60,10 @@
       "approve": true,
       "matchCommandLine": true
     },
-    "python3": true
+    "python3": true,
+    "cd /home/owner/mybenchmarking && /home/owner/mybenchmarking/.venv/bin/python -m pytest tests/test_storage.py -v": {
+      "approve": true,
+      "matchCommandLine": true
+    }
   }
 }
