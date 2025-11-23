@@ -65,7 +65,7 @@ repo = 'https://github.com/LumaKernel/fern-mapping-fzf.vim'
 # ----------------------------------------------------------------------------------------------------
 [[plugins]]
 repo = 'https://github.com/neovim/nvim-lspconfig'
-rev = 'v0.1.7'
+rev = 'v2.4.0'
 
 [[plugins]]
 repo = 'hrsh7th/nvim-cmp'
@@ -93,20 +93,22 @@ on_source = 'nvim-cmp'
 repo = 'hrsh7th/vim-vsnip'
 on_source = 'nvim-cmp'
 
-# null-ls.nvimの依存
+# none-ls.nvimの依存
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 
 # フォーマッタ、リンタ用のプラグイン
+# none-ls.nvimは、null-lsのコミュニティ版です。
+# 公式のnull-lsはメンテナンスされなくなり、non-ls.nvimとしてフォークされました。
 [[plugins]]
-repo = 'https://github.com/jose-elias-alvarez/null-ls.nvim'
+repo = 'https://github.com/nvimtools/none-ls.nvim.git'
 on_source = 'plenary.nvim'
-rev = '0.7-compat'
+rev = 'main'
 
 # LSP用のシグネチャ表示（関数の引数入力時の説明表示）
 [[plugins]]
 repo = 'ray-x/lsp_signature.nvim'
-rev = 'neovim-0.6'
+rev = 'v0.3.1'
 
 # LSP用のリッチなUI
 # アウトライン表示、定義・参照の表示など

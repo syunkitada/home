@@ -193,7 +193,8 @@ set t_ut=
 
 
 " Enable python3 provider
-let g:python3_host_prog = substitute(system('which python3'),"\n","","")
+" let g:python3_host_prog = substitute(system('which python3'),"\n","","")
+let g:python3_host_prog = expand('~/home/env/.venv/bin/python')
 
 filetype plugin on
 

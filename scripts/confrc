@@ -2,7 +2,7 @@
 
 export HOME_ROOT_DIR=${HOME}/home
 
-export TMUX_VERSION=${TMUX_VERSION:-3.3}
+export TMUX_VERSION=${TMUX_VERSION:-3.4}
 
 # NOTE:
 # - CentOS7, Rocky8 require <=0.7.2

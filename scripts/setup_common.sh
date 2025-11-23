@@ -43,9 +43,6 @@ function setup_nvim() {
 		curl -fsSL "https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux-x86_64.tar.gz" |
 			gunzip | tar x --strip-components=1 -C ~/.local
 	fi
-
-	# install for nvim
-	pip3 install --user pynvim neovim neovim-remote
 }
 
 function setup_tmux() {
@@ -53,11 +50,12 @@ function setup_tmux() {
 }
 
 function setup_dev_python() {
-	# install for python develop tools
-	pip3 install --user black isort flake8
-
 	# install uv
 	curl -LsSf https://astral.sh/uv/install.sh | sh
+
+	cd ~/home/env
+	uv sync --all-extras
+	cd -
 
 	# LSP
 	npm install -g pyright
