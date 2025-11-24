@@ -178,6 +178,7 @@ local lsp_flags = {
 
 
  -- Setup lspconfig.
+ -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -188,7 +189,14 @@ require('lspconfig')['pyright'].setup{
     filetypes = { "python" },
 }
 
-require('lspconfig')['tsserver'].setup{
+require('lspconfig')['markdown_oxide'].setup{
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
+    filetypes = {"markdown"},
+}
+
+require('lspconfig')['ts_ls'].setup{
     capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
@@ -199,8 +207,8 @@ require('lspconfig')['tailwindcss'].setup{
     capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
-    filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge", "eelixir", "ejs", "erb", "eruby",
-    "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" },
+    filetypes = { "aspnetcorerazor", "astro", "blade", "django-html", "htmldjango", "edge", "eelixir", "ejs", "erb", "eruby",
+    "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" },
 }
 
 require('lspconfig')['clangd'].setup{
