@@ -70,27 +70,29 @@
   - MCP(Model Context Protocol)という新しいプロトコルが Anthropic によって提案されました。
     - MCP は、LLM アプリケーションが外部の API と連携するためのプロトコルで、LLM アプリケーションは外部のデータやサービスを利用して、より高度なタスクを実行できるようになります。
     - インターネット検索、GitHub、Slack、Wiki など様々なデータソースの MCP サーバーを提供することで、LLM アプリケーションはこれらのサービスと連携することができます。
+  - 6 月
+    - Google が Notebook LM をリリース
 - 2025 年
   - 様々な AI エージェントが登場し、本格的に活用され始めました。
     - AI エージェントは、LLM を利用して自律的にタスクを実行する AI システムです。
     - AI エージェントは、LLM を利用して自然言語での指示を理解し、外部の API やサービスと連携してタスクを実行します。
     - AI エージェントは、LLM アプリケーションの進化形として、より高度なタスクを自律的に実行できるようになります。
-
-## プログラミング分野での AI 活用の歴史
-
-- 2022 年
-  - GitHub Copilot リリース
-    - GitHub Copilot は、OpenAI の Codex を利用してコード補完や提案を行うツールです。
-- 2023 年
-  - Cursor リリース
-    - Cursor は、VS Code をフォークして開発された AI 支援機能を搭載したコードエディタです。
-- 2025 年
-  - 4 月: Cognition AI が、Devin をリリース
-    - Devin は、AI エージェントを利用してプログラミング支援を行うツールです。
-  - 5 月: Anthropic が、Claude Code をリリース
-    - Claude Code は、AI エージェントを利用してプログラミング支援を行うツールです。
-  - 5 月: Microsoft/GitHub が、GitHub Copilot Agent リリース
-    - GitHub Copilot Agent は、GitHub Copilot の AI エージェント版で、より高度なプログラミング支援を行います。
+  - 2 月
+    - OpenAI が Deep Research をリリース
+  - 3 月
+    - Google が Deep Research をリリース
+  - 8 月
+    - OpenAI が GPT-oss をリリース
+      - OpenAI 初のオープンウェイト推論モデルで、ローカルで実行が可能
+    - OpenAI が GPT-5 をリリース
+  - 9 月
+    - OpenAI が Sora2 をリリース
+      - 映像と音声を同時に生成が可能
+  - 11 月
+    - Google が Gemini3 Pro をリリース
+  - 12 月
+    - Google が Nano Banana Pro(Gemini 3 Pro Image) をリリース
+      - 画像生成が可能
 
 ## 読み物（必読）
 
