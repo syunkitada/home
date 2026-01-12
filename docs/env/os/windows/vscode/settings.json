@@ -36,6 +36,9 @@
     "npm test": true,
     "npx": true,
     "npm run dev": true,
-    "python3": true
-  }
+    "python3": true,
+    "npm create": true
+  },
+  "chat.mcp.gallery.enabled": true,
+  "terminal.integrated.suggest.enabled": false
 }

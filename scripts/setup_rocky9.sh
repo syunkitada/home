@@ -16,22 +16,12 @@ function setup_dev_tools() {
 	sudo yum install -y python3 python3-devel python3-pip
 
 	# node
-	if [ ! -e /usr/local/bin/node ]; then
-		sudo yum install -y nodejs npm
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+	export NVM_DIR="$HOME/.config/nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	nvm install 24
 
-		setup_npm_config
-
-		sudo -E npm install --global n
-		sudo -E /usr/local/bin/n "${NODE_VERSION}"
-		sudo yum remove -y nodejs npm
-
-		# npmのpathが変わったことによりbashのキャッシュによってnpmのpath解決できなくなるので、bashのキャッシュを消します
-		hash -r
-	fi
-
-	if [ "$(node --version)" != "v${NODE_VERSION}" ]; then
-        sudo -E /usr/local/bin/n "${NODE_VERSION}"
-    fi
+	setup_npm_config
 
 	mkdir -p "${NPM_PACKAGES}"
 	npm config set prefix "${HOME}/.npm-packages"
@@ -42,6 +32,7 @@ function setup_tmux() {
 	if [ ! -e ~/.local/bin/tmux ]; then
 		_PWD=$PWD
 		cd /tmp || exit 1
+		dnf install -y bison gcc make ncurses-devel libevent-devel pkgconfig autoconf automake
 		curl -kLO "https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
 		tar -zxvf "tmux-${TMUX_VERSION}.tar.gz"
 		cd "tmux-${TMUX_VERSION}" || exit 1

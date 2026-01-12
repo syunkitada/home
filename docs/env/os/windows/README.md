@@ -21,7 +21,7 @@
   - [窓の社](https://forest.watch.impress.co.jp/library/software/libreoffice/) からインストーラをダウンロードしてインストールします。
   - LibreOffice は、オープンソースのオフィススイートです。
 
-## Setup Git and VSCode
+## Setup Git, NodeJS and VSCode
 
 コマンドプロンプトを管理者権限で起動して、以下を実行してください。
 
@@ -38,6 +38,12 @@
 > git config --global user.name "Your Name"
 > git config --global commit.verbose true
 > git config --global core.autocrlf false
+```
+
+次に、NodeJS をインストールします。
+
+```
+> winget install -e --id OpenJS.NodeJS.LTS
 ```
 
 次に、デスクトップに移動してください。

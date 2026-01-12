@@ -32,7 +32,7 @@
 - Copilot Agent
   - Copilot の Agent 板
 - Copilot CLI
-  - https://github.com/github/copilot-cli
+  - https://github.com/github/copilot-cli (Public Preview)
 - Gemini CLI
   - OSS(Apache License 2.0): https://github.com/google-gemini/gemini-cli
 - Claude Code
@@ -42,14 +42,6 @@
 
 - https://github.com/google-gemini/gemini-fullstack-langgraph-quickstart
 - https://github.com/langchain-ai/open_deep_research
-
-## MCP
-
-- Context7
-  - https://github.com/upstash/context7
-  - 最新ドキュメントの自動取得
-- Serena
-  - https://github.com/oraios/serena
 
 ## AI Library
 
@@ -92,3 +84,12 @@
         - 利用可能モデル Claude Sonnet 4.5 と Claude Opus 4.1（/model コマンドで切り替え可能）
         - メッセージ数 5 時間ごとに約 200 ～ 800 プロンプト（Claude のブラウザ使用における 900 メッセージに相当）
         - 推奨用途 大規模なコードベースでの日常的な使用、またはパワーユーザー向け
+
+## リテラシー
+
+- OpenCodeなどのサードパーティ エージェントを利用する際の注意点
+  - 許可されているLLMプロバイダ以外は利用しない
+    - Claude Pro/Max契約で、OpenCodeなどのサードパーティ エージェント経由で利用していたらBanされたらしい。
+      - そもそも規約でサードパーティのハーネスなどからの利用は規約で禁止されている。
+    - GitHub Copilotなどに関しても同様で、サードパーティ エージェント経由で利用するとBanされる可能性がありそう。
+    - [OpenCodeにおける一部のサードパーティプロバイダーは治安が悪すぎる](https://zenn.dev/nuits_jp/articles/2026-01-11-opencode-third-party-provider)
