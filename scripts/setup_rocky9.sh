@@ -18,13 +18,12 @@ function setup_dev_tools() {
 	# node
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 	export NVM_DIR="$HOME/.config/nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 	nvm install 24
 
-	setup_npm_config
-
-	mkdir -p "${NPM_PACKAGES}"
-	npm config set prefix "${HOME}/.npm-packages"
+	# setup_npm_config
+	# mkdir -p "${NPM_PACKAGES}"
+	# npm config set prefix "${HOME}/.npm-packages"
 }
 
 # install tmux
