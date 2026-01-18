@@ -22,7 +22,8 @@
     "keybindings.json": "jsonc"
   },
   "remote.SSH.remotePlatform": {
-    "dev01": "linux"
+    "dev01": "linux",
+    "dev01.pm.local.test": "linux"
   },
   "hediet.vscode-drawio.resizeImages": null,
   "github.copilot.nextEditSuggestions.enabled": true,
@@ -33,12 +34,11 @@
   "chat.tools.terminal.autoApprove": {
     "node": true,
     "n": true,
-    "npm test": true,
+    "npm": true,
     "npx": true,
-    "npm run dev": true,
-    "python3": true,
-    "npm create": true
+    "python3": true
   },
   "chat.mcp.gallery.enabled": true,
-  "terminal.integrated.suggest.enabled": false
+  "terminal.integrated.suggest.enabled": false,
+  "remote.SSH.path": "C:\\tools\\wslssh.cmd"
 }

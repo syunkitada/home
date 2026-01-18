@@ -2,6 +2,15 @@
 
 https://opencode.ai/docs/
 
+## OpenCode Zen
+
+https://opencode.ai/workspace
+
+1. Google アカウントでログイン
+2. ログインするとAPI Keyが発行されるので、コピーする
+
+## セットアップ
+
 ```
 $ npm i -g opencode-ai@latest
 
@@ -20,7 +29,11 @@ $ opencode auth login
 └  Done
 ```
 
+## 料金
+
 https://opencode.ai/docs/zen/#pricing
+
+無料で使えるものを選択して利用する。
 
 ```
 # model一覧
