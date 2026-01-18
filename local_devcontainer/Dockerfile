@@ -9,6 +9,10 @@ RUN dnf install -y \
 
 RUN cd /root/home && make
 
+RUN dnf -y install dnf-plugins-core && \
+    dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && \
+    dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
 # Remove unused systemd services
 RUN ls /lib/systemd/system/*.wants/* | grep -v journald | xargs rm -rf
 
