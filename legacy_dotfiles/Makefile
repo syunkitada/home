@@ -1,7 +1,7 @@
 link:
-	rm ~/.tmux.conf
+	rm -f ~/.tmux.conf
 	ln -s $(PWD)/.tmux.conf ~/.tmux.conf
-	rm ~/.bashrc
+	rm -f ~/.bash_profile
 	ln -s $(PWD)/.bash_profile ~/.bash_profile
-	rm ~/.zshrc
+	rm -f ~/.zshrc
 	ln -s $(PWD)/.zshrc ~/.zshrc
