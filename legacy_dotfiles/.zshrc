@@ -1,3 +1,5 @@
+source ~/.bash_profile
+
 bindkey -e # Set keybind to emacs
 
 # Set Color
