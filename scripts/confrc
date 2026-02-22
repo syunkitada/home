@@ -12,7 +12,8 @@ export NEOVIM_VERSION=${NEOVIM_VERSION:-v0.10.4}
 # CentOS7 require <=16.20.0
 export NODE_VERSION=${NODE_VERSION:-22.19.0}
 
-export GO_VERSION=${GO_VERSION:-1.22.5}
+# Go releases: https://go.dev/dl/
+export GO_VERSION=${GO_VERSION:-1.25.7}
 
 export SETUP_RUST=${SETUP_RUST:-true}
 
