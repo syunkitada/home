@@ -52,9 +52,7 @@ setup_dev_shell
 setup_dev_web
 setup_dev_go
 setup_dev_clang
-if "$SETUP_RUST"; then
-	setup_dev_rust
-fi
+setup_dev_rust
 
 echo "
 ----------------------------------------------------------------------------------------------------

@@ -11,6 +11,10 @@ function! GetNVimVersion()
     return nvim_version
 endfunction
 
+if filereadable(expand('~/home_ex/xdgconfig/nvim/init.vim'))
+  source ~/home_ex/xdgconfig/nvim/init.vim
+endif
+
 let g:home = expand('~')
 if ! len($XDG_CONFIG_HOME)
   echoerr "you should set XDG_CONFIG_HOME. ($ export XDG_CONFIG_HOME=$HOME/.config )"
