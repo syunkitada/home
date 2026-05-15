@@ -28,7 +28,7 @@
 まず、Git をインストールします。
 
 ```
-> winget install -e --id Git.Git
+> winget install -e --source winget --id Git.Git
 ```
 
 その後、以下のコマンドを実行して Git の設定を行います。
@@ -43,7 +43,13 @@
 次に、NodeJS をインストールします。
 
 ```
-> winget install -e --id OpenJS.NodeJS.LTS
+> winget install -e --source winget --id OpenJS.NodeJS.LTS
+```
+
+次に、VSCodeをインストールします
+
+```
+> winget install -e --source winget --id Microsoft.VisualStudioCode --override "/silent /mergetasks=""addcontextmenufiles,addcontextmenufolders"""
 ```
 
 次に、デスクトップに移動してください。
@@ -56,12 +62,11 @@ or
 > cd "%UserProfile%\OneDrive\Desktop"
 ```
 
-次に、GitHub のリポジトリをクローンして、セットアップスクリプトを実行します。
+次に、ポジトリをクローンして、セットアップスクリプトを実行します。
 
 ```
 > mkdir "github"
 > git clone https://github.com/syunkitada/home "github\home"
-> cd "github\home\docs\env\os\windows\vscode"
 > setup.bat
 ```
 
@@ -79,6 +84,10 @@ home をプロジェクトフォルダとして、VSCode を起動して、RECOM
 
 - `ドライブのデフラグと最適化`によってデフラグを無効にします。
 - SSD のデフラグは通常不要ですが、特定の状況では有効な場合があります。
-  - 大量の小さなファイルを頻繁に読み書きする場合
+  - 大読み書きする場合
   - SSD の空き容量が少ない場合
   - 特定のアプリケーションが SSD のパフォーマンスを最適化するためにデフラグを推奨している場合
+
+## 配信の最適化で他のデバイスからのダウンロードを許可するをオフにする
+
+設定 > Windows Update > 詳細オプション > 配信の最適化

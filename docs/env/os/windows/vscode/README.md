@@ -5,10 +5,11 @@
 
 ## 拡張機能
 
-- https://marketplace.visualstudio.com/items?itemName=GitHub.copilot
+- https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat
 - https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 - https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio
 - https://marketplace.visualstudio.com/items?itemName=vscodevim.vim
+- https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
 
 ### Markdown関連
 
@@ -37,3 +38,11 @@
     /mkyyy.md
   index.json
 ```
+
+## syncの設定をしておく
+
+左下の歯車の設定ボタンから、"Backup and Sync Settings" をクリックする。
+
+githubにsigninする
+
+Settings Sync is On となっていればOK
