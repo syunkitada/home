@@ -54,6 +54,10 @@
 - [Pydantic AI](https://ai.pydantic.dev/)
 - [Langchain](https://github.com/langchain-ai/langchain)
 
+## RAG
+
+- ChromaDB
+
 ## MCP Flamework
 
 ## コスト(2025/12/28)

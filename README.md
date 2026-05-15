@@ -14,6 +14,31 @@ $ make setup
 $ make check
 ```
 
+Change the default shell to zsh.
+
+```
+$ sudo chsh -s $(which zsh) $(whoami)
+
+# After changing the shell, you need to log out and log in again to apply the changes.
+# After logging in again, you can check if the shell is changed by running the following command:
+$ echo $SHELL
+```
+
+If the shell is not changed, you can check the following points:
+
+```
+# 1. Check if the shell is changed
+$ grep $(whoami) /etc/passwd
+
+# 2. Check if the ssh session is still active.
+# If you are using ssh session sharing as bellow, you need to close the ssh session and log in again to apply the changes.
+#   .ssh/config
+#   ControlMaster auto
+#   ControlPath ~/.ssh/mux-%n
+#   ControlPersist 3600
+$ ssh -O exit <your ssh host>
+```
+
 ## Contents
 
 | Link                                         | Description                                                  |

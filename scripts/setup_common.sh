@@ -114,6 +114,11 @@ function setup_fzf() {
 }
 
 function setup_dev_rust() {
+    if [ "${ENABLE_RUST}" != "true" ]; then
+        echo "Skip setup_dev_rust, because ENABLE_RUST is false"
+        return
+    fi
+
     # Setup rust environment
     if [ ! -e ~/.cargo ]; then
         curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path --profile default
@@ -126,7 +131,10 @@ function setup_dev_rust() {
         echo "Installed cargo-binstall: $(cargo-binstall -V)"
     fi
 
-    cargo-binstall --git 'https://github.com/feel-ix-343/markdown-oxide' markdown-oxide --install-path ~/.local/bin -y --version 0.25.9
+    # if ENABLE_MARKDOWN_OXIDE
+    if [ "${ENABLE_MARKDOWN_OXIDE}" = "true" ]; then
+        cargo-binstall --git 'https://github.com/feel-ix-343/markdown-oxide' markdown-oxide --install-path ~/.local/bin -y --version 0.25.9
+    fi
 }
 
 function setup_dev_clang() {

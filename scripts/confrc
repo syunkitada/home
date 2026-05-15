@@ -12,10 +12,16 @@ export NEOVIM_VERSION=${NEOVIM_VERSION:-v0.10.4}
 # CentOS7 require <=16.20.0
 export NODE_VERSION=${NODE_VERSION:-22.19.0}
 
-export GO_VERSION=${GO_VERSION:-1.22.5}
-
-export SETUP_RUST=${SETUP_RUST:-true}
-
-export CARGO_BINSTALL_VERSION=${CARGO_BINSTALL_VERSION:-1.15.10}
+# Go releases: https://go.dev/dl/
+export GO_VERSION=${GO_VERSION:-1.25.7}
 
 export FZF_VERSION=${FZF_VERSION:-0.56.3}
+
+# Rust tools settings
+export ENABLE_RUST=${ENABLE_RUST:-false}
+export ENABLE_MARKDOWN_OXIDE=${ENABLE_MARKDOWN_OXIDE:-false}
+export CARGO_BINSTALL_VERSION=${CARGO_BINSTALL_VERSION:-1.15.10}
+
+if [ -f ~/home_ex/xdgconfig/confrc ]; then
+    . ~/home_ex/xdgconfig/confrc
+fi

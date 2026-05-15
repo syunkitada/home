@@ -4,44 +4,45 @@ set -e
 . confrc
 
 function _install() {
-	for pkg in "$@"; do
-		dpkg -s "$pkg" || sudo apt install -y "$pkg"
-	done
+    for pkg in "$@"; do
+        dpkg -s "$pkg" || sudo apt install -y "$pkg"
+    done
 }
 
 function setup_dev_tools() {
-	# 汎用ツール類のインストール
-	sudo apt update -y
-	_install curl git zsh build-essential ncurses-dev snapd
+    # 汎用ツール類のインストール
+    sudo apt update -y
+    _install curl git zsh build-essential ncurses-dev snapd
 
-	# pythonとその関連パッケージのインストール
-	_install python3 python3-venv python3-dev python3-pip
+    # pythonとその関連パッケージのインストール
+    _install python3 python3-venv python3-dev python3-pip
 
-	# node
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-	export NVM_DIR="$HOME/.config/nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-	nvm install 24
+    # node
+    rm -f ~/.npmrc
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+    export NVM_DIR="$HOME/.config/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+    nvm install 24
 
-	# https://github.com/watchexec/watchexec
-	# ファイルの変更検知して自動でプロセス再起動してくれる
-	if ! type watchexec; then
-		WATCHEXEC_VERSION=${WATCHEXEC_VERSION:-1.21.1}
-		cd /tmp || exit 1
-		wget "https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-		sudo dpkg -i "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-		rm "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-		cd - || exit 1
-	fi
+    # https://github.com/watchexec/watchexec
+    # ファイルの変更検知して自動でプロセス再起動してくれる
+    if ! type watchexec; then
+        WATCHEXEC_VERSION=${WATCHEXEC_VERSION:-1.21.1}
+        cd /tmp || exit 1
+        wget "https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+        sudo dpkg -i "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+        rm "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+        cd - || exit 1
+    fi
 }
 
 # install tmux
 function setup_tmux() {
-	_install tmux
+    _install tmux
 }
 
 function setup_dev_clang() {
-	_install clang clangd clang-format
+    _install clang clangd clang-format
 }
 
 # ファイル検索ツール
@@ -57,7 +58,7 @@ function setup_dev_clang() {
 # fi
 
 function help() {
-	cat <<EOS
+    cat <<EOS
 setup_base_tools
 setup_dev_tools
 setup_tmux
@@ -66,5 +67,5 @@ EOS
 }
 
 if [ $# != 0 ]; then
-	"${@}"
+    "${@}"
 fi
