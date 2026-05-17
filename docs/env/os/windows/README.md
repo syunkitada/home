@@ -59,24 +59,20 @@
 
 次に、デスクトップに移動してください。
 
-OneDrive を利用している場合は、OneDrive のデスクトップディレクトリに移動してください。
-
 ```
-> cd "%UserProfile%\Desktop"
+> cd "~/Desktop"
 ```
 
 ```
 > mkdir "github"
 > git clone https://github.com/syunkitada/home "github\home"
+> git clone https://github.com/syunkitada/home_ex "github\home_ex"
+> git clone https://github.com/syunkitada/autohotkey "github\autohotkey"
 ```
 
-## Setup KeyBind
-
 [autohotkey](https://github.com/syunkitada/autohotkey) を参考に、Change Key/AutoHotkey のセットアップをします。
-
-## Setup WSL1
-
-[ssl](./wsl.md) を参考に、WSL 環境をセットアップします。
+[vscode](./vscode.md) を参考に、VSCode をセットアップします。
+[wsl](./wsl.md) を参考に、WSL をセットアップします。
 
 ## Disable SSD Defrag
 

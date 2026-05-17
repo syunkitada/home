@@ -1,4 +1,4 @@
-# SSH
+# WindowsのSSH事情について
 
 Windows の SSH 環境を整えるための手順です。
 

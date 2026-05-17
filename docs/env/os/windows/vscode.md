@@ -29,3 +29,7 @@
 
 - "Open User Settings(JSON)"
 - "Open Keyboard Shortcuts(JSON)"
+
+### SSHセッション共有の設定
+
+[WindowsのSSH事情について](extra/ssh/README.md) を参照してください。
