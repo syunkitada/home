@@ -141,79 +141,27 @@ WSL1, WSL2は以下のように数分で変換できます。
 ターミナルの設定画面から以下を実施します
 
 - スタートアップ/規定のプロファイル を "Ubuntu-24.04" に設定する
-- 操作 から 貼り付け ctrl+v を削除する
+- 操作 から `貼り付け ctrl+v` を削除する
 - プロファイル > Ubuntu-24.04 > 外観 > 配色 を UbuntuからDark+ にする
 - プロファイル > Ubuntu-24.04 > 外観 > フォルンとフェイス を Ubuntu Mono から Consolas にする
 
 ## WSL1: SSH
 
+- SSHキーファイル名は、`~/.ssh/id_<algorithm>` とします。
+
 ```
 $ mkdir ~/.ssh
-$ cp /mnt/c/Users/[user]/.ssh/[key file] ~/.ssh/
+$ vim ~/.ssh/[key file:id_<algorithm>]
+...<copy from secret manager>
+
 $ sudo chown -R owner:owner .ssh
-$ chmod 600 .ssh/[key file]
+$ chmod 600 .ssh/[key file:id_<algorithm>]
 
-$ ssh-agent
-SSH_AUTH_SOCK=/tmp/ssh-XXXXXXXqFtJP/agent.88; export SSH_AUTH_SOCK;
-SSH_AGENT_PID=89; export SSH_AGENT_PID;
-echo Agent pid 89;
-$ SSH_AUTH_SOCK=/tmp/ssh-XXXXXXXqFtJP/agent.88; export SSH_AUTH_SOCK;
-
-$ ssh-add
+$ ssh_agent_start
 $ ssh-add -L
 ...
 
 $ ssh hoge
-```
-
-## WindowsとWSL1のSSHセッション共有について
-
-Windowsは標準でSSHクライアントをサポートしていますが、WSL1はWSL1でSSHクライアントをサポートしています。
-
-WindowsのSSHクライアントの問題点として、セッション共有ができないという問題があります。
-
-通常、`.ssh/config` に以下の設定を書くことで、マスターセッションを共有して他のSSHでも使い回すことができます。
-
-しかし、WindowsのPowerShellからこれを実行すると、エラーとなりSSHができません。
-
-一方、WSL1ではこのセッション共有を利用することができます。
-
-```
-$ vim .ssh/config
-...
-Host *
-    ControlMaster auto
-    ControlPath ~/.ssh/mux-%r@%h:%p
-    ControlPersist 30m
-...
-```
-
-ちなみに、PowerShellから、wsl上でコマンドを実行することもできるので、以下のようにするとWSL1上のセッション共有を使ってSSHをすることができます。
-
-```
-> wsl -d Ubuntu-24.04 -e ssh dev01.pm.local.test
-```
-
-これを応用し、以下の内容で、`wslssh.cmd` というファイル名を作っておくと、
-
-```
-@echo off
-REM WSL ssh wrapper
-REM Usage: ssh host [args...]
-
-wsl -d Ubuntu-24.04 -e ssh %*
-```
-
-以下のようにsshを実行することができます。
-
-```
-> ./wslssh [hostname]
-```
-
-VSCodeから利用する場合は、"Remote SSH" の "Settings"を開き、"Remote.SSH: Path" にwslsshのパスを入れることで、VSCodeでSSHのセッション共有が利用できます。
-
-```
-    "remote.SSH.path": "C:\\mytools\\wslssh.cmd"
 ```
 
 ## WSL1: Node.js 24が利用できない問題（対応方法なし）
