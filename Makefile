@@ -2,6 +2,10 @@
 all:
 	./scripts/setup.sh
 
+.PHONY: check
+check:
+	./scripts/check.sh
+
 .PHONY: index
 index:
 	cd docs; go run makeindex.go;
@@ -22,7 +26,3 @@ clone_programming_repos:
 	test -e ~/programming_rust || git clone git@github.com:syunkitada/programming_rust.git ~/programming_rust
 	test -e ~/programming_python || git clone git@github.com:syunkitada/programming_python.git ~/programming_python
 	test -e ~/programming_web || git clone git@github.com:syunkitada/programming_web.git ~/programming_web
-
-.PHONY: check
-check:
-	./scripts/check.sh

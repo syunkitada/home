@@ -1,43 +1,6 @@
 # Home
 
-This repository manages my personal configuration files and documents.
-
-## Initial setup procedures for each OS
-
-- [Setup Windows](docs/env/os/windows/README.md)
-- [Setup CentOS](docs/env/os/centos/README.md)
-- [Setup Ubuntu](docs/env/os/ubuntu/README.md)
-
-```
-# Initial setup procedures for shell(except windows)
-$ make setup
-$ make check
-```
-
-Change the default shell to zsh.
-
-```
-$ sudo chsh -s $(which zsh) $(whoami)
-
-# After changing the shell, you need to log out and log in again to apply the changes.
-# After logging in again, you can check if the shell is changed by running the following command:
-$ echo $SHELL
-```
-
-If the shell is not changed, you can check the following points:
-
-```
-# 1. Check if the shell is changed
-$ grep $(whoami) /etc/passwd
-
-# 2. Check if the ssh session is still active.
-# If you are using ssh session sharing as bellow, you need to close the ssh session and log in again to apply the changes.
-#   .ssh/config
-#   ControlMaster auto
-#   ControlPath ~/.ssh/mux-%n
-#   ControlPersist 3600
-$ ssh -O exit <your ssh host>
-```
+このリポジトリは、自分用の設定・ドキュメントを管理するためのものです。
 
 ## Contents
 
@@ -51,17 +14,63 @@ $ ssh -O exit <your ssh host>
 | [etc](etc/README.md)                         | 雑多なファイル群です。                                       |
 | [scripts](scripts/README.md)                 | 雑多なスクリプトファイル群です。                             |
 
-## About home_ex
+## Initial setup procedures for each OS
 
-You can use home_ex as a repository to manage external configuration and docs.
+- [Setup Windows](docs/env/os/windows/README.md)
+- [Setup Ubuntu](docs/env/os/ubuntu/README.md)
 
+Linux共通のセットアップ（Windows WSL1はサポート外）
+
+```bash
+$ git clone git@github.com:syunkitada/home.git
+$ git clone git@github.com:syunkitada/home_ex.git
+
+$ make
+$ make check
 ```
+
+デフォルトのshellをzshに変更します。
+
+```bash
+$ sudo chsh -s $(which zsh) $(whoami)
+```
+
+shellを変更したあと、ログインし直してshellが変更されてることを以下のコマンドで確認してください。
+
+```bash
+$ echo $SHELL
+```
+
+もし、shellが変更されてなかったら、以下のポイントをチェックしてください。
+
+```bash
+# 1. /etc/passwd内のshellが変更されているか確認してください。
+$ grep $(whoami) /etc/passwd
+
+# 2. shellのセッションが使い回されていないか確認してください。
+# もし、以下のような.ssh/configでSSHセッション共有の設定をしているばあいは、セッションを明示的に閉じてから再接続してください。
+$ cat .ssh/config
+ControlMaster auto
+ControlPath ~/.ssh/mux-%n
+ControlPersist 3600
+
+# セッションを明示的に閉じるには以下のコマンドを実行してください。
+$ ssh -O exit <your ssh host>
+```
+
+## About home_ex directory
+
+home_ex ディレクトリをホームディレクトリに配置することで、homeの設定・ドキュメントを拡張することができます。
+
+この仕組みは、プライベート開発環境や会社用開発環境など複数の環境の設定を分けて管理できるようにするための仕組みです。
+
+```bash
 $ git clone <your external respository> ~/home_ex
 ```
 
-The following files are supported:
+以下のファイルがサポートされています。
 
-```
+```bash
 home_ex/
   docs/
     cmd/  <-- For managing docs of command line tools
@@ -69,6 +78,9 @@ home_ex/
     ops/  <-- For managing docs of operations
       *.md
   xdgconfig/
+    confrc <-- The configuration files for overriding ./scripts/confrc
     zsh/  <-- The configuration files are loaded by zsh
       *.zsh
+    nvim/  <-- The configuration files are loaded by nvim
+      *.vim
 ```

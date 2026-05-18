@@ -78,3 +78,18 @@ agent key RSA SHA256:xxx returned incorrect signature type
   - https://www.chiark.greenend.org.uk/~sgtatham/putty/wishlist/pageant-rsa-sha2.html
 - またついでに ed25519 で鍵を作り直しておく
 - RLogin を利用してる場合は、オプションのサーバのプロトコルの SSH 認証鍵も変更します
+
+## SSHD
+
+### Settings for secure
+
+- root loginを無効化する。
+- パスワードログインを無効化する。
+
+```bash
+$ sudo vi /etc/ssh/sshd_config
+PermitRootLogin no
+PasswordAuthentication no
+
+$ sudo service sshd restart
+```
