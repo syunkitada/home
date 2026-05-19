@@ -6,15 +6,6 @@ all:
 check:
 	./scripts/check.sh
 
-.PHONY: index
-index:
-	cd docs; go run makeindex.go;
-	cp /tmp/index.json ../home-index/
-
-.PHONY: deploy
-deploy:
-	cd ../home-index/; git commit -am 'update'; git push
-
 .PHONY: gen_keybind_doc
 gen_keybind_doc:
 	go run scripts/gen_keybind_doc.go

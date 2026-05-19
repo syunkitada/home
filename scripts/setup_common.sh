@@ -23,15 +23,15 @@ function setup_dotfiles() {
     XDG_CONFIG_HOME=${HOME}/.config
     mkdir -p "${XDG_CONFIG_HOME}"
 
-    for file in $(find dotfiles -name '.*' -printf "%f\n"); do
-        src=${HOME_ROOT_DIR}/dotfiles/${file}
+    for file in ".envrc" ".zshrc" do
+        src=${HOME_ROOT_DIR}/home/${file}
         dst=${HOME}/${file}
         rm -f "$dst"
         ln -s "$src" "$dst"
     done
 
-    for file in $(ls xdgconfig); do
-        src=${HOME_ROOT_DIR}/xdgconfig/${file}
+    for file in $(ls home/.config); do
+        src=${HOME_ROOT_DIR}/home/.config/${file}
         dst=${HOME}/.config/${file}
         rm -f "$dst"
         ln -s "$src" "$dst"
@@ -53,7 +53,7 @@ function setup_dev_python() {
     # install uv
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
-    cd ~/home/env
+    cd ~/home/python_tools
     uv sync --all-extras
     cd -
 
