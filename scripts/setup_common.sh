@@ -23,7 +23,12 @@ function setup_dotfiles() {
     XDG_CONFIG_HOME=${HOME}/.config
     mkdir -p "${XDG_CONFIG_HOME}"
 
-    for file in ".envrc" ".zshrc" do
+    declare -a dotfiles=(
+        ".envrc"
+        ".zshrc"
+    )
+    for file in "${dotfiles[@]}"; do
+        echo "Linking ${file} to ${HOME}/${file}"
         src=${HOME_ROOT_DIR}/home/${file}
         dst=${HOME}/${file}
         rm -f "$dst"
