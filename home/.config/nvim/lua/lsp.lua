@@ -231,3 +231,34 @@ require('lspconfig')['bashls'].setup{
     flags = lsp_flags,
     filetypes = { "sh", "zsh" },
 }
+
+---
+require("holon").setup({
+  -- Path to notes directory (required)
+  notes_path = vim.fn.expand("~/mynotes"),
+
+  -- Subdirectory structure (relative to notes_path)
+  -- Note types are derived from these keys (excluding "journal").
+  directories = {
+    permanent  = "Notes/Permanent",
+    fleeting   = "Notes/Fleeting",
+    literature = "Notes/Literature",
+    project    = "Notes/Project",
+    index      = "Notes/Permanent",
+    structure  = "Notes/Permanent",
+    inbox  = "Notes/Inbox",
+    journal    = "journal",
+  },
+
+  -- Template directory (relative to notes_path)
+  templates_path = "templates",
+
+  -- File extension
+  extension = ".md",
+
+  -- Filename style: "uuid" (auto-generated UUID) or "manual" (user-specified)
+  filename_style = "manual",
+
+  -- Link format: "wiki" for [[target|title]], "markdown" for [title](target.md)
+  default_link_format = "wiki",
+})

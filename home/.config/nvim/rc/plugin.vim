@@ -92,3 +92,21 @@ function! LightLineFileName()
     endif
     return filename
 endfunction
+
+
+" -------------------------
+" holon
+" -------------------------
+nmap [holon]n :Holon<CR>
+nmap [holon]g :HolonGrep<CR>
+nmap [holon]c :HolonNew<CR>
+nmap [holon]b :HolonBacklinks<CR>
+nmap [holon]i :HolonIndexes<CR>
+nmap [holon]j :HolonJournal<CR>
+nmap [holon]t :HolonTags<CR>
+nmap [holon]T :HolonTypes<CR>
+nmap [holon]f :HolonFollow<CR>
+nmap [holon]d :HolonToday<CR>
+nmap [holon]G :HolonGtd<CR>
+nmap [holon]l :HolonBrowse<CR>
+nmap [holon]o :HolonOrphans<CR>
