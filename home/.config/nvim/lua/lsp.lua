@@ -240,25 +240,134 @@ require("holon").setup({
   -- Subdirectory structure (relative to notes_path)
   -- Note types are derived from these keys (excluding "journal").
   directories = {
-    permanent  = "Notes/Permanent",
-    fleeting   = "Notes/Fleeting",
-    literature = "Notes/Literature",
-    project    = "Notes/Project",
-    index      = "Notes/Permanent",
-    structure  = "Notes/Permanent",
-    inbox  = "Notes/Inbox",
+    permanent  = "notes/permanent",
+    fleeting   = "notes/fleeting",
+    literature = "notes/literature",
+    project    = "notes/project",
+    index      = "notes/permanent",
+    structure  = "notes/permanent",
     journal    = "journal",
   },
 
   -- Template directory (relative to notes_path)
   templates_path = "templates",
 
+  -- Archive directory (relative to notes_path)
+  archives_path = "archives",
+
   -- File extension
   extension = ".md",
 
   -- Filename style: "uuid" (auto-generated UUID) or "manual" (user-specified)
-  filename_style = "manual",
+  filename_style = "time",
 
   -- Link format: "wiki" for [[target|title]], "markdown" for [title](target.md)
   default_link_format = "wiki",
+
+  -- Nerd Font icons per note type
+  icons = {
+    permanent  = { icon = "󰆼", hl = "HolonPermanent" },
+    fleeting   = { icon = "󱞁", hl = "HolonFleeting" },
+    literature = { icon = "󰂺", hl = "HolonLiterature" },
+    project    = { icon = "󰳏", hl = "HolonProject" },
+    index      = { icon = "󰉋", hl = "HolonIndex" },
+    structure  = { icon = "󰙅", hl = "HolonStructure" },
+    default    = { icon = "󰈙", hl = "HolonDefault" },
+  },
+
+  -- Picker display settings
+  picker = {
+    show_icons = true,
+    show_tags = true,
+    initial_mode = "insert",
+    layout_config = {
+      width = 0.9,
+      height = 0.8,
+      horizontal = {
+        preview_width = 0.5,
+      },
+    },
+    -- Common keybindings shared by all pickers (defaults shown below)
+    keymaps = {
+      prompt = {
+        i = {
+          ["<CR>"] = "focus_results",
+          ["<Down>"] = "move_down",
+          ["<Up>"] = "move_up",
+          ["<Tab>"] = "toggle_mark",
+        },
+        n = {
+          ["<CR>"] = "focus_results",
+          ["q"] = "close",
+          ["<Esc>"] = "close",
+        },
+      },
+      results = {
+        n = {
+          ["j"] = "move_down",
+          ["k"] = "move_up",
+          ["<CR>"] = "select",
+          ["q"] = "close",
+          ["<Esc>"] = "close",
+          ["i"] = "focus_prompt",
+          ["I"] = "focus_prompt",
+          ["a"] = "focus_prompt",
+          ["A"] = "focus_prompt",
+          ["/"] = "focus_prompt",
+          ["<Tab>"] = "toggle_mark",
+          ["<C-d>"] = "page_down",
+          ["<C-u>"] = "page_up",
+        },
+      },
+    },
+  },
+
+  -- Keybindings inside the notes picker
+  -- Available actions: "create_note", "show_backlinks", "show_forward_links",
+  --                    "insert_link", "filter_by_type", "filter_by_tag"
+  mappings = {
+    i = {
+      ["<C-n>"] = "create_note",
+      ["<C-b>"] = "show_backlinks",
+      ["<C-f>"] = "show_forward_links",
+      ["<C-l>"] = "insert_link",
+      ["<C-t>"] = "filter_by_type",
+      ["<C-g>"] = "filter_by_tag",
+    },
+    n = {
+      ["n"] = "create_note",
+      ["b"] = "show_backlinks",
+      ["f"] = "show_forward_links",
+      ["l"] = "insert_link",
+      ["t"] = "filter_by_type",
+      ["g"] = "filter_by_tag",
+    },
+  },
+
+  -- GTD board settings
+  gtd = {
+    statuses = { "inbox", "todo", "inprogress", "waiting", "delegate", "done" },
+
+    -- Icons shown in the board for each status
+    status_icons = {
+      inbox      = { icon = "󰁔", hl = "HolonGtdInbox" },
+      todo       = { icon = "󰝖", hl = "HolonGtdTodo" },
+      inprogress = { icon = "󱓻", hl = "HolonGtdProgress" },
+      waiting    = { icon = "󰏤", hl = "HolonGtdWaiting" },
+      delegate   = { icon = "󰜵", hl = "HolonGtdDelegate" },
+      done       = { icon = "󰄲", hl = "HolonGtdDone" },
+    },
+
+    -- Blocked indicator
+    blocked_icon = "🔒",
+
+    -- Board layout
+    layout = {
+      width = 0.9,
+      height = 0.8,
+      timeline_min_width = 30,
+      preview_ratio = 0.45,
+    },
+  },
+
 })

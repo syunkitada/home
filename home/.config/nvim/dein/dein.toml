@@ -64,7 +64,7 @@ repo = 'https://github.com/LumaKernel/fern-mapping-fzf.vim'
 # タスク管理
 # ----------------------------------------------------------------------------------------------------
 [[plugins]]
-repo = 'https://github.com/sunbluesome/holon.nvim'
+repo = 'https://github.com/syunkitada/myholon.nvim.git'
 
 
 # ----------------------------------------------------------------------------------------------------
