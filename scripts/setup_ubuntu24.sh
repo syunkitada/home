@@ -34,6 +34,9 @@ function setup_dev_tools() {
         rm "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
         cd - || exit 1
     fi
+
+    # install
+    sudo apt install ripgrep fd
 }
 
 # install tmux
