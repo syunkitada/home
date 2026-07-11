@@ -14,15 +14,13 @@ endfunc
 " noremap <PageUp> 39<C-U>:set scroll=0<CR>
 function! MyPageUp()
 	let visible_lines = GetNumberOfVisibleLines()
-	execute "normal " . visible_lines . "\<C-U>:set
-	scroll=0\r"
+	execute "normal " . visible_lines . "\<C-U>:set scroll=0\r"
 endfunction
 
 " noremap <PageDown> 39<C-D>:set scroll=0<CR>
 function! MyPageDown()
 	let visible_lines = GetNumberOfVisibleLines()
-	execute "normal " . visible_lines . "\<C-D>:set
-	scroll=0\r"
+	execute "normal " . visible_lines . "\<C-D>:set scroll=0\r"
 endfunction
 
 " BorlandPascal pageup/down behaviour!

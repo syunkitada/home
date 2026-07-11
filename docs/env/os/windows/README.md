@@ -25,6 +25,8 @@
 - LiberOffice
   - [窓の社](https://forest.watch.impress.co.jp/library/software/libreoffice/) からインストーラをダウンロードしてインストールします。
   - LibreOffice は、オープンソースのオフィススイートです。
+- フォント(moralerspace)
+  - https://github.com/yuru7/moralerspace/releases/tag/v2.0.0
 
 ## Setup Git, NodeJS and VSCode
 
