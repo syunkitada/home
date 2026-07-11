@@ -235,17 +235,17 @@ require('lspconfig')['bashls'].setup{
 ---
 require("holon").setup({
   -- Path to notes directory (required)
-  notes_path = vim.fn.expand("~/mynotes"),
+  notes_path = vim.fn.expand("~/home_ex/notes"),
 
   -- Subdirectory structure (relative to notes_path)
   -- Note types are derived from these keys (excluding "journal").
   directories = {
-    permanent  = "notes/permanent",
-    fleeting   = "notes/fleeting",
-    literature = "notes/literature",
-    project    = "notes/project",
-    index      = "notes/permanent",
-    structure  = "notes/permanent",
+    permanent  = "permanent",
+    fleeting   = "fleeting",
+    literature = "literature",
+    project    = "project",
+    index      = "permanent",
+    structure  = "permanent",
     journal    = "journal",
   },
 
