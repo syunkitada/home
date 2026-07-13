@@ -132,6 +132,7 @@ command! FZFMru call fzf#run({
 \  'options': '-m -x +s',
 \  'down':    '40%'})
 
+
 "
 " ファイル移動のためにターミナルモードを経由するショートカット
 "

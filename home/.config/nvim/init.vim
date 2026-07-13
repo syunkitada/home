@@ -103,7 +103,11 @@ set background=dark
 
 set lazyredraw " マクロの途中で画面を再描画しない
 set ttyfast " スクロール時に再描画するようにする
-set nocursorline " カーソルラインをハイライトしない（描画コストが高いため）
+" set nocursorline " カーソルラインをハイライトしない（描画コストが高いため）
+set cursorline
+set cursorcolumn
+highlight CursorLine guibg=#353535
+highlight CursorColumn guibg=#454545
 
 " memory settings
 " パターンマッチングに使うメモリ量の最大値(defaultは1000)
