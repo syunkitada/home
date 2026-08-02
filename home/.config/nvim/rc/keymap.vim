@@ -12,6 +12,14 @@ nnoremap <C-z>j <C-w>j
 nnoremap <C-z>k <C-w>k
 nnoremap <C-z>l <C-w>l
 
+" forward-word
+" backward-word
+" <C-o> は Insert モードを維持したまま Normal モードのコマンドを1つだけ実行します。
+nnoremap <C-Right> w
+nnoremap <C-Left>  b
+inoremap <C-Right> <C-o>w
+inoremap <C-Left>  <C-o>b
+
 " Prefix keys
 nmap <Space>t [terminal]
 nmap <Space>f [finder]
