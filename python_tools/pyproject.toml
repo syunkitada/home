@@ -8,6 +8,8 @@ dependencies = []
 
 [dependency-groups]
 dev = [
+    "pip",
+    "ruff",
     "black>=25.9.0",
     "flake8>=7.3.0",
     "isort>=7.0.0",
@@ -17,4 +19,8 @@ nvim = [
     "neovim>=0.3.1",
     "neovim-remote>=2.5.1",
     "pynvim>=0.6.0",
+]
+
+aitools = [
+    "apm-cli",
 ]
