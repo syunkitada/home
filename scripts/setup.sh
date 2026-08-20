@@ -12,13 +12,7 @@ OS_NAME=$(grep "^NAME=" /etc/os-release | awk -F '=' '{print $2}' | sed -e 's/"/
 OS_VERSION=$(grep "^VERSION_ID=" /etc/os-release | awk -F '=' '{print $2}' | sed -e 's/"//g' | awk -F '.' '{print $1}')
 
 echo "OS_NAME=$OS_NAME, OS_VERSION=$OS_VERSION"
-if [ "$OS_NAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
-	echo "load ./setup_centos7.sh"
-	source ./setup_centos7.sh
-elif [ "$OS_NAME" = "Rocky" ] && [ "$OS_VERSION" = "8" ]; then
-	echo "load ./setup_rocky8.sh"
-	source ./setup_rocky8.sh
-elif [ "$OS_NAME" = "Rocky" ] && [ "$OS_VERSION" = "9" ]; then
+if [ "$OS_NAME" = "Rocky" ] && [ "$OS_VERSION" = "9" ]; then
 	echo "load ./setup_rocky9.sh"
 	source ./setup_rocky9.sh
 elif [ "$OS_NAME" = "Ubuntu" ] && [ "$OS_VERSION" = "24" ]; then

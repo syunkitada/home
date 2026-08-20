@@ -3,7 +3,7 @@
 cd "$(dirname "$0")" || exit 1
 
 source confrc
-source ../../dotfiles/.envrc
+source "${HOME_ROOT_DIR}/../dotfiles/.envrc"
 
 function ok() {
 	echo -e "\e[32m${1}\e[m"
@@ -43,7 +43,7 @@ fi
 
 # check fzf
 which_fzf=$(command -v fzf)
-if [ "${which_fzf}" == "${HOME}/.fzf/bin/fzf" ]; then
+if [ "${which_fzf}" == "${HOME}/.local/bin/fzf" ]; then
 	ok "fzf is installed: ${which_fzf}"
 else
 	error "fzf is not installed: ${which_fzf}"
@@ -51,18 +51,18 @@ fi
 
 # check npm
 which_npm=$(command -v npm)
-if [ "${which_npm}" == "/usr/local/bin/npm" ]; then
+if [ -n "${which_npm}" ]; then
 	ok "npm is installed: ${which_npm}"
 else
-	error "npm is not installed: ${which_npm}"
+	error "npm is not installed"
 fi
 
 # check go
 which_go=$(command -v go)
-if [ "${which_go}" == "/usr/local/bin/go" ]; then
+if [ -n "${which_go}" ]; then
 	ok "go is installed: ${which_go}"
 else
-	error "go is not installed: ${which_go}"
+	error "go is not installed"
 fi
 
 # check shfmt

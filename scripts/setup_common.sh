@@ -2,8 +2,6 @@
 
 set -e
 
-echo "ARG=$*"
-
 . confrc
 
 function setup_base_tools() {
@@ -18,33 +16,35 @@ function setup_dotfiles() {
     # dotfiles 内のファイルのシンボリックリンクを ~/ に作成します
     # xdgconfig 内のファイルのシンボリックリンクを ~/.config に作成します
 
-    cd "${HOME_ROOT_DIR}"
+    (
+        cd "${HOME_ROOT_DIR}"
 
-    XDG_CONFIG_HOME=${HOME}/.config
-    mkdir -p "${XDG_CONFIG_HOME}"
+        XDG_CONFIG_HOME=${HOME}/.config
+        mkdir -p "${XDG_CONFIG_HOME}"
 
-    declare -a dotfiles=(
-        ".envrc"
-        ".zshrc"
+        declare -a dotfiles=(
+            ".envrc"
+            ".zshrc"
+        )
+        for file in "${dotfiles[@]}"; do
+            echo "Linking ${file} to ${HOME}/${file}"
+            src=${HOME_ROOT_DIR}/home/${file}
+            dst=${HOME}/${file}
+            rm -f "$dst"
+            ln -s "$src" "$dst"
+        done
+
+        for file in home/.config/*; do
+            src=${HOME_ROOT_DIR}/${file}
+            dst=${HOME}/${file#home/}
+            rm -f "$dst"
+            ln -s "$src" "$dst"
+        done
     )
-    for file in "${dotfiles[@]}"; do
-        echo "Linking ${file} to ${HOME}/${file}"
-        src=${HOME_ROOT_DIR}/home/${file}
-        dst=${HOME}/${file}
-        rm -f "$dst"
-        ln -s "$src" "$dst"
-    done
-
-    for file in $(ls home/.config); do
-        src=${HOME_ROOT_DIR}/home/.config/${file}
-        dst=${HOME}/.config/${file}
-        rm -f "$dst"
-        ln -s "$src" "$dst"
-    done
 }
 
 function setup_nvim() {
-    if [ "$(nvim --version | grep 'NVIM v')" != "NVIM ${NEOVIM_VERSION}" ]; then
+    if ! command -v nvim >/dev/null 2>&1 || [ "$(nvim --version | grep 'NVIM v' | awk '{print $2}')" != "${NEOVIM_VERSION}" ]; then
         curl -fsSL "https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux-x86_64.tar.gz" |
             gunzip | tar x --strip-components=1 -C ~/.local
     fi
@@ -73,9 +73,10 @@ function setup_dev_python() {
         ln -s "$src" "$dst"
     done
 
-    cd ${HOME}/.local/mypython/
-    uv sync --all-extras --locked
-    cd -
+    (
+        cd "${HOME}/.local/mypython/"
+        uv sync --all-extras --locked
+    )
 
     # LSP
     npm install -g pyright
@@ -89,12 +90,17 @@ function setup_dev_web() {
 }
 
 function setup_dev_go() {
-    go_version="$(go version | grep 'go version' | awk '{print $3}')"
-    echo "GOVersion: current=${go_version}, expected=${GO_VERSION}"
-    if [ "${go_version}" != "go${GO_VERSION}" ]; then
-        sudo rm -rf /usr/local/go
+    if ! command -v go >/dev/null 2>&1; then
         curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" |
             gunzip | sudo tar x -C /usr/local
+    else
+        go_version="$(go version | grep 'go version' | awk '{print $3}')"
+        echo "GOVersion: current=${go_version}, expected=${GO_VERSION}"
+        if [ "${go_version}" != "go${GO_VERSION}" ]; then
+            sudo rm -rf /usr/local/go
+            curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" |
+                gunzip | sudo tar x -C /usr/local
+        fi
     fi
     echo "GOVersion: $(go version)"
 
@@ -108,19 +114,14 @@ function setup_dev_shell() {
     # LSP
     npm install -g bash-language-server
 
-    set +e
-    type shfmt
-    type_shfmt=$?
-    set -e
-    if $type_shfmt -ne 0; then
-        curl -L https://github.com/mvdan/sh/releases/download/v3.5.1/shfmt_v3.5.1_linux_amd64 -o ./shfmt
-        chmod 755 ./shfmt
-        mv ./shfmt ~/.local/bin/
+    if ! command -v shfmt >/dev/null 2>&1; then
+        curl -L "https://github.com/mvdan/sh/releases/download/v${SHFMT_VERSION}/shfmt_v${SHFMT_VERSION}_linux_amd64" -o ~/.local/bin/shfmt
+        chmod 755 ~/.local/bin/shfmt
     fi
 }
 
 function setup_fzf() {
-    if [ "$(fzf --version | awk '{print $1}')" != "${FZF_VERSION}" ]; then
+    if ! command -v fzf >/dev/null 2>&1 || [ "$(fzf --version | awk '{print $1}')" != "${FZF_VERSION}" ]; then
         echo "Install fzf."
         curl -fsSL "https://github.com/junegunn/fzf/releases/download/v${FZF_VERSION}/fzf-${FZF_VERSION}-linux_amd64.tar.gz" |
             gunzip | tar -x -C ~/.local/bin
@@ -144,16 +145,16 @@ function setup_dev_rust() {
         curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path --profile default
     fi
 
-    if [ "$(cargo-binstall -V)" != "${CARGO_BINSTALL_VERSION}" ]; then
+    if [ "$(cargo-binstall -V 2>/dev/null | awk '{print $2}')" != "${CARGO_BINSTALL_VERSION}" ]; then
         echo "Installing cargo-binstall."
-        curl -fsSL https://github.com/cargo-bins/cargo-binstall/releases/download/v1.15.10/cargo-binstall-x86_64-unknown-linux-musl.tgz |
+        curl -fsSL "https://github.com/cargo-bins/cargo-binstall/releases/download/v${CARGO_BINSTALL_VERSION}/cargo-binstall-x86_64-unknown-linux-musl.tgz" |
             tar -zx -C ~/.local/bin
         echo "Installed cargo-binstall: $(cargo-binstall -V)"
     fi
 
     # if ENABLE_MARKDOWN_OXIDE
     if [ "${ENABLE_MARKDOWN_OXIDE}" = "true" ]; then
-        cargo-binstall --git 'https://github.com/feel-ix-343/markdown-oxide' markdown-oxide --install-path ~/.local/bin -y --version 0.25.9
+        cargo-binstall --git 'https://github.com/feel-ix-343/markdown-oxide' markdown-oxide --install-path ~/.local/bin -y --version "${MARKDOWN_OXIDE_VERSION}"
     fi
 }
 
@@ -168,6 +169,7 @@ function setup_npm_config() {
 function help() {
     cat <<EOS
 setup_init
+setup_base_tools
 setup_dotfiles
 setup_nvim
 setup_fzf
@@ -176,7 +178,7 @@ setup_dev_web
 setup_dev_python
 setup_dev_rust
 setup_dev_shell
-setup_fzf
+setup_dev_tools
 setup_dev_clang
 setup_npm_config
 EOS

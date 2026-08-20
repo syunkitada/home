@@ -5,21 +5,21 @@ set -e
 
 function setup_base_tools() {
 	# findutils:  find command
-	sudo yum install -y findutils
+	sudo dnf install -y findutils
 }
 
 function setup_dev_tools() {
-	sudo yum install -y gcc gcc-c++ libevent-devel ncurses-devel
-	sudo yum install -y man wget git zsh
+	sudo dnf install -y gcc gcc-c++ libevent-devel ncurses-devel
+	sudo dnf install -y man wget git zsh
 
 	# python3
-	sudo yum install -y python3 python3-devel python3-pip
+	sudo dnf install -y python3 python3-devel python3-pip
 
 	# node
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+	curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh" | bash
 	export NVM_DIR="$HOME/.config/nvm"
 	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-	nvm install 24
+	nvm install "$(echo "${NODE_VERSION}" | cut -d. -f1)"
 
 	# setup_npm_config
 	# mkdir -p "${NPM_PACKAGES}"
@@ -29,24 +29,22 @@ function setup_dev_tools() {
 # install tmux
 function setup_tmux() {
 	if [ ! -e ~/.local/bin/tmux ]; then
-		_PWD=$PWD
-		mkdir ~/tmp_setup_tmux
-		cd ~/tmp_setup_tmux
-		sudo dnf install -y bison gcc make ncurses-devel libevent-devel pkgconfig autoconf automake
-		curl -kLO "https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
-		tar -zxvf "tmux-${TMUX_VERSION}.tar.gz"
-		cd "tmux-${TMUX_VERSION}" || exit 1
-		./configure --prefix="${HOME}/.local"
-		make
-		sudo make install
-		cd "${_PWD}"
-		rm -rf ~/tmp_setup_tmux
+		(
+			sudo dnf install -y bison gcc make ncurses-devel libevent-devel pkgconfig autoconf automake
+			cd /tmp || exit 1
+			curl -LO "https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
+			tar -zxvf "tmux-${TMUX_VERSION}.tar.gz"
+			cd "tmux-${TMUX_VERSION}" || exit 1
+			./configure --prefix="${HOME}/.local"
+			make
+			sudo make install
+		)
 	fi
 }
 
 function setup_dev_clang() {
 	# clang-tools-extraにclangdも入ってます
-	sudo yum install -y clang clang-tools-extra
+	sudo dnf install -y clang clang-tools-extra
 }
 
 function help() {

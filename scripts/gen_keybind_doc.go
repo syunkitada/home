@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
-	"path"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -24,7 +23,7 @@ func main() {
 	modeKeyMap := map[string]map[string]KeyBind{}
 
 	pwd := os.Getenv("PWD")
-	keybindDocs := path.Join(pwd, "docs/env", "keybind")
+	keybindDocs := filepath.Join(pwd, "docs/env", "keybind")
 
 	// autohotkey
 	cmd := "grep '\\[KEYBIND\\]' ~/autohotkey/* -r | sed -e 's/.*\\[KEYBIND\\]//g'"
@@ -86,8 +85,8 @@ func main() {
 	}
 
 	for mode, doc := range modeDocMap {
-		modeDoc := path.Join(keybindDocs, mode+".txt")
-		if err := ioutil.WriteFile(modeDoc, []byte(doc), 0644); err != nil {
+		modeDoc := filepath.Join(keybindDocs, mode+".txt")
+		if err := os.WriteFile(modeDoc, []byte(doc), 0644); err != nil {
 			log.Fatalf("Failed WriteFile: err=%s", err.Error())
 		}
 		fmt.Printf("Generated: file=%s\n", modeDoc)

@@ -19,24 +19,24 @@ function setup_dev_tools() {
 
     # node
     rm -f ~/.npmrc
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+    curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh" | bash
     export NVM_DIR="$HOME/.config/nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-    nvm install 24
+    nvm install "$(echo "${NODE_VERSION}" | cut -d. -f1)"
 
     # https://github.com/watchexec/watchexec
     # ファイルの変更検知して自動でプロセス再起動してくれる
-    if ! type watchexec; then
-        WATCHEXEC_VERSION=${WATCHEXEC_VERSION:-1.21.1}
-        cd /tmp || exit 1
-        wget "https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-        sudo dpkg -i "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-        rm "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-        cd - || exit 1
+    if ! command -v watchexec >/dev/null 2>&1; then
+        (
+            cd /tmp || exit 1
+            wget "https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+            sudo dpkg -i "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+            rm "/tmp/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+        )
     fi
 
     # install
-    sudo apt install ripgrep fd
+    sudo apt install -y ripgrep fd
 }
 
 # install tmux
@@ -51,7 +51,7 @@ function setup_dev_clang() {
 # ファイル検索ツール
 # _install silversearcher-ag
 
-# razygit
+# lazygit
 # https://github.com/jesseduffield/lazygit
 # LAZYGIT_VERSION=0.35
 # if [ "$(lazygit --version | sed -r 's/^.*version=([0-9]+\.[0-9]+), .*$/\1/')" != "${LAZYGIT_VERSION}" ]; then

@@ -4,12 +4,8 @@ export HOME_ROOT_DIR=${HOME}/home
 
 export TMUX_VERSION=${TMUX_VERSION:-3.4}
 
-# NOTE:
-# - CentOS7, Rocky8 require <=0.7.2
-#   - NVIM-0.8.X は、GLIBC_2.29を要求してくるがRocky8のGLIBは2.28なので、0.7.2を利用します
 export NEOVIM_VERSION=${NEOVIM_VERSION:-v0.10.4}
 
-# CentOS7 require <=16.20.0
 export NODE_VERSION=${NODE_VERSION:-22.19.0}
 
 # Go releases: https://go.dev/dl/
@@ -17,10 +13,15 @@ export GO_VERSION=${GO_VERSION:-1.25.7}
 
 export FZF_VERSION=${FZF_VERSION:-0.56.3}
 
+export SHFMT_VERSION=${SHFMT_VERSION:-3.5.1}
+export NVM_VERSION=${NVM_VERSION:-0.40.3}
+
 # Rust tools settings
 export ENABLE_RUST=${ENABLE_RUST:-false}
 export ENABLE_MARKDOWN_OXIDE=${ENABLE_MARKDOWN_OXIDE:-false}
 export CARGO_BINSTALL_VERSION=${CARGO_BINSTALL_VERSION:-1.15.10}
+export MARKDOWN_OXIDE_VERSION=${MARKDOWN_OXIDE_VERSION:-0.25.9}
+export WATCHEXEC_VERSION=${WATCHEXEC_VERSION:-1.21.1}
 
 if [ -f ~/home_ex/xdgconfig/confrc ]; then
     . ~/home_ex/xdgconfig/confrc
