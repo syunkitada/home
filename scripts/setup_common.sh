@@ -58,8 +58,23 @@ function setup_dev_python() {
     # install uv
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
-    cd ~/home/python_tools
-    uv sync --all-extras
+    mkdir -p ~/.local/mypython
+
+    declare -a dotfiles=(
+        ".python-version"
+        "pyproject.toml"
+        "uv.lock"
+    )
+    for file in "${dotfiles[@]}"; do
+        echo "Linking ${file} to ${HOME}/${file}"
+        src=${HOME_ROOT_DIR}/home/.local/mypython/${file}
+        dst=${HOME}/.local/mypython/${file}
+        rm -f "$dst"
+        ln -s "$src" "$dst"
+    done
+
+    cd ${HOME}/.local/mypython/
+    uv sync --all-extras --locked
     cd -
 
     # LSP

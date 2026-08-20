@@ -30,17 +30,17 @@ function setup_dev_tools() {
 function setup_tmux() {
 	if [ ! -e ~/.local/bin/tmux ]; then
 		_PWD=$PWD
-		cd /tmp || exit 1
-		dnf install -y bison gcc make ncurses-devel libevent-devel pkgconfig autoconf automake
+		mkdir ~/tmp_setup_tmux
+		cd ~/tmp_setup_tmux
+		sudo dnf install -y bison gcc make ncurses-devel libevent-devel pkgconfig autoconf automake
 		curl -kLO "https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
 		tar -zxvf "tmux-${TMUX_VERSION}.tar.gz"
 		cd "tmux-${TMUX_VERSION}" || exit 1
 		./configure --prefix="${HOME}/.local"
 		make
 		sudo make install
-		cd ../
-		rm -rf tmux-*
 		cd "${_PWD}"
+		rm -rf ~/tmp_setup_tmux
 	fi
 }
 

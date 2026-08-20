@@ -19,7 +19,7 @@ $ docker exec -it home-rocky9 bash
 
 ```
 [playground@home-rocky9 ~]$ cd home
-[playground@home-rocky9 home]$ make setup
+[playground@home-rocky9 home]$ make
 ```
 
 4. Check zsh and vim behavior
