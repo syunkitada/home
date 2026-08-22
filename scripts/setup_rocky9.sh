@@ -31,13 +31,15 @@ function setup_tmux() {
 	if [ ! -e ~/.local/bin/tmux ]; then
 		(
 			sudo dnf install -y bison gcc make ncurses-devel libevent-devel pkgconfig autoconf automake
-			cd /tmp || exit 1
+			mkdir ~/tmp_setup_tmux
+			cd ~/tmp_setup_tmux
 			curl -LO "https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
 			tar -zxvf "tmux-${TMUX_VERSION}.tar.gz"
 			cd "tmux-${TMUX_VERSION}" || exit 1
 			./configure --prefix="${HOME}/.local"
 			make
 			sudo make install
+			rm -rf ~/tmp_setup_tmux
 		)
 	fi
 }
