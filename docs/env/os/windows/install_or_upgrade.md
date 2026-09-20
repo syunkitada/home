@@ -13,7 +13,7 @@
 
 ## Windows10からWindows11へのアップグレード方法
 
-1. [https://www.microsoft.com/ja-jp/windows/windows-11-specifications](Windows 11 の仕様、機能、コンピューターの要件を確認する)から、「PC 正常性チェック アプリ」をダウンロードして、PCがWindows11に対応しているか確認します。
+1. [Windows 11 の仕様、機能、コンピューターの要件を確認する](https://www.microsoft.com/ja-jp/windows/windows-11-specifications)から、「PC 正常性チェック アプリ」をダウンロードして、PCがWindows11に対応しているか確認します。
 2. Windows10がインストールされているPCで、Windows Updateを開きます。
    - 「設定」→「更新とセキュリティ」→「Windows Update」を選択します。-「更新プログラムのチェック」をクリックして、最新の更新プログラムを適用します。
    - Windows11へのアップグレードが可能な場合は、アップグレードのオプションが表示されます。

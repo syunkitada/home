@@ -1,5 +1,7 @@
 # iptables
 
+> `iptables` は netfilter を操作するための従来のインターフェースである。現在のディストリビューションでは `iptables-nft` が nftables への互換フロントエンドとして動作することがあるため、`iptables --version` と `nft list ruleset` で実際のバックエンドを確認すること。以下のルールは例であり、適用前に既存のルールとリモート接続への影響を確認する。
+
 ## netfilter とは
 
 - カーネルのパケット処理を hook してユーザランドで制御できるようにしたもの
@@ -9,7 +11,7 @@
 
 ## conntrack
 
-- connection tracking の略ですべての通信がリアルタイムに記録される
+- connection tracking の略で、netfilter を通過する通信のフローを追跡する。すべてのパケットやすべての通信が無条件に記録されるわけではない
 - TCP の通信が終了した場合でも、設定されたタイムアウトまで蓄積される
 - タイムアウトすると conntrack table から破棄される
 - src dst IP と Port の tuple を hash 化して hash table で処理している

@@ -48,6 +48,12 @@ setup_dev_go
 setup_dev_clang
 setup_dev_rust
 
+home_ex_setup="${HOME_EX_ROOT_DIR:-${HOME}/home_ex}/scripts/setup.sh"
+if [ -f "${home_ex_setup}" ]; then
+	echo "load ${home_ex_setup}"
+	bash "${home_ex_setup}"
+fi
+
 echo "
 ----------------------------------------------------------------------------------------------------
 Setup Complete!

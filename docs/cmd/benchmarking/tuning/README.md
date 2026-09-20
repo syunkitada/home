@@ -1,5 +1,11 @@
 # Tuningについて
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [io.md](io.md) | IOのチューニングに関するメモです。 |
+| [memory.md](memory.md) | メモリのチューニングに関するメモです。 |
 
 ## 電力効率
 * BMCで消費電力取りながら、ベンチマークを取るとよい

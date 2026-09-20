@@ -1,5 +1,14 @@
 # 古い環境用のhomeディレクトリ用の設定ファイル郡
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [.bash_profile](.bash_profile) | Bashのログイン設定です。 |
+| [.tmux.conf](.tmux.conf) | tmuxの設定です。 |
+| [.zshrc](.zshrc) | zshの設定です。 |
+| [Makefile](Makefile) | ドットファイルのリンク生成です。 |
+
 以下のツール郡がインストールされた環境を想定しています。
 
 ```

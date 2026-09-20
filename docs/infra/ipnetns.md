@@ -47,15 +47,17 @@ sudo ip netns exec testns2 ip route add default via 169.254.1.1
 
 ### Accept Forword
 
+ホスト全体のFORWARDポリシーを `ACCEPT` に変更すると、他のネットワーク転送まで許可してしまいます。実験環境でも、可能な限り対象インターフェース・送信元・宛先を限定してください。
+
 ```
-# iptablesのFORWARD PolicyがDROPの場合は、ACCEPTに変更する
+# 現在のポリシーを確認する
 $ sudo iptables -L | grep DROP
 Chain FORWARD (policy DROP)
 
-$ sudo iptables -P FORWARD ACCEPT
-
-# もしくは許可する
-# iptables -A FORWARD -s ... -o ... -j ACCEPT
+# 例: enp1s0は実際の外向きインターフェース名に置き換える
+$ sudo iptables -A FORWARD -i testns-ex -o enp1s0 -s 192.168.50.0/24 -j ACCEPT
+$ sudo iptables -A FORWARD -i enp1s0 -o testns-ex -d 192.168.50.0/24 \
+    -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 ```
 
 ### Setup nat

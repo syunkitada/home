@@ -1,17 +1,17 @@
-# Encription by openssl
+# Encryption with OpenSSL
 
-- openssl enc [command] で暗号・複合を行うことができる
+- openssl enc [command] で暗号・復号を行うことができる
 - enc: Encoding with Ciphers の略
 
 ```
 $ openssl version
-OpenSSL 1.1.1  11 Sep 2018
+OpenSSL 3.x
 ```
 
 ## 利用できる暗号化一覧
 
 ```
-$ openssl enc -ciphers
+$ openssl enc -list
 Supported ciphers:
 -aes-128-cbc               -aes-128-cfb               -aes-128-cfb1
 -aes-128-cfb8              -aes-128-ctr               -aes-128-ecb
@@ -26,7 +26,9 @@ Supported ciphers:
 ...
 ```
 
-## 暗号化・複合化
+## 暗号化・復号
+
+`openssl enc` のCBC例は暗号化だけを行い、改ざん検知用の認証タグを提供しません。新規の運用では、認証付きの方式を備えた `age` や `gpg` などの専用ツールも検討してください。
 
 ```
 # $ openssl enc [cipher option] -in [input] -out [output] [options]
@@ -38,9 +40,9 @@ $ openssl enc -e -aes-256-cbc -pbkdf2 -in hoge -out hoge.enc
 enter aes-256-cbc encryption password:
 Verifying - enter aes-256-cbc encryption password:
 
-# コマンドライン引数でパスワードを設定する場合は以下
-$ openssl enc -e -aes-256-cbc -pbkdf2 -in hoge -out hoge.enc -pass pass:hoge
-openssl enc -aes-256-cbc -pbkdf2 -in hoge -out hoge.enc -pass pass:hoge
+# 非対話式にする場合は、パスワードをコマンドラインに直接書かない
+# 例: 権限を制限したファイルから読み込む
+$ openssl enc -e -aes-256-cbc -pbkdf2 -in hoge -out hoge.enc -pass file:/path/to/password.txt
 
 
 # openssl enc -d [cipher option] -in [input] -out [output]
@@ -48,7 +50,10 @@ $ openssl enc -d -aes-256-cbc -pbkdf2 -in hoge.enc -out hoge.enc.out
 enter aes-256-cbc decryption password:
 ```
 
-## RSA を使っての暗号化・複合化
+## RSA を使った短いデータの暗号化・復号
+
+RSA は大量のデータを直接暗号化する用途には使わず、通常は共通鍵を暗号化するために使います。
+`rsautl` は OpenSSL 3.0 で非推奨になったため、`pkeyutl` を使用します。
 
 ```
 # 秘密鍵(private-key.pem)を作成
@@ -58,35 +63,31 @@ $ openssl genrsa -out private-key.pem
 $ openssl genrsa -out private-key.pem -aes256
 
 # 秘密鍵(private-key.pem)から公開鍵(public-key.pem)を作成(パスフレーズが必要)
-$ openssl rsa -in private-key.pem -pubout -out public-key.pem
+$ openssl pkey -in private-key.pem -pubout -out public-key.pem
 Enter pass phrase for private-key.pem:
 
 
 # 公開鍵で暗号化
-$ openssl rsautl -encrypt -in hoge -out hoge.enc -inkey public-key.pem -pubin
+$ openssl pkeyutl -encrypt -in hoge -out hoge.enc -pubin -inkey public-key.pem \
+    -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 \
+    -pkeyopt rsa_mgf1_md:sha256
 
-# 秘密鍵で複合化(パスフレーズが必要)
-$ openssl rsautl -decrypt -in hoge.enc -out hoge.enc.out -inkey private-key.pem
+# 秘密鍵で復号(パスフレーズが必要)
+$ openssl pkeyutl -decrypt -in hoge.enc -out hoge.enc.out -inkey private-key.pem \
+    -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 \
+    -pkeyopt rsa_mgf1_md:sha256
 Enter pass phrase for private-key.pem:
-
-
-# 秘密鍵で暗号化(パスフレーズが必要)
-$ openssl rsautl -encrypt -in hoge -out hoge.enc -inkey private-key.pem
-Enter pass phrase for private-key.pem:
-
-# 公開鍵で複合化
-$ openssl rsautl -encrypt -in hoge -out hoge.enc -inkey public-key.pem -pubin
 ```
 
-## x509 証明書を使っての暗号化・複合化
+## X.509 証明書を使った暗号化・復号
 
 ```
 # x509の公開鍵、秘密鍵を作成
-$ openssl req -x509 -nodes -newkey rsa:2048 -keyout private-key.pem -out public-key.pem -subj /CN=client.example.com
+$ openssl req -x509 -newkey rsa:2048 -keyout private-key.pem -out certificate.pem -subj /CN=client.example.com
 
 # 公開鍵で暗号化
-$ openssl smime -encrypt -binary -aes-256-cbc -in hoge -out hoge.enc -outform DER public-key.pem
+$ openssl smime -encrypt -binary -aes-256-cbc -in hoge -out hoge.enc -outform DER certificate.pem
 
-# 秘密鍵で複合化
+# 秘密鍵で復号
 $ openssl smime -decrypt -binary -in hoge.enc -inform DER -out hoge.enc.out -inkey private-key.pem
 ```

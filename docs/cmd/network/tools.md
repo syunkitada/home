@@ -99,48 +99,40 @@ $ mtr  192.168.122.102
  1. 192.168.122.102                                                                                                                                                                                0.0%     2    0.6   0.5   0.4   0.6   0.0
 ```
 
-## netstat
+## ss（netstat の後継）
 
 ```
-# ネットワークコネクションをすべて表示する
-$ netstat -an
+# ネットワークソケットをすべて表示する
+$ ss -an
 
 # Webサーバなどのコネクションが詰まると、大きめの数値として出てくる
-$ netstat -an | wc
+$ ss -an | wc
     1143
 
 # 特定のコネクションステータスだけ抽出
-$ netstat -an | grep ESTABLISHED | wc
+$ ss -an state established | wc
     1028
 
-# 各ネットワークプロトコルのstatisticsを表示する
-$ netstat -s
+# 各ネットワークプロトコルの統計を表示する
+$ nstat -az
 ...
-Tcp:
-    210 active connections openings
-    31 passive connection openings
-    0 failed connection attempts
-    1 connection resets received
-    2 connections established
-    30741 segments received
-    27367 segments send out
-    17 segments retransmited
-    0 bad segments received.
-    2 resets sent
+TcpExtTCPRcvQDrop 0
+TcpExtTCPAbortOnMemory 0
 ...
 
 # インターフェイスのエラーやドロップを確認する
-$ netstat -i
-Kernel Interface table
-Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
-eth0      1500   149313      0  11707 0        118987      0      0      0 BMRU
-lo       65536        6      0      0 0             6      0      0      0 LRU
+$ ip -s link
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500
+    RX: bytes  packets  errors  dropped  overrun  mcast
+    ...
 
 # 各プロトコルの詳細を表示する
-$ netstat -p
+$ ss -anp
 ```
 
-## ss
+`netstat` は `net-tools` に含まれる旧来のコマンドであり、互換性が必要な場合を除き `ss`、`nstat`、`ip` を使う。
+
+## ss の補足
 
 - socket statistics
 
@@ -241,7 +233,7 @@ TX: bytes  packets  errors  dropped carrier collsns
     - アクション: 実行したいことを記述する
       - 特定の table から経路情報御を lookup したり、NAT を実施することもできる
   - ルーティングの流れ
-    - 優先度(priority)の小さい順で、RPDB 内のポリシールールを一つづつ見ていく
+    - 優先度(priority)の小さい順で、RPDB 内のポリシールールを一つずつ見ていく
     - ルールのセレクタにパケットが合致する場合、アクションを実施する
     - アクションの実行に成功(例えば経路情報を取得）できれば、RPDB の lookup は終了
     - セレクタに合致しないか、アクションの実行に失敗すれば、次のポリシールールを見る

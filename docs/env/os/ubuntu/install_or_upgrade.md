@@ -9,6 +9,8 @@
 
 ## How to upgrade
 
+メジャーアップグレードは、対象リリースの公式リリースノートを確認したうえで実施します。開始前にバックアップを取得し、空き容量、第三者リポジトリ、復旧手段を確認してください。LTSからLTSへは原則として連続するリリースを順番に更新します。
+
 以下のファイルで Prompt=lts となってるのを確認してください  
 以下の場合はアップグレードの対象は LTS に限定されます
 
@@ -50,7 +52,7 @@ $ sudo apt --purge autoremove -y
 $ sudo reboot
 
 # アップグレードを実施
-# 適宜、'yes', 'no' を聞かれるので確認しつつ入力する（基本的に 'y' を押してればOK）
+# 削除されるパッケージや設定変更の内容を 'yes', 'no' で聞かれるので確認してから進める（基本的に 'y' を押してればOK）
 # 最後にrebootするかを聞かれるので、問題なければ 'y' を押してrebootする
 $ sudo do-release-upgrade
 
@@ -77,14 +79,17 @@ To upgrade to the latest non-LTS development release
 set Prompt=normal in /etc/update-manager/release-upgrades.
 ```
 
-一般ユーザ向けは、ある程度の安定性が求められるため 22.04.0 が出ても 22.04.1 がでるまでは表示されません  
-もし、強制的にインストールしたい場合は -d, --devel-release オプションを付けることでインストールできます
+一般ユーザ向けは、ある程度の安定性が求められるため、LTSの最初のポイントリリースが出るまで次のLTSへのアップグレードが表示されないことがあります。
+`-d` または `--devel-release` は開発版へのアップグレードを指定するオプションです。通常の環境や本番環境で、アップグレードを強制する目的では使用しないでください。
 
 ```
+# 検証環境で開発版を試す場合のみ
 $ sudo do-release-upgrade -d
 ```
 
-## How to upgrade to Ubuntu 24.04
+## Example: upgrade to Ubuntu 24.04
+
+以下は Ubuntu 22.04 から 24.04 へ更新したときの記録です。現在の対象リリースやアップグレード可否は、利用中のUbuntuバージョンに対応する公式ドキュメントで確認してください。
 
 ```
 $ lsb_release -a

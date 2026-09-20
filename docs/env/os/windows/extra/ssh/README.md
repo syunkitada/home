@@ -2,6 +2,16 @@
 
 Windows の SSH 環境を整えるための手順です。
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [putty.md](putty.md) | PuTTYに関するメモです。 |
+| [ssh-adder.bat](ssh-adder.bat) | SSH Agentに鍵を追加するバッチです。 |
+| [ssh-adder.lnk](ssh-adder.lnk) | `ssh-adder.bat`へのショートカットです。 |
+| [ssh-adder_onedrive.lnk](ssh-adder_onedrive.lnk) | OneDrive用のショートカットです。 |
+| [wslssh.cmd](wslssh.cmd) | WSL上のSSHを呼び出すラッパーです。 |
+
 Windows で SSH を利用する方法は３つあります。
 
 - WSLのOpenSSH を利用する方法（推奨）
@@ -11,7 +21,7 @@ Windows で SSH を利用する方法は３つあります。
   - Windows10 以降に標準で搭載されている OpenSSH の ssh-agent を利用する方法です。
   - VSCode や PowerShell などは、OpenSSH を利用して SSH 接続を行います。
   - RLogin などの一部 SSH クライアントも OpenSSH の ssh-agent を利用することができます。
-  - 注意として、セッション共有機能が利用できないこと注意してください。
+  - セッション共有機能が利用できないことに注意してください。
 - pagent(PuTTY Agent)を利用する方法
   - PuTTY は、Windows 用の SSH クライアントです。
   - PuTTY は、SSH キーの生成ツールや SSH エージェント(PAGENT)を含む、SSH 関連のツールを提供しています。
@@ -106,7 +116,7 @@ SSH Agent サービスを有効にします。
 
 ### Use OpenSSH Agent
 
-SSH Agnet に鍵を追加します。
+SSH Agent に鍵を追加します。
 
 ```
 > ssh-add
@@ -118,7 +128,7 @@ SSH Agnet に鍵を追加します。
 > ssh -A <user>@<target>
 ```
 
-また、本ディレクトリに、ssh-adder という名前のシュートカットを配置してあるので、これを Windows のタスクバーに登録しておきます。
+また、本ディレクトリに、ssh-adder という名前のショートカットを配置してあるので、これを Windows のタスクバーに登録しておきます。
 
 これによりタスクバーから ssh-add が実行できるようになります。
 

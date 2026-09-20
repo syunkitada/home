@@ -16,13 +16,10 @@ if &term =~ "xterm"
 endif
 
 " vim +clipboard
-" for gui
-set guioptions+=a
+" GUI clipboard auto-selection disabled
 " for cui
 " set clipboard+=autoselect
-" mouse for clipboard
-nnoremap <RightMouse> "*p
-inoremap <RightMouse> <Esc>"*p
+" mouse clipboard paste disabled
 nnoremap <MiddleMouse> GVgg
 inoremap <MiddleMouse> <Esc>GVgg
 vnoremap <MiddleMouse> <Esc>GVgg

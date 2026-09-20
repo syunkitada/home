@@ -27,8 +27,10 @@ $ less /var/log/apt/history.log
 
 ## Disable downloading translations
 
+システム設定ファイルを書き換えるため、管理者権限が必要です。
+
 ```
-$ cat <<EOS | dd of=/etc/apt/apt.conf.d/99translations
+$ sudo tee /etc/apt/apt.conf.d/99translations >/dev/null <<'EOS'
 Acquire::Languages "none";
 EOS
 ```
@@ -50,9 +52,11 @@ Unattended-Upgrade::Package-Blacklist {
 
 ## Add repository
 
+APTリポジトリは、HTTPSと署名検証を利用してください。`trusted=yes` は署名検証を無効にするため使用しません。リポジトリ提供元の手順で署名鍵を `/etc/apt/keyrings/` に配置し、`signed-by` で明示します。
+
 ```
-$ cat <<EOS | dd of=/etc/apt/sources.list.d/syunkitada-aptrepo.list
-deb [trusted=yes] http://hogepiyo/hoge/amd64/ ./
+$ sudo tee /etc/apt/sources.list.d/syunkitada-aptrepo.list >/dev/null <<'EOS'
+deb [signed-by=/etc/apt/keyrings/syunkitada-aptrepo.gpg] https://example.invalid/hoge/amd64/ ./
 EOS
 ```
 

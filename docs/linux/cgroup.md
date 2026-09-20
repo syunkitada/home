@@ -1,9 +1,11 @@
 # cgroup
 
+> このページの `mount`、`tasks`、`blkio`、`cpu,cpuacct`、`cpuset` の例は主に cgroup v1 を対象とする。現在の systemd ベースのディストリビューションでは cgroup v2 が標準の場合が多く、同じパスやファイル名が存在しないことがある。実行前に `stat -fc %T /sys/fs/cgroup` や `/proc/filesystems` で環境を確認すること。
+
 - cgroup(コントロールグループ)
   - プロセスをグループ化する機能のこと
   - このグループ単位でリソースの割り当て、優先度、管理、モニタリングなどが設定できる
-- cgroup サブシステム（リソースコントローラ）
+- cgroup サブシステム（リソースコントローラ。以下は主に v1 の名称）
   - cgroup のリソースコントロールを行う機能のこと
   - systemd はデフォルトでいくつかのサブシステムをマウントしており、systemd 経由でも cgroup の設定ができる
   - 種類
@@ -16,17 +18,28 @@
     - net_cls ネットワークパケットへのタグ付け
     - net_prio ネットワークトラフィックの優先度を動的に設定
     - freezer タスクを一時停止または再開
-- cgorup v1, cgroup v2 について
-  - v1 と v2 は共存できるが、一つのコントローラを cgroup v1, cgropu v2 の両方にマウントすることはできない
-  - v1 は複数階層構造をとるが、v2 では統合階層となり、すべてのコントローラを統合階層にマウントする
+- cgroup v1, cgroup v2 について
+  - v1 と v2 は共存できるが、一つのコントローラを cgroup v1 と v2 の両方で同時に制御することはできない
+  - v1 はコントローラごとに複数の階層を作れるが、v2 は原則として一つの統合階層を使う
   - v2 では階層が簡素化された
   - v1 ではさまざまなコントローラを様々な階層にマウントでき、非常に柔軟性があるが、実際にこの機能が必要になることは少ない
-  - cgroup v2 をファイルシステムにマウントすると、使用可能なすべてのコントローラが自動的にマウントされる
-    - mount -tcgroup2 [mount point]
+  - v2 では `cgroup.controllers` に利用可能なコントローラが表示され、子階層で使うコントローラを `cgroup.subtree_control` に明示的に有効化する
+  - v2 の代表的な設定ファイルは `cpu.max`、`memory.max`、`io.max` などで、v1 の `cpu.cfs_*` や `blkio.*` とは名前と仕様が異なる
 
-## mount の確認
+## cgroup v2 の確認
 
-- cgroup の初期化の流れ（デフォルトで各 cgroup コントローラをマウントする）
+```sh
+$ stat -fc %T /sys/fs/cgroup
+cgroup2fs
+$ cat /sys/fs/cgroup/cgroup.controllers
+cpuset cpu io memory hugetlb pids rdma
+```
+
+`cgroup2fs` が表示される場合は v2 である。コントローラの有効化や制限値の変更は、systemd が管理する階層と競合しないよう、通常は systemd の Unit や slice の設定から行う。
+
+## cgroup v1 の mount の確認
+
+- cgroup v1 の初期化の流れ（デフォルトで各 cgroup コントローラをマウントする）
   - mount -t tmpfs cgroup_root /sys/fs/cgroup
   - tmpfs で/sys/fs/cgroup にマウント
   - サブディレクトリを作って cgroup コントローラをマウントする
@@ -51,7 +64,7 @@ cgroup on /sys/fs/cgroup/rdma type cgroup (rw,nosuid,nodev,noexec,relatime,rdma)
 cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,perf_event)
 ```
 
-## 子 cgroup を作る
+## 子 cgroup を作る（cgroup v1）
 
 - 各 cgroup は、cgroup ファイルシステム内のディレクトリによって表される
 - 最上位の cgroup ディレクトリから、子ディレクトリを作成していくことによって 子 cgroup を階層的に作ることができる
@@ -92,7 +105,7 @@ $ cat /proc/self/cgroup
 0::/user.slice/user-1000.slice/session-2.scope
 ```
 
-## blkio
+## blkio（cgroup v1）
 
 - ブロックデバイスの IO 上限を設定できる
 - 参考: https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v1/blkio-controller.html
@@ -132,7 +145,7 @@ $ dd oflag=direct if=/dev/zero of=/tmp/ddtest bs=4k count=1024
 $ dd iflag=direct if=/tmp/ddtest of=/dev/null bs=4K count=1024
 ```
 
-## cpu,cpuacct
+## cpu,cpuacct（cgroup v1）
 
 - cpu: こと cgroup の task に対して、CFS スケジューラのパラメータを調整できる
 - cpuacct(accounting)は、CPU 利用率を計算する
@@ -212,7 +225,7 @@ Average:     1000      8046    4.21   15.69    0.00   79.89   19.90     -  yes
 
 ```
 
-## cpuset
+## cpuset（cgroup v1）
 
 - スレッドの利用可能な cpu、memory を限定できる
 - 参考: https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v1/cpusets.html

@@ -1,5 +1,16 @@
 # zsh
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [0_main.zsh](0_main.zsh) | zshのメイン設定です。 |
+| [1_aliases.zsh](1_aliases.zsh) | エイリアスの設定です。 |
+| [2_bindkeys.zsh](2_bindkeys.zsh) | キーバインドの設定です。 |
+| [cmds.zsh](cmds.zsh) | コマンド関連の設定です。 |
+| [fzf.zsh](fzf.zsh) | fzfの設定です。 |
+| [git.zsh](git.zsh) | Git関連の設定です。 |
+
 ## 補完について
 
 - いくつかのプラグインが存在するが、コンフリクトしやすいので注意

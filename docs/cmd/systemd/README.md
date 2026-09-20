@@ -1,11 +1,17 @@
 # systemd
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [systemctl](systemctl.md) | systemctlコマンドに関するメモです。 |
+
 ## systemd とは
 
-- systemd は最初に起動するプロセス(PID=1)で Linux の起動処理や、Linux システムの管理を行う
+- systemd は systemd を採用した Linux で通常最初に起動するプロセス(PID=1)となり、Linux の起動処理やシステム管理を行う
 - systemd の登場以前では SysVinit が起動処理を担っていた
   - SysVinit では init プロセス(PID=1)が最初に起動する
-- すべてのプロセスは systemd の子プロセスとなる
+- systemd が PID 1 の環境では、親プロセスを失ったプロセスは PID 1 に引き取られる。ただし、すべてのプロセスが systemd の直接の子プロセスになるわけではない
 - systemd に関連したプロセスとして以下がある
   - systemd-journald
   - systemd-logind
@@ -45,8 +51,8 @@ lrwxrwxrwx. 1 root root   13  4月 22  2020 runlevel6.target -> reboot.target
 -rw-r--r--. 1 root root  761  4月  7  2020 systemd-update-utmp-runlevel.service
 ```
 
-- multi-user.target が完了したら、/lib/systemd/system/multi-user.target.wants, /etc/systemd/system/multi-user.target.wants 内のすべての Unit が開始される
-- systemctl enable [unit] でサービスの自動起動を有効化すると、/etc/systemd/system/multi-user.target.wants にシンボリックリンクが作成される
+- target の依存関係に `Wants=` または `Requires=` で含まれる Unit が、依存関係のトランザクションに追加される。起動順序は `After=` / `Before=` で別途指定する
+- `systemctl enable [unit]` は Unit の `[Install]` セクションに従って、対応する target の `.wants/` などへシンボリックリンクを作成する。配置先はディストリビューションや Unit の定義によって異なる
 
 ```
 $ ls /lib/systemd/system/multi-user.target.wants
@@ -81,9 +87,6 @@ $ systemctl list-unit-files --type=service
   - ファイルシステムのマウント／アンマウントに関する設定
   - ファイル名は「マウントポイント.mount」となる
   - /etc/fstab の内容を元に Systemd が自動作成する
-- .udev
-  - システムが認識しているデバイス情報を保持する
-  - udev デーモンによって自動作成される
 - .path
   - パスの監視設定
   - 監視ディレクトリにファイルが置かれたらサービス起動”といった動作を実現可
@@ -91,6 +94,9 @@ $ systemctl list-unit-files --type=service
   - 複数の Unit をとりまとめる Unit
 
 ## watchdog
+
+- サービスの死活監視を行うには、Unit に `WatchdogSec=` を設定し、サービス側が `sd_notify()` などで `WATCHDOG=1` を定期的に送信する
+- systemd の Unit ではなく udev ルールでデバイスイベントを処理する場合もある。udev ルールは `.udev` という Unit 種別ではない
 
 ## 参考
 

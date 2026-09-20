@@ -2,6 +2,13 @@
 
 Copilot を利用した、コーディングについてまとめる。
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [open_spec.md](open_spec.md) | OpenSpec に関するメモです。 |
+| [spec_kit.md](spec_kit.md) | Spec Kit に関するメモです。 |
+
 ## エディット時の補完機能
 
 - LSP + Copilot

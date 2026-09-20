@@ -1,49 +1,45 @@
 # Network
 
-## NAPI 対応の受信処理(Kernel2.6 以降)
+> sysctl や `/proc` の値、既定のキューイング方式、NIC のオフロード対応は、カーネル・ディストリビューション・搭載メモリ・ドライバによって異なります。以下の数値は一般的な確認例であり、設定値をそのまま推奨するものではありません。
 
-- Kernel2.6 ではデバイスドライバに対して NAPI(New API)と呼ばれる新しい受信 API が提供されるようになった
-- ネットワークインタフェースで受信したパケットは、デバイスドライバの H/W 割り込み処理処理で刈り取られる
-- ハードウェア割り込みが発生すると、H/W 割り込みを禁止してポーリング処理によってデバイスの受信バッファからパケットを取り出していく
-- バッファが空になって受信処理が完了すると、割り込みを再度許可状態にして、次の受信が発生するのを待つようにしている
+## NAPI 対応の受信処理
+
+- NAPI は Linux 2.4 で導入された、割り込みとポーリングを組み合わせるネットワーク受信 API です。名称は現在では固有名詞として扱われ、`New API` の略とは限りません。
+- 受信割り込みを契機に、ドライバは割り込みを抑制して NAPI の poll 処理をスケジュールします。通常の poll は softirq のコンテキストで実行されます。
+- poll は予算（budget）の範囲で受信キューからパケットを処理します。キューが空になるなどして処理が完了すると NAPI を終了し、次の受信割り込みを有効にします。予算を使い切った場合は、次の poll に処理を持ち越します。
 - 参考
+  - [NAPI — The Linux Kernel documentation](https://docs.kernel.org/networking/napi.html)
   - [Linux カーネルメモ: 送受信](http://wiki.bit-hive.com/linuxkernelmemo/pg/%C1%F7%BC%F5%BF%AE)
-  - [syuu1228's blog: じゃあ、Linux のネットワークスタックはどうなのん？](http://syuu1228.hatenablog.com/entry/20101015/1287095708)
   - [VA Linux エンジニアブログ: 詳解 Linux ネットワーク - NAPI 編 (前編)](https://valinux.hatenablog.com/entry/20220128)
 
 ## ソケットインタフェース
 
-- TCP ソケットは listen()関数の第二引数 backlog に指定した数の、完全に確立された接続要求を待ち受けることができるキューを作成します
-- キューがいっぱいになった状態で新たに接続を受け取ると、サーバは ECONNREFUSED を返します
-- 下位層のプロトコルが再送をサポートしていれば、ECONNREFUSED は無視され、リトライが成功するかもしれません
-- net.core.somaxconn は、TCP ソケットが受け付けた接続要求を格納する、キューの最大長です
-- backlog > net.core.somaxconn のとき、キューの大きさは暗黙に net.core.somaxconn に切り詰められます
+- TCP ソケットの `listen()` の第二引数 `backlog` は、通常、3-way handshake 完了後に `accept()` を待つ接続（accept queue）の長さを指定します。
+- 接続確立前の SYN_RECV を保持するキューは別物で、上限の目安は `net.ipv4.tcp_max_syn_backlog` です。SYN cookies が有効な場合は、SYN backlog のあふれ方も変わります。
+- accept queue が満杯でも、常に直ちに `ECONNREFUSED` になるとは限りません。`net.ipv4.tcp_abort_on_overflow` の設定やクライアントの再送によって挙動が変わります。
+- `net.core.somaxconn` は listen backlog のカーネル側の上限です。`backlog` がこれを超える場合、実際の accept queue の長さは切り詰められます。
+- `net.core.netdev_max_backlog` は NIC から上位のプロトコル処理へ渡す前の入力キューの上限であり、listen backlog とは別のキューです。
 - 参考
-  - [listen backlog](http://wiki.bit-hive.com/linuxkernelmemo/pg/listen%20backlog%20%A1%DA3.6%A1%DB)
+  - [`listen(2)` — Linux manual page](https://man7.org/linux/man-pages/man2/listen.2.html)
+  - [IP Sysctl — The Linux Kernel documentation](https://docs.kernel.org/networking/ip-sysctl.html)
 
 ```
-# backlogの最大値
+# 入力キューの最大値（listen backlog とは別物）
 net.core.netdev_max_backlog = 1000
 
-# synbacklogの最大値
+# SYN_RECV キューの最大値
 net.ipv4.tcp_max_syn_backlog = 128
 
-# 実際のbacklogの設定はアプリケーションにゆだねられる
-# syn backlogはbacklog値を8~max_syn_backlogの範囲に収めた後、一つ上の2のべき乗の値に切り上げた値となる
-# 例えばbacklogが200ならsyn backlogは256となり、backlogが256ならsyn backlogサイズは512になる
-
-# TCPセッションのキュー
-# TCPセッション数をbacklogで管理し、それを超えたものがこのキューで管理される
-# tcp_max_syn_backlogを大きくしても、somaxconnが小さいと、backlogも小さく切り詰められ、syn backlogもつ遺作なる
+# accept queue の上限。実際の listen backlog はアプリケーションの引数と
+# net.core.somaxconn の小さい方で決まる
 $ sysctl net.core.somaxconn
-128
+net.core.somaxconn = 4096
 
-# パケットの取りこぼしは、netstatで確認できる
-$ netstat -s
-...
-TcpExt:
-    107708 times the listen queue of a socket overflowed
-    107708 SYNs to LISTEN sockets dropped
+# キューあふれの統計は nstat などで確認する
+$ nstat -az | grep -E 'ListenOverflows|ListenDrops|TCPBacklogDrop'
+TcpExtListenOverflows           107708             0.0
+TcpExtListenDrops               107708             0.0
+TcpExtTCPBacklogDrop            0                  0.0
 ```
 
 ## TCP
@@ -52,16 +48,15 @@ TcpExt:
 # sysctlの各種パラメータの詳細はmanで調べるとよい
 $ man tcp 7
 
-# TIME_WAIT状態がタイムアウトする時間
+# orphaned socket の FIN_WAIT_2 を保持する時間。TIME_WAIT の時間ではない
 net.ipv4.tcp_fin_timeout = 30
 
-# [low, pressure, high] からなるベクトル値(単位はページ: 通常は4k）
-# アロケートしたページがlow以下であれば、メモリアロケーションは調整しない
-# pressureを超えると、TCPはメモリ消費を調整するようになる
-# highはアロケートできる最大値
+# [low, pressure, high] からなるベクトル値（単位はページ）
+# pressure を超えるとメモリ圧力状態に入り、low を下回ると通常状態に戻る
+# high は TCP が使用できるグローバルな上限の目安
 net.ipv4.tcp_mem = 383457       511277  766914
 
-# 単位はバイト
+# ソケットごとの受信・送信バッファの min / default / max（単位はバイト）
 net.ipv4.tcp_rmem = 4096        131072  6291456
 net.ipv4.tcp_wmem = 4096        16384   4194304
 ```
@@ -70,19 +65,20 @@ net.ipv4.tcp_wmem = 4096        16384   4194304
 
 #### /proc/net/protocols
 
-- 各プロトコルが memory pressure モードであるかを確認する
-- press が yes となってれば pressure モードとなっているので注意
-- memory が実際にアロケートしているページ数
-- memory が、tcp_mem の pressure を超えると pressure モードとなり、以下の処理をする
+- 各プロトコルのソケット数、メモリ使用量、pressure 対応可否などを確認する
+- `press` が `yes` のプロトコルは、メモリ圧力に対応しています。現在 pressure 状態かどうかだけを示す列ではありません。
+- `press` が `NI` の行は、そのプロトコルがこのメモリ圧力機構に対応していないことを示します。
+- `memory` はプロトコルが報告するメモリ使用量のカウンタで、表示形式や単位はカーネル実装に依存するため、`tcp_mem` のページ数と単純に比較しないでください。
+- TCP がメモリ圧力状態になると、カーネルは状況に応じて以下の処理を行います。
   - TCP ソケットの送信・受信バッファのサイズを制限する
-  - 受信の TCP ウィンドウサイズを小さくする（もしくは ZeroWindow にする)
-  - 受信キューに入ったセグメントから重複したシーケンス番号をもつセグメントをマージして、空きメモリの確保を試みる(collapse 処理）
-  - シーケンス番号順に受信できなかったセグメントを保持する Ouf of Order キューに入った SACK 済みセグメントを破棄して空きメモリを確保する（prune 処理）
+  - 受信の TCP ウィンドウサイズを小さくする（もしくは ZeroWindow にする）
+  - 受信キューに入ったセグメントから重複したシーケンス番号をもつセグメントをマージして、空きメモリの確保を試みる（collapse 処理）
+  - シーケンス番号順に受信できなかったセグメントを保持する Out of Order キューの SACK 済みセグメントを破棄して空きメモリを確保する（prune 処理）
   - 受信スロースタートの閾値を制限する
-- memory が、tcp_mem の high を超える以下の処理を行う
+- メモリ確保に失敗するなど、さらに厳しい状況では以下の処理が発生する場合があります。
   - セグメントの受信処理で、新規に受信したセグメントを破棄する（Drop）
   - セグメントの送信処理で、メモリを確保できるまでプロセスをブロックして待機させる
-  - セグメント受信処理で、Ouf of Order キューのセグメントを破棄して空きを確保しようとする(SACK renege)
+  - セグメント受信処理で、Out of Order キューのセグメントを破棄して空きを確保しようとする（SACK renege）
   - 一部の TCP のタイマー処理をやり直す
   - 送信バッファに一定量のデータをもったままのソケットを close すると TCP oom を起こす
     - TCP oom では、RST を送信してコネクションをクローズさせ、dmesg に TCP oom のログを出す
@@ -102,7 +98,7 @@ UDP-Lite  1088      0       1   NI       0   yes  kernel      y  y  y  n  y  y  
 PING       928      0      -1   NI       0   yes  kernel      y  y  y  n  n  y  n  n  y  y  y  y  n  y  y  y  y  y  n
 RAW        936      0      -1   NI       0   yes  kernel      y  y  y  n  y  y  y  n  y  y  y  y  n  y  y  y  y  n  n
 UDP       1088      4       1   NI       0   yes  kernel      y  y  y  n  y  y  y  n  y  y  y  y  y  n  n  y  y  y  n
-TCP       2144     28      36   yes👈  304   yes  kernel      y  y  y  y  y  y  y  y  y  y  y  y  y  n  y  y  y  y  y
+TCP       2144     28      36   yes       304   yes  kernel      y  y  y  y  y  y  y  y  y  y  y  y  y  n  y  y  y  y  y
 NETLINK   1064     15      -1   NI       0   no   kernel      n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n  n
 
 ```
@@ -110,18 +106,18 @@ NETLINK   1064     15      -1   NI       0   no   kernel      n  n  n  n  n  n  
 #### /proc/net/netstat
 
 - netstat: TCPMemoryPressures
-  - memory pressure モードに入ると 1 インクリメントされる
+  - TCP のメモリ圧力状態への遷移回数
 - netstat: TCPMemoryPressuresChrono
-  - memory pressure モードであった時間が加算される
+  - TCP がメモリ圧力状態であった累積時間（ミリ秒）
 - netstat: OfoPruned
-  - Ofo は Ouf of Order の略で、TCP の Ouf of Order キューを指す
-  - memory pressure モードで Ofo キューのパケットを破棄すると 1 インクリメントされる
+  - Ofo は Out of Order の略で、TCP の Out of Order キューを指す
+  - Out of Order キューの prune イベント数。パケット数とは限らない
 - netstat: TCPAbortOnMemory
   - TCP oom が発生すると 1 インクリメントされる
-- netstat: PruneCalled, RcvPrune
-  - net.ipv4.tcp_mem の high を超えていて、受信キューの collapse 処理と Ofo キューのパケットを破棄(Drop)を行ってもなお、空きメモリが確保できないと、1 インクリメントされる
+- netstat: PruneCalled, RcvPruned
+  - 受信キューの prune が呼び出された回数。`tcp_mem` の high 超過だけでなく、ソケット単位の受信メモリ圧力などでも増加します
 - netstat: TCPRcvQDrop
-  - net.ipv4.tcp_mem の high を超えていて、受信したパケットをドロップした際に 1 インクリメントされる
+  - 受信キューのメモリ不足などにより受信データをドロップした回数。`tcp_mem` の high 超過だけが原因とは限りません
 - netstat: TCPAbortFailed
   - TCP oom が発生すると該当のソケットで RST を送りコネクションを切断する
   - この際に、ソケットバッファの割り当てに失敗すると、1 インクリメントされる
@@ -129,98 +125,107 @@ NETLINK   1064     15      -1   NI       0   no   kernel      n  n  n  n  n  n  
 
 ## オフロード
 
-- TSO(TCP Segmentagion Offload), UFO(UDP Segmentation Offload), GSO(Generic Segmentation Offload)
-  - IP フラグメンテーションと TCP セグメンテーション
-    - L3 レイヤにおいて IP パケットは、途中経路の MTU のサイズを超えることができないので、その単位で IP パケットを分割します
-      - この分割処理を IP フラグメンテーションと呼びます
-    - IP フラグメンテーションをすると、TCP ヘッダは最初のパケットにしか含まれず、以降の IP パケットには TCP パケットは含まれません
-    - そこで、TCP ではすべてのパケットに TCP パケットが含まれるように L4 のレイヤでパケットを MTU におさまるように事前に分割します
-      - この分割処理を TCP セグメンテーションと呼びます
-      - 分割単位(MSS:Maximum Segment Size)はハンドシェイク時に MTU を基準に決定されます
-  - 遅延セグメンテーション
-    - TCP セグメンテーションの処理を早めにやってしまうと、後続の処理は分割されたパケット分だけ多くの処理を行う必要があるため、なるべく後ろ側の処理で行います
-    - この(NIC での)ハードウェア実装を TSO と呼び、UFO は TSO の UDP 版のことです
-    - GSOは、NICがTSO, UFOをサポートしていない場合に利用されるソフトウェア実装のことです
-  - メモ
-    - TSO、UFO はハードウェア依存なのでデフォルトでは OFF にされているので、利用したい場合は明示的に ON にする必要があります
-    - TSO を利用すると MTU がらみでバグを踏む可能性もあるので注意(UFO も同様)
-      - 実際にあったこと
-        - クライアントとサーバの MTU が異なり、かつ PMTUD がうまく機能してない場合、TSO 有効時に MTU におさまらない単位でセグメンテーションされてしまい、IP フラグメンテーションが発生するという問題が起こったことがあります
-        - TSO によって MTUが1500 で収まるようなセグメンテーションをされたが、実際の受け取り手の MTU は 1450 でした
-        - 本来は MTU が異なっていてもハンドシェイク時に適切な MSS が決定されるはずだが、TSO 有効時にこれがうまく機能していませんでした(TSO を無効にしたらうまく機能しました)
-- LRO(Large Receive Offload)、GRO(Generic Receive Offload)
-  - 受信側における遅延セグメンテーションの逆の考え方です
-    - 受信側ではなるべく早い段階で分割されたパケットを結合できると、それ以降の処理はその分割されたパケット分だけ減ることになります
-    - この(NIC での)ハードウェア実装を LRO と呼び、ソフトウェア実装を GRO と呼びます
+### IP フラグメンテーションと TCP セグメンテーション
+
+- IP パケットは、送信するリンクの MTU を超えて転送できません。IP 層で大きなパケットを MTU 以下の複数の IP パケットに分割する処理を IP フラグメンテーションと呼びます。
+  - IPv4 では、DF（Don't Fragment）フラグが設定されていなければ、途中のルーターがフラグメンテーションすることがあります。分割されたフラグメントは宛先で再構成されます。
+  - IPv6 では途中のルーターはフラグメンテーションせず、必要な場合は送信元が Fragment 拡張ヘッダーを使って分割します。通常は PMTUD で送信元が適切なサイズを選びます。
+  - IP フラグメンテーションでは、TCP ヘッダーは通常最初のフラグメントにしか含まれません。後続のフラグメントは IP 層で再構成されるまで、独立した TCP セグメントではありません。
+- TCP はアプリケーションから受け取ったバイトストリームを、MSS（Maximum Segment Size）などに基づいて複数の TCP セグメントに分割します。TCP セグメンテーションは L4 の処理であり、各セグメントには TCP ヘッダーが含まれます。
+  - MSS は SYN/SYN-ACK で広告される値で、通常は経路の MTU から IP ヘッダーと TCP ヘッダーの大きさを引いて決めます。
+  - TCP セグメンテーションと IP フラグメンテーションは別の処理です。適切な MSS と PMTUD が機能していれば、TCP セグメントを IP 層でさらにフラグメンテーションする必要はありません。
+
+### 遅延セグメンテーション
+
+- TCP セグメンテーションをプロトコルスタックの早い段階で行うと、後続の処理は小さなセグメントごとに実行する必要があります。そこで Linux は、可能な限り大きな送信単位のまま後段まで処理を進め、必要な地点でセグメンテーションします。この処理を遅延セグメンテーションとして整理できます。
+- TSO は、TCP の大きな送信単位を NIC に渡し、NIC が実際に送信する MSS 相当のセグメントへ分割するハードウェア実装です。
+- GSO は、NIC が TSO などをサポートしない場合やソフトウェアで分割する場合に、Linux が同様の大きな送信単位を保持して後段で分割する仕組みです。
+- 遅延セグメンテーションは MTU を無視して送信する機能ではありません。NIC または GSO が、実際の送信前に MTU 以下のセグメントへ分割します。
+
+- UFO（UDP Fragmentation Offload）は UDP のフラグメンテーションを扱う古いオフロードで、現在の Linux では非推奨です。UDP のセグメンテーションには USO（UDP Segmentation Offload）が使われます。
+- LRO（Large Receive Offload）は主に NIC が受信セグメントを結合するハードウェア機能です。GRO（Generic Receive Offload）は Linux がソフトウェアで受信セグメントを結合する仕組みで、LRO の代替または補完として使われます。利用可否や既定値は NIC・ドライバ・カーネルに依存します。
+- オフロードの有効状態は `ethtool -k <interface>` で確認できます。TSO や GRO を無効にして切り分けることはできますが、既定値は環境ごとに異なります。
+- オフロードの有無にかかわらず、MTU・MSS・PMTUD の不整合があれば通信障害が起きます。TSO を無効にすれば直る場合でも、根本原因が解決したとは限りません。
+
+### メモ
+
+- TSO などのハードウェアオフロードは、NIC・ドライバ・カーネルの組み合わせに依存します。既定値を一律に決めつけず、`ethtool -k <interface>` で確認します。
+- MTU や PMTUD の不整合があると、TSO が有効な場合に問題が表面化することがあります。例えば、送信側では MTU 1500 を前提にセグメンテーションされる一方、受信側またはトンネルの先の MTU が 1450 で、PMTUD が正常に機能していないケースです。
+- 本来はハンドシェイク時の MSS 広告や PMTUD によって適切なサイズが選ばれますが、実際の環境でそれが機能せず、TSO を無効にすると通信できるようになった事例があります。これは切り分けのための回避策であり、最終的には経路の MTU、MSS、PMTUD、トンネルの MTU を確認します。
 - 参考
-  - [Segmentation Offloads in the Linux Networking Stack](https://www.kernel.org/doc/html/next/networking/segmentation-offloads.html)
+  - [Segmentation Offloads in the Linux Networking Stack](https://docs.kernel.org/networking/segmentation-offloads.html)
   - [SRv6 ベースのマルチテナンシー環境で起きた TSO 問題とその検証方法 – LINE Developer Meetup #67 フォローアップ記事](https://engineering.linecorp.com/ja/blog/tso-problems-srv6-based-multi-tenancy-environment/)
-  - [OpenStack: Hardware Offloads - Test results](https://docs.openstack.org/developer/performance-docs/test_results/hardware_features/hardware_offloads/test_results.html#hw-features-offloads)
-  - [Linuxの各種仮想ネットワークデバイスにおけるSegmentation Offloadの振る舞い](https://zenn.dev/yutarohayakawa/articles/9e9a74ea8f8ed4)
 
 ### トンネルデバイスのオフロード
 
 IPIP, GRE, VXLAN, SRv6 などのトンネルデバイス利用時のオフロードについて
 
-- 送信時の処理
-  - トンネルデバイスに入ったパケットは、パケットをトンネルプロトコルのヘッダでかプセス化した後に、プロトコルスタックで再処理されて、セグメンテーションされます
-    - この時、内側のパケットをセグメンテーションしたうえで、外側のトンネルプロトコルのヘッダでそれぞれをカプセル化する必要があります
-  - ethtoolを使って、NIC がこれをサポートしているか確認できます
-  - これらが利用できない場合は、GSOで処理されます
+- トンネルでは、カプセル化される元のパケットを内側（inner）、追加されるトンネルヘッダと外側の IP ヘッダを外側（outer）と呼びます。例えば IPIP は outer IP / inner IP、GRE は outer IP / GRE / inner IP、VXLAN・Geneve は outer IP / UDP / tunnel header / inner Ethernet という構造になります。
+- 内側の TCP セグメントを先に作ってから一つずつ外側のヘッダを付ける方法もありますが、Linux は GSO skb のままトンネル処理を進め、対応する NIC で最終的にセグメンテーションできる場合があります。これにより、内側の小さなセグメントごとにプロトコルスタックを通す処理を減らせます。
+- NIC がトンネルのセグメンテーションに対応している場合は、内側・外側のヘッダ位置などの情報を渡して、NIC が各セグメントに必要なヘッダを付けて送信します。対応していない場合は、GSO がソフトウェアで内側のセグメントを作成し、それぞれを外側のヘッダでカプセル化します。
+- トンネルのオーバーヘッドは外側の MTU を消費します。内側の MTU や TCP MSS が大きすぎると、外側の経路でフラグメンテーションやドロップが発生するため、トンネルの MTU と PMTUD も確認します。
+- `ethtool -k <interface>` で NIC の対応状況を確認できます。TCP の TSO だけでなく、トンネル用の segmentation と checksum offload がそろっている必要があります。未対応の場合は GSO などのソフトウェア処理にフォールバックしますが、処理位置はトンネルの種類、仮想デバイス、ドライバによって異なります。
 
 ```
 tx-gre-segmentation: on <= GRE
-tx-ipxip4-segmentation: on <= IPv4 in IPv4 (IPIP)
-tx-ipxip6-segmentation: on <= IPv4 in IPv6 (SRv6) もしくは IPv6 in IPv4
+tx-ipxip4-segmentation: on <= IP in IPv4
+tx-ipxip6-segmentation: on <= IP in IPv6
 tx-udp_tnl-segmentation: on <= VXLAN, GeneveなどのUDP encap
 ```
 
+`tx-ipxip4` / `tx-ipxip6` は、それぞれ IP-in-IPv4 / IP-in-IPv6 を表します。`tx-gre-segmentation` は GRE、`tx-udp_tnl-segmentation` は VXLAN や Geneve などの UDP トンネルに対応します。これらの機能名が表示されても、checksum offload や使用する内側のプロトコルまで含めて実際に機能するとは限らないため、ドライバの対応状況を確認してください。SRv6 は通常の IP-in-IPv6 とは構造が異なるため、セグメンテーション対応は実際のカーネル・ドライバのサポートを確認します。
+
 ### 二段階トンネルのオフロード
 
-- VMのネットワークがトンネリングを利用しおり、さらにVMがK8SでVXLANやIPIPを利用している場合など
-- パケットをVM側のトンネルデバイスに通した時点で、GSOによってセグメンテーションされます
-- HV側はセグメンテーションされたパケットを処理する必要があるため、パフォーマンスが悪化します
+- VM のネットワークがトンネリングを利用し、さらに VM 内の Kubernetes が VXLAN や IPIP を利用する場合などは、トンネルが多重になります。
+- ゲスト内のトンネルデバイスで直ちに小さなパケットへ分割されるとは限りません。GSO 情報が vNIC、vhost、vSwitch、物理 NIC まで維持されれば、ホスト側または NIC 側で後から分割されます。途中のデバイスが対応しない場合は、その境界より前で GSO によるソフトウェア分割が行われます。
+- Linux のトンネル用 GSO は、一般的に outer / inner の 2 段階のヘッダを前提とします。VXLAN over IPIP のような多重トンネルでは、組み合わせによっては早い段階でソフトウェア分割されるか、オフロード対象外になります。
+- HV 側で小さなセグメントへ分割されると、vSwitch や仮想 NIC が処理する skb 数が増えて CPU 負荷が上がる可能性があります。一方、NIC まで大きな GSO skb を渡せても、外側の MTU とトンネルオフロードが整合している必要があります。
+- 実際の切り分けでは、ゲストとホスト双方の `ethtool -k`、`ip link` の MTU、vSwitch の設定、キャプチャ上の outer / inner ヘッダ、必要に応じて skb の GSO 状態を確認します。
 
-## DDOS 対策
+## DDoS 対策
 
 ```
-# syn flood攻撃対策
-# syn flood状態になると、synパケットにメモリ領域を割り当てずに、シーケンス番号を正しくチェックするため特殊な情報をSYN ACKパケットに含ませて返すようになる
-# そして、クライアントが正しくACKを返せば、TCP接続を行う
+# SYN flood 対策。1 は SYN backlog があふれたときだけ SYN cookie を使う
 net.ipv4.tcp_syncookies = 1
 
-# syn flood状態になると、新規のSYN_RECVは登録せずに破棄する
-net.ipv4.tcp_syncookies = 0
+# 0 は SYN cookie を無効にする（必要な場合だけ選択）
+# net.ipv4.tcp_syncookies = 0
 
-# Smurf攻撃対策
+# 2 は常時 SYN cookie を使うテスト用の設定
+# net.ipv4.tcp_syncookies = 2
+
+# Smurf 攻撃対策。ブロードキャスト／マルチキャスト宛ての echo・timestamp request を無視する
 net.ipv4.icmp_echo_ignore_broadcasts = 1
 
-# ICMPエラー無視
+# ブロードキャストフレームへの不正な ICMP エラー応答に関する警告を抑制する
 net.ipv4.icmp_ignore_bogus_error_responses = 1
 ```
 
+上の `tcp_syncookies` は 0、1、2 のいずれかを選び、同時には設定しません。SYN cookies は正当な接続を保護するためのフォールバックであり、合法的な高負荷を処理するための容量チューニングではありません。
+
 ## Bufferbloat
 
-- 不適切なネットワークキューイングや過剰なバッファによりレイテンシーが悪化、または不安定な状態
-- レイテンシーの悪化、揺らぎにより、TCP の服装制御の混乱を招き、スループットの低下も起こる
+- 不適切なネットワークキューイングや過剰なバッファにより、レイテンシーが悪化する状態
+- レイテンシーの悪化や揺らぎは、TCP の輻輳制御やアプリケーションの応答性に影響する
 
 ## メモ
 
 ```
-Linux の Network Scheduler デフォルトは FIFO
-ab -> IP Stack -> queue queue queue -> NIC Buffer
-db -> | -- Buffer Size -- |
+Linux の qdisc の既定値はカーネルやディストリビューション、デバイスのキュー構成によって異なる
+application -> IP stack -> qdisc -> NIC buffer
+                              | -- queue -- |
 
-Nic のバッファサイズが大きいとロスが増加
+NIC のバッファを大きくするとドロップを減らせる場合がある一方、キュー滞留時間が長くなりレイテンシーが増える場合がある
 
 遅いもの、大きいものは処理に時間がかかる
 早いもの、小さいものはその逆 VoIP とか DNS とか
 
-アクティブキューイング
-FIFO を廃止し、キューイングを様々な方法で制御
+アクティブキュー管理（AQM）
+キューの滞留時間や長さに応じて、パケットのドロップや ECN マークを行う
 
 CoDel(Controlled Delay)
-RTT やプロトコル等を考慮して必要に応じてキューの先頭に割り込む
+パケットの sojourn time（キューに滞留した時間）を測定し、過剰な遅延が続く場合にドロップまたは ECN マークを行う
 
 TCP small queues
 Byte Queue Limits
@@ -228,47 +233,42 @@ Byte Queue Limits
 
 ## sysctl
 
-- net.\*.conf.lo.rp_filter
+- `net.ipv4.conf.{all,default,<interface>}.rp_filter`
   - Reverse Path Filter
-  - 複数 NIC のサーバに置いて、ある IF から受信したパケットが、別の IF から送信される場合がある
-  - パケットが入ってくる経路と、出てく経路が異なる場合に、そのパケットをフィルタリングする設定
+  - 受信したパケットの送信元アドレスに対して、逆方向の経路検索を行い、経路が受信 IF と一致しないパケットを破棄するための設定
   - 設定値
     - 0: 無効
-    - 1: Strict Mode: ある IF で受信したパケットの返信先がその IF のネットワークアドレスと同じ場合は、許可
-    - 2: Loose Mode: ある IF で受信したパケットの送信元 IP がいずれかの IF より到達可能の場合は、許可
-- net.\*.conf.lo.arp_filter
+    - 1: Strict Mode。最良の逆引き経路が受信した IF である場合だけ許可
+    - 2: Loose Mode。送信元への経路がいずれかの IF に存在すれば許可
+  - `all` とインターフェース固有の値のうち大きい方が使われるため、変更時は両方を確認する
+- `net.ipv4.conf.{all,default,<interface>}.arp_filter`
   - ARP Filter
   - 設定値
-    - 0: 別のインターフェースからのアドレスの ARP 要求に対応できます
-    - 1: 同じサブネットで複数のネットワークインターフェースを持つことを可能にし、カーネルがインターフェースから ARP 要求 の IP パケットをルーティングするかどうかに基づいて、各インターフェースの ARP が応答できるようにします
+    - 0: 受信 IF に関係なく、ホストが保持するアドレスへの ARP に応答し得る
+    - 1: 送信元ベースの経路検索で、その IF から応答を返すべき場合に応答する。同一サブネット上の複数 NIC で ARP flux を抑えるには、適切な経路設定も必要
+  - ARP の送信元アドレス選択には `arp_announce`、受信制御には `arp_ignore` も関係する
 
 ## 複数 NIC 利用時の注意点
 
 - 複数の NIC が別々のセグメントに所属する場合
-  - routeing table に NIC ごとの定義してあれば、routing table どおりに通信が可能
-  - ルート定義がないセグメントから、デフォルトゲートウェイ以外の NIC に通信があった場合
-    - 返信時の送信はデフォルトゲートウェイが利用される
-    - このとき、デフォルトゲートウェイからの到達性がない場合はパケットは到達しない
+  - ルーティングテーブルに宛先ごとの経路があれば、その経路に従って通信します。送信元アドレスごとに経路を分ける場合は、policy routing（`ip rule` / `ip route`）も構成します
+  - より具体的な経路がない宛先にはデフォルト経路が使われるため、返信が常に受信した NIC から出るとは限りません
+  - 非対称ルーティングでは `rp_filter` の Strict Mode が正当なパケットを破棄することがあります
 - 複数の NIC が同一のセグメントに所属する場合
-  - ARP Filter が 0 の場合、デフォルトゲートウェイ側の NIC が ARP 要求に応答してしまう
-    - このため、デフォルトゲートウェイ以外の NIC への ARP は、ただしく解決できない
-  - ARP Filter が 1 の場合、ARP を受信した NIC から応答するようになる
+  - ARP filter が 0 の場合、別の NIC に設定されたアドレスへの ARP にも応答することがあり、ARP flux が起きる
+  - ARP filter が 1 の場合、経路検索の結果に基づいて応答 IF が選ばれる。単純に「受信した NIC から応答する」という意味ではない
 
 ## netlink
 
-- Linux カーネルのサブシステムの名称で、このサブシステムと、ユーザ空間のアプリケーションがやり取りするためのソケットベースの IPC が定義されている
-- アプリケーションはソケット通信によって、Linux カーネル管理下のネットワーク関連リソースを操作したり、その状態を取得することができる
-- ip コマンドや、ss コマンドもこの netlink を利用して、リソース情報を取得したり、操作を行っている
+- netlink は、ユーザー空間とカーネルの各種サブシステムが通信するためのソケットベースの IPC インターフェースです。ネットワーク専用の仕組みではありません
+- ネットワークでは `NETLINK_ROUTE`（rtnetlink）が、リンク、アドレス、経路、近隣エントリ、qdisc などの取得・変更に使われます
+- `ip` コマンドや `ss` コマンドも netlink を利用して、状態の取得や操作を行います
 - 参考
-  - [Netlink IPC を使って Linux カーネルのネットワーク情報にアクセスする](http://ilyaletre.hatenablog.com/entry/2019/09/01/205432)
-  - [Kernel Korner - Why and How to Use Netlink Socket](https://www.linuxjournal.com/article/7356)
-  - [Go による実装 2: docker.libcontainer](https://github.com/docker-archive/libcontainer/blob/master/netlink/netlink_linux.go)
-    - container 用の必要最低限の実装なのでわかりやすい
-  - [Go による実装 1: netlink](https://github.com/vishvananda/netlink)
-    - もともとは libcontainer の netlink 機能をフォークしたものだがほぼ別物
-    - netlink に絞ったもりもりの実装
+  - [`netlink(7)` — Linux manual page](https://man7.org/linux/man-pages/man7/netlink.7.html)
+  - [Introduction to Netlink — The Linux Kernel documentation](https://docs.kernel.org/userspace-api/netlink/intro.html)
+  - [Go による実装: netlink](https://github.com/vishvananda/netlink)
 
-## Refarence
+## Reference
 
 - [Linux カーネルメモ 送受信](http://wiki.bit-hive.com/linuxkernelmemo/pg/%C1%F7%BC%F5%BF%AE)
 - [ネットワーク関係記事まとめ 2013/06](http://syuu1228.hatenablog.com/entry/20130603/1370300554)
@@ -302,6 +302,6 @@ Byte Queue Limits
 - vxlan
 - macvlan
 
-## Refarences
+## 仮想ネットワークデバイスの参考
 
 - [Introduction to Linux interfaces for virtual networking](https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking/)

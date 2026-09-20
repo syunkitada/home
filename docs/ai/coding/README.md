@@ -1,5 +1,14 @@
 # AI Coding
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [coding_with_copilot/](coding_with_copilot/README.md) | Copilotを利用したコーディングのメモです。 |
+| [context_prompt.md](context_prompt.md) | コンテキストやプロンプトに関するメモです。 |
+| [note.md](note.md) | AIコーディングの雑多なメモです。 |
+| [opencode.md](opencode.md) | OpenCode に関するメモです。 |
+
 ## AI コーディング手法の分類
 
 - リアクティブ・インライン補完（Reactive Inline Completion）
@@ -17,67 +26,45 @@
 
 ## 歴史
 
+> 製品の公開日や機能は更新されるため、月単位の記述は公式発表を一次情報とする。出典のない断定は避け、ここでは公開時期と当時の位置づけを簡潔に記録する。
+
 - 2022 年
-  - GitHub Copilot リリース
-    - GitHub Copilot は、OpenAI の Codex を利用してコード補完や提案を行うツールです。
+  - GitHub Copilot が一般提供開始。OpenAI の Codex を利用したコード補完・提案ツールとして始まった。
+    - [GitHub Copilot](https://github.com/features/copilot)
 - 2023 年
-  - Cursor リリース
-    - Cursor は、VS Code をフォークして開発された AI 支援機能を搭載したコードエディタです。
-- 2025 年
-  - 2 月
-    - ClaudeCode が Anthropic によってリリースされました。
-      - https://github.com/anthropics/claude-code
-      - Claude Code は、AI エージェントを利用してプログラミング支援を行うツールです。
-    - Vibe Coding が Andrej Karpathy によって提唱されました。
-      - 開発者がコードの実装詳細を完全に AI に委ね、自然言語による対話とフィードバックのループのみでアプリケーションを構築する極めて直感的な手法である。
-      - これは「雰囲気が良ければ（Vibe）良しとする」という、ある種のプラグマティズムに基づいたアプローチであり、特にプロトタイプの高速構築やフロントエンドの美的調整において圧倒的なスピードを実現している。
-      - ヴァイブ・コーディングの普及は、非技術者がアイディアを即座に形にできる「コーディングの民主化」を加速させている。
-      - しかし、生成されたコードの内部構造を人間が完全に把握していないため、メンテナンス性やセキュリティ、技術的負債の蓄積といった観点からは強い批判も受けている。
-  - 4 月
-    - Devine、Codex CLI Preview などの AI エージェントがリリースされました。
-    - BMAD-METHOD といったマルチエージェントによる開発が行われるようになりました。
-      - https://github.com/bmad-code-org/BMAD-METHOD
-      - 各エージェントに、PM、開発者、デザイナー、テスターなど役割を持たせてチームとして共同開発させるやり方です。
-  - 5 月: Microsoft/GitHub が、GitHub Copilot Agent をリリース
-    - GitHub Copilot Agent は、GitHub Copilot の AI エージェント版で、より高度なプログラミング支援を行います。
-  - 6 月
-    - コンテキストエンジニアリングが ClaudeCode によって提唱されました。
-      - LLM が一度に処理できる情報量（トークン数）には上限がある（Context Window）
-      - 情報量が多い場合、LLM はコンテキストの 冒頭と末尾の情報を重視し、中間の情報を忘れやすい 傾向があります。
-      - AI エージェントが「知るべき」広大なコンテキスト（ツール情報、プロジェクト知識など）を、体系的に最適化するのが Context Engineering です。
-      - 最終的に最適されたコンテキストは一つのプロンプトに統合されて、LLM に伝えられるので、ある意味でプロンプトエンジニアリング（プロンプトの最適化）に近いかもしれません。
-      - プロジェクトディレクトリに AGENTS.md といった決まったファイルを配置しておくと、エージェントはこれを自動で読み取りプロンプトに統合してくれます。
-    - Google が Gemini CLI をリリース
-      - https://github.com/google-gemini/gemini-cli
-      - Gemini CLI は、ターミナルから直接 Gemini モデルを利用できるオープンソースの AI エージェントです。
-    - Claude Code のサブスクも始まり、また AI 駆動開発のナレッジも公開されてきて Vibe Coding が流行り始めた時期だと思います。
-  - 7 月
-    - 生産性のパラドックス
-      - 2025 年 7 月にモデル評価・脅威研究（METR）が発表したランダム化比較試験（RCT）の結果は、業界に衝撃を与えた。
-      - この研究では、平均 5 年の経験を持つ 16 名の熟練オープンソース開発者が、自身の慣れ親しんだリポジトリで AI ツール（主に Cursor Pro と Claude 3.5/3.7）を使用して 246 のタスクを遂行した。
-      - 研究結果によれば、AI ツールを使用した開発者は、使用しなかった開発者と比較して、タスク完了までに平均で 19%長い時間 を要したことが明らかになった。
-      - しかし、開発者自身の主観評価では「20%速くなった」と感じており、客観的なパフォーマンスと主観的な「ヴァイブ（感触）」の間に 39 ポイントもの巨大な認識の乖離が存在していた。
-      - この「生産性のパラドックス」の背景には、以下の要因が指摘されている。
-        - レビュー・タックス（Review Tax）: AI が生成したコードの微妙なバグや、プロジェクト独自の暗黙的なルールに反する部分を特定・修正する時間に、想定以上のコストがかかっている。
-        - 既存知識の優位性: 熟練開発者は自身のコードベースを深く理解しているため、AI がコンテキストを把握して回答を生成するのを待つよりも、自ら記述する方が速いケースが多い。
-        - 過剰な楽観主義: 開発者は AI が解決できると過信し、自力で書けば数分で済む単純なタスクに対し、複雑なプロンプトの調整に時間を浪費してしまう傾向がある。
-      - 一方で、特定の AI ツールの習熟度が極めて高い開発者（Cursor の利用時間が 50 時間超など）や、不慣れな言語やフレームワークを扱う際には、明確なスピードアップが確認されており、ツールの有用性はタスクの難易度と利用者の習熟度に強く依存することが示唆されている。
-    - Kiro が AWX によってリリースされました。
-      - Kiro は、SDD（Spec Driven Development ＝仕様駆動開発） という新しい概念で作られた IDE です。
-      - AI とともに仕様書を先に作り、その仕様書を基に AI に実装させるアプローチです。
-      - 上流工程をしっかり文章化してコンテキストとして与えることで、その後作られるコードのブレを抑えることを可能とします。
-  - 8 月
-    - SpecKit が GitHub によって OSS としてリリースされました。
-      - SpecKit は、エディタや各種エージェントに依存しないよう設計された SDD を支援するツールです。
-      - AI とともに仕様書を先に作り、その仕様書を基に AI に実装させるアプローチです。
-      - その実態は、SDD を支援するためのプロンプトとスクリプト郡です。
-  - 9 月
-    - OpenSpec が Fission AI によって OSS としてリリースされました。
-      - OpenSpec も SDD を支援するツールです。
-      - Kiro/SpecKit とはアプローチが少し異なり、仕様変更を提案書を AI とともに作成し、AI に実装させ、その変更を仕様書に反映させるアプローチです。
-  - 10 月: Codex が OpenAI によってリリースされました。
-    - https://github.com/openai/codex/
-    - Codex CLI は、ターミナルから直接 Codex モデル を利用できるオープンソースの AI エージェントです。
-  - 11 月
-    - Antigravity が Google によってリリースされました。
-      - VSCode のフォークで、AI 駆動開発に特化した UX となっています。
+  - Cursor が登場。VS Code を基盤とする AI 支援コードエディタ。
+    - [Cursor](https://www.cursor.com/)
+- 2025 年 2 月
+  - Anthropic が Claude Code を発表。Claude 3.7 Sonnet の発表と同時に、エージェント型のコマンドラインツールとして紹介された。
+    - [Claude 3.7 Sonnet and Claude Code](https://www.anthropic.com/news/claude-3-7-sonnet)
+  - Vibe coding という呼称が広く知られるようになった。AI に実装の多くを委ね、対話とフィードバックで開発を進める手法を指すが、品質・保守性・セキュリティの確認は必要である。
+- 2025 年 4 月
+  - OpenAI が Codex CLI を公開。Codex CLI はターミナルから利用できるオープンソースの AI コーディングエージェントである。
+    - [Introducing Codex](https://openai.com/index/introducing-codex/)
+    - [OpenAI Codex リポジトリ](https://github.com/openai/codex/)
+  - BMAD-METHOD など、PM、開発者、デザイナー、テスターなどの役割を複数エージェントに分担させる開発手法が公開された。
+    - [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD)
+- 2025 年 5 月
+  - GitHub が GitHub Copilot coding agent を発表。Issue などのタスクをバックグラウンドで処理し、変更を pull request として提案する。
+    - [GitHub Copilot: Meet the new coding agent](https://github.blog/news-insights/product-news/github-copilot-meet-the-new-coding-agent/)
+- 2025 年 6 月
+  - コンテキストエンジニアリングという考え方が AI エージェント開発で広く使われ始めた。ツール情報、プロジェクト知識、作業ルールなど、エージェントが参照すべき情報を整理・選択する実践を指す。
+  - Google が Gemini CLI を公開した。
+    - [Gemini CLI](https://github.com/google-gemini/gemini-cli)
+- 2025 年 7 月
+  - METR が、初期 2025 年の AI ツールを経験豊富な OSS 開発者が使った場合の RCT を公開した。16 名・246 タスクの研究では、AI 利用時の完了時間が平均 19%長くなった。
+    - [METR の研究記事](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
+    - この結果は対象者・リポジトリ・ツール・時期に依存するため、一般の開発者や現在のモデルへそのまま一般化しない。
+  - AWS が Kiro を発表。仕様を先に整理して実装へつなげる spec-driven development を中心にした AI IDE である。
+    - [Introducing Kiro](https://kiro.dev/blog/introducing-kiro/)
+- 2025 年 8 月以降
+  - GitHub Spec Kit が公開された。エージェントに依存しない Spec-Driven Development のプロセス、テンプレート、スクリプトを提供する。
+    - [GitHub Spec Kit](https://github.com/github/spec-kit)
+  - Fission AI の OpenSpec が公開された。AI コーディングアシスタント向けの Spec-Driven Development ツールである。
+    - [Fission AI OpenSpec](https://github.com/Fission-AI/OpenSpec)
+- 2025 年 10 月
+  - Codex が一般提供開始 (GA)。Codex CLI の公開時期とは別の出来事である。
+    - [Codex is generally available](https://openai.com/index/codex-now-generally-available/)
+- 2025 年 11 月
+  - Google が Google Antigravity を発表。IDE とエージェント管理を組み合わせたエージェント型開発プラットフォームとして公開プレビューを開始した。
+    - [Introducing Google Antigravity](https://www.antigravity.google/blog/introducing-google-antigravity)

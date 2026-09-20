@@ -1,11 +1,20 @@
 # Windows Setup Manual (For myself)
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [extra/](extra/README.md) | Windows固有の追加設定です。 |
+| [install_or_upgrade.md](install_or_upgrade.md) | Windowsのインストール・アップグレード手順です。 |
+| [vscode.md](vscode.md) | VSCodeの設定です。 |
+| [wsl.md](wsl.md) | WSLの設定です。 |
+
 ## Install common software
 
 - Google Chrome
-  - Chromeにいつものアカウント(ixxx@gmail.com)でログインし、タブやブックマークを同期する
+  - Chromeに利用するGoogleアカウントでログインし、タブやブックマークを同期する
 - OneDrive
-  - Ondriveにいつものアカウント(sxxx@gmail.com)でログインし、ドキュメントのみを同期する
+  - OneDriveに利用するMicrosoftアカウントでログインし、ドキュメントのみを同期する
   - デスクトップやピクチャは同期しない
 - Lhaplus
   - [窓の社](https://forest.watch.impress.co.jp/library/software/lhaplus/) からインストーラをダウンロードしてインストールします。
@@ -22,7 +31,7 @@
 - VeraCrypt
   - [窓の社](https://forest.watch.impress.co.jp/library/software/veracrypt/) からインストーラをダウンロードしてインストールします。
   - VeraCrypt は TrueCrypt の後継の暗号仮想ディスクの管理ソフトです。
-- LiberOffice
+- LibreOffice
   - [窓の社](https://forest.watch.impress.co.jp/library/software/libreoffice/) からインストーラをダウンロードしてインストールします。
   - LibreOffice は、オープンソースのオフィススイートです。
 - フォント(moralerspace)

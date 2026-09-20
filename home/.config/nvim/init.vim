@@ -153,9 +153,8 @@ set number
 " enable mouse operation
 set mouse=nv
 
-" enable clipboard
-" set clipboard=unnamed,autoselect
-set clipboard=unnamed
+" clipboard integration disabled
+set clipboard=
 
 " disable default japanise input
 " disable default japanise input in insert mode

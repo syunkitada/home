@@ -8,10 +8,10 @@
 ## Contents
 | Link | Description |
 | --- | --- |
-| [Install](#Install)               | |
-| [Hello World](#Hello World)       | |
+| [Install](#install)               | |
+| [Hello World](#hello-world)       | |
 | [パラメータメモ](#パラメータメモ) | |
-| [fio_job.ini](fio_job.ini)        | |
+| [fio_job.ini](#fio_jobini)        | |
 | [結果の見方](#結果の見方)         | |
 | [参考](#参考)                     | |
 
@@ -60,11 +60,10 @@ $ fio --output=fio_out.json --output-format=json --section=seq-read-1m fio_job.i
 詳細は、man fioを見ること
 * ioengine=<ioengine>
     * libaio
-        * Linux nativeの非同期I/O（基本的にはこれを選べばOK)
+        * Linux の非同期 I/O エンジン。測定対象やカーネルに応じて io_uring なども検討する
 * direct=<0, 1>
     * 1で有効にすると、non-buffered I/O (usually O_DIRECT)になる
-    * 基本的なIOはバッファが利用されるが、結果がブレるのでバッファは無効(1で有効)にするのが良い
-    * また、高いIOを必要とするデータベースのようなシステムは、基本的にOSのバッファを使わない
+    * バッファの有無で測定対象が変わるため、目的に応じて設定し、結果に明記する
 * rw=<read, write, randread, randwrite>
     * すべてのパターンで計測すべき
 * iodepth=<int>
@@ -78,7 +77,7 @@ $ fio --output=fio_out.json --output-format=json --section=seq-read-1m fio_job.i
 * directory
     * 測定で利用するディレクトリ
     * 測定したいデバイスのディレクトリを指定する
-* finename
+* filename
     * 測定で利用するファイル(directoryの配下に作られる)
     * 適当でOK
 * size
@@ -87,12 +86,15 @@ $ fio --output=fio_out.json --output-format=json --section=seq-read-1m fio_job.i
 * runtime
     * jobの最大実行時間
 * stonewall
-    * jobがエラーで終了すると残りのジョブも終了する
+    * ジョブをグループ単位で区切り、前のグループの完了後に次のグループを開始する
+    * エラー時に全ジョブを終了させる設定ではない
 * clat_percentiles=<0, 1>
-    * 1で有効にすると、clat(リクエスト送信してから終了までのLatency)の99 percentileを取る
+    * 1で有効にすると、clat のパーセンタイル統計を出力する
 
 
 ## fio_job.ini
+
+この設定には書き込みジョブが含まれます。実データのあるディレクトリを指定せず、専用のテスト領域で実行してください。`size=16g` 分の空き容量と、テストによるデータ上書きの影響を事前に確認します。
 ```
 [global]
 ioengine=libaio
@@ -201,7 +203,7 @@ rw=randwrite
     * 基本的にこれだけ見ればディスクのIO性能がわかる
         * bw、iopsから逆算できる(bw = bs * iops)
 * clat(msec)
-    * complettion latency(リクエスト送信から終了までのLatency)
+    * completion latency(リクエスト送信から終了までのLatency)
     * 99 percentileを見ておく
         * 99.99までのLatencyが妙に離れていないか？
         * もし、離れていればディスク不良などのために、外れ値が多く混ざった可能性がある

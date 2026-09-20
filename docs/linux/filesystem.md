@@ -298,7 +298,7 @@ $ cat /sys/block/sda/alignment_offset
 
 - 一般的なファイルを、ブロックデバイスのように扱うための機能
 - イメージファイルなどを直接操作したい場合に使う
-  - 仮想イメージ qcow2 を row に変換して、loopback device にアタッチして、loopback device をマウントして、中身を操作するなどできる
+  - 仮想イメージ qcow2 を raw に変換して、loopback device にアタッチして、loopback device をマウントして、中身を操作するなどできる
 
 ## devicemapper
 
@@ -341,6 +341,8 @@ __[LV]__  __[LV]__
 
 - 利用手順
 
+以下は専用の検証環境でのみ実行してください。`pvcreate`、`mkfs`、`lvremove`、`vgremove` は対象デバイス上のデータを破壊します。`/dev/loop2` は実行環境で確認したデバイスに置き換え、対象を必ず再確認します。
+
 ```bash
 # パッケージインストール
 $ sudo yum install lvm2
@@ -352,14 +354,12 @@ $ service lvm2-lvmetad start
 # ddで空ファイルを作成する、もしくはパーティションを切ってもよい
 $ dd if=/dev/zero of=/tmp/test-volume bs=1 count=0 seek=10G
 
-# 空いてるloopデバイスを確認する
-$ losetup -f
-/dev/loop2
-
 # losetupでloopデバイスを作成したファイルと接続する
 # losetupは、loopデバイスを通常ファイルやブロックデバイスと接続・切断する
 # アタッチ
-$ losetup /dev/loop2 /tmp/test-volume
+$ loopdev=$(sudo losetup --find --show /tmp/test-volume)
+$ echo "$loopdev"
+/dev/loop2
 
 # デタッチ
 # $ losetup -d /dev/loop2
@@ -371,7 +371,7 @@ $ losetup /dev/loop2
 # pvcreateでデバイスを初期化する
 # pvcreate は、物理ボリュームとして利用するブロックデバイスを初期化しPEに分割する
 # デバイスを初期化
-$ sudo pvcreate /dev/loop2
+$ sudo pvcreate "$loopdev"
   Physical volume "/dev/loop2" successfully created
 
 # 確認
@@ -393,7 +393,7 @@ $ sudo lvmdiskscan
   2 LVM physical volumes
 
 # vgcreateでボリュームグループを作成
-$ sudo vgcreate volume00 /dev/loop2
+$ sudo vgcreate volume00 "$loopdev"
   Volume group "volume00" successfully created
 
 # ボリュームグループを設定ファイルに付け足す
@@ -460,16 +460,14 @@ $ ls /mnt
 $ sudo umount /mnt
 
 # LV, VG を削除
-$ sudo lvremove lv01 volume00
-  Volume group "lv01" not found
-  Cannot process volume group lv01
+$ sudo lvremove /dev/volume00/lv01
 Do you really want to remove active logical volume lv01? [y/n]: y
   Logical volume "lv01" successfully removed
 
 $ sudo vgremove volume00
 
 # loopデバイスからファイルをデタッチ
-$ sudo losetup -d /dev/loop2
+$ sudo losetup -d "$loopdev"
 
 # ファイルを削除する
 $ sudo rm /tmp/test-volume
