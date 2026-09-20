@@ -1,5 +1,11 @@
 # systemd
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [systemctl](systemctl.md) | systemctlコマンドに関するメモです。 |
+
 ## systemd とは
 
 - systemd は最初に起動するプロセス(PID=1)で Linux の起動処理や、Linux システムの管理を行う

@@ -1,5 +1,15 @@
 # vim
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [color.md](color.md) | 色設定に関するメモです。 |
+| [keybind.md](keybind.md) | キーバインドに関するメモです。 |
+| [lsp.md](lsp.md) | LSPに関するメモです。 |
+| [nvim-lspconfig.md](nvim-lspconfig.md) | nvim-lspconfigに関するメモです。 |
+| [script.md](script.md) | Vimスクリプトに関するメモです。 |
+
 ## 方針、考え方のメモ書き
 
 - Vim の利用目的は、コードリーディングとプログラミングを想定

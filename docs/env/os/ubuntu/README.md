@@ -2,6 +2,12 @@
 
 Ubuntu 24.04 LTS 用のセットアップ手順です。
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [install_or_upgrade.md](install_or_upgrade.md) | Ubuntuのインストール・アップグレード手順です。 |
+
 ## Setup authorized_keys
 
 SSH公開鍵を .ssh/authorized_keys に書き込みます。

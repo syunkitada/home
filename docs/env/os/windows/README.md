@@ -1,5 +1,14 @@
 # Windows Setup Manual (For myself)
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [extra/](extra/) | Windows固有の追加設定です。 |
+| [install_or_upgrade.md](install_or_upgrade.md) | Windowsのインストール・アップグレード手順です。 |
+| [vscode.md](vscode.md) | VSCodeの設定です。 |
+| [wsl.md](wsl.md) | WSLの設定です。 |
+
 ## Install common software
 
 - Google Chrome

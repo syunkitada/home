@@ -2,6 +2,16 @@
 
 Windows の SSH 環境を整えるための手順です。
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [putty.md](putty.md) | PuTTYに関するメモです。 |
+| [ssh-adder.bat](ssh-adder.bat) | SSH Agentに鍵を追加するバッチです。 |
+| [ssh-adder.lnk](ssh-adder.lnk) | `ssh-adder.bat`へのショートカットです。 |
+| [ssh-adder_onedrive.lnk](ssh-adder_onedrive.lnk) | OneDrive用のショートカットです。 |
+| [wslssh.cmd](wslssh.cmd) | WSL上のSSHを呼び出すラッパーです。 |
+
 Windows で SSH を利用する方法は３つあります。
 
 - WSLのOpenSSH を利用する方法（推奨）

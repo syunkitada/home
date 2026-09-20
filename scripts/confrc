@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export HOME_ROOT_DIR=${HOME}/home
+export HOME_EX_ROOT_DIR=${HOME_EX_ROOT_DIR:-${HOME}/home_ex}
 
 export TMUX_VERSION=${TMUX_VERSION:-3.4}
 
@@ -23,6 +24,6 @@ export CARGO_BINSTALL_VERSION=${CARGO_BINSTALL_VERSION:-1.15.10}
 export MARKDOWN_OXIDE_VERSION=${MARKDOWN_OXIDE_VERSION:-0.25.9}
 export WATCHEXEC_VERSION=${WATCHEXEC_VERSION:-1.21.1}
 
-if [ -f ~/home_ex/xdgconfig/confrc ]; then
-    . ~/home_ex/xdgconfig/confrc
+if [ -f "${HOME_EX_ROOT_DIR}/xdgconfig/confrc" ]; then
+    . "${HOME_EX_ROOT_DIR}/xdgconfig/confrc"
 fi

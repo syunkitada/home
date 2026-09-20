@@ -1,5 +1,11 @@
 # tmux
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [tmux.conf](tmux.conf) | tmuxの設定ファイルです。 |
+
 - nested tmux について
   - nested tmux とは、踏み台サーバで tmux を起動し、そこからの ssh 先でさらに tmux を起動させて、nested で tmux を利用することを言います
     - これが世間一般的なことかは不明だが、自分はこのような使い方をすることがあり、このことを nested tmux と呼んでいます

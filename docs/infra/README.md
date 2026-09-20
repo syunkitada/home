@@ -2,17 +2,21 @@
 
 ## Basic Contents
 
-| Link                                 | Description                                                                        |
-| ------------------------------------ | ---------------------------------------------------------------------------------- |
-| [Datacenter](datacenter.md)          | データセンタ                                                                       |
-| [DNS](dns.md)                        | DNS について                                                                       |
-| [DHCP](dhcp.md)                      | DHCP の仕組み(DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK, DHCPNAK, DHCPRELEASE) |
-| [SMTP, POP, IMAP](smtp_pop_imap.md)  | STMP, POP, IMAP を踏まえ、メール送受信の仕組みについて                             |
-| [Security](security/README.md)       | セキュリティについて                                                               |
-| [Loadbalancer](loadbalancer.md)      | ロードバランサについて                                                             |
-| [ネットワークの Bonding](bonding.md) | ネットワークの Bonding、Channeling について                                        |
-| [電話網](telephone_network.md)       | 電話網について                                                                     |
-| [Words](words.md)                    | ネットワーク用語のメモ用                                                           |
+| Link | Description |
+| --- | --- |
+| [security/](security/README.md) | セキュリティについて |
+| [Bonding](bonding.md) | ネットワークのBonding、Channelingについて |
+| [Cloud](cloud.md) | クラウドに関するメモ |
+| [Datacenter](datacenter.md) | データセンタ |
+| [DHCP](dhcp.md) | DHCPの仕組み |
+| [IP network namespace](ipnetns.md) | IP network namespaceに関するメモ |
+| [IPv6](ipv6.md) | IPv6に関するメモ |
+| [Load balancer](loadbalancer.md) | ロードバランサについて |
+| [Payment](payment.md) | 決済に関するメモ |
+| [SMTP, POP, IMAP](smtp_pop_imap.md) | メール送受信の仕組み |
+| [SRE](sre.md) | SREに関するメモ |
+| [電話網](telephone_network.md) | 電話網について |
+| [Words](words.md) | ネットワーク用語のメモ |
 
 ## 小ネタ リンク集
 

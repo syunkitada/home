@@ -2,14 +2,14 @@
 
 ## Contents
 
-| Link                                                                  | Description                              |
-| --------------------------------------------------------------------- | ---------------------------------------- |
-| [observation](observation.md)                                         | パフォーマンスの観測について             |
-| [latency](observation_latency.md)                                     | Latency の参考                           |
-| [observation tools](observation_tools_basic.md)                       | 観測ツールについて                       |
-| [observation tools (intermediate)](observation_tools_intermediate.md) | 観測ツールについて(中級)                 |
-| [network tools](network_tools.md)                                     | ネットワーク観測ツールについて           |
-| [network tcpdump & tshark](network_tcpdump_tshark.md)                 | ネットワークパケットの観測ツールについて |
+| Link | Description |
+| --- | --- |
+| [basic](basic.md) | 観測の基礎 |
+| [intermediate](intermediate.md) | 観測の中級メモ |
+| [iostat](iostat.md) | iostatに関するメモ |
+| [latency](latency.md) | Latencyの参考 |
+| [perf](perf.md) | perfに関するメモ |
+| [sar](sar.md) | sarに関するメモ |
 
 ## Problem Statement Method
 

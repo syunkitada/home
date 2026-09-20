@@ -1,5 +1,14 @@
 # AI Coding
 
+## Index
+
+| Link | Description |
+| --- | --- |
+| [coding_with_copilot/](coding_with_copilot/README.md) | Copilotを利用したコーディングのメモです。 |
+| [context_prompt.md](context_prompt.md) | コンテキストやプロンプトに関するメモです。 |
+| [note.md](note.md) | AIコーディングの雑多なメモです。 |
+| [opencode.md](opencode.md) | OpenCode に関するメモです。 |
+
 ## AI コーディング手法の分類
 
 - リアクティブ・インライン補完（Reactive Inline Completion）

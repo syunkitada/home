@@ -2,17 +2,18 @@
 
 このリポジトリは、自分用の設定・ドキュメントを管理するためのものです。
 
-## Contents
+## Index
 
-| Link                                         | Description                                                  |
-| -------------------------------------------- | ------------------------------------------------------------ |
-| [docs](docs/README.md)                       | 雑多なドキュメント類です。                                   |
-| [dotfiles](dotfiles/README.md)               | $HOME に配置するドットファイル群です。                       |
-| [xdgconfig](xdgconfig/README.md)             | $XDG_CONFIG_HOME に配置するファイル群です。                  |
-| [legacy_dotfiles](legacy_dotfiles/README.md) | 古い環境用の最小限の設定のためのドットファイル群です。       |
-| [playground](playground/README.md)           | 設定ファイルの動作を確認するための実験環境構築ツール群です。 |
-| [etc](etc/README.md)                         | 雑多なファイル群です。                                       |
-| [scripts](scripts/README.md)                 | 雑多なスクリプトファイル群です。                             |
+| Link | Description |
+| --- | --- |
+| [archives/](archives/) | 旧設定や過去の環境用ファイルを保管しています。 |
+| [docs/](docs/README.md) | 各種ドキュメントをまとめています。 |
+| [home/](home/README.md) | `$HOME` に配置する設定ファイル群です。 |
+| [home_legacy/](home_legacy/README.md) | 古い環境用の最小限の設定ファイル群です。 |
+| [playground/](playground/README.md) | 設定ファイルの動作を確認するための実験環境です。 |
+| [scripts/](scripts/README.md) | セットアップ、チェック、ドキュメント生成用のスクリプト群です。 |
+| [.gitignore](.gitignore) | Gitの管理対象外にするファイル・ディレクトリの定義です。 |
+| [Makefile](Makefile) | セットアップ、チェック、ドキュメント生成などの入口です。 |
 
 ## Initial setup procedures for each OS
 
