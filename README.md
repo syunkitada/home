@@ -7,12 +7,14 @@
 | Link | Description |
 | --- | --- |
 | [archives/](archives/) | 旧設定や過去の環境用ファイルを保管しています。 |
-| [docs/](docs/README.md) | 各種ドキュメントをまとめています。 |
+| [docs/](docs/README.md) | OSのセットアップ手順や、このリポジトリ自体のドキュメントをまとめています。 |
 | [home/](home/README.md) | `$HOME` に配置する設定ファイル群です。 |
 | [home_legacy/](home_legacy/README.md) | 古い環境用の最小限の設定ファイル群です。 |
+| [knowledge/](knowledge/README.md) | 技術知識や運用ノウハウなどの資料をまとめています。 |
 | [playground/](playground/README.md) | 設定ファイルの動作を確認するための実験環境です。 |
 | [scripts/](scripts/README.md) | セットアップ、チェック、ドキュメント生成用のスクリプト群です。 |
 | [.gitignore](.gitignore) | Gitの管理対象外にするファイル・ディレクトリの定義です。 |
+| [AGENTS.md](AGENTS.md) | リポジトリで作業するエージェント向けのガイドラインです。 |
 | [Makefile](Makefile) | セットアップ、チェック、ドキュメント生成などの入口です。 |
 
 ## Initial setup procedures for each OS
@@ -61,7 +63,7 @@ $ ssh -O exit <your ssh host>
 
 ## About home_ex directory
 
-home_ex ディレクトリをホームディレクトリに配置することで、homeの設定・ドキュメントを拡張することができます。
+home_ex ディレクトリをホームディレクトリに配置することで、homeの設定・ナレッジを拡張することができます。
 
 この仕組みは、プライベート開発環境や会社用開発環境など複数の環境の設定を分けて管理できるようにするための仕組みです。
 
@@ -73,7 +75,7 @@ $ git clone <your external respository> ~/home_ex
 
 ```bash
 home_ex/
-  docs/
+  knowledge/
     cmd/  <-- For managing docs of command line tools
       *.md
     ops/  <-- For managing docs of operations
