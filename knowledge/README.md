@@ -13,3 +13,4 @@ OSのセットアップ手順や、このリポジトリ自体のドキュメン
 | [infra/](infra/README.md) | インフラやネットワークのメモです。 |
 | [linux/](linux/README.md) | Linux の仕組みや運用に関するメモです。 |
 | [ops/](ops/README.md) | 運用に関する資料です。 |
+| [programming/](programming/README.md) | プログラミングの知識と自分用スキルをまとめています。 |

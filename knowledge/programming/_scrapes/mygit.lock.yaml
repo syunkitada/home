@@ -1,0 +1,21 @@
+repositories:
+- name: mattpocock_skills
+  url: https://github.com/mattpocock/skills.git
+  revision: main
+  path: _repos/mattpocock_skills
+  commit: c55ee46073ed923f86ce59a5eb3b6d895095d1b7
+- name: obra_superpowers
+  url: https://github.com/obra/superpowers.git
+  revision: main
+  path: _repos/obra_superpowers
+  commit: 5bf4e78011075bcfc0dc295f0724994cd123ee71
+- name: addyosmani_agent-skills
+  url: https://github.com/addyosmani/agent-skills.git
+  revision: main
+  path: _repos/addyosmani_agent-skills
+  commit: dc27a9c2e13721158157632de61b4106c6c2a2a1
+- name: getsentry_skills
+  url: https://github.com/getsentry/skills.git
+  revision: main
+  path: _repos/getsentry_skills
+  commit: c2f99a5b04b4cd992ec3022d7c2c3e23e938d241

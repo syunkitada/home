@@ -1,6 +1,9 @@
 *.un~
 *.swp
 
+# External repositories are reproducible from the tracked mygit lock file.
+/knowledge/programming/_scrapes/_repos/
+
 programming_c
 programming_go
 programming_rust

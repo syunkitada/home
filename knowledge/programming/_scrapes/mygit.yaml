@@ -1,0 +1,9 @@
+repositories:
+  - url: https://github.com/mattpocock/skills.git
+    revision: main
+  - url: https://github.com/obra/superpowers.git
+    revision: main
+  - url: https://github.com/addyosmani/agent-skills.git
+    revision: main
+  - url: https://github.com/getsentry/skills.git
+    revision: main
