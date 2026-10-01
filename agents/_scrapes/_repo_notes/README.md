@@ -11,6 +11,7 @@
 | [`addyosmani_agent-skills/`](./addyosmani_agent-skills/) | `addyosmani/agent-skills` の分析ノート |
 | [`getsentry_skills/`](./getsentry_skills/) | `getsentry/skills` の分析ノート |
 | [`mattpocock_skills/`](./mattpocock_skills/) | `mattpocock/skills` の分析ノート |
+| [`nanaism_yomiyasu/`](./nanaism_yomiyasu/) | `nanaism/yomiyasu` の分析ノート |
 | [`obra_superpowers/`](./obra_superpowers/) | `obra/superpowers` の分析ノート |
 
 各レポジトリのディレクトリには `README.md` を置き、直接の子ファイルとその役割を記載します。ノートの追加・更新時は、調査日と対象コミットを必ず更新してください。

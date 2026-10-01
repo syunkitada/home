@@ -19,3 +19,8 @@ repositories:
   revision: main
   path: _repos/getsentry_skills
   commit: c2f99a5b04b4cd992ec3022d7c2c3e23e938d241
+- name: nanaism_yomiyasu
+  url: https://github.com/nanaism/yomiyasu.git
+  revision: main
+  path: _repos/nanaism_yomiyasu
+  commit: b14ee43c9b722cf4fd2bb1e893c6c386f1a362aa

@@ -7,3 +7,5 @@ repositories:
     revision: main
   - url: https://github.com/getsentry/skills.git
     revision: main
+  - url: https://github.com/nanaism/yomiyasu.git
+    revision: main
