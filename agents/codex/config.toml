@@ -1,0 +1,49 @@
+model = "gpt-5.6-luna"
+model_reasoning_effort = "xhigh"
+
+# sandbox_mode = "workspace-write"
+sandbox_mode = "danger-full-access"
+approval_policy = "on-request"
+plan_mode_reasoning_effort = "xhigh"
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
+
+[[hooks.Stop]]
+
+[[hooks.Stop.hooks]]
+type = "command"
+command = "bash \"${CODEX_HOME:-$HOME/.codex}/hooks/notify_myntfy.sh\""
+statusMessage = "Sending Codex completion notification"
+async = true
+
+[hooks.state]
+
+[hooks.state."/home/owner/.codex/config.toml:stop:0:0"]
+trusted_hash = "sha256:22a075696f94d83f89871c99cdba75cf00ba7ac50c6abc860a618a2992782e63"
+
+[projects."/home/owner/myaitoolbox"]
+trust_level = "trusted"
+
+[projects."/home/owner/tmp"]
+trust_level = "trusted"
+
+[projects."/home/owner/home"]
+trust_level = "trusted"
+
+[projects."/home/owner/home_ex"]
+trust_level = "trusted"
+
+[projects."/home/owner/mylabo"]
+trust_level = "trusted"
+
+[projects."/home/owner/myinvest"]
+trust_level = "trusted"
+
+[tui]
+screen_reader_detection_done = true
+
+[tui.model_availability_nux]
+gpt-6-astra = 4
+"gpt-6.1-sol" = 4

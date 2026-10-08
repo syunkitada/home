@@ -19,10 +19,10 @@
 各スキルをこのディレクトリの `<skill-name>/` から `~/.agents/skills/<skill-name>` へ個別にシンボリックリンクします。リポジトリルートで次を実行します。
 
 ```bash
-./scripts/setup.sh skills
+./agents/setup.sh skills
 ```
 
-同じ正本へのリンクがあれば変更せず、同名の通常ファイル・ディレクトリや別のリンクがあれば上書きせずに停止します。参照元は `AGENT_SKILLS_SOURCE_DIR`、配置先は `AGENT_SKILLS_HOME` で変更できます。
+同じ正本へのリンクがあれば変更せず、同名の通常ファイル・ディレクトリ・別のリンク・リンク切れがあれば、選択した全対象の事前確認で上書きせずに停止します。参照元は `AGENT_SKILLS_SOURCE_DIR`、配置先は `AGENT_SKILLS_HOME` で変更できます。
 
 各直下ディレクトリには `SKILL.md` が必要です。参考として取得した外部スキルは [`../_scrapes/`](../_scrapes/README.md) に分離し、ここへ自動配置しません。
 

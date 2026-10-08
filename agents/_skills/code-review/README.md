@@ -20,7 +20,7 @@
 ステージ済み・未ステージ・未追跡の変更を含め、修正はせずに問題点を報告してください。
 ~~~
 
-./scripts/setup.sh skills で ~/.agents/skills/code-review へ配置した後は、次のように呼び出せます。
+./agents/setup.sh skills で ~/.agents/skills/code-review へ配置した後は、次のように呼び出せます。
 
 ~~~text
 $code-review origin/main から現在のブランチまでの変更をレビューしてください。

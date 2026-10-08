@@ -7,6 +7,7 @@
 | Link | Description |
 | --- | --- |
 | [archives/](archives/) | 旧設定や過去の環境用ファイルを保管しています。 |
+| [agents/](agents/README.md) | エージェントの設定と共通スキル、およびリンク配置スクリプトを管理します。 |
 | [docs/](docs/README.md) | OSのセットアップ手順や、このリポジトリ自体のドキュメントをまとめています。 |
 | [home/](home/README.md) | `$HOME` に配置する設定ファイル群です。 |
 | [home_legacy/](home_legacy/README.md) | 古い環境用の最小限の設定ファイル群です。 |

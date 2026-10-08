@@ -9,3 +9,6 @@ programming_go
 programming_rust
 programming_python
 programming_web
+
+# Codex-generated local command approvals.
+/agents/codex/rules/default.rules
