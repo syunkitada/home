@@ -1,11 +1,12 @@
 # 自分用スキル
 
-自分の作業に合わせて作成・カスタマイズしたスキルの正本を管理します。使い方と参考資料は各スキルの README を参照してください。
+自分の作業に合わせて作成・カスタマイズしたスキルの正本を管理します。使い方は各スキルの README を参照してください。保守契約や参考資料を分離している skill では、README からリンクされた SPEC.md を参照してください。
 
 ## Index
 
 | パス | 役割 |
 | --- | --- |
+| [`AGENTS.md`](./AGENTS.md) | 配下の skill に共通する文書構成、参考資料、構成変更の管理ルール |
 | [`task-planning/`](./task-planning/README.md) | 要件を作業計画、受け入れ条件、検証方法へ整理する skill |
 | [`implementation/`](./implementation/README.md) | 仕様に基づいてコード、設定、ドキュメントを変更する skill |
 | [`tdd/`](./tdd/README.md) | 挙動変更やバグ修正をテスト駆動で進める skill |
