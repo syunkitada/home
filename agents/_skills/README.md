@@ -14,7 +14,7 @@
 | [`code-review/`](./code-review/README.md) | 変更差分をレビューし、仕様と根拠に基づいて不具合や回帰を報告するスキル |
 | [`git-workflow/`](./git-workflow/README.md) | ブランチ、コミット、PR、競合解消などの Git 操作を安全に進める skill |
 | [`security-review/`](./security-review/README.md) | 入力、認証・認可、秘密情報、外部サービスなどを専門的に確認する skill |
-| [`yomiyasu/`](./yomiyasu/README.md) | AIが生成した不自然な日本語を自然で読みやすい文章へ推敲する skill |
+| [`japanese-writing-polish/`](./japanese-writing-polish/README.md) | AIが生成した不自然な日本語を自然で読みやすい文章へ推敲する skill |
 
 ## 配置方針
 

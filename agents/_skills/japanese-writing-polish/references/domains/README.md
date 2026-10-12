@@ -1,4 +1,4 @@
-# yomiyasuのドメイン別指針
+# japanese-writing-polishのドメイン別指針
 
 文章の用途に応じたリライト方針をまとめています。
 
@@ -8,4 +8,5 @@
 | --- | --- |
 | [tech.md](./tech.md) | 技術記事・エンジニア発信向けの指針 |
 | [business.md](./business.md) | 業務・仕様・実務文書向けの指針 |
+| [documentation.md](./documentation.md) | README、ADR、APIドキュメント、How-toなどの指針 |
 | [essay.md](./essay.md) | エッセイ・オピニオン・個人発信向けの指針 |

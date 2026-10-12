@@ -1,4 +1,4 @@
-# yomiyasuのスクリプト
+# japanese-writing-polishのスクリプト
 
 文章のAIっぽさを機械的に検査する補助スクリプトを収録しています。
 
