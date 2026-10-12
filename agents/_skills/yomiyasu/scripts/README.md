@@ -7,3 +7,4 @@
 | パス | 役割 |
 | --- | --- |
 | [yomiyasu_lint.py](./yomiyasu_lint.py) | 不自然な比喩、装飾、箇条書き比率などを検査するリンター |
+| [test_yomiyasu_lint.py](./test_yomiyasu_lint.py) | リンターのコードフェンス処理を検証する回帰テスト |

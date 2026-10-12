@@ -10,7 +10,7 @@ import sys
 import re
 import argparse
 import json
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Optional, Tuple
 
 
 # 絵文字正規表現パターン（CJK統合漢字拡張などのサロゲートペア漢字を除外した厳密な絵文字範囲）
@@ -83,21 +83,36 @@ def get_frontmatter_line_count(lines: List[str]) -> int:
     return 0
 
 
+def consume_code_fence(
+    stripped: str, active_fence: Optional[Tuple[str, int]]
+) -> Tuple[Optional[Tuple[str, int]], bool]:
+    """コードフェンスの状態を更新し、対象行かどうかを返す"""
+    if active_fence is not None:
+        marker, minimum_length = active_fence
+        if stripped and set(stripped) == {marker} and len(stripped) >= minimum_length:
+            return None, True
+        return active_fence, True
+
+    opening = re.match(r"(`{3,}|~{3,})", stripped)
+    if opening:
+        marker = opening.group(1)
+        return (marker[0], len(marker)), True
+    return None, False
+
+
 def extract_plain_sentences(text: str) -> List[Tuple[int, str]]:
     """コードブロックや引用、箇条書きを除去し、地の文の段落文（行番号つき）を抽出する"""
     lines = text.split("\n")
     sentences = []
-    in_code_block = False
+    active_fence = None
     fm_lines = get_frontmatter_line_count(lines)
 
     for idx, line in enumerate(lines, 1):
         if idx <= fm_lines:
             continue
         stripped = line.strip()
-        if stripped.startswith("```"):
-            in_code_block = not in_code_block
-            continue
-        if in_code_block:
+        active_fence, is_fence_line = consume_code_fence(stripped, active_fence)
+        if is_fence_line:
             continue
         # 空行、見出し、表行、画像記法、HTMLタグ、引用行、箇条書き行、インデントされたリスト継続行は地の文から除外
         if (
@@ -174,16 +189,16 @@ def analyze_markdown_metrics(text: str) -> Dict[str, Any]:
     """太字頻度、箇条書き比率などの構造メトリクスを算出（引用文やコードブロックは除外）"""
     lines = text.split("\n")
     plain_lines = []
-    in_code = False
+    active_fence = None
     fm_lines = get_frontmatter_line_count(lines)
     for idx, l in enumerate(lines, 1):
         if idx <= fm_lines:
             continue
         stripped = l.strip()
-        if stripped.startswith("```"):
-            in_code = not in_code
+        active_fence, is_fence_line = consume_code_fence(stripped, active_fence)
+        if is_fence_line:
             continue
-        if in_code or stripped.startswith(">") or stripped.startswith("|") or stripped.startswith("![") or stripped.startswith("[![") or stripped.startswith("<"):
+        if stripped.startswith(">") or stripped.startswith("|") or stripped.startswith("![") or stripped.startswith("[![") or stripped.startswith("<"):
             continue
         plain_lines.append(l)
 
@@ -244,16 +259,14 @@ def lint_text(text: str) -> Dict[str, Any]:
 
     # 3. 語彙・構文パターン検査
     lines = text.split("\n")
-    in_code = False
+    active_fence = None
     fm_lines = get_frontmatter_line_count(lines)
     for line_no, line in enumerate(lines, 1):
         if line_no <= fm_lines:
             continue
         stripped = line.strip()
-        if stripped.startswith("```") or stripped.startswith("~~~"):
-            in_code = not in_code
-            continue
-        if in_code:
+        active_fence, is_fence_line = consume_code_fence(stripped, active_fence)
+        if is_fence_line:
             continue
 
         # 絵文字検知（見出し・本文問わず禁止）

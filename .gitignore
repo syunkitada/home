@@ -1,6 +1,10 @@
 *.un~
 *.swp
 
+# Python bytecode and interpreter caches.
+__pycache__/
+*.py[cod]
+
 # External repositories are reproducible from the tracked mygit lock file.
 /knowledge/programming/_scrapes/_repos/
 
