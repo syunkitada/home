@@ -198,6 +198,16 @@ agent の常駐実装やサーバーコードは確認できない。連携は s
 - [link-skills.sh](../../_repos/mattpocock_skills/scripts/link-skills.sh)
 - [sync-plugin-version.mjs](../../_repos/mattpocock_skills/scripts/sync-plugin-version.mjs)
 
+## `session-retrospective` での参照
+
+| 項目 | 内容 |
+| --- | --- |
+| 調査日 | 2026-10-18 |
+| 対象コミット | `c55ee46073ed923f86ce59a5eb3b6d895095d1b7` |
+| 参照したファイル | [`skills/in-progress/retro/SKILL.md`](../../_repos/mattpocock_skills/skills/in-progress/retro/SKILL.md) |
+| 採用した内容 | ナビゲーション、検証、自動化、ルール、tool economy、情報アクセスの観点。現在の会話と関連ファイルを既定範囲にし、提案のみ・日本語レポートへ調整した。 |
+| 未確認事項 | `in-progress` skill のupstreamでの継続性と、他ハーネスでの実際の発動結果は確認していない。 |
+
 ## 調査範囲と未確認事項
 
 確認範囲は、source repo の `AGENTS.md`、`README.md`、`CLAUDE.md`、`CONTEXT.md`、`package.json`、lockfile の存在、plugin manifests、release workflow、Changesets、全 Git 管理ファイル一覧、全 `SKILL.md` の front matter と bucket README、主要 skill 本文、実行・検証 script、hook template である。

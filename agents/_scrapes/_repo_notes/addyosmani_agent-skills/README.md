@@ -175,4 +175,14 @@ Claude Code用のMarkdownコマンドは[`.claude/commands/`](../../_repos/addyo
 - 配布：[`docs/codex-setup.md`](../../_repos/addyosmani_agent-skills/docs/codex-setup.md)、[`docs/antigravity-setup.md`](../../_repos/addyosmani_agent-skills/docs/antigravity-setup.md)、[`.claude-plugin/plugin.json`](../../_repos/addyosmani_agent-skills/.claude-plugin/plugin.json)、[`.codex-plugin/plugin.json`](../../_repos/addyosmani_agent-skills/.codex-plugin/plugin.json)
 - CI：[`.github/workflows/test-plugin-install.yml`](../../_repos/addyosmani_agent-skills/.github/workflows/test-plugin-install.yml)
 
+## `session-retrospective` での参照
+
+| 項目 | 内容 |
+| --- | --- |
+| 調査日 | 2026-10-18 |
+| 対象コミット | `dc27a9c2e13721158157632de61b4106c6c2a2a1` |
+| 参照したファイル | [`docs/skill-anatomy.md`](../../_repos/addyosmani_agent-skills/docs/skill-anatomy.md) |
+| 採用した内容 | `SKILL.md` を短く保ち、必要な詳細を reference へ分ける構成と、入力・手順・検証の区切り。 |
+| 未確認事項 | Codexでのskill discoveryと、個別skill配布時のreference同梱を実際には確認していない。 |
+
 以上。

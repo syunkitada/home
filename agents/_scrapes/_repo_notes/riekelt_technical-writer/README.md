@@ -21,6 +21,16 @@
 | [`plugins/technical-writer/skills/technical-writing/references/truth.md`](../../_repos/riekelt_technical-writer/plugins/technical-writer/skills/technical-writing/references/truth.md) | 事実、出典、確信度、推測を扱うための詳細資料 |
 | [`plugins/technical-writer/skills/technical-writing/references/style.md`](../../_repos/riekelt_technical-writer/plugins/technical-writer/skills/technical-writing/references/style.md) | 技術文書の文体・構成に関する詳細資料 |
 
+## `session-retrospective` での参照
+
+| 項目 | 内容 |
+| --- | --- |
+| 調査日 | 2026-10-18 |
+| 対象コミット | `85e53729dd959a2795d593d6769068e342cf3486` |
+| 参照したファイル | [`plugins/technical-writer/skills/writing-postmortems/SKILL.md`](../../_repos/riekelt_technical-writer/plugins/technical-writer/skills/writing-postmortems/SKILL.md) |
+| 採用した内容 | 事実ベースのタイムライン、誤った経路、責任追及を避けた構造的な改善項目。永続的なポストモーテム、owner管理、immutableなレビュー済み記録は採用しなかった。 |
+| 未確認事項 | postmortem skill が要求する `technical-writing` との組み合わせを、この skill の runtime で実行した結果は確認していない。 |
+
 ## 確認した特徴
 
 - 文書を作成する前に、種別、読者、目的、対象外を整理するチェックポイントを置く。

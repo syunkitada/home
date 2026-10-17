@@ -205,6 +205,16 @@ npx skills add getsentry/skills
 - Sentry API の型・公開化: [`document-api-endpoint/SKILL.md`](../../_repos/getsentry_skills/skills/document-api-endpoint/SKILL.md)
 - サブエージェント: [`agents/senpai.md`](../../_repos/getsentry_skills/agents/senpai.md)、[`agents/code-simplifier.md`](../../_repos/getsentry_skills/agents/code-simplifier.md)
 
+## `session-retrospective` での参照
+
+| 項目 | 内容 |
+| --- | --- |
+| 調査日 | 2026-10-18 |
+| 対象コミット | `c2f99a5b04b4cd992ec3022d7c2c3e23e938d241` |
+| 参照したファイル | [`skills/skill-writer/SKILL.md`](../../_repos/getsentry_skills/skills/skill-writer/SKILL.md)、[`references/design-principles.md`](../../_repos/getsentry_skills/skills/skill-writer/references/design-principles.md)、[`references/skill-evals.md`](../../_repos/getsentry_skills/skills/skill-writer/references/skill-evals.md) |
+| 採用した内容 | 更新時の出典記録、短い runtime router、progressive disclosure、少数の観測可能な手動評価ケース。外部 runner や runtime 依存は追加しなかった。 |
+| 未確認事項 | この skill の手動評価ケースを実際のモデル実行で採点した結果と、外部ハーネスでの発動結果は確認していない。 |
+
 ## 調査範囲と作成物
 
 - 確認範囲: `AGENTS.md`、`CLAUDE.md`、README、CONTRIBUTING、LICENSE、plugin/marketplace manifest、Claude settings、`warden.toml`、Git 履歴・remote、全 Git 管理対象のファイル一覧、27 `SKILL.md`、サブエージェント定義、補助 Python スクリプト、技能の SPEC/SOURCES/EVAL と主要 references の構成。

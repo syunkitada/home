@@ -15,6 +15,7 @@
 | [`git-workflow/`](./git-workflow/README.md) | ブランチ、コミット、PR、競合解消などの Git 操作を安全に進める skill |
 | [`security-review/`](./security-review/README.md) | 入力、認証・認可、秘密情報、外部サービスなどを専門的に確認する skill |
 | [`japanese-writing/`](./japanese-writing/README.md) | 技術説明、プロダクト説明、Wiki、Slackなどの日本語文章を作成・編集する skill |
+| [`session-retrospective/`](./session-retrospective/README.md) | セッションを振り返り、skill・設定・文書・ツール利用の改善候補を提案する skill |
 
 ## 配置方針
 

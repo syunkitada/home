@@ -185,4 +185,14 @@ README の導入手順は Claude Code、Antigravity、Codex App/CLI、Cursor、D
 - [docs/porting-to-a-new-harness.md](../../_repos/obra_superpowers/docs/porting-to-a-new-harness.md)、[docs/testing.md](../../_repos/obra_superpowers/docs/testing.md): ハーネス移植原則とテスト体系
 - [RELEASE-NOTES.md](../../_repos/obra_superpowers/RELEASE-NOTES.md): 対象リリースの変更点
 
+## `session-retrospective` での参照
+
+| 項目 | 内容 |
+| --- | --- |
+| 調査日 | 2026-10-18 |
+| 対象コミット | `5bf4e78011075bcfc0dc295f0724994cd123ee71` |
+| 参照したファイル | [`skills/diagnosing-superpowers/SKILL.md`](../../_repos/obra_superpowers/skills/diagnosing-superpowers/SKILL.md)、[`references/session-discovery.md`](../../_repos/obra_superpowers/skills/diagnosing-superpowers/references/session-discovery.md)、[`references/context-safety.md`](../../_repos/obra_superpowers/skills/diagnosing-superpowers/references/context-safety.md) |
+| 採用した内容 | 指定対象の同定、`path:line` を含む証拠、読み取り量の制限、人間の発言とツール結果の区別。対象はユーザー指定ログに限定し、診断専用の責務や変更は取り込まなかった。 |
+| 未確認事項 | このリポジトリのログ形式以外での実際の読み取り結果と、外部ハーネスでの発動結果は確認していない。 |
+
 このノートディレクトリで作成・変更したファイルは本 `README.md` のみです。他レポジトリのノート、親側 README、ソースレポジトリ、`AGENTS.md` は変更していません。
