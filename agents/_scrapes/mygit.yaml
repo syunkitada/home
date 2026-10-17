@@ -9,3 +9,9 @@ repositories:
     revision: main
   - url: https://github.com/nanaism/yomiyasu.git
     revision: main
+  - url: https://github.com/coji/natural-japanese.git
+    revision: main
+  - url: https://github.com/seb1n/awesome-ai-agent-skills.git
+    revision: main
+  - url: https://github.com/riekelt/technical-writer.git
+    revision: main

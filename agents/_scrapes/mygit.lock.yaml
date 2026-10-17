@@ -24,3 +24,18 @@ repositories:
   revision: main
   path: _repos/nanaism_yomiyasu
   commit: b14ee43c9b722cf4fd2bb1e893c6c386f1a362aa
+- name: coji_natural-japanese
+  url: https://github.com/coji/natural-japanese.git
+  revision: main
+  path: _repos/coji_natural-japanese
+  commit: 03bc944a0c4a9f0b2a66eab065b30de5c529bf08
+- name: seb1n_awesome-ai-agent-skills
+  url: https://github.com/seb1n/awesome-ai-agent-skills.git
+  revision: main
+  path: _repos/seb1n_awesome-ai-agent-skills
+  commit: 75865a5d037a4cdaa7f409a4ec14ab9b0292920b
+- name: riekelt_technical-writer
+  url: https://github.com/riekelt/technical-writer.git
+  revision: main
+  path: _repos/riekelt_technical-writer
+  commit: 85e53729dd959a2795d593d6769068e342cf3486

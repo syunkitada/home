@@ -1,6 +1,6 @@
-# Programming Scrapes
+# 外部 skill・リポジトリ調査資料
 
-プログラミング分野で自分用スキルを設計・改善するときに参照する外部リポジトリを、`mygit` で取得・コミット固定して管理します。外部スキルは資料であり、[`../_skills/`](../_skills/README.md) へ自動インストールしません。
+自分用の skill、エージェント設定、文章作成ルールなどを設計・改善するときに参照する外部 skill と関連リポジトリを、`mygit` で取得・コミット固定して管理します。対象はプログラミング分野に限定しません。外部資料は設計・調査のための参照元であり、[`../_skills/`](../_skills/README.md) へ自動インストールしません。
 
 ## 構成
 
@@ -36,5 +36,7 @@ mygit status
 # manifestのrevisionを解決してlockを更新する
 mygit update
 ```
+
+外部 skill を参考にしてローカルの skill を作成・更新する場合は、元リポジトリ全体を `mygit.yaml` と `mygit.lock.yaml` に登録し、lock 済みコミットを `_repos/` に再現します。各リポジトリの調査内容は [`_repo_notes/`](./_repo_notes/) に記録します。
 
 `mygit sync` は `mygit.lock.yaml` のコミットを `_repos/` に再現します。外部リポジトリを更新するときは `mygit.yaml` の `revision` を変更して `mygit update` を実行し、lockfileの差分を確認してから `mygit sync` を実行します。`_repos/` はローカル参照用キャッシュであり、Git管理対象にはしません。

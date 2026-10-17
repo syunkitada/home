@@ -14,6 +14,7 @@
 | [`code-review/`](./code-review/README.md) | 変更差分をレビューし、仕様と根拠に基づいて不具合や回帰を報告するスキル |
 | [`git-workflow/`](./git-workflow/README.md) | ブランチ、コミット、PR、競合解消などの Git 操作を安全に進める skill |
 | [`security-review/`](./security-review/README.md) | 入力、認証・認可、秘密情報、外部サービスなどを専門的に確認する skill |
+| [`japanese-writing/`](./japanese-writing/README.md) | 技術説明、プロダクト説明、Wiki、Slackなどの日本語文章を作成・編集する skill |
 
 ## 配置方針
 
@@ -25,7 +26,7 @@
 
 同じ正本へのリンクがあれば変更せず、同名の通常ファイル・ディレクトリ・別のリンク・リンク切れがあれば、選択した全対象の事前確認で上書きせずに停止します。参照元は `AGENT_SKILLS_SOURCE_DIR`、配置先は `AGENT_SKILLS_HOME` で変更できます。
 
-スキル名を変更・廃止した場合、既存の旧名リンクは自動移行・削除しません。旧リンクが不要になったこととリンク先を確認し、不要なリンクだけを手動で削除してから `./agents/setup.sh skills` を再実行してください。文章作成の `japanese-writing-polish` と `writing` は現在提供していません。
+スキル名を変更・廃止した場合、既存の旧名リンクは自動移行・削除しません。旧リンクが不要になったこととリンク先を確認し、不要なリンクだけを手動で削除してから `./agents/setup.sh skills` を再実行してください。文章作成・編集には `japanese-writing` を使用します。旧名の `japanese-writing-polish` と `writing` のリンクは自動移行しません。
 
 各直下ディレクトリには `SKILL.md` が必要です。参考として取得した外部スキルは [`../_scrapes/`](../_scrapes/README.md) に分離し、ここへ自動配置しません。
 
