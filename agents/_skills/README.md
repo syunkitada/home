@@ -7,6 +7,7 @@
 | パス | 役割 |
 | --- | --- |
 | [`AGENTS.md`](./AGENTS.md) | 配下の skill に共通する文書構成、参考資料、構成変更の管理ルール |
+| [`grilling/`](./grilling/README.md) | 計画、設計、意思決定を質問ラウンドで掘り下げ、実装前の共通理解を作る skill |
 | [`task-planning/`](./task-planning/README.md) | 要件を作業計画、受け入れ条件、検証方法へ整理する skill |
 | [`implementation/`](./implementation/README.md) | 仕様に基づいてコード、設定、ドキュメントを変更する skill |
 | [`tdd/`](./tdd/README.md) | 挙動変更やバグ修正をテスト駆動で進める skill |
@@ -33,6 +34,6 @@
 
 ## 開発ライフサイクル
 
-通常は、`task-planning` で要件と計画を整理し、`implementation` で変更します。`implementation` はコード、設定、ドキュメントに加え、構成変更に伴う README、目次やファイル一覧などの構成説明、相対リンクの同期も扱います。挙動変更では `tdd`、完了前には `verification`、実装後には `code-review` を使います。コミット、PR、競合解消などの Git 操作は `git-workflow` に分けます。
+通常は、要件や設計の前提を深掘りする必要がある場合に `grilling` を使い、その後 `task-planning` で計画を整理し、`implementation` で変更します。単純な作業や仕様確定済みの作業では `grilling` を省略します。`implementation` はコード、設定、ドキュメントに加え、構成変更に伴う README、目次やファイル一覧などの構成説明、相対リンクの同期も扱います。挙動変更では `tdd`、完了前には `verification`、実装後には `code-review` を使います。コミット、PR、競合解消などの Git 操作は `git-workflow` に分けます。
 
 外部資料を根拠にした API 調査や知識整理が増えた場合は、`research` または `source-research` を追加候補とします。実装の責務と重複する `planning-and-task-breakdown`、`incremental-implementation`、`verification-before-completion` は既存 skill に統合します。一般的なデバッグ手順は独立 skill とせず、エージェントの判断で進めます。
