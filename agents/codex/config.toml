@@ -1,4 +1,4 @@
-model = "gpt-5.6-luna"
+model = "gpt-6-luna"
 model_reasoning_effort = "xhigh"
 
 # sandbox_mode = "workspace-write"
@@ -9,6 +9,28 @@ plan_mode_reasoning_effort = "xhigh"
 [mcp_servers.playwright]
 command = "npx"
 args = ["@playwright/mcp@latest"]
+
+[mcp_servers.mybox-browser]
+command = "mymcpserve"
+args = ["browser", "--transport", "stdio"]
+
+[mcp_servers.mybox-browser.env]
+MYBOX_URL = "http://127.0.0.1:1111"
+
+[mcp_servers.mybox-browser.tools.browser_start_session]
+approval_mode = "approve"
+
+[mcp_servers.mybox-browser.tools.browser_observe]
+approval_mode = "approve"
+
+[mcp_servers.mybox-browser.tools.browser_attach_session]
+approval_mode = "approve"
+
+[mcp_servers.mybox-browser.tools.browser_screenshot]
+approval_mode = "approve"
+
+[mcp_servers.mybox-browser.tools.browser_click]
+approval_mode = "approve"
 
 [[hooks.Stop]]
 
