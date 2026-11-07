@@ -39,3 +39,18 @@ repositories:
   revision: main
   path: _repos/riekelt_technical-writer
   commit: 85e53729dd959a2795d593d6769068e342cf3486
+- name: khasky_awesome-agent-skills
+  url: https://github.com/khasky/awesome-agent-skills.git
+  revision: main
+  path: _repos/khasky_awesome-agent-skills
+  commit: 58ea4e8915de64907d04cc909a1b8c6e5cf0fcb7
+- name: Lukk17_agent-standards
+  url: https://github.com/Lukk17/agent-standards.git
+  revision: master
+  path: _repos/Lukk17_agent-standards
+  commit: fa85e2536eaea4c76eac54ce4e63bd47ba70bf34
+- name: mitch-avis_agent-skills
+  url: https://github.com/mitch-avis/agent-skills.git
+  revision: main
+  path: _repos/mitch-avis_agent-skills
+  commit: ce7b8d00d2825ce4044ddf020c3bbe9bb10a662a

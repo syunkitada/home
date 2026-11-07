@@ -1,6 +1,6 @@
 # 形式別ガイド
 
-文書の用途に応じて、該当する資料だけを参照します。共通原則は [../principles.md](../principles.md) を優先します。
+出力先や文書の用途に応じて、該当する資料だけを参照します。共通原則は [../principles.md](../principles.md) を優先します。
 
 ## Index
 
@@ -10,3 +10,4 @@
 | [product.md](./product.md) | プロダクト、機能、仕様、利用価値の説明 |
 | [wiki.md](./wiki.md) | Confluence、Wiki、社内ナレッジ、議事録 |
 | [slack.md](./slack.md) | Slackの依頼、報告、相談、告知 |
+| [markdown.md](./markdown.md) | README、手順書、技術文書など人向けMarkdown |

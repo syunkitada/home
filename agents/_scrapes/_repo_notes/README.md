@@ -16,5 +16,8 @@
 | [`coji_natural-japanese/`](./coji_natural-japanese/) | `coji/natural-japanese` の分析ノート |
 | [`seb1n_awesome-ai-agent-skills/`](./seb1n_awesome-ai-agent-skills/) | `seb1n/awesome-ai-agent-skills` の分析ノート |
 | [`riekelt_technical-writer/`](./riekelt_technical-writer/) | `riekelt/technical-writer` の分析ノート |
+| [`khasky_awesome-agent-skills/`](./khasky_awesome-agent-skills/) | `khasky/awesome-agent-skills` の分析ノート |
+| [`lukk17_agent-standards/`](./lukk17_agent-standards/) | `Lukk17/agent-standards` の分析ノート |
+| [`mitch-avis_agent-skills/`](./mitch-avis_agent-skills/) | `mitch-avis/agent-skills` の分析ノート |
 
 各レポジトリのディレクトリには `README.md` を置き、直接の子ファイルとその役割を記載します。ノートの追加・更新時は、調査日と対象コミットを必ず更新してください。

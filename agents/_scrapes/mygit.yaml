@@ -15,3 +15,9 @@ repositories:
     revision: main
   - url: https://github.com/riekelt/technical-writer.git
     revision: main
+  - url: https://github.com/khasky/awesome-agent-skills.git
+    revision: main
+  - url: https://github.com/Lukk17/agent-standards.git
+    revision: master
+  - url: https://github.com/mitch-avis/agent-skills.git
+    revision: main
