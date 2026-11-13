@@ -35,8 +35,8 @@ function setup_dev_tools() {
         )
     fi
 
-    # install
-    sudo apt install -y ripgrep fd
+    # Ubuntuではfdのパッケージ名はfd-find（コマンド名はfdfind）
+    sudo apt install -y ripgrep fd-find
 }
 
 # install tmux

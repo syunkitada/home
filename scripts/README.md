@@ -25,6 +25,8 @@ $ ./check.sh
 
 各種セットアップスクリプトは単体でも利用できます
 
+Ubuntuではファイル検索ツールのfdを`fd-find`パッケージでインストールします。実行時のコマンド名は`fdfind`です。
+
 ```
 $ ./setup_common.sh help
 
