@@ -24,6 +24,8 @@
 ./agents/setup.sh --help
 ```
 
+`all` または `codex` は、リンク配置の前に [Codex 公式インストーラー](https://chatgpt.com/codex/install.sh)で Codex CLI をインストール／アップグレードします。`CODEX_NON_INTERACTIVE=1` を指定してインストーラーの対話プロンプトを無効にします。Herdr が未導入なら[公式インストーラー](https://herdr.dev/install.sh)を実行し、導入済みなら `herdr update` で更新します。Herdr を Homebrew・mise・Nix で管理している場合は、それぞれのパッケージマネージャーで更新してください（`herdr update` は公式インストーラー管理の導入向けです）。これらの処理には `curl` が必要です。スキルのみの `skills` モードでは CLI の導入・更新を行いません。
+
 Codex は `config.toml`、`rules/*.rules`（`default.rules` を除く）、`hooks/*.sh` を `~/.codex` 内にファイル単位で配置します。スキルは `SKILL.md` を持つ直下ディレクトリを `~/.agents/skills/<skill-name>` に個別リンクします。README、docs、Codex 設定のレビュー用 `AGENTS.md`、外部参考資料は配置しません。
 
 同じ正本へのリンクは変更しません。選択した全対象の参照元・配置先を事前確認し、通常ファイル、ディレクトリ、別のリンク、リンク切れとの競合があれば、リンクを作成せず非ゼロで終了します。`home_ex` や改名・廃止したスキルなど旧配置へのリンクも自動移行・削除しません。不要になったリンクのリンク先を確認し、不要なものだけを手動で削除してから再実行してください。必要な配置先ディレクトリは作成します。
@@ -37,4 +39,4 @@ Codex は `config.toml`、`rules/*.rules`（`default.rules` を除く）、`hook
 | `AGENT_SKILLS_SOURCE_DIR` | スクリプトと同じディレクトリ内の `_skills/` |
 | `AGENT_SKILLS_HOME` | `$HOME/.agents/skills` |
 
-CLI のインストールやログインは行いません。Codex の導入は [`codex/docs/`](./codex/docs/README.md) を参照してください。OS セットアップの `scripts/setup.sh` とは独立して実行します。
+Codex のログインは行いません。Codex の導入手順は [`codex/docs/`](./codex/docs/README.md) を参照してください。OS セットアップの `scripts/setup.sh` とは独立して実行します。

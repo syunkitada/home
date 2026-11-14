@@ -6,6 +6,7 @@ usage() {
 Usage: agents/setup.sh [all|codex|skills|--help]
 
 Create symlinks for Codex settings and shared agent skills.
+Install or upgrade Codex CLI and Herdr, then create the selected symlinks.
 No argument defaults to all. Existing conflicting paths are never overwritten.
 
 Environment variables:
@@ -26,6 +27,20 @@ case "$mode" in
     --help) usage; exit 0 ;;
     *) printf 'Unknown argument: %s\n' "$mode" >&2; usage >&2; exit 1 ;;
 esac
+
+install_agent_clis() {
+    if ! command -v curl >/dev/null 2>&1; then
+        printf 'curl is required to install or upgrade Codex CLI and Herdr.\n' >&2
+        return 1
+    fi
+    curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh
+
+    if command -v herdr >/dev/null 2>&1; then
+        herdr update
+    else
+        curl -fsSL https://herdr.dev/install.sh | sh
+    fi
+}
 
 agents_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 sources=()
@@ -115,6 +130,10 @@ done
 if [[ "$errors" -ne 0 ]]; then
     printf 'Setup stopped; no links were created. Resolve the reported conflicts and retry.\n' >&2
     exit 1
+fi
+
+if [[ "$mode" == all || "$mode" == codex ]]; then
+    install_agent_clis
 fi
 
 for ((i = 0; i < ${#sources[@]}; i++)); do
