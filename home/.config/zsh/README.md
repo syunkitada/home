@@ -9,6 +9,7 @@
 | [2_bindkeys.zsh](2_bindkeys.zsh) | キーバインドの設定です。 |
 | [cmds.zsh](cmds.zsh) | コマンド関連の設定です。 |
 | [fzf.zsh](fzf.zsh) | fzfの設定です。 |
+| [herdr.zsh](herdr.zsh) | Herdr CLI の zsh 補完を読み込みます。 |
 | [git.zsh](git.zsh) | Git関連の設定です。 |
 
 ## 補完について

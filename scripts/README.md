@@ -11,6 +11,8 @@
 | [setup_ubuntu24.sh](setup_ubuntu24.sh) | Ubuntu 24.04用のセットアップを実行します。 |
 | [gen_keybind_doc.go](gen_keybind_doc.go) | キーバインドドキュメントを生成します。 |
 
+`setup_dotfiles` は通常 `home/.config/` 直下の設定ディレクトリを `~/.config/` にリンクします。Herdr の設定ディレクトリが既にある場合は既存のローカル状態を残し、その中の管理対象ファイルを個別にリンクします。同名の既存ファイルは `.local-backup.<日時>` へ退避してからリンクします。
+
 `~/home_ex/scripts/setup.sh` が存在する場合、`setup.sh` の最後に自動実行されます。`home_ex` 側のプライベート設定は `~/home_ex/scripts/setup.sh` を直接実行してセットアップすることもできます。
 
 ## セットアップスクリプトの使い方

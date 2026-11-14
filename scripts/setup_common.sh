@@ -37,6 +37,34 @@ function setup_dotfiles() {
         for file in home/.config/*; do
             src=${HOME_ROOT_DIR}/${file}
             dst=${HOME}/${file#home/}
+
+            # Herdr creates this state directory before dotfiles are installed.
+            # Keep its state and link managed config entries into it.
+            if [[ "${src##*/}" == herdr && -d "$dst" && ! -L "$dst" ]]; then
+                mkdir -p "$dst"
+                for child in "$src"/*; do
+                    child_name=${child##*/}
+                    child_dst=${dst}/${child_name}
+                    if [[ -L "$child_dst" && -e "$child_dst" && "$child_dst" -ef "$child" ]]; then
+                        echo "Unchanged: ${child_dst}"
+                        continue
+                    fi
+                    if [[ -e "$child_dst" || -L "$child_dst" ]]; then
+                        backup=${child_dst}.local-backup.$(date +%Y%m%d%H%M%S)
+                        suffix=1
+                        while [[ -e "$backup" || -L "$backup" ]]; do
+                            backup=${child_dst}.local-backup.$(date +%Y%m%d%H%M%S).${suffix}
+                            suffix=$((suffix + 1))
+                        done
+                        mv -- "$child_dst" "$backup"
+                        echo "Backed up: ${child_dst} -> ${backup}"
+                    fi
+                    ln -s "$child" "$child_dst"
+                    echo "Linked: ${child_dst} -> ${child}"
+                done
+                continue
+            fi
+
             rm -f "$dst"
             ln -s "$src" "$dst"
         done
