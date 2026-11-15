@@ -14,7 +14,7 @@
 
 `setup_dotfiles` は通常 `home/.config/` 直下の設定ディレクトリを `~/.config/` にリンクします。Herdr の設定ディレクトリが既にある場合は既存のローカル状態を残し、その中の管理対象ファイルを個別にリンクします。同名の既存ファイルは `.local-backup.<日時>` へ退避してからリンクします。
 
-`setup.sh` は `setup_dotfiles` より前に `setup_herdr` を実行します。Herdr が未導入なら公式インストーラーを実行し、導入済みなら `herdr update` で更新します。
+`setup.sh` は `setup_dotfiles` より前に `setup_herdr` を実行します。Herdr が未導入なら公式インストーラーを実行します。導入済みの場合は、Homebrewなら `brew upgrade herdr`、miseなら `mise upgrade herdr`、公式インストーラー版なら `herdr update` で更新します。Nix管理の場合はNix経由での更新を案内し、自己更新は実行しません。
 
 `~/home_ex/scripts/setup.sh` が存在する場合、`setup.sh` の最後に自動実行されます。`home_ex` 側のプライベート設定は `~/home_ex/scripts/setup.sh` を直接実行してセットアップすることもできます。
 

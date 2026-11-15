@@ -30,7 +30,7 @@
 | 区分 | セットアップ内容 | 補足 |
 | --- | --- | --- |
 | 設定ファイル | `home/.envrc`、`home/.zshrc`、`home/.config/` 内の設定を `$HOME` と `~/.config/` にリンクします。`~/.local/` も作成します。 | Herdrの状態ディレクトリが既にある場合は、管理対象ファイルだけをリンクします。 |
-| Herdr | 未導入なら公式インストーラーで導入し、導入済みなら更新します。 | 設定ファイルをリンクする前に実行します。 |
+| Herdr | 未導入なら公式インストーラーで導入し、導入済みなら導入元に応じて更新します。 | Homebrew・miseは各パッケージマネージャーで更新し、Nix管理の場合は更新をスキップします。設定ファイルのリンク前に実行します。 |
 | Neovim・tmux・fzf・shfmt | エディタ、ターミナル多重化、検索、シェルスクリプト整形の各ツールを導入します。 | 導入方法とバージョン管理はOSによって異なります。 |
 | Python | uvを導入し、`home/.local/mypython/` の定義に従って環境を同期します。pyrightも導入します。 | Python環境はuvで管理します。 |
 | Node.js・Web開発 | nvmでNode.js 22系を導入し、TypeScript、Prettier、Tailwind CSS言語サーバー、Yarn、bash-language-serverなどをnpmで導入します。 | `NODE_VERSION` のメジャーバージョンを使います。 |

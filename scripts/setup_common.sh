@@ -196,9 +196,7 @@ function setup_npm_config() {
 }
 
 function setup_herdr() {
-    if command -v herdr >/dev/null 2>&1; then
-        herdr update
-    else
+    if ! command -v herdr >/dev/null 2>&1; then
         if ! command -v curl >/dev/null 2>&1; then
             echo "curl is required to install Herdr." >&2
             return 1
@@ -207,6 +205,23 @@ function setup_herdr() {
             set -o pipefail
             curl -fsSL https://herdr.dev/install.sh | sh
         )
+        return
+    fi
+
+    if command -v brew >/dev/null 2>&1 && brew list --formula --versions herdr >/dev/null 2>&1; then
+        brew upgrade herdr
+    elif command -v mise >/dev/null 2>&1 && mise which herdr >/dev/null 2>&1; then
+        mise upgrade herdr
+    else
+        herdr_path=$(command -v herdr)
+        case "$herdr_path" in
+            /nix/store/*|/nix/var/nix/profiles/*|/run/current-system/sw/*|/etc/profiles/per-user/*|"$HOME"/.nix-profile/*|"$HOME"/.local/state/nix/profile/*|"$HOME"/.local/state/nix/profiles/*)
+                echo "Herdr is managed by Nix; update it through your Nix configuration."
+                ;;
+            *)
+                herdr update
+                ;;
+        esac
     fi
 }
 
