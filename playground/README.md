@@ -10,6 +10,8 @@
 
 ## How to play
 
+macOSではDocker Desktopを起動してから実行してください。Makefileは利用可能なDocker Composeを選び、macOSでは `sudo` を使いません。
+
 1. Setup playground
 
 ```

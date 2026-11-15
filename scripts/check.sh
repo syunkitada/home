@@ -3,7 +3,13 @@
 cd "$(dirname "$0")" || exit 1
 
 source confrc
-source "${HOME_ROOT_DIR}/../dotfiles/.envrc"
+source "${HOME_ROOT_DIR}/home/.envrc"
+
+CHECK_FAILED=0
+IS_MACOS=false
+if [ "$(uname -s)" = "Darwin" ]; then
+	IS_MACOS=true
+fi
 
 function ok() {
 	echo -e "\e[32m${1}\e[m"
@@ -14,15 +20,16 @@ function warn() {
 }
 
 function error() {
+	CHECK_FAILED=1
 	echo -e "\e[31m${1}\e[m"
 }
 
 # check nvim
 which_nvim=$(command -v nvim)
-if [ "${which_nvim}" == "${HOME}/.local/bin/nvim" ]; then
+if [ -n "${which_nvim}" ]; then
 	nvim_version=$(nvim --version | grep 'NVIM v' | awk '{print $2}')
 	ok "nvim(${nvim_version}) is installed: ${which_nvim}"
-	if [ "${nvim_version}" != "${NEOVIM_VERSION}" ]; then
+	if [ "${IS_MACOS}" != true ] && [ "${nvim_version}" != "${NEOVIM_VERSION}" ]; then
 		warn "nvim(${nvim_version}) is unexpected version: expected=${NEOVIM_VERSION}"
 	fi
 else
@@ -31,10 +38,10 @@ fi
 
 # check tmux
 which_tmux=$(command -v tmux)
-if [ "${which_tmux}" == "${HOME}/.local/bin/tmux" ]; then
+if [ -n "${which_tmux}" ]; then
 	tmux_version=$(tmux -V | awk '{print $2}')
 	ok "tmux(${tmux_version}) is installed: ${which_tmux}"
-	if [ "${tmux_version}" != "${TMUX_VERSION}" ]; then
+	if [ "${IS_MACOS}" != true ] && [ "${tmux_version}" != "${TMUX_VERSION}" ]; then
 		warn "tmux(${tmux_version}) is unexpected version: expected=${TMUX_VERSION}"
 	fi
 else
@@ -43,7 +50,7 @@ fi
 
 # check fzf
 which_fzf=$(command -v fzf)
-if [ "${which_fzf}" == "${HOME}/.local/bin/fzf" ]; then
+if [ -n "${which_fzf}" ]; then
 	ok "fzf is installed: ${which_fzf}"
 else
 	error "fzf is not installed: ${which_fzf}"
@@ -67,8 +74,10 @@ fi
 
 # check shfmt
 which_shfmt=$(command -v shfmt)
-if [ "${which_shfmt}" == "${HOME}/.local/bin/shfmt" ]; then
+if [ -n "${which_shfmt}" ]; then
 	ok "shfmt is installed: ${which_shfmt}"
 else
 	error "shfmt is not installed: ${which_shfmt}"
 fi
+
+exit "${CHECK_FAILED}"

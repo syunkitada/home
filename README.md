@@ -62,6 +62,17 @@ ControlPersist 3600
 $ ssh -O exit <your ssh host>
 ```
 
+## macOS setup
+
+Homebrewをインストールし、`brew` コマンドを実行できる状態で、リポジトリを `~/home` に配置してから実行してください。
+
+```bash
+$ make
+$ make check
+```
+
+macOSのセットアップでは、Neovim、tmux、fzf、Go、shfmtなどをHomebrewでインストールします。
+
 ## About home_ex directory
 
 home_ex ディレクトリをホームディレクトリに配置することで、homeの設定・ナレッジを拡張することができます。

@@ -56,7 +56,7 @@ function setup_dotfiles() {
                             backup=${child_dst}.local-backup.$(date +%Y%m%d%H%M%S).${suffix}
                             suffix=$((suffix + 1))
                         done
-                        mv -- "$child_dst" "$backup"
+                        mv "$child_dst" "$backup"
                         echo "Backed up: ${child_dst} -> ${backup}"
                     fi
                     ln -s "$child" "$child_dst"

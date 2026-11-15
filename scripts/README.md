@@ -7,6 +7,7 @@
 | [confrc](confrc) | セットアップの設定値（環境変数）を管理します。 |
 | [setup_common.sh](setup_common.sh) | OS非依存のセットアップ関数をまとめています。 |
 | [setup_common_ex.sh](setup_common_ex.sh) | 拡張用のセットアップ関数をまとめています。 |
+| [setup_macos.sh](setup_macos.sh) | Homebrewを使ってmacOS用のツールをセットアップします。 |
 | [setup_rocky9.sh](setup_rocky9.sh) | Rocky Linux 9用のセットアップを実行します。 |
 | [setup_ubuntu24.sh](setup_ubuntu24.sh) | Ubuntu 24.04用のセットアップを実行します。 |
 | [gen_keybind_doc.go](gen_keybind_doc.go) | キーバインドドキュメントを生成します。 |
