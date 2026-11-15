@@ -23,8 +23,7 @@ previous_tab = "prefix+p"
 next_tab = "prefix+n"
 switch_tab = "prefix+1..9"
 
-# Session and copy operations
+# Session operations
 detach = "prefix+d"
 workspace_picker = "prefix+w"
-copy_mode = "prefix+["
 reload_config = "prefix+r"

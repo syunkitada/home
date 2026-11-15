@@ -45,6 +45,9 @@ async = true
 [hooks.state."/home/owner/.codex/config.toml:stop:0:0"]
 trusted_hash = "sha256:22a075696f94d83f89871c99cdba75cf00ba7ac50c6abc860a618a2992782e63"
 
+[hooks.state."/home/owner/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:a2e23616cb2979b309814848bb5d1947ec25d682a1c4954784ce9b8bfd733634"
+
 [projects."/home/owner/myaitoolbox"]
 trust_level = "trusted"
 
@@ -69,3 +72,6 @@ screen_reader_detection_done = true
 [tui.model_availability_nux]
 gpt-6-astra = 4
 "gpt-6.1-sol" = 4
+
+[features]
+hooks = true
