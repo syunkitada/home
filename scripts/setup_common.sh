@@ -2,7 +2,8 @@
 
 set -e
 
-. confrc
+setup_common_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+. "${setup_common_dir}/confrc"
 
 function setup_base_tools() {
     echo "skip setup_base_tools"
@@ -194,6 +195,21 @@ function setup_npm_config() {
     echo "skip setup_npm_config"
 }
 
+function setup_herdr() {
+    if command -v herdr >/dev/null 2>&1; then
+        herdr update
+    else
+        if ! command -v curl >/dev/null 2>&1; then
+            echo "curl is required to install Herdr." >&2
+            return 1
+        fi
+        (
+            set -o pipefail
+            curl -fsSL https://herdr.dev/install.sh | sh
+        )
+    fi
+}
+
 function help() {
     cat <<EOS
 setup_init
@@ -209,9 +225,10 @@ setup_dev_shell
 setup_dev_tools
 setup_dev_clang
 setup_npm_config
+setup_herdr
 EOS
 }
 
-if [ $# != 0 ]; then
+if [[ "${BASH_SOURCE[0]}" == "$0" && $# != 0 ]]; then
     "${@}"
 fi

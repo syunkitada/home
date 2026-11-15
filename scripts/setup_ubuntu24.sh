@@ -9,10 +9,14 @@ function _install() {
     done
 }
 
+function setup_base_tools() {
+    sudo apt update -y
+    _install curl
+}
+
 function setup_dev_tools() {
     # 汎用ツール類のインストール
-    sudo apt update -y
-    _install curl git zsh build-essential ncurses-dev snapd
+    _install git zsh build-essential ncurses-dev snapd
 
     # pythonとその関連パッケージのインストール
     _install python3 python3-venv python3-dev python3-pip

@@ -5,7 +5,7 @@ set -e
 
 function setup_base_tools() {
 	# findutils:  find command
-	sudo dnf install -y findutils
+	sudo dnf install -y findutils curl
 }
 
 function setup_dev_tools() {

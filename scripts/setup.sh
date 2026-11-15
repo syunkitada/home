@@ -44,6 +44,7 @@ set -ex
 
 # dot_filesを配置します
 setup_base_tools
+setup_herdr
 setup_dotfiles
 
 # 最低限の環境変数を読み込みます
