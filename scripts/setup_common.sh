@@ -103,7 +103,7 @@ function setup_dev_python() {
 
     (
         cd "${HOME}/.local/mypython/"
-        uv sync --all-extras --locked
+        uv sync --system-certs --all-extras --locked
     )
 
     # LSP
