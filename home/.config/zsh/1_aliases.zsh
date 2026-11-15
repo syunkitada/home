@@ -13,7 +13,7 @@ done
 alias grep='grep --color'
 
 # alias for some shortcuts for different directory listings
-alias ls='ls -hF --color=always --show-control-chars'
+alias ls='ls -hF --color=always'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
