@@ -20,7 +20,7 @@ function setup_base_tools() {
 }
 
 function setup_dev_tools() {
-	brew install fd git ripgrep watchexec zsh
+	brew install fd gh git pipx ripgrep watchexec zsh
 
 	# Node.js is managed with nvm, matching the Linux setup.
 	curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh" | bash

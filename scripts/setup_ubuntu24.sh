@@ -14,12 +14,25 @@ function setup_base_tools() {
     _install curl
 }
 
+function setup_gh_cli() {
+    sudo install -d -m 755 /etc/apt/keyrings /etc/apt/sources.list.d
+    sudo curl -fsSL -o /etc/apt/keyrings/githubcli-archive-keyring.gpg https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+
+    gh_arch=$(dpkg --print-architecture)
+    echo "deb [arch=${gh_arch} signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" |
+        sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
+    sudo apt update -y
+    sudo apt install -y gh
+}
+
 function setup_dev_tools() {
     # 汎用ツール類のインストール
     _install git zsh build-essential ncurses-dev snapd
 
     # pythonとその関連パッケージのインストール
-    _install python3 python3-venv python3-dev python3-pip
+    _install python3 python3-venv python3-dev python3-pip pipx
+    setup_gh_cli
 
     # node
     rm -f ~/.npmrc

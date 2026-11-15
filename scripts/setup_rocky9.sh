@@ -8,12 +8,24 @@ function setup_base_tools() {
 	sudo dnf install -y findutils curl
 }
 
+function setup_gh_cli() {
+	sudo curl -fsSL -o /etc/yum.repos.d/gh-cli.repo https://cli.github.com/packages/rpm/gh-cli.repo
+	sudo dnf install -y gh
+}
+
 function setup_dev_tools() {
 	sudo dnf install -y gcc gcc-c++ libevent-devel ncurses-devel
 	sudo dnf install -y man wget git zsh
 
 	# python3
 	sudo dnf install -y python3 python3-devel python3-pip
+
+	# pipx is provided by EPEL; enable CRB for EPEL dependencies.
+	sudo dnf install -y epel-release 'dnf-command(config-manager)'
+	sudo dnf config-manager --set-enabled crb
+	sudo dnf install -y pipx
+
+	setup_gh_cli
 
 	# node
 	curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh" | bash

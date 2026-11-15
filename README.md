@@ -23,31 +23,7 @@
 - [Setup Windows](docs/env/os/windows/README.md)
 - [Setup Ubuntu](docs/env/os/ubuntu/README.md)
 
-## `make` でセットアップされるもの
-
-ルートで `make` を実行すると、既定の `all` ターゲットから `scripts/setup.sh` が実行されます。設定ファイルの配置、共通の開発ツール導入、OS別のパッケージ導入を行います。
-
-| 区分 | セットアップ内容 | 補足 |
-| --- | --- | --- |
-| 設定ファイル | `home/.envrc`、`home/.zshrc`、`home/.config/` 内の設定を `$HOME` と `~/.config/` にリンクします。`~/.local/` も作成します。 | Herdrの状態ディレクトリが既にある場合は、管理対象ファイルだけをリンクします。 |
-| Herdr | 未導入なら公式インストーラーで導入し、導入済みなら導入元に応じて更新します。 | Homebrew・miseは各パッケージマネージャーで更新し、Nix管理の場合は更新をスキップします。設定ファイルのリンク前に実行します。 |
-| Neovim・tmux・fzf・shfmt | エディタ、ターミナル多重化、検索、シェルスクリプト整形の各ツールを導入します。 | 導入方法とバージョン管理はOSによって異なります。 |
-| Python | uvを導入し、`home/.local/mypython/` の定義に従って環境を同期します。pyrightも導入します。 | Python環境はuvで管理します。 |
-| Node.js・Web開発 | nvmでNode.js 22系を導入し、TypeScript、Prettier、Tailwind CSS言語サーバー、Yarn、bash-language-serverなどをnpmで導入します。 | `NODE_VERSION` のメジャーバージョンを使います。 |
-| Go | Goと、gopls・goimportsを導入します。 | macOSはHomebrew、Linuxは設定されたGoバージョンを導入します。 |
-| C/C++ | clang、clangd、clang-formatなどの開発ツールを導入します。 | macOSではHomebrewのLLVMからclangdとclang-formatを `~/.local/bin/` に配置します。 |
-| Rust | `ENABLE_RUST=true` の場合にrustupとcargo-binstallを導入します。 | 既定値は `false` です。さらに `ENABLE_MARKDOWN_OXIDE=true` の場合はmarkdown-oxideも導入します。 |
-| `home_ex` 拡張 | `~/home_ex/scripts/setup.sh` があれば続けて実行します。 | プライベート設定などを追加できます。 |
-
-OS別に導入する主なパッケージとツールは次のとおりです。
-
-| OS | 主な導入内容 |
-| --- | --- |
-| macOS | Homebrewが必要です。fd、git、ripgrep、watchexec、zsh、Neovim、tmux、fzf、shfmt、Go、LLVMを導入します。Node.jsはnvmで導入します。 |
-| Ubuntu 24.04 | aptで基本ツール、Python、tmux、clang一式を導入します。watchexec、ripgrep、fdも導入します。Neovim、fzf、GoなどはLinux向けの配布物を使います。 |
-| Rocky Linux 9 | dnfで基本ツール、Python、コンパイル依存パッケージ、clang一式を導入します。tmuxはソースからビルドし、Neovim、fzf、GoなどはLinux向けの配布物を使います。 |
-
-`make check` はNeovim、tmux、fzf、npm、Go、shfmtの有無を確認します。
+`make` でセットアップされる内容とOSごとの差分は [scripts/README.md](scripts/README.md) を参照してください。
 
 Linux共通のセットアップ（Windows WSL1はサポート外）
 
