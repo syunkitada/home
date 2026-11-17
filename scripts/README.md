@@ -40,7 +40,7 @@
 | ファイル検索 | fd | ファイル名を高速に検索します。 | macOS: [setup_macos.sh](setup_macos.sh) `setup_dev_tools`。Ubuntu: [setup_ubuntu24.sh](setup_ubuntu24.sh) `setup_dev_tools`。 |
 | ファイル検索 | ripgrep | ファイルの内容を高速に検索します。 | macOS: [setup_macos.sh](setup_macos.sh) `setup_dev_tools`。Ubuntu: [setup_ubuntu24.sh](setup_ubuntu24.sh) `setup_dev_tools`。 |
 | Python | pipx | Python製CLIを個別の仮想環境にインストールし、コマンドとして使えるようにします。 | macOS: [setup_macos.sh](setup_macos.sh) `setup_dev_tools`。 |
-| GitHub | gh | 端末からGitHubのリポジトリ、Issue、Pull Requestなどを操作します。 | macOS: [setup_macos.sh](setup_macos.sh) `setup_dev_tools`。Ubuntu: [setup_ubuntu24.sh](setup_ubuntu24.sh) `setup_gh_cli`。Rocky Linux: [setup_rocky9.sh](setup_rocky9.sh) `setup_gh_cli`。 |
+| GitHub | gh | 端末からGitHubのリポジトリ、Issue、Pull Requestなどを操作します。 | macOS: [setup_macos.sh](setup_macos.sh) `setup_dev_tools`。Ubuntu: [setup_ubuntu24.sh](setup_ubuntu24.sh) `setup_gh_cli`。Rocky Linux: [setup_rocky9.sh](setup_rocky9.sh) `setup_gh_cli` が GitHub Releases のRPMを取得して検証後にインストールします。 |
 | Python | Python 3 | Pythonスクリプトや開発ツールを実行します。 | LinuxのシステムPython: [setup_ubuntu24.sh](setup_ubuntu24.sh)、[setup_rocky9.sh](setup_rocky9.sh) `setup_dev_tools`。プロジェクトPython: [setup_common.sh](setup_common.sh) `setup_dev_python`。 |
 | Python | python3-venv | Pythonの仮想環境を作成する機能を提供します。 | Ubuntu: [setup_ubuntu24.sh](setup_ubuntu24.sh) `setup_dev_tools`。 |
 | Python | python3-dev / python3-devel | Python拡張モジュールのビルドに使うヘッダーを提供します。 | Ubuntu: [setup_ubuntu24.sh](setup_ubuntu24.sh) `setup_dev_tools`。Rocky Linux: [setup_rocky9.sh](setup_rocky9.sh) `setup_dev_tools`。 |
