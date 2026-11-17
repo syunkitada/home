@@ -31,7 +31,7 @@ function setup_dev_tools() {
     _install git zsh build-essential ncurses-dev snapd
 
     # pythonとその関連パッケージのインストール
-    _install python3 python3-venv python3-dev python3-pip pipx
+    _install python3 python3-venv python3-dev python3-pip
     setup_gh_cli
 
     # node

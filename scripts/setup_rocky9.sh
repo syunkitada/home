@@ -20,11 +20,6 @@ function setup_dev_tools() {
 	# python3
 	sudo dnf install -y python3 python3-devel python3-pip
 
-	# pipx is provided by EPEL; enable CRB for EPEL dependencies.
-	sudo dnf install -y epel-release 'dnf-command(config-manager)'
-	sudo dnf config-manager --set-enabled crb
-	sudo dnf install -y pipx
-
 	setup_gh_cli
 
 	# node
