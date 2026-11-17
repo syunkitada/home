@@ -26,7 +26,7 @@
 
 `all` または `codex` は、リンク配置の前に [Codex 公式インストーラー](https://chatgpt.com/codex/install.sh)で Codex CLI をインストール／アップグレードします。`CODEX_NON_INTERACTIVE=1` を指定してインストーラーの対話プロンプトを無効にします。これらの処理には `curl` が必要です。スキルのみの `skills` モードでは CLI のインストール・更新を行いません。
 
-Herdr の導入・更新はOSセットアップの `make` が行います。共通関数は [`scripts/setup_common.sh`](../scripts/setup_common.sh) にあります。
+Herdr が未導入の場合はOSセットアップの `make` がインストールします。既に導入されているHerdrは `make` では更新しません。共通関数は [`scripts/setup_common.sh`](../scripts/setup_common.sh) にあります。
 
 Codex は `config.toml`、`rules/*.rules`（`default.rules` を除く）、`hooks/*.sh` を `~/.codex` 内にファイル単位で配置します。スキルは `SKILL.md` を持つ直下ディレクトリを `~/.agents/skills/<skill-name>` に個別リンクします。README、docs、Codex 設定のレビュー用 `AGENTS.md`、外部参考資料は配置しません。
 

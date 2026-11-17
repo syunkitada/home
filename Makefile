@@ -1,6 +1,6 @@
 .PHONY: all
 all:
-	./scripts/setup.sh
+	SKIP_HERDR_UPDATE=true ./scripts/setup.sh
 
 .PHONY: check
 check:

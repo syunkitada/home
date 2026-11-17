@@ -208,6 +208,11 @@ function setup_herdr() {
         return
     fi
 
+    if [ "${SKIP_HERDR_UPDATE:-false}" = "true" ]; then
+        echo "Skipping Herdr update."
+        return
+    fi
+
     if command -v brew >/dev/null 2>&1 && brew list --formula --versions herdr >/dev/null 2>&1; then
         brew upgrade herdr
     elif command -v mise >/dev/null 2>&1 && mise which herdr >/dev/null 2>&1; then
